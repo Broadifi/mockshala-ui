@@ -1,6 +1,6 @@
 function HomeModule() {
   return (
-    <div className="text-center space-y-2">
+    <div className="text-center space-y-2 bg-background w-full h-screen flex  flex-col justify-center items-center">
       <h1 className="text-xl font-bold">
         Welcome to the Vite + TanStack Router Template!
       </h1>
