@@ -26,13 +26,14 @@ import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 function Header() {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
   return (
-    <div className="w-full bg-background shadow-md mb-5 flex justify-center">
-      <div className="flex gap-4 justify-between w-full bg-background px-4 py-2 max-w-7xl ">
+    <header className='sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md '>
+    <div className="w-full  px-4 py-2 max-w-7xl mx-auto">
+      <div className="flex gap-4 justify-between w-full  ">
         {/* Title for all view */}
         <div className="flex gap-1 sm:gap-2 items-center">
           <div
@@ -108,8 +109,7 @@ function Header() {
                         : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                   >
-                    <CircleUserRound className="text-blue-600" />
-                    <h3>Profile</h3>
+                    <CircleUserRound size={25} strokeWidth={2} className="text-blue-600" />
                   </Link>
           ) : <div>
                 <Link
@@ -197,8 +197,7 @@ function Header() {
                         : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                   >
-                    <CircleUserRound className="text-blue-600" />
-                    <h3>Profile</h3>
+                    <CircleUserRound size={28} strokeWidth={2} className="text-blue-600" />
                   </Link>
           ) : <div>
                 <Link
@@ -305,6 +304,7 @@ function Header() {
         </div>
       </div>
     </div>
+    </header>
   );
 }
 
