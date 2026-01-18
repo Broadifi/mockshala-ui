@@ -41,7 +41,7 @@ function Header() {
           >
             <BookOpen className="h-5 w-5 text-white" />
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-600 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-xl sm:text-2xl font-bold bg-linear-to-r from-indigo-600 via-blue-500 to-cyan-400 bg-clip-text text-transparent">
             MockShala
           </h1>
         </div>
