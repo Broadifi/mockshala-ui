@@ -74,7 +74,7 @@ export default function Hero() {
   };
 
   return (
-    <div className="mt-5">
+    <div>
       {/* for Mobile Screen */}
       <div className="relative w-full flex md:hidden overflow-visible">
         <Carousel
@@ -125,14 +125,14 @@ export default function Hero() {
       {/* for Large Screen */}
       <div
         ref={sliderRef}
-        className="relative w-full hidden md:flex overflow-visible"
+        className="mt-5 relative w-full hidden md:flex overflow-visible"
       >
         <Carousel
           setApi={setApi}
           plugins={[autoplay.current]}
           opts={{ loop: true,
            
-  containScroll: "trimSnaps",
+          containScroll: "trimSnaps",
           }}
           className="w-full relative"
           onMouseEnter={handleMouseEnter}
