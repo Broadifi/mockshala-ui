@@ -45,6 +45,8 @@ export default function Hero() {
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
+  console.log(count);
+  
   React.useEffect(() => {
     if (!api) return;
 
@@ -101,7 +103,7 @@ export default function Hero() {
 
         {/* DOTS */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-2 pointer-events-auto">
-          {Array.from({ length: count }).map((_, index) => (
+          {Array.from({ length: bannerData?.data.length ?? 0 }).map((_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}
@@ -151,19 +153,19 @@ export default function Hero() {
 
         {/* DOTS */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-2 pointer-events-auto">
-          {bannerData?.data.map((item) => (
-            <button
-              key={item._id}
-              onClick={() => api?.scrollTo(Number(item._id))}
-              className={cn(
-                "h-2.5 w-2.5 rounded-full transition-all z-50",
-                current === Number(item._id)
-                  ? "bg-white w-6"
-                  : "bg-white/50 hover:bg-white",
-              )}
-            />
-          ))}
-        </div>
+  {Array.from({ length: bannerData?.data.length ?? 0 }).map((_, index) => (
+    <button
+      key={index}
+      onClick={() => api?.scrollTo(index)}
+      className={cn(
+        "h-2.5 w-2.5 rounded-full transition-all z-50",
+        current === index
+          ? "bg-white w-6"
+          : "bg-white/50 hover:bg-white",
+      )}
+    />
+  ))}
+</div>
       </div>
     </div>
   );
