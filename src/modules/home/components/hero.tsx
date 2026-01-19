@@ -35,7 +35,7 @@ export default function Hero() {
 
   const autoplay = React.useRef(
     Autoplay({
-      delay: 3000,
+      delay: 3500,
       stopOnInteraction: false,
       stopOnMouseEnter: false,
     }),
@@ -74,7 +74,7 @@ export default function Hero() {
   };
 
   return (
-    <div>
+    <div className="mt-5">
       {/* for Mobile Screen */}
       <div className="relative w-full flex md:hidden overflow-visible">
         <Carousel
@@ -130,16 +130,28 @@ export default function Hero() {
         <Carousel
           setApi={setApi}
           plugins={[autoplay.current]}
-          opts={{ loop: true }}
+          opts={{ loop: true,
+           
+  containScroll: "trimSnaps",
+          }}
           className="w-full relative"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <CarouselContent>
+          <CarouselContent className="-ml-1">
             {bannerData?.data.map((item) => (
-              <CarouselItem key={item._id}>
-                {/* HERO SLIDE */}
-                <div className="relative w-full">
+              <CarouselItem
+                key={item._id}
+                className="pl-1 basis-[80%] md:basis-[80%]"
+              >
+                <div
+                  className={cn(
+                    "relative overflow-hidden rounded-2xl transition-all duration-700 ease-in-out",
+                    current === bannerData.data.indexOf(item)
+                      ? "scale-100 opacity-100"
+                      : "scale-90 opacity-70"
+                  )}
+                >
                   <img
                     src={IMAGE_BASE_URL + item.image}
                     alt={item.title}
@@ -149,6 +161,7 @@ export default function Hero() {
               </CarouselItem>
             ))}
           </CarouselContent>
+
 
           {/* Arrows */}
           <CarouselPrevious className="left-6 bg-white/80 hover:bg-white" />
