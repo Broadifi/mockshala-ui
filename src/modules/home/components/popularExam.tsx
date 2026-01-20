@@ -23,11 +23,11 @@ function PopularExam() {
   const [api, setApi] = React.useState<CarouselApi | null>(null)
 
   return (
-    <div className=" w-full px-4 py-2 max-w-7xl mx-auto md:mt-20">
+    <div className=" w-full px-4 py-2 max-w-7xl mx-auto lg:mt-20">
       {/* HEADER */}
-        <div className='md:text-start space-y-2'>
-            <h3 className='py-1 text-2xl lg:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Popular Tests</h3>
-            <p className='text-gray-600 dark:text-gray-300 max-w-2xl'>
+        <div className='text-center md:text-start xl:space-y-2'>
+            <h3 className='py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Popular Tests</h3>
+            <p className='text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl'>
                 Choose your exam and start preparing today
             </p>
         </div>
@@ -35,14 +35,14 @@ function PopularExam() {
     
 
       {/* CAROUSEL WRAPPER */}
-      <div className=" group space-y-3">
+      <div className=" group xl:space-y-2">
         <div className='justify-end flex gap-2 px-4 mt-4 sm:mt-0'>
         {/* LEFT BUTTON */}
             <button
             onClick={() => api?.scrollPrev()}
             className="
                  z-20
-                h-8 sm:h-9 w-8 sm:w-9 rounded-full
+                h-8 xl:h-9 w-8 xl:w-9 rounded-full
                 bg-white/70 backdrop-blur-md
                 shadow-lg border border-white/40
                 flex items-center justify-center
@@ -52,7 +52,7 @@ function PopularExam() {
                 hover:scale-110
             "
             >
-            <ChevronLeft />
+            <ChevronLeft strokeWidth={1.5}/>
             </button>
 
             {/* RIGHT BUTTON */}
@@ -60,7 +60,7 @@ function PopularExam() {
             onClick={() => api?.scrollNext()}
             className="
                  z-20
-                h-8 sm:h-9 w-8 sm:w-9 rounded-full
+                h-8 xl:h-9 w-8 xl:w-9 rounded-full
                 bg-white/70 backdrop-blur-md
                 shadow-lg border border-white/40
                 flex items-center justify-center
@@ -70,7 +70,7 @@ function PopularExam() {
                 hover:scale-110
             "
             >
-            <ChevronRight />
+            <ChevronRight strokeWidth={1.5}/>
             </button>
         </div>
         {/* CAROUSEL */}
@@ -88,12 +88,12 @@ function PopularExam() {
             {popularTestData?.data.map((item) => (
               <CarouselItem
                 key={item._id}
-                className="basis-1/1 sm:basis-1/2 lg:basis-1/4 xl:basis-1/5 p-4"
+                className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5 p-4"
               >
                 {/* GLASS CARD */}
                 <div
                   className="
-                    relative group/card h-64
+                    relative group/card h-49 md:h-60 xl:h-64 pt-2 
                     rounded-3xl
                     bg-white/60 backdrop-blur-xl
                     border border-white/40
@@ -114,18 +114,18 @@ function PopularExam() {
                   />
 
                   {/* IMAGE */}
-                  <div className="relative h-32 flex items-center justify-center border-b border-white/30">
+                  <div className="relative h-18 md:h-26 flex items-center justify-center border-b border-white/30">
                     <img
                       src={IMAGE_BASE_URL + item.image}
                       alt={item.name}
-                      className="h-24 object-contain transition-transform duration-300 group-hover/card:scale-105"
+                      className="h-16 md:h-24 object-contain transition-transform duration-300 group-hover/card:scale-105"
                     />
                   </div>
 
                   {/* CONTENT */}
-                  <div className="relative flex flex-col justify-between h-[calc(100%-8rem)] p-4">
+                  <div className="relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
                     <h1 className="
-                      text-sm font-semibold text-center
+                      text-xs md:text-sm font-semibold text-center
                       text-gray-700
                       group-hover/card:text-blue-700
                       transition-colors
@@ -135,8 +135,8 @@ function PopularExam() {
 
                     <button
                       className="
-                        mx-auto mt-3 flex items-center gap-1
-                        px-5 py-1.5 text-sm font-medium
+                        mx-auto md:mt-3 flex items-center gap-1
+                        px-5 py-1.5 text-xs md:text-sm font-medium
                         rounded-full
                         bg-blue-500/10 text-blue-600
                         backdrop-blur
@@ -175,8 +175,7 @@ function PopularExam() {
           <ArrowRight />
         </Button>
       </div>
-    </div>
-    
+    </div> 
   )
 }
 

@@ -85,19 +85,19 @@ function WhyChoose() {
   }
 
   return (
-    <div className="w-full px-4 py-12 max-w-7xl mx-auto">
+    <div className="w-full px-4 py-6 md:py-12 max-w-7xl mx-auto">
       {/* HEADER */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="md:text-start mb-12 space-y-2"
+        className="text-center md:text-start mb-12 space-y-2"
       >
-        <h3 className="text-2xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h3 className="text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
           Why Choose MockShala?
         </h3>
-        <p className="text-gray-600 max-w-2xl">
+        <p className="text-sm xl:text-base text-gray-600 max-w-2xl">
           Experience the most advanced and comprehensive test preparation
           platform designed for Indian competitive exams
         </p>
@@ -117,21 +117,27 @@ function WhyChoose() {
         variants={cardVariants}
         className="h-full"
         >
-        <Card className="h-full group bg-white/80 backdrop-blur-md border border-gray-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-            <CardContent className="p-6 h-full flex flex-col">
+        <Card className="h-full group bg-white/80 backdrop-blur-md 
+          border border-gray-200 transition-all duration-300
+           hover:-translate-y-2 hover:shadow-xl text-center">
+            <CardContent className="px-4 md:p-6 h-full flex flex-col ">
             <div className='w-full flex justify-center items-center'>
               <div
-                  className={` w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  className={`h-10 w-10 md:w-12 md:h-12 rounded-xl ${feature.color} 
+                    flex items-center justify-center mb-4 
+                    group-hover:scale-110 transition-transform 
+                    duration-300`}
               >
-                  <feature.icon className="h-6 w-6" />
+                  <feature.icon className=" md:h-6 md:w-6" />
               </div>
             </div>
 
-            <h4 className="text-xl font-semibold mb-3 group-hover:text-blue-600 transition-colors">
+            <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3
+             group-hover:text-blue-600 transition-colors">
                 {feature.title}
             </h4>
 
-            <p className="text-gray-600 text-sm leading-relaxed mt-auto">
+            <p className="text-gray-600 text-xs md:text-sm leading-relaxed mt-auto">
                 {feature.description}
             </p>
             </CardContent>

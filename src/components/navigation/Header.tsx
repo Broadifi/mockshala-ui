@@ -50,7 +50,7 @@ function Header() {
             <Link 
               key={item.title} 
               to={item.url} 
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${isActive(item.url) ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}>
+              className={`px-2.5 py-1.5 text-xs font-medium rounded-md transition-colors ${isActive(item.url) ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}>
               {item.title}
             </Link>
           ))}
@@ -60,7 +60,7 @@ function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="font-medium">
-                  More
+                  <span className="text-xs">More</span> 
                   <ChevronDown />
                 </Button>
               </DropdownMenuTrigger>
@@ -71,7 +71,7 @@ function Header() {
                       <Link
                         key={item.title}
                         to={item.url}
-                         className={`w-full cursor-pointer p-2 my-2 rounded-md
+                         className={`w-full cursor-pointer p-2 rounded-md text-xs
                           ${isActive(item.url)? 'bg-primary/10 text-primary': 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}
                       >
                         {item.title}

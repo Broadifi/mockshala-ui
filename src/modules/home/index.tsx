@@ -4,7 +4,7 @@ import WhyChoose from "./components/whyChoose";
 
 function HomeModule() {
   return (
-    <div className="text-center space-y-12 md:space-y-25 bg-gray-100/50 w-full h-screen mx-auto">
+    <div className="w-full mx-auto space-y-12 xl:space-y-25 bg-gray-100/80 ">
       <Hero />
       <PopularExam/>
       <WhyChoose />

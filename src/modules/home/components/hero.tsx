@@ -76,7 +76,7 @@ export default function Hero() {
   return (
     <div>
       {/* for Mobile Screen */}
-      <div className="relative w-full flex md:hidden overflow-visible ">
+      <div className="relative w-full flex md:hidden">
         <Carousel
           setApi={setApi}
           plugins={[autoplay.current]}
@@ -101,18 +101,18 @@ export default function Hero() {
           </CarouselContent>
 
           {/* Arrows */}
-          <CarouselPrevious className="absolute left-10 bg-white/70 hover:bg-white" />
-          <CarouselNext className="absolute right-10 bg-white/70 hover:bg-white" />
+          <CarouselPrevious className="absolute left-5 bg-white/70 hover:bg-white" />
+          <CarouselNext className="absolute right-5 bg-white/70 hover:bg-white" />
         </Carousel>
 
         {/* DOTS */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-2 pointer-events-auto">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2 pointer-events-auto">
           {Array.from({ length: bannerData?.data.length ?? 0 }).map((_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}
               className={cn(
-                "h-2.5 w-2.5 rounded-full transition-all z-50",
+                "h-2.5 w-2.5 rounded-full transition-all z-30",
                 current === index
                   ? "bg-white w-6"
                   : "bg-white/50 hover:bg-white",
@@ -125,7 +125,7 @@ export default function Hero() {
       {/* for Large Screen */}
       <div
         ref={sliderRef}
-        className="mt-5 relative w-full hidden md:flex overflow-visible"
+        className="pt-5 relative w-full hidden md:flex"
       >
         <Carousel
           setApi={setApi}
@@ -169,13 +169,13 @@ export default function Hero() {
         </Carousel>
 
         {/* DOTS */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-50 flex gap-2 pointer-events-auto">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2 pointer-events-auto">
           {Array.from({ length: bannerData?.data.length ?? 0 }).map((_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}
               className={cn(
-                "h-2.5 w-2.5 rounded-full transition-all z-50",
+                "h-2.5 w-2.5 rounded-full transition-all z-30",
                 current === index
                   ? "bg-white w-6"
                   : "bg-white/50 hover:bg-white",
