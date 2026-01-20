@@ -3,94 +3,146 @@ import { QUERY_CONFIG } from '@/api/config'
 import { homeAPI } from '@/api/services/getHomeData'
 import { Button } from '@/components/ui/button'
 import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, ChevronRight } from 'lucide-react'
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel"
 import { IMAGE_BASE_URL } from '@/api/url'
+import * as React from "react"
 
 function PopularExam() {
-    const {data: popularTestData} = useQuery({
-        queryKey: homeQueryKey.popularTests(),
-        queryFn: homeAPI.getPopularTestData,
+  const { data: popularTestData } = useQuery({
+    queryKey: homeQueryKey.popularTests(),
+    queryFn: homeAPI.getPopularTestData,
+    ...QUERY_CONFIG.static,
+  })
 
-        ...QUERY_CONFIG.static
-    })
+  const [api, setApi] = React.useState<CarouselApi | null>(null)
 
-    console.log(popularTestData);
-    
   return (
-    <div>
-        <div className="w-full  px-4 py-2 max-w-7xl mx-auto mt-20 space-y-2">
-            {/* header */}
-            <div className='flex justify-between'>
-                <div className='flex flex-col gap-3 text-left'>
-                    <h1 className='text-3xl text-secondary-foreground font-bold'>
-                        Popular Exams</h1>
-                    
-                    <h3 className='text-gray-600'>Choose your exam and start preparing today</h3>
-                </div>
-
-                <div className='flex items-center'>
-                    <Button variant={'ghost'} className='text-blue-600 '>
-                        View All
-                        <ArrowRight />
-                    </Button>
-                </div>
-            </div>
-
-            {/* exams */}
-            <div className='w-full'>
-                <Carousel
-                    opts={{
-                        align: "center",
-                    }}
-                    className="w-full max-w-7xl p-5"
-                    >
-                    <CarouselContent 
-                        className='p-1'
-                    >
-                        {popularTestData?.data.map((item) => (
-                        <CarouselItem 
-                            key={item._id} 
-                            className="basis-1/2 sm:basis-1/3  lg:basis-1/4 xl:basis-1/5 p-4 sm:p-4">       
-                                <div 
-                                    className="group flex flex-col h-60  border border-gray-200 rounded-2xl shadow-sm hover:shadow-lg overflow-auto transition delay-150 duration-300 ease-in-out hover:-translate-y-1 hover:scale-103">
-                                    <div className=' h-30 flex items-center justify-center border-b'>
-                                        <img
-                                            src={IMAGE_BASE_URL + item.image}
-                                            alt={item.name}
-                                            className="h-24 aspect-auto"
-                                            />
-                                    </div>
-                                    <div className='flex flex-col gap-4 '>
-                                        <div className='h-14 overflow-auto px-3 py-2'>
-                                            <h1 className='leading-snug font-medium text-sm text-center text-gray-600  group-hover:text-blue-600'>{item.name}</h1>
-                                        </div>
-                                        <div className='pb-4 mx-auto'>
-                                            <button 
-                                            className='flex gap-1 items-center justify-center text-sm px-4 py-1 rounded-lg shadow-sm 
-                                                bg-blue-100 group-hover:bg-blue-500 text-blue-600 group-hover:text-white transition-colors duration-300 group-hover:shadow-lg'>View Tests
-                                                 <ChevronRight size={"15"}/>
-                                            </button>
-                                            
-                                        </div>
-                                    </div>
-                                </div>                                     
-                        </CarouselItem>
-                        ))}
-                    </CarouselContent>
-
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
-
-            </div>
+    <div className="w-full px-4 py-2 max-w-7xl mx-auto mt-20 space-y-4">
+      {/* HEADER */}
+      <div className="flex justify-between items-end">
+        <div className="flex flex-col gap-2 text-start">
+          <h1 className="text-3xl font-bold text-secondary-foreground">
+            Popular Exams
+          </h1>
+          <p className="text-gray-600">
+            Choose your exam and start preparing today
+          </p>
         </div>
+      </div>
+
+      {/* CAROUSEL WRAPPER */}
+      <div className="relative group">
+        {/* LEFT BUTTON */}
+        <button
+          onClick={() => api?.scrollPrev()}
+          className="
+            absolute -left-2.5 top-1/2 -translate-y-1/2 z-20
+            h-10 w-10 rounded-full bg-white shadow-md border
+            flex items-center justify-center
+            transition-all duration-300
+            hover:bg-blue-600 hover:text-white
+          "
+        >
+          <ChevronLeft />
+        </button>
+
+        {/* RIGHT BUTTON */}
+        <button
+          onClick={() => api?.scrollNext()}
+          className="
+            absolute -right-2.5 top-1/2 -translate-y-1/2 z-20
+            h-10 w-10 rounded-full bg-white shadow-md border
+            flex items-center justify-center
+            transition-all duration-300
+            hover:bg-blue-600 hover:text-white
+          "
+        >
+          <ChevronRight />
+        </button>
+
+        {/* CAROUSEL */}
+        <Carousel
+          setApi={setApi}
+            opts={{
+                align: "start",        // 🔥 IMPORTANT
+                loop: true,
+                slidesToScroll: 1,     // 🔥 Move exactly ONE card
+                containScroll: "trimSnaps", // 🔥 Prevent half snapping
+            }}
+                    className="w-full px-10"
+        >
+          <CarouselContent className='mx-auto'>
+            {popularTestData?.data.map((item) => (
+              <CarouselItem
+                key={item._id}
+                className="basis-1/2 sm:basis-1/3 lg:basis-1/4 xl:basis-1/4 p-4"
+              >
+                <div className="
+                  group/card flex flex-col h-60
+                  border border-sky-200 rounded-2xl
+                  shadow-sm hover:shadow-lg
+                  transition-all duration-300
+                  hover:-translate-y-1
+                ">
+                  {/* IMAGE */}
+                  <div className="h-32 flex items-center justify-center border-b">
+                    <img
+                      src={IMAGE_BASE_URL + item.image}
+                      alt={item.name}
+                      className="h-24"
+                    />
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="flex flex-col flex-1 justify-between p-3">
+                    <h1 className="
+                      text-sm text-center font-medium text-gray-600
+                      group-hover/card:text-blue-600
+                    ">
+                      {item.name}
+                    </h1>
+
+                    <button
+                      className="
+                        mt-3 mx-auto flex items-center gap-1
+                        px-4 py-1 text-sm rounded-lg
+                        bg-blue-100 text-blue-600
+                        transition-all duration-300
+                        group-hover/card:bg-blue-600
+                        group-hover/card:text-white
+                      "
+                    >
+                      View Tests
+                      <ChevronRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      </div>
+
+      {/* VIEW ALL */}
+      <div className="flex justify-center pt-4">
+        <Button
+          variant="ghost"
+          className="
+            border border-blue-200 bg-blue-100 text-blue-600
+            transition-all duration-300
+            hover:bg-blue-600 hover:text-white
+          "
+        >
+          View All Exams
+          <ArrowRight />
+        </Button>
+      </div>
     </div>
   )
 }
