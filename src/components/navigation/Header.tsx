@@ -27,6 +27,9 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { mockShalaLogo } from "@/assets";
 import ProfileIcon from "../ProfileIcon";
 
+// import LangSwitch from "../langSwitch";
+// import LanguageToggle from "../toggleSwitch";
+
 function Header() {
   const isLoggedIn = true;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -192,6 +195,17 @@ function Header() {
               <Badge className="absolute top-1 right-1 h-2 w-2 p-0 bg-red-500" />
             </Button>
           </div>
+
+          {/* <div className="hidden xl:flex">
+                <LanguageToggle/>
+          </div>
+          
+          <div className="flex xl:hidden">
+                  <LangSwitch/>
+          </div> */}
+          
+            
+        
 
           {isLoggedIn ? (
             <Link

@@ -1,44 +1,44 @@
-import { homeQueryKey } from '@/api'
-import { QUERY_CONFIG } from '@/api/config'
-import { homeAPI } from '@/api/services/getHomeData'
-import { Button } from '@/components/ui/button'
-import { useQuery } from '@tanstack/react-query'
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { homeQueryKey } from "@/api";
+import { QUERY_CONFIG } from "@/api/config";
+import { homeAPI } from "@/api/services/getHomeData";
+import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
-} from "@/components/ui/carousel"
-import { IMAGE_BASE_URL } from '@/api/url'
-import * as React from "react"
+} from "@/components/ui/carousel";
+import { IMAGE_BASE_URL } from "@/api/url";
+import * as React from "react";
 
 function PopularExam() {
   const { data: popularTestData } = useQuery({
     queryKey: homeQueryKey.popularTests(),
     queryFn: homeAPI.getPopularTestData,
     ...QUERY_CONFIG.static,
-  })
+  });
 
-  const [api, setApi] = React.useState<CarouselApi | null>(null)
+  const [api, setApi] = React.useState<CarouselApi | null>(null);
 
   return (
     <div className=" w-full px-4 py-2 max-w-7xl mx-auto lg:mt-20">
       {/* HEADER */}
-        <div className='text-center md:text-start xl:space-y-2'>
-            <h3 className='py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>Popular Tests</h3>
-            <p className='text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl'>
-                Choose your exam and start preparing today
-            </p>
-        </div>
-
-    
+      <div className="text-center md:text-start xl:space-y-2">
+        <h3 className="py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Popular Tests
+        </h3>
+        <p className="text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
+          Choose your exam and start preparing today
+        </p>
+      </div>
 
       {/* CAROUSEL WRAPPER */}
       <div className=" group xl:space-y-2">
-        <div className='justify-end flex gap-2 px-4 mt-4 sm:mt-0'>
-        {/* LEFT BUTTON */}
-            <button
+        <div className="justify-end flex gap-2 px-4 mt-4 sm:mt-0">
+          {/* LEFT BUTTON */}
+          <button
             onClick={() => api?.scrollPrev()}
             className="
                  z-20
@@ -51,12 +51,12 @@ function PopularExam() {
                 hover:bg-blue-600 hover:text-white
                 hover:scale-110
             "
-            >
-            <ChevronLeft strokeWidth={1.5}/>
-            </button>
+          >
+            <ChevronLeft strokeWidth={1.5} />
+          </button>
 
-            {/* RIGHT BUTTON */}
-            <button
+          {/* RIGHT BUTTON */}
+          <button
             onClick={() => api?.scrollNext()}
             className="
                  z-20
@@ -69,9 +69,9 @@ function PopularExam() {
                 hover:bg-blue-600 hover:text-white
                 hover:scale-110
             "
-            >
-            <ChevronRight strokeWidth={1.5}/>
-            </button>
+          >
+            <ChevronRight strokeWidth={1.5} />
+          </button>
         </div>
         {/* CAROUSEL */}
         <Carousel
@@ -84,7 +84,7 @@ function PopularExam() {
           }}
           className="w-full "
         >
-          <CarouselContent className='mx-auto'>
+          <CarouselContent className="mx-auto">
             {popularTestData?.data.map((item) => (
               <CarouselItem
                 key={item._id}
@@ -124,12 +124,14 @@ function PopularExam() {
 
                   {/* CONTENT */}
                   <div className="relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
-                    <h1 className="
+                    <h1
+                      className="
                       text-xs md:text-sm font-semibold text-center
                       text-gray-500
                       group-hover/card:text-blue-700
                       transition-colors
-                    ">
+                    "
+                    >
                       {item.name}
                     </h1>
 
@@ -175,9 +177,8 @@ function PopularExam() {
           <ArrowRight />
         </Button>
       </div>
-    </div> 
-  )
+    </div>
+  );
 }
 
-
-export default PopularExam
+export default PopularExam;

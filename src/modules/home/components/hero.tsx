@@ -27,11 +27,11 @@ export default function Hero() {
     refetchOnReconnect: false,
   });
 
-  React.useEffect(() => {
-    if (bannerData) {
-      console.log("Banner data:", bannerData);
-    }
-  }, [bannerData]);
+  // React.useEffect(() => {
+  //   if (bannerData) {
+  //     console.log("Banner data:", bannerData);
+  //   }
+  // }, [bannerData]);
 
   const autoplay = React.useRef(
     Autoplay({

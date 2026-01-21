@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LangRouteImport } from './routes/$lang'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SuccessStoryIndexRouteImport } from './routes/success-story/index'
 import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
@@ -19,7 +20,13 @@ import { Route as FreeMocksIndexRouteImport } from './routes/free-mocks/index'
 import { Route as ExamsIndexRouteImport } from './routes/exams/index'
 import { Route as EditorialsCornerIndexRouteImport } from './routes/editorials-corner/index'
 import { Route as CurrentAffairsIndexRouteImport } from './routes/current-affairs/index'
+import { Route as LangIndexRouteImport } from './routes/$lang/index'
 
+const LangRoute = LangRouteImport.update({
+  id: '/$lang',
+  path: '/$lang',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -70,9 +77,16 @@ const CurrentAffairsIndexRoute = CurrentAffairsIndexRouteImport.update({
   path: '/current-affairs/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangIndexRoute = LangIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LangRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteWithChildren
+  '/$lang/': typeof LangIndexRoute
   '/current-affairs': typeof CurrentAffairsIndexRoute
   '/editorials-corner': typeof EditorialsCornerIndexRoute
   '/exams': typeof ExamsIndexRoute
@@ -85,6 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$lang': typeof LangIndexRoute
   '/current-affairs': typeof CurrentAffairsIndexRoute
   '/editorials-corner': typeof EditorialsCornerIndexRoute
   '/exams': typeof ExamsIndexRoute
@@ -98,6 +113,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteWithChildren
+  '/$lang/': typeof LangIndexRoute
   '/current-affairs/': typeof CurrentAffairsIndexRoute
   '/editorials-corner/': typeof EditorialsCornerIndexRoute
   '/exams/': typeof ExamsIndexRoute
@@ -112,6 +129,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$lang'
+    | '/$lang/'
     | '/current-affairs'
     | '/editorials-corner'
     | '/exams'
@@ -124,6 +143,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$lang'
     | '/current-affairs'
     | '/editorials-corner'
     | '/exams'
@@ -136,6 +156,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/$lang'
+    | '/$lang/'
     | '/current-affairs/'
     | '/editorials-corner/'
     | '/exams/'
@@ -149,6 +171,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LangRoute: typeof LangRouteWithChildren
   CurrentAffairsIndexRoute: typeof CurrentAffairsIndexRoute
   EditorialsCornerIndexRoute: typeof EditorialsCornerIndexRoute
   ExamsIndexRoute: typeof ExamsIndexRoute
@@ -162,6 +185,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/$lang': {
+      id: '/$lang'
+      path: '/$lang'
+      fullPath: '/$lang'
+      preLoaderRoute: typeof LangRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -232,11 +262,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CurrentAffairsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/': {
+      id: '/$lang/'
+      path: '/'
+      fullPath: '/$lang/'
+      preLoaderRoute: typeof LangIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
   }
 }
 
+interface LangRouteChildren {
+  LangIndexRoute: typeof LangIndexRoute
+}
+
+const LangRouteChildren: LangRouteChildren = {
+  LangIndexRoute: LangIndexRoute,
+}
+
+const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LangRoute: LangRouteWithChildren,
   CurrentAffairsIndexRoute: CurrentAffairsIndexRoute,
   EditorialsCornerIndexRoute: EditorialsCornerIndexRoute,
   ExamsIndexRoute: ExamsIndexRoute,

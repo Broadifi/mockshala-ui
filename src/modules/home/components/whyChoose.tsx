@@ -78,7 +78,7 @@ function WhyChoose() {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.9,
+        duration: 0.6,
         ease: [0.16, 1, 0.3, 1], 
       },
     },
@@ -108,7 +108,7 @@ function WhyChoose() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-100px' }}
+        viewport={{ once: true, amount: 0.4  }}
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
         {features.map((feature) => (
@@ -121,25 +121,25 @@ function WhyChoose() {
           border border-gray-200 transition-all duration-300
            hover:-translate-y-2 hover:shadow-xl text-center">
             <CardContent className="px-4 md:p-6 h-full flex flex-col ">
-            <div className='w-full flex justify-center items-center'>
-              <div
-                  className={`h-10 w-10 md:w-12 md:h-12 rounded-xl ${feature.color} 
-                    flex items-center justify-center mb-4 
-                    group-hover:scale-110 transition-transform 
-                    duration-300`}
-              >
-                  <feature.icon className=" md:h-6 md:w-6" />
+              <div className='w-full flex justify-center items-center'>
+                <div
+                    className={`h-10 w-10 md:w-12 md:h-12 rounded-xl ${feature.color} 
+                      flex items-center justify-center mb-4 
+                      group-hover:scale-110 transition-transform 
+                      duration-300`}
+                >
+                    <feature.icon className=" md:h-6 md:w-6" />
+                </div>
               </div>
-            </div>
 
-            <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3
-             group-hover:text-blue-600 transition-colors">
-                {feature.title}
-            </h4>
+              <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3
+              group-hover:text-blue-600 transition-colors">
+                  {feature.title}
+              </h4>
 
-            <p className="text-gray-600 text-xs md:text-sm leading-relaxed mt-auto">
-                {feature.description}
-            </p>
+              <p className="text-gray-600 text-xs md:text-sm leading-relaxed mt-auto">
+                  {feature.description}
+              </p>
             </CardContent>
         </Card>
         </motion.div>

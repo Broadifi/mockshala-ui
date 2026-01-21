@@ -3,7 +3,7 @@ import HomeModule from "@/modules/home";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/$lang/")({
   component: RouteComponent,
 });
 
