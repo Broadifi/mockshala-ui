@@ -96,10 +96,10 @@ function PopularExam() {
                     relative group/card h-49 md:h-60 xl:h-64 pt-2 
                     rounded-3xl
                     bg-white/60 backdrop-blur-xl
-                    border border-white/40
-                    shadow-md
+                    border border-white/60
+                    shadow-sm
                     transition-all duration-500
-                    hover:-translate-y-2 hover:shadow-xl
+                    hover:-translate-y-2 hover:shadow-lg
                   "
                 >
                   {/* GRADIENT GLOW */}
@@ -126,7 +126,7 @@ function PopularExam() {
                   <div className="relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
                     <h1 className="
                       text-xs md:text-sm font-semibold text-center
-                      text-gray-700
+                      text-gray-500
                       group-hover/card:text-blue-700
                       transition-colors
                     ">
