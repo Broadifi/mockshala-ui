@@ -11,16 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LangRouteImport } from './routes/$lang'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SuccessStoryIndexRouteImport } from './routes/success-story/index'
-import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
-import { Route as ProfileIndexRouteImport } from './routes/profile/index'
-import { Route as OurPlansIndexRouteImport } from './routes/our-plans/index'
-import { Route as LoginIndexRouteImport } from './routes/login/index'
-import { Route as FreeMocksIndexRouteImport } from './routes/free-mocks/index'
-import { Route as ExamsIndexRouteImport } from './routes/exams/index'
-import { Route as EditorialsCornerIndexRouteImport } from './routes/editorials-corner/index'
-import { Route as CurrentAffairsIndexRouteImport } from './routes/current-affairs/index'
 import { Route as LangIndexRouteImport } from './routes/$lang/index'
+import { Route as LangSuccessStoryIndexRouteImport } from './routes/$lang/success-story/index'
+import { Route as LangResourcesIndexRouteImport } from './routes/$lang/resources/index'
+import { Route as LangProfileIndexRouteImport } from './routes/$lang/profile/index'
+import { Route as LangOurPlansIndexRouteImport } from './routes/$lang/our-plans/index'
+import { Route as LangLoginIndexRouteImport } from './routes/$lang/login/index'
+import { Route as LangFreeMocksIndexRouteImport } from './routes/$lang/free-mocks/index'
+import { Route as LangExamsIndexRouteImport } from './routes/$lang/exams/index'
+import { Route as LangEditorialsCornerIndexRouteImport } from './routes/$lang/editorials-corner/index'
+import { Route as LangCurrentAffairsIndexRouteImport } from './routes/$lang/current-affairs/index'
 
 const LangRoute = LangRouteImport.update({
   id: '/$lang',
@@ -32,54 +32,55 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SuccessStoryIndexRoute = SuccessStoryIndexRouteImport.update({
-  id: '/success-story/',
-  path: '/success-story/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
-  id: '/resources/',
-  path: '/resources/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileIndexRoute = ProfileIndexRouteImport.update({
-  id: '/profile/',
-  path: '/profile/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OurPlansIndexRoute = OurPlansIndexRouteImport.update({
-  id: '/our-plans/',
-  path: '/our-plans/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginIndexRoute = LoginIndexRouteImport.update({
-  id: '/login/',
-  path: '/login/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreeMocksIndexRoute = FreeMocksIndexRouteImport.update({
-  id: '/free-mocks/',
-  path: '/free-mocks/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExamsIndexRoute = ExamsIndexRouteImport.update({
-  id: '/exams/',
-  path: '/exams/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EditorialsCornerIndexRoute = EditorialsCornerIndexRouteImport.update({
-  id: '/editorials-corner/',
-  path: '/editorials-corner/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CurrentAffairsIndexRoute = CurrentAffairsIndexRouteImport.update({
-  id: '/current-affairs/',
-  path: '/current-affairs/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LangIndexRoute = LangIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangSuccessStoryIndexRoute = LangSuccessStoryIndexRouteImport.update({
+  id: '/success-story/',
+  path: '/success-story/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangResourcesIndexRoute = LangResourcesIndexRouteImport.update({
+  id: '/resources/',
+  path: '/resources/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangProfileIndexRoute = LangProfileIndexRouteImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangOurPlansIndexRoute = LangOurPlansIndexRouteImport.update({
+  id: '/our-plans/',
+  path: '/our-plans/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangLoginIndexRoute = LangLoginIndexRouteImport.update({
+  id: '/login/',
+  path: '/login/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangFreeMocksIndexRoute = LangFreeMocksIndexRouteImport.update({
+  id: '/free-mocks/',
+  path: '/free-mocks/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangExamsIndexRoute = LangExamsIndexRouteImport.update({
+  id: '/exams/',
+  path: '/exams/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangEditorialsCornerIndexRoute =
+  LangEditorialsCornerIndexRouteImport.update({
+    id: '/editorials-corner/',
+    path: '/editorials-corner/',
+    getParentRoute: () => LangRoute,
+  } as any)
+const LangCurrentAffairsIndexRoute = LangCurrentAffairsIndexRouteImport.update({
+  id: '/current-affairs/',
+  path: '/current-affairs/',
   getParentRoute: () => LangRoute,
 } as any)
 
@@ -87,43 +88,43 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteWithChildren
   '/$lang/': typeof LangIndexRoute
-  '/current-affairs': typeof CurrentAffairsIndexRoute
-  '/editorials-corner': typeof EditorialsCornerIndexRoute
-  '/exams': typeof ExamsIndexRoute
-  '/free-mocks': typeof FreeMocksIndexRoute
-  '/login': typeof LoginIndexRoute
-  '/our-plans': typeof OurPlansIndexRoute
-  '/profile': typeof ProfileIndexRoute
-  '/resources': typeof ResourcesIndexRoute
-  '/success-story': typeof SuccessStoryIndexRoute
+  '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
+  '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
+  '/$lang/exams': typeof LangExamsIndexRoute
+  '/$lang/free-mocks': typeof LangFreeMocksIndexRoute
+  '/$lang/login': typeof LangLoginIndexRoute
+  '/$lang/our-plans': typeof LangOurPlansIndexRoute
+  '/$lang/profile': typeof LangProfileIndexRoute
+  '/$lang/resources': typeof LangResourcesIndexRoute
+  '/$lang/success-story': typeof LangSuccessStoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$lang': typeof LangIndexRoute
-  '/current-affairs': typeof CurrentAffairsIndexRoute
-  '/editorials-corner': typeof EditorialsCornerIndexRoute
-  '/exams': typeof ExamsIndexRoute
-  '/free-mocks': typeof FreeMocksIndexRoute
-  '/login': typeof LoginIndexRoute
-  '/our-plans': typeof OurPlansIndexRoute
-  '/profile': typeof ProfileIndexRoute
-  '/resources': typeof ResourcesIndexRoute
-  '/success-story': typeof SuccessStoryIndexRoute
+  '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
+  '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
+  '/$lang/exams': typeof LangExamsIndexRoute
+  '/$lang/free-mocks': typeof LangFreeMocksIndexRoute
+  '/$lang/login': typeof LangLoginIndexRoute
+  '/$lang/our-plans': typeof LangOurPlansIndexRoute
+  '/$lang/profile': typeof LangProfileIndexRoute
+  '/$lang/resources': typeof LangResourcesIndexRoute
+  '/$lang/success-story': typeof LangSuccessStoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteWithChildren
   '/$lang/': typeof LangIndexRoute
-  '/current-affairs/': typeof CurrentAffairsIndexRoute
-  '/editorials-corner/': typeof EditorialsCornerIndexRoute
-  '/exams/': typeof ExamsIndexRoute
-  '/free-mocks/': typeof FreeMocksIndexRoute
-  '/login/': typeof LoginIndexRoute
-  '/our-plans/': typeof OurPlansIndexRoute
-  '/profile/': typeof ProfileIndexRoute
-  '/resources/': typeof ResourcesIndexRoute
-  '/success-story/': typeof SuccessStoryIndexRoute
+  '/$lang/current-affairs/': typeof LangCurrentAffairsIndexRoute
+  '/$lang/editorials-corner/': typeof LangEditorialsCornerIndexRoute
+  '/$lang/exams/': typeof LangExamsIndexRoute
+  '/$lang/free-mocks/': typeof LangFreeMocksIndexRoute
+  '/$lang/login/': typeof LangLoginIndexRoute
+  '/$lang/our-plans/': typeof LangOurPlansIndexRoute
+  '/$lang/profile/': typeof LangProfileIndexRoute
+  '/$lang/resources/': typeof LangResourcesIndexRoute
+  '/$lang/success-story/': typeof LangSuccessStoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,56 +132,47 @@ export interface FileRouteTypes {
     | '/'
     | '/$lang'
     | '/$lang/'
-    | '/current-affairs'
-    | '/editorials-corner'
-    | '/exams'
-    | '/free-mocks'
-    | '/login'
-    | '/our-plans'
-    | '/profile'
-    | '/resources'
-    | '/success-story'
+    | '/$lang/current-affairs'
+    | '/$lang/editorials-corner'
+    | '/$lang/exams'
+    | '/$lang/free-mocks'
+    | '/$lang/login'
+    | '/$lang/our-plans'
+    | '/$lang/profile'
+    | '/$lang/resources'
+    | '/$lang/success-story'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$lang'
-    | '/current-affairs'
-    | '/editorials-corner'
-    | '/exams'
-    | '/free-mocks'
-    | '/login'
-    | '/our-plans'
-    | '/profile'
-    | '/resources'
-    | '/success-story'
+    | '/$lang/current-affairs'
+    | '/$lang/editorials-corner'
+    | '/$lang/exams'
+    | '/$lang/free-mocks'
+    | '/$lang/login'
+    | '/$lang/our-plans'
+    | '/$lang/profile'
+    | '/$lang/resources'
+    | '/$lang/success-story'
   id:
     | '__root__'
     | '/'
     | '/$lang'
     | '/$lang/'
-    | '/current-affairs/'
-    | '/editorials-corner/'
-    | '/exams/'
-    | '/free-mocks/'
-    | '/login/'
-    | '/our-plans/'
-    | '/profile/'
-    | '/resources/'
-    | '/success-story/'
+    | '/$lang/current-affairs/'
+    | '/$lang/editorials-corner/'
+    | '/$lang/exams/'
+    | '/$lang/free-mocks/'
+    | '/$lang/login/'
+    | '/$lang/our-plans/'
+    | '/$lang/profile/'
+    | '/$lang/resources/'
+    | '/$lang/success-story/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LangRoute: typeof LangRouteWithChildren
-  CurrentAffairsIndexRoute: typeof CurrentAffairsIndexRoute
-  EditorialsCornerIndexRoute: typeof EditorialsCornerIndexRoute
-  ExamsIndexRoute: typeof ExamsIndexRoute
-  FreeMocksIndexRoute: typeof FreeMocksIndexRoute
-  LoginIndexRoute: typeof LoginIndexRoute
-  OurPlansIndexRoute: typeof OurPlansIndexRoute
-  ProfileIndexRoute: typeof ProfileIndexRoute
-  ResourcesIndexRoute: typeof ResourcesIndexRoute
-  SuccessStoryIndexRoute: typeof SuccessStoryIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -199,69 +191,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/success-story/': {
-      id: '/success-story/'
-      path: '/success-story'
-      fullPath: '/success-story'
-      preLoaderRoute: typeof SuccessStoryIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources/': {
-      id: '/resources/'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile/': {
-      id: '/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/our-plans/': {
-      id: '/our-plans/'
-      path: '/our-plans'
-      fullPath: '/our-plans'
-      preLoaderRoute: typeof OurPlansIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login/': {
-      id: '/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/free-mocks/': {
-      id: '/free-mocks/'
-      path: '/free-mocks'
-      fullPath: '/free-mocks'
-      preLoaderRoute: typeof FreeMocksIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/exams/': {
-      id: '/exams/'
-      path: '/exams'
-      fullPath: '/exams'
-      preLoaderRoute: typeof ExamsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/editorials-corner/': {
-      id: '/editorials-corner/'
-      path: '/editorials-corner'
-      fullPath: '/editorials-corner'
-      preLoaderRoute: typeof EditorialsCornerIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/current-affairs/': {
-      id: '/current-affairs/'
-      path: '/current-affairs'
-      fullPath: '/current-affairs'
-      preLoaderRoute: typeof CurrentAffairsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/$lang/': {
       id: '/$lang/'
       path: '/'
@@ -269,15 +198,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/success-story/': {
+      id: '/$lang/success-story/'
+      path: '/success-story'
+      fullPath: '/$lang/success-story'
+      preLoaderRoute: typeof LangSuccessStoryIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/resources/': {
+      id: '/$lang/resources/'
+      path: '/resources'
+      fullPath: '/$lang/resources'
+      preLoaderRoute: typeof LangResourcesIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/profile/': {
+      id: '/$lang/profile/'
+      path: '/profile'
+      fullPath: '/$lang/profile'
+      preLoaderRoute: typeof LangProfileIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/our-plans/': {
+      id: '/$lang/our-plans/'
+      path: '/our-plans'
+      fullPath: '/$lang/our-plans'
+      preLoaderRoute: typeof LangOurPlansIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/login/': {
+      id: '/$lang/login/'
+      path: '/login'
+      fullPath: '/$lang/login'
+      preLoaderRoute: typeof LangLoginIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/free-mocks/': {
+      id: '/$lang/free-mocks/'
+      path: '/free-mocks'
+      fullPath: '/$lang/free-mocks'
+      preLoaderRoute: typeof LangFreeMocksIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/exams/': {
+      id: '/$lang/exams/'
+      path: '/exams'
+      fullPath: '/$lang/exams'
+      preLoaderRoute: typeof LangExamsIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/editorials-corner/': {
+      id: '/$lang/editorials-corner/'
+      path: '/editorials-corner'
+      fullPath: '/$lang/editorials-corner'
+      preLoaderRoute: typeof LangEditorialsCornerIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/current-affairs/': {
+      id: '/$lang/current-affairs/'
+      path: '/current-affairs'
+      fullPath: '/$lang/current-affairs'
+      preLoaderRoute: typeof LangCurrentAffairsIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
   }
 }
 
 interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
+  LangCurrentAffairsIndexRoute: typeof LangCurrentAffairsIndexRoute
+  LangEditorialsCornerIndexRoute: typeof LangEditorialsCornerIndexRoute
+  LangExamsIndexRoute: typeof LangExamsIndexRoute
+  LangFreeMocksIndexRoute: typeof LangFreeMocksIndexRoute
+  LangLoginIndexRoute: typeof LangLoginIndexRoute
+  LangOurPlansIndexRoute: typeof LangOurPlansIndexRoute
+  LangProfileIndexRoute: typeof LangProfileIndexRoute
+  LangResourcesIndexRoute: typeof LangResourcesIndexRoute
+  LangSuccessStoryIndexRoute: typeof LangSuccessStoryIndexRoute
 }
 
 const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
+  LangCurrentAffairsIndexRoute: LangCurrentAffairsIndexRoute,
+  LangEditorialsCornerIndexRoute: LangEditorialsCornerIndexRoute,
+  LangExamsIndexRoute: LangExamsIndexRoute,
+  LangFreeMocksIndexRoute: LangFreeMocksIndexRoute,
+  LangLoginIndexRoute: LangLoginIndexRoute,
+  LangOurPlansIndexRoute: LangOurPlansIndexRoute,
+  LangProfileIndexRoute: LangProfileIndexRoute,
+  LangResourcesIndexRoute: LangResourcesIndexRoute,
+  LangSuccessStoryIndexRoute: LangSuccessStoryIndexRoute,
 }
 
 const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
@@ -285,15 +295,6 @@ const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LangRoute: LangRouteWithChildren,
-  CurrentAffairsIndexRoute: CurrentAffairsIndexRoute,
-  EditorialsCornerIndexRoute: EditorialsCornerIndexRoute,
-  ExamsIndexRoute: ExamsIndexRoute,
-  FreeMocksIndexRoute: FreeMocksIndexRoute,
-  LoginIndexRoute: LoginIndexRoute,
-  OurPlansIndexRoute: OurPlansIndexRoute,
-  ProfileIndexRoute: ProfileIndexRoute,
-  ResourcesIndexRoute: ResourcesIndexRoute,
-  SuccessStoryIndexRoute: SuccessStoryIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

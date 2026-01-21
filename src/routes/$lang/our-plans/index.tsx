@@ -1,10 +1,10 @@
 import { createFileRoute,  } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/editorials-corner/')({
+export const Route = createFileRoute('/$lang/our-plans/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   
-  return <div>Hello "/editorials-corner"!</div>
+  return <div>Hello "/our-plans"!</div>
 }

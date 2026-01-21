@@ -1,4 +1,4 @@
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link, useLocation, useParams } from "@tanstack/react-router";
 import {
   Bell,
   ChevronDown,
@@ -7,12 +7,7 @@ import {
   Search,
   X,
 } from "lucide-react";
-import {
-  headerData,
-  headerDataTablet,
-  moreOptionData,
-  moreOptionDataTablet,
-} from "../data/headerData";
+
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -26,6 +21,7 @@ import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { mockShalaLogo } from "@/assets";
 import ProfileIcon from "../ProfileIcon";
+import { createHeaderData } from "../data/headerData";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -35,6 +31,9 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
+
+  const { lang } = useParams({ strict: false })
+  const { headerData, moreOptionData, headerDataTablet, moreOptionDataTablet } = createHeaderData(lang || "en")
 
   return (
     <header className='sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center'>
@@ -105,7 +104,8 @@ function Header() {
           {isLoggedIn ? (
             <Link
                     key="Profile"
-                    to="/profile"
+                    to="/$lang/profile"
+                    params={{ lang: `${lang}` }} 
                     onClick={() => setMobileOpen(false)}
                     className={`flex gap-2 px-2 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive("/profile")
@@ -118,7 +118,8 @@ function Header() {
           ) : <div>
                 <Link
                     key={"Login"}
-                    to={"/login"}
+                    to="/$lang/login"
+                    params={{ lang: `${lang}` }} 
                     onClick={() => setMobileOpen(false)}
                     className="px-3 py-3 "
                 >
@@ -210,7 +211,8 @@ function Header() {
           {isLoggedIn ? (
             <Link
                     key="Profile"
-                    to="/profile"
+                    to="/$lang/profile"
+                    params={{ lang: `${lang}` }} 
                     onClick={() => setMobileOpen(false)}
                     className={`flex gap-2 px-2 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive("/profile")
@@ -224,7 +226,8 @@ function Header() {
           ) : <div>
                 <Link
                     key={"Login"}
-                    to={"/login"}
+                    to="/$lang/login"
+                    params={{ lang: `${lang}` }} 
                     onClick={() => setMobileOpen(false)}
                     className="px-3 py-3 "
                 >
@@ -274,7 +277,8 @@ function Header() {
                   
                   { isLoggedIn && <Link
                     key="Profile"
-                    to="/profile"
+                    to="/$lang/profile"
+                    params={{ lang: `${lang}` }} 
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-2 px-2 py-2 rounded-md text-sm font-medium transition-colors ${
                       isActive("/profile")
@@ -306,7 +310,8 @@ function Header() {
                     <div>
                       <Link
                           key={"Login"}
-                          to={"/login"}
+                          to="/$lang/login"
+                          params={{ lang: `${lang}` }} 
                           onClick={() => setMobileOpen(false)}
                           className="px-3 py-3 "
                       >

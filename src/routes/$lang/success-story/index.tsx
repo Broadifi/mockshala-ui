@@ -1,10 +1,10 @@
 import { createFileRoute,  } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/free-mocks/')({
+export const Route = createFileRoute('/$lang/success-story/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   
-  return <div>Hello "/free-mocks"!</div>
+  return <div>Hello "/success-story"!</div>
 }
