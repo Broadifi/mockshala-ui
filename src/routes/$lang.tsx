@@ -2,6 +2,7 @@ import { Outlet, createFileRoute, redirect } from "@tanstack/react-router"
 import i18n from "@/i18n"
 
 const supportedLanguages = ["en", "hi"] as const
+
 type SupportedLanguage = (typeof supportedLanguages)[number]
 
 function isSupportedLanguage(lang: string): lang is SupportedLanguage {
@@ -17,7 +18,8 @@ export const Route = createFileRoute("/$lang")({
       })
     }
 
-    // ✅ Fully type-safe here
+    // ✅ Fully type-safe here this will change the language from fetching the params and reflect to the t = useTranslation
+    
     i18n.changeLanguage(params.lang)
   },
   component: () => <Outlet />,

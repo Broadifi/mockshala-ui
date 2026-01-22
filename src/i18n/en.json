@@ -1,4 +1,23 @@
+
+
 {
-  "welcome": "Welcome to MockShala",
-  "description": "Master your exams with confidence"
+  "nav": {
+    "dashboard": "Dashboard",
+    "exams": "Exams",
+    "freeMocks": "Free Mocks",
+    "ourPlans": "Our Plans",
+    "editorialsCorner": "Editorials Corner",
+    "more": "More",
+    "successStory": "Success Story",
+    "currentAffairs": "Current Affairs",
+    "resources": "Resources",
+    "searchPlaceholder": "Search exams, tests..."
+  },
+  "popularTests": {
+    "title": "Popular Tests",
+    "subtitle": "Choose your exam and start preparing today",
+    "viewTests": "View Tests",
+    "viewAllTests": "View All Tests"
+  }
+
 }

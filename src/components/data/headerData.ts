@@ -1,105 +1,110 @@
-
-// Helper function to generate language-prefixed URLs
 export const createHeaderData = (lang: string) => ({
   headerData: [
     {
-        title: 'Dashboard',
-        allUsersAccess: true,
-        url: `/${lang}`
+      titleEn: "Dashboard",
+      titleHin: "डैशबोर्ड",
+      allUsersAccess: true,
+      url: `/${lang}`,
     },
     {
-        title: 'Exams',
-        allUsersAccess: true,
-        url: `/${lang}/exams`
+      titleEn: "Exams",
+      titleHin: "परीक्षाएँ",
+      allUsersAccess: true,
+      url: `/${lang}/exams`,
     },
     {
-        title: 'Free Mocks',
-        allUsersAccess: true,
-        url: `/${lang}/free-mocks`
+      titleEn: "Free Mocks",
+      titleHin: "निःशुल्क मॉक टेस्ट",
+      allUsersAccess: true,
+      url: `/${lang}/free-mocks`,
     },
     {
-        title: 'Our Plans',
-        allUsersAccess: true,
-        url: `/${lang}/our-plans`
+      titleEn: "Our Plans",
+      titleHin: "हमारी योजनाएँ",
+      allUsersAccess: true,
+      url: `/${lang}/our-plans`,
     },
     {
-        title: 'Editorials Corner',
-        allUsersAccess: true,
-        url: `/${lang}/editorials-corner`
-    }
+      titleEn: "Editorials Corner",
+      titleHin: "संपादकीय अनुभाग",
+      allUsersAccess: true,
+      url: `/${lang}/editorials-corner`,
+    },
   ],
+
   moreOptionData: [
     {
-        title: 'Success Story',
-        allUsersAccess: false,
-        url: `/${lang}/success-story`
+      titleEn: "Success Story",
+      titleHin: "सफलता की कहानी",
+      allUsersAccess: false,
+      url: `/${lang}/success-story`,
     },
     {
-        title: 'Current Affairs',
-        allUsersAccess: false,
-        url: `/${lang}/current-affairs`
+      titleEn: "Current Affairs",
+      titleHin: "समसामयिक घटनाएँ",
+      allUsersAccess: false,
+      url: `/${lang}/current-affairs`,
     },
     {
-        title: 'Resources',
-        allUsersAccess: false,
-        url: `/${lang}/resources`
+      titleEn: "Resources",
+      titleHin: "संसाधन",
+      allUsersAccess: false,
+      url: `/${lang}/resources`,
     },
   ],
 
+  // 📱 Tablet Header
+  headerDataTablet: [
+    {
+      titleEn: "Dashboard",
+      titleHin: "डैशबोर्ड",
+      allUsersAccess: true,
+      url: `/${lang}`,
+    },
+    {
+      titleEn: "Exams",
+      titleHin: "परीक्षाएँ",
+      allUsersAccess: true,
+      url: `/${lang}/exams`,
+    },
+    {
+      titleEn: "Free Mocks",
+      titleHin: "निःशुल्क मॉक टेस्ट",
+      allUsersAccess: true,
+      url: `/${lang}/free-mocks`,
+    },
+  ],
 
-  // ... tablet variants also with lang prefix
-
-
-// Header data for Tablet view
-    headerDataTablet : [
+  moreOptionDataTablet: [
     {
-        title: 'Dashboard',
-        allUsersAccess: true,
-        url: `/${lang}`
+      titleEn: "Our Plans",
+      titleHin: "हमारी योजनाएँ",
+      allUsersAccess: true,
+      url: `/${lang}/our-plans`,
     },
     {
-        title: 'Exams',
-        allUsersAccess: true,
-        url: `/${lang}/exams`,
+      titleEn: "Editorials Corner",
+      titleHin: "संपादकीय अनुभाग",
+      allUsersAccess: true,
+      url: `/${lang}/editorials-corner`,
     },
     {
-        title: 'Free Mocks',
-        allUsersAccess: true,
-        url: `/${lang}/free-mocks`
-    },
-   
-],
-
-
-     moreOptionDataTablet : [
-     {
-        title: 'Our Plans',
-        allUsersAccess: true,
-        url: `/${lang}/our-plans`
+      titleEn: "Success Story",
+      titleHin: "सफलता की कहानी",
+      allUsersAccess: false,
+      url: `/${lang}/success-story`,
     },
     {
-        title: 'Editorials Corner',
-        allUsersAccess: true,
-        url: `/${lang}/editorials-corner`
+      titleEn: "Current Affairs",
+      titleHin: "समसामयिक घटनाएँ",
+      allUsersAccess: false,
+      url: `/${lang}/current-affairs`,
     },
     {
-        title: 'Success Story',
-        allUsersAccess: false,
-        url: `/${lang}/success-story`
+      titleEn: "Resources",
+      titleHin: "संसाधन",
+      allUsersAccess: false,
+      url: `/${lang}/resources`,
     },
-    {
-        title: 'Current Affairs',
-        allUsersAccess: false,
-        url: `/${lang}/current-affairs`
-    },
-    {
-        title: 'Resources',
-        allUsersAccess: false,
-        url: `/${lang}/resources`
-    },
-    
-    
-    
-]
+  ],
 })
-

@@ -22,13 +22,17 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { mockShalaLogo } from "@/assets";
 import ProfileIcon from "../ProfileIcon";
 import { createHeaderData } from "../data/headerData";
-import LanguageToggle from "../toggleSwitch";
 import LangSwitch from "../langSwitch";
+import LanguageSwitch from "../LanguageSwitch";
+import { useTranslation } from "react-i18next";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
 
 function Header() {
+  //for translation
+  const { t } = useTranslation()
+
   const isLoggedIn = true;
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -39,7 +43,7 @@ function Header() {
 
   return (
     <header className='sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center'>
-    <div className="w-full px-4 py-2 max-w-7xl ">
+    <div className="w-full px-4 py-2 container ">
       <div className="flex gap-4 justify-between w-full  ">
         {/* Title for all view */}
         <div className="flex justify-center items-center">
@@ -52,19 +56,19 @@ function Header() {
         <div className="hidden  md:flex lg:hidden justify-center items-center text-muted-foreground">
           {headerDataTablet.map((item) => (
             <Link 
-              key={item.title} 
+              key={lang === "hi" ? item.titleHin : item.titleEn} 
               to={item.url} 
               className={`px-2.5 py-1.5 text-xs font-medium rounded-md transition-colors ${isActive(item.url) ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}>
-              {item.title}
+              {lang === "hi" ? item.titleHin : item.titleEn}
             </Link>
           ))}
 
-          {/* More Option */}
+          {/* more Option */}
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="font-medium">
-                  <span className="text-xs">More</span> 
+                  <span className="text-xs">{t("nav.more")}</span> 
                   <ChevronDown />
                 </Button>
               </DropdownMenuTrigger>
@@ -73,12 +77,12 @@ function Header() {
                   {moreOptionDataTablet.map((item) => (
                     <DropdownMenuItem  key={item.url} asChild>              
                       <Link
-                        key={item.title}
+                        key={lang === "hi" ? item.titleHin : item.titleEn}
                         to={item.url}
                          className={`w-full cursor-pointer p-2 rounded-md text-xs
                           ${isActive(item.url)? 'bg-primary/10 text-primary': 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}
                       >
-                        {item.title}
+                        {lang === "hi" ? item.titleHin : item.titleEn}
                       </Link>
                     </DropdownMenuItem>
                   ))}
@@ -143,21 +147,21 @@ function Header() {
         <div className="hidden lg:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
           {headerData.map((item) => (
             <Link 
-              key={item.title} 
+              key={lang === "hi" ? item.titleHin : item.titleEn} 
               to={item.url}   
               className={`lg:px-1 lg:py-1 xl:px-2 xl:py-2 text-sm font-medium rounded-md transition-colors 
               ${isActive(item.url) ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}>
               
-              {item.title}
+              {lang === "hi" ? item.titleHin : item.titleEn}
             </Link>
           ))}
 
-          {/* More Option */}
+          {/* more Option */}
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="font-medium">
-                  More
+                  {t("nav.more")}
                   <ChevronDown />
                 </Button>
               </DropdownMenuTrigger>
@@ -166,12 +170,12 @@ function Header() {
                   {moreOptionData.map((item) => (
                     <DropdownMenuItem  key={item.url} asChild>              
                       <Link
-                        key={item.title}
+                        key={lang === "hi" ? item.titleHin : item.titleEn}
                         to={item.url}
                          className={`w-full cursor-pointer p-2 my-2 rounded-md
                           ${isActive(item.url)? 'bg-primary/10 text-primary': 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'}`}
                       >
-                        {item.title}
+                        {lang === "hi" ? item.titleHin : item.titleEn}
                       </Link>
                     </DropdownMenuItem>
                   ))}
@@ -187,7 +191,7 @@ function Header() {
             <Search size={20} />
             <input
               type="text"
-              placeholder="Search exams, tests..."
+              placeholder={t("nav.searchPlaceholder")}
               className="border-0 outline-0 text-sm w-full max-w-40"
             />
           </div>
@@ -200,7 +204,7 @@ function Header() {
           </div>
 
           <div className="hidden xl:flex">
-                <LanguageToggle/>
+                <LanguageSwitch />
           </div>
           
           <div className="flex xl:hidden">
@@ -295,7 +299,7 @@ function Header() {
 
                   {[...headerData, ...moreOptionData].map((item) => (
                     <Link
-                      key={item.title}
+                      key={lang === "hi" ? item.titleHin : item.titleEn}
                       to={item.url}
                       onClick={() => setMobileOpen(false)}
                       className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -304,7 +308,7 @@ function Header() {
                           : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                       }`}
                     >
-                      {item.title}
+                      {lang === "hi" ? item.titleHin : item.titleEn}
                     </Link>
                   ))}
 

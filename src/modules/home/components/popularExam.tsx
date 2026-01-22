@@ -12,8 +12,15 @@ import {
 } from "@/components/ui/carousel";
 import { IMAGE_BASE_URL } from "@/api/url";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
+
+
 
 function PopularExam() {
+
+   //for translation
+    const { t } = useTranslation()
+
   const { data: popularTestData } = useQuery({
     queryKey: homeQueryKey.popularTests(),
     queryFn: homeAPI.getPopularTestData,
@@ -27,10 +34,10 @@ function PopularExam() {
       {/* HEADER */}
       <div className="text-center md:text-start xl:space-y-2">
         <h3 className="py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Popular Tests
+          {t("popularTests.title")}
         </h3>
         <p className="text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
-          Choose your exam and start preparing today
+          {t("popularTests.subtitle")}
         </p>
       </div>
 
@@ -148,7 +155,7 @@ function PopularExam() {
                         group-hover/card:shadow-md
                       "
                     >
-                      View Tests
+                      {t("popularTests.viewTests")}
                       <ChevronRight size={14} />
                     </button>
                   </div>
@@ -173,7 +180,7 @@ function PopularExam() {
             hover:shadow-lg hover:-translate-y-1
           "
         >
-          View All Tests
+          {t("popularTests.viewAllTests")}
           <ArrowRight />
         </Button>
       </div>

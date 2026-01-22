@@ -1,4 +1,20 @@
 {
-  "welcome": "MockShala में आपका स्वागत है",
-  "description": "आत्मविश्वास के साथ परीक्षा में सफलता पाएं"
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "exams": "परीक्षाएँ",
+    "freeMocks": "निःशुल्क मॉक टेस्ट",
+    "ourPlans": "हमारी योजनाएँ",
+    "editorialsCorner": "संपादकीय अनुभाग",
+    "more": "और",
+    "successStory": "सफलता की कहानी",
+    "currentAffairs": "समसामयिक घटनाएँ",
+    "resources": "संसाधन",
+    "searchPlaceholder": "परीक्षाएँ, टेस्ट खोजें..."
+  },
+  "popularTests": {
+    "title": "लोकप्रिय परीक्षाएँ",
+    "subtitle": "अपनी परीक्षा चुनें और आज ही तैयारी शुरू करें",
+    "viewTests": "टेस्ट देखें",
+    "viewAllTests": "सभी टेस्ट देखें"
+  }
 }
