@@ -30,7 +30,7 @@ function PopularExam() {
   const [api, setApi] = React.useState<CarouselApi | null>(null);
 
   return (
-    <div className=" w-full px-4 py-2 max-w-7xl mx-auto lg:mt-20">
+    <div className=" w-full container px-4 py-2 mx-auto lg:mt-20">
       {/* HEADER */}
       <div className="text-center md:text-start xl:space-y-2">
         <h3 className="py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">

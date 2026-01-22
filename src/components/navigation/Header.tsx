@@ -33,17 +33,20 @@ function Header() {
   //for translation
   const { t } = useTranslation()
 
+  //Fetch the language params
+  const { lang } = useParams({ strict: false })
+
   const isLoggedIn = true;
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
-  const { lang } = useParams({ strict: false })
+  
   const { headerData, moreOptionData, headerDataTablet, moreOptionDataTablet } = createHeaderData(lang || "en")
 
   return (
     <header className='sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center'>
-    <div className="w-full px-4 py-2 container ">
+    <div className="w-full container px-4 py-2">
       <div className="flex gap-4 justify-between w-full  ">
         {/* Title for all view */}
         <div className="flex justify-center items-center">
@@ -53,7 +56,7 @@ function Header() {
         </div>
 
         {/* Quick Access  for Tablet View*/}
-        <div className="hidden  md:flex lg:hidden justify-center items-center text-muted-foreground">
+        <div className="hidden  md:flex xl:hidden justify-center items-center text-muted-foreground">
           {headerDataTablet.map((item) => (
             <Link 
               key={lang === "hi" ? item.titleHin : item.titleEn} 
@@ -93,7 +96,7 @@ function Header() {
         </div>
 
         {/* Notification, bell and login/profile for tablet view */}
-         <div className="hidden md:flex lg:hidden gap-2  justify-center items-center text-muted-foreground">
+         <div className="hidden md:flex xl:hidden gap-2  justify-center items-center text-muted-foreground">
           <button>
             <Search className="h-5 w-5" />
           </button>
@@ -144,7 +147,7 @@ function Header() {
 
 
         {/* Quick Access  for Large View*/}
-        <div className="hidden lg:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
+        <div className="hidden xl:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
           {headerData.map((item) => (
             <Link 
               key={lang === "hi" ? item.titleHin : item.titleEn} 
@@ -186,7 +189,7 @@ function Header() {
         </div>
 
         {/*Notification, Search and Login/Profile For Large Screen */}
-        <div className="hidden lg:flex gap-2 items-center text-muted-foreground">
+        <div className="hidden xl:flex gap-2 items-center text-muted-foreground">
           <div className="border border-muted-foreground flex gap-1 items-center rounded-3xl px-2 py-1.5">
             <Search size={20} />
             <input
