@@ -71,3 +71,56 @@ export interface DashboardPaidCategoriesResponse {
   responseTimestamp: string;
   data: DashboardPaidCategoriesData;
 }
+
+
+//All Exams
+
+interface Tests {
+  _id: string;
+  name: string;
+  testType: string;
+  examType: string;
+  time: number;
+  image: string;
+  instruction: string;
+  isOpen: boolean;
+  totalQuestions: number;
+}
+
+interface CountByTestType {
+  FULL_LENGTH_MOCK: number;
+}
+
+interface ALLExamCategory {
+  _id: string;
+  slug: string;
+}
+
+interface AllExamResponseData {
+  _id: string;
+  name: string;
+  slug: string;
+  image: string;
+  tests: Tests[];
+  countByTestType: CountByTestType;
+  freeTestCount: number;
+  paidTestCount: number;
+  totalQuestions: number;
+  status: boolean;
+  isPaid: boolean;
+  examCategory: ALLExamCategory;
+  createdBy: object;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export  interface AllExamResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  totalCount: number;
+  hasNext: boolean;
+  page: number;
+  data: AllExamResponseData[];
+}

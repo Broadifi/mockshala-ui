@@ -1,6 +1,7 @@
-import type { BannerResponse, DashboardPaidCategoriesResponse, PopularTestResponse } from "../model/home-model";
+import type { AllExamResponse, BannerResponse, DashboardPaidCategoriesResponse, PopularTestResponse } from "../model/home-model";
 import axios, { type AxiosResponse } from 'axios'
 import { apiUrl, BASE_URL } from "../url";
+import api from ".";
 
 export const homeAPI = {
     getBannerData : async (): Promise<BannerResponse> =>{
@@ -22,5 +23,12 @@ export const homeAPI = {
          await axios.get(`${BASE_URL}${apiUrl.dashboardPaidCategories}`)
 
          return response.data
+    },
+
+    getAllExamByCategory:  async (examCategory: string): Promise<AllExamResponse> => {
+        const response: AxiosResponse<AllExamResponse> = 
+            await api.get(apiUrl.allExamData(examCategory))
+
+        return response.data
     }
 }

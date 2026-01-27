@@ -5,6 +5,8 @@ export const homeQueryKey = createExtendedQueryKeys('home', {
 
     popularTests:()=> ['home', 'popularTests'] as const,
 
+    paidTestCategories: ()=> ['home', "paidTestCategories"] as const,
+
     allTestSeries: ()=> ['home', "allTestSeries"] as const
   }
 )

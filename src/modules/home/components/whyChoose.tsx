@@ -10,50 +10,7 @@ function WhyChoose() {
    //Fetch the language params
     const { lang } = useParams({ strict: false })
 
-  // const featuresData = [
-  //   {
-  //     title: 'AI-Powered Analytics',
-  //     description:
-  //       'Get detailed performance insights with our advanced AI algorithms that analyze your strengths and weaknesses',
-  //     icon: BarChart3,
-  //     color: 'bg-blue-100 text-blue-600',
-  //   },
-  //   {
-  //     title: 'Instant Results',
-  //     description:
-  //       'Get your test results immediately after submission with detailed explanations for every question',
-  //     icon: Zap,
-  //     color: 'bg-green-100 text-green-600',
-  //   },
-  //   {
-  //     title: '24/7 Doubt Support',
-  //     description:
-  //       'Connect with expert faculty anytime for doubt resolution and personalized guidance',
-  //     icon: HeadphonesIcon,
-  //     color: 'bg-purple-100 text-purple-600',
-  //   },
-  //   {
-  //     title: 'Secure & Reliable',
-  //     description:
-  //       'Bank-grade security ensures your data is safe and tests are conducted in a secure environment',
-  //     icon: Shield,
-  //     color: 'bg-orange-100 text-orange-600',
-  //   },
-  //   {
-  //     title: 'Mobile Optimized',
-  //     description:
-  //       'Take tests seamlessly on any device - mobile, tablet, or desktop with our responsive design',
-  //     icon: Smartphone,
-  //     color: 'bg-indigo-100 text-indigo-600',
-  //   },
-  //   {
-  //     title: 'Time Management',
-  //     description:
-  //       'Master time management with our timer featuresData and time-based analytics to improve speed',
-  //     icon: Clock,
-  //     color: 'bg-red-100 text-red-600',
-  //   },
-  // ]
+  
 
 
   
