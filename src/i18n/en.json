@@ -18,6 +18,10 @@
     "subtitle": "Choose your exam and start preparing today",
     "viewTests": "View Tests",
     "viewAllTests": "View All Tests"
+  },
+  "allTestSeries":{
+    "title": "All Test Series",
+    "subtitle": "Join thousands of successful students with our expertly designed test series for various competitive examinations"
   }
 
 }

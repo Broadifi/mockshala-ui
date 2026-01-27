@@ -1,3 +1,4 @@
+import AllTestSeries from "./components/allTestSeries";
 import Hero from "./components/hero";
 import PopularExam from "./components/popularExam";
 import Stats from "./components/stats";
@@ -10,7 +11,9 @@ function HomeModule() {
       
       <PopularExam/>
       <WhyChoose />
+      <AllTestSeries />
       <Stats/>
+      
     </div>
   );
 }

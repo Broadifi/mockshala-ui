@@ -44,3 +44,30 @@ export interface PopularTestResponse {
   data: Data[];
 }
 
+//all test series Categories
+export interface FeatureCategories {
+  status: boolean;
+  approveStatus: string;
+  _id: string;
+  categoryName: string;
+  slug: string;
+  description: object;
+  image: string;
+  createdBy: object;
+  createdAt: string;
+  updatedAt: string;
+  updatedBy: object;
+}
+
+export interface DashboardPaidCategoriesData {
+  featureCategories: FeatureCategories[];
+  otherCategories: unknown[];
+}
+
+export interface DashboardPaidCategoriesResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  data: DashboardPaidCategoriesData;
+}

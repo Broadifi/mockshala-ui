@@ -6,7 +6,9 @@ export const BASE_URL =
   export const apiUrl = {
     banners: '/banners',
 
-    popularTests: '/test-series/popular-exams'
+    popularTests: '/test-series/popular-exams',
+
+    dashboardPaidCategories: '/exam-categories/dashboard?isPaid=true'
   }
 
   export const IMAGE_BASE_URL = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL ?? "https://mockshala.s3.ap-south-1.amazonaws.com/";

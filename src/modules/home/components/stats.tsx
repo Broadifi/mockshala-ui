@@ -44,12 +44,10 @@ function Stats() {
               ? statsSectionData.sectionTitle.titleHin
               : statsSectionData.sectionTitle.titleEn}
             </h3>
-            <p className="text-sm xl:text-base text-gray-600 max-w-2xl">
-            <p>
+            <p className="text-sm xl:text-base text-gray-600 max-w-2xl">        
             {lang === "hi"
               ? statsSectionData.sectionSubtitle.titleHin
               : statsSectionData.sectionSubtitle.titleEn}
-          </p>
             </p>
 
             
