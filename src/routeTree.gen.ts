@@ -21,6 +21,8 @@ import { Route as LangFreeMocksIndexRouteImport } from './routes/$lang/free-mock
 import { Route as LangExamsIndexRouteImport } from './routes/$lang/exams/index'
 import { Route as LangEditorialsCornerIndexRouteImport } from './routes/$lang/editorials-corner/index'
 import { Route as LangCurrentAffairsIndexRouteImport } from './routes/$lang/current-affairs/index'
+import { Route as LangExamsExamCategoryIndexRouteImport } from './routes/$lang/exams/$examCategory/index'
+import { Route as LangExamsExamCategoryTestSlugIndexRouteImport } from './routes/$lang/exams/$examCategory/$testSlug/index'
 
 const LangRoute = LangRouteImport.update({
   id: '/$lang',
@@ -83,6 +85,18 @@ const LangCurrentAffairsIndexRoute = LangCurrentAffairsIndexRouteImport.update({
   path: '/current-affairs/',
   getParentRoute: () => LangRoute,
 } as any)
+const LangExamsExamCategoryIndexRoute =
+  LangExamsExamCategoryIndexRouteImport.update({
+    id: '/exams/$examCategory/',
+    path: '/exams/$examCategory/',
+    getParentRoute: () => LangRoute,
+  } as any)
+const LangExamsExamCategoryTestSlugIndexRoute =
+  LangExamsExamCategoryTestSlugIndexRouteImport.update({
+    id: '/exams/$examCategory/$testSlug/',
+    path: '/exams/$examCategory/$testSlug/',
+    getParentRoute: () => LangRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -97,6 +111,8 @@ export interface FileRoutesByFullPath {
   '/$lang/profile': typeof LangProfileIndexRoute
   '/$lang/resources': typeof LangResourcesIndexRoute
   '/$lang/success-story': typeof LangSuccessStoryIndexRoute
+  '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
+  '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +126,8 @@ export interface FileRoutesByTo {
   '/$lang/profile': typeof LangProfileIndexRoute
   '/$lang/resources': typeof LangResourcesIndexRoute
   '/$lang/success-story': typeof LangSuccessStoryIndexRoute
+  '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
+  '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +143,8 @@ export interface FileRoutesById {
   '/$lang/profile/': typeof LangProfileIndexRoute
   '/$lang/resources/': typeof LangResourcesIndexRoute
   '/$lang/success-story/': typeof LangSuccessStoryIndexRoute
+  '/$lang/exams/$examCategory/': typeof LangExamsExamCategoryIndexRoute
+  '/$lang/exams/$examCategory/$testSlug/': typeof LangExamsExamCategoryTestSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +161,8 @@ export interface FileRouteTypes {
     | '/$lang/profile'
     | '/$lang/resources'
     | '/$lang/success-story'
+    | '/$lang/exams/$examCategory'
+    | '/$lang/exams/$examCategory/$testSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -154,6 +176,8 @@ export interface FileRouteTypes {
     | '/$lang/profile'
     | '/$lang/resources'
     | '/$lang/success-story'
+    | '/$lang/exams/$examCategory'
+    | '/$lang/exams/$examCategory/$testSlug'
   id:
     | '__root__'
     | '/'
@@ -168,6 +192,8 @@ export interface FileRouteTypes {
     | '/$lang/profile/'
     | '/$lang/resources/'
     | '/$lang/success-story/'
+    | '/$lang/exams/$examCategory/'
+    | '/$lang/exams/$examCategory/$testSlug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -261,6 +287,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangCurrentAffairsIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/exams/$examCategory/': {
+      id: '/$lang/exams/$examCategory/'
+      path: '/exams/$examCategory'
+      fullPath: '/$lang/exams/$examCategory'
+      preLoaderRoute: typeof LangExamsExamCategoryIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/exams/$examCategory/$testSlug/': {
+      id: '/$lang/exams/$examCategory/$testSlug/'
+      path: '/exams/$examCategory/$testSlug'
+      fullPath: '/$lang/exams/$examCategory/$testSlug'
+      preLoaderRoute: typeof LangExamsExamCategoryTestSlugIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
   }
 }
 
@@ -275,6 +315,8 @@ interface LangRouteChildren {
   LangProfileIndexRoute: typeof LangProfileIndexRoute
   LangResourcesIndexRoute: typeof LangResourcesIndexRoute
   LangSuccessStoryIndexRoute: typeof LangSuccessStoryIndexRoute
+  LangExamsExamCategoryIndexRoute: typeof LangExamsExamCategoryIndexRoute
+  LangExamsExamCategoryTestSlugIndexRoute: typeof LangExamsExamCategoryTestSlugIndexRoute
 }
 
 const LangRouteChildren: LangRouteChildren = {
@@ -288,6 +330,9 @@ const LangRouteChildren: LangRouteChildren = {
   LangProfileIndexRoute: LangProfileIndexRoute,
   LangResourcesIndexRoute: LangResourcesIndexRoute,
   LangSuccessStoryIndexRoute: LangSuccessStoryIndexRoute,
+  LangExamsExamCategoryIndexRoute: LangExamsExamCategoryIndexRoute,
+  LangExamsExamCategoryTestSlugIndexRoute:
+    LangExamsExamCategoryTestSlugIndexRoute,
 }
 
 const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)

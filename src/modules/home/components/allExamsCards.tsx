@@ -3,6 +3,7 @@ import { homeAPI } from "@/api/services/getHomeData";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
 import { useQuery } from "@tanstack/react-query";
+import { Link, useParams } from "@tanstack/react-router";
 import { BookOpen, Clock, Languages, MoveRight } from "lucide-react";
 
 
@@ -11,6 +12,8 @@ interface PropsType{
 }
 export function AllExamsCards({slug}:PropsType) 
 {
+
+   const { lang } = useParams({ from:'/$lang' })
   // console.log("current slug is:",slug);
   
 
@@ -116,12 +119,20 @@ export function AllExamsCards({slug}:PropsType)
 
                 {/* CTA */}
                 <div>
-                  <button
+                  <Link
+                     to={'/$lang/exams/$examCategory/$testSlug'}
+                     params={
+                      {
+                        lang: lang ,
+                        examCategory: series.examCategory.slug,
+                        testSlug: series.slug
+                      }
+                     }
                     className='text-sm lg:text-base w-full flex justify-center items-center border-2 mt-6 mb-1
                      border-blue-500 text-blue-600 hover:bg-blue-700 hover:text-white px-2 sm:px-4 py-1.5 font-semibold rounded-md'
                   >
                     Start Test Series
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -7,9 +7,14 @@ export const homeQueryKey = createExtendedQueryKeys('home', {
 
     paidTestCategories: ()=> ['home', "paidTestCategories"] as const,
 
-    allTestSeries: (slug)=> ['home', slug] as const
+    allTestSeries: (slug)=> ['home', 'allTestSeries',slug] as const,
+
   }
 )
+
+export const testDescriptionKey = createExtendedQueryKeys('test',{
+  testDetails : (examCat,slug) => ['test','testDetails', examCat, slug] as const
+})
 
 // Auth query keys for authentication operations
 export const authQueryKeys = createExtendedQueryKeys('auth', {
@@ -24,5 +29,6 @@ export const authQueryKeys = createExtendedQueryKeys('auth', {
 
 export const queryKeys ={
     auth: authQueryKeys,
-    home: homeQueryKey
+    home: homeQueryKey,
+    testKey: testDescriptionKey
 }
