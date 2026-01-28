@@ -43,7 +43,7 @@ function WhyChoose() {
   }
 
   return (
-    <div className="w-full container px-4 py-2 mx-auto">
+    <div className="w-full container px-4 py-5 mx-auto">
       {/* HEADER */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

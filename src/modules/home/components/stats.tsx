@@ -34,7 +34,7 @@ function Stats() {
   const { lang } = useParams({ strict: false })
 
   return (
-    <div className="w-full px-4 py-6 md:py-12 container mx-auto">
+    <div className="w-full px-4 py-5 container mx-auto">
         {/* Stats Section */}
         <div className='text-start'>
         

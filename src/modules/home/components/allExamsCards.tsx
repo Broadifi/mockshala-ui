@@ -3,7 +3,7 @@ import { homeAPI } from "@/api/services/getHomeData";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
 import { useQuery } from "@tanstack/react-query";
-import { BookOpen, Clock, Languages, MoveRight, Target } from "lucide-react";
+import { BookOpen, Clock, Languages, MoveRight } from "lucide-react";
 
 
 interface PropsType{
@@ -42,19 +42,19 @@ export function AllExamsCards({slug}:PropsType)
   
   return (
    <section className='py-8 md:py-16 bg-gray-50 dark:bg-gray-900'>
-      <div className='container mx-auto px-4'>
+      <div className='container mx-auto '>
         {isLoading && <p>Loading...</p>}
         {error && <p>Error: {error.message}</p>}
 
        
-       
         {/* Test Series Grid - 2 rows with 4 columns */}
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6 xl:gap-10 mb-12'>
+        <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5 md:gap-6 xl:gap-10 
+        '>
           {/* Display 7 exam cards */}
           {displayData.map(series => (
             <div
               key={series._id}
-              className='flex flex-col border border-gray-200 p-3 gap-3
+              className='flex flex-col border border-gray-200 p-2 sm:p-3 gap-3
               rounded-lg group shadow-xs hover:shadow-sm transition-all duration-300 hover:scale-[1.02]'
             >
               <div className="py-2 ">
@@ -62,13 +62,13 @@ export function AllExamsCards({slug}:PropsType)
                 <ImageWithFallback
                   src={IMAGE_BASE_URL + series.image}
                   alt={series.name || 'Test series image'}
-                  className='w-full h-20 object-contain rounded-lg'
+                  className='w-full h-16 sm:h-20 object-contain rounded-lg'
                 />
                 </div>
               </div>
 
               <div className='flex-1 overflow-y-auto'>
-                <div className='text-lg font-semibold text-gray-700 group-hover:text-blue-600 transition-colors line-clamp-2'>
+                <div className='text-sm lg:text-lg font-semibold text-gray-700 group-hover:text-blue-600 transition-colors line-clamp-2'>
                   {formatName(series.name)}
                 </div>
               </div>
@@ -96,7 +96,7 @@ export function AllExamsCards({slug}:PropsType)
                   </div>
                 </div>
 
-                {/* Features */}
+                {/* Features
                 <div className='space-y-1 h-15 overflow-auto pt-2 border-t'>
                   <div className='flex flex-wrap gap-1'>
                     {Object.entries(series.countByTestType).map(
@@ -112,12 +112,13 @@ export function AllExamsCards({slug}:PropsType)
                       )
                     )}
                   </div>
-                </div>
+                </div> */}
 
                 {/* CTA */}
                 <div>
                   <button
-                    className='w-full flex justify-center items-center border-2 border-blue-600 text-blue-600 hover:bg-blue-700 hover:text-white px-4 py-1.5 font-semibold rounded-md'
+                    className='text-sm lg:text-base w-full flex justify-center items-center border-2 mt-6 mb-1
+                     border-blue-500 text-blue-600 hover:bg-blue-700 hover:text-white px-2 sm:px-4 py-1.5 font-semibold rounded-md'
                   >
                     Start Test Series
                   </button>
@@ -131,14 +132,14 @@ export function AllExamsCards({slug}:PropsType)
             <div
               className='group hover:shadow-lg transition-all duration-300 hover:scale-[1.02] 
               flex flex-col justify-center items-center gap-4 p-6
-              bg-gradient-to-br from-blue-100 via-violet-100 to-indigo-100 rounded-lg
+              bg-linear-to-br from-blue-100 via-violet-100 to-indigo-100 rounded-lg
               border border-gray-200'
             >
-              <span className='text-xl md:text-2xl text-blue-600 font-bold text-center'>
+              <span className='text-xl lg:text-2xl text-blue-600 font-bold text-center'>
                 +{remainingCount} More Tests
               </span>
               <button
-                className='bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2.5 
+                className='bg-linear-to-r from-blue-600 to-purple-600 px-4 lg:px-6 py-2 lg:py-2.5 
                   flex gap-2 justify-center items-center rounded-md text-white text-base font-semibold 
                   hover:from-blue-700 hover:to-purple-700 transition-all duration-300
                   shadow-md hover:shadow-lg'

@@ -9,13 +9,12 @@ import {
 } from "@/components/ui/carousel";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AllExamsCards } from "./allExamsCards";
 
 function AllTestSeries() {
   const [slug, setSlug] = useState<string | null>(null);
-  const [activeId, setActiveId] = useState<string | null>(null);
 
   const { data, isLoading } = useQuery({
     queryKey: queryKeys.home.paidTestCategories(),
@@ -25,12 +24,11 @@ function AllTestSeries() {
 
   const fetchFirstData = data?.data.featureCategories[0].slug;
 
-  // Set initial activeId when data loads
-  useEffect(() => {
-    if (data?.data.featureCategories[0]._id) {
-      setActiveId(data.data.featureCategories[0]._id);
-    }
-  }, [data]);
+  // Derive activeId from slug or use first category
+  const activeId =
+    data?.data.featureCategories.find((item) => item.slug === slug)?._id ??
+    data?.data.featureCategories[0]._id ??
+    null;
 
   //   console.log(fetchFirstData);
 
@@ -38,10 +36,8 @@ function AllTestSeries() {
 
   const [api, setApi] = useState<CarouselApi | null>(null);
 
-  const handleClick = (id: string, slug: string) => {
-    setActiveId(id);
+  const handleClick = (slug: string) => {
     setSlug(() => slug);
-    // console.log("Clicked with slug", slug);
   };
 
   return (
@@ -121,7 +117,7 @@ function AllTestSeries() {
                 <CarouselContent className="-ml-2">
                   {data?.data.featureCategories.map((item) => (
                     <CarouselItem key={item._id} className="pl-2 basis-auto">
-                      <button onClick={() => handleClick(item._id, item.slug)}>
+                      <button onClick={() => handleClick(item.slug)}>
                         <div
                           className={`${
                             activeId === item._id
