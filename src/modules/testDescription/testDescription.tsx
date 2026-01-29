@@ -69,12 +69,12 @@ function TestDescription() {
       <div>
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="flex gap-5">
-            <TabsTrigger value="All Tests">Overview</TabsTrigger>
+            <TabsTrigger value="All Tests">All Tests</TabsTrigger>
             <TabsTrigger value="Group by difficulty level">
-              Analytics
+              Group by difficulty level
             </TabsTrigger>
-            <TabsTrigger value="Group by test type">Reports</TabsTrigger>
-            <TabsTrigger value="Test description">Settings</TabsTrigger>
+            <TabsTrigger value="Group by test type">Group by test type</TabsTrigger>
+            <TabsTrigger value="Test description">Test description</TabsTrigger>
           </TabsList>
 
           <TabsContent value="All Tests">
