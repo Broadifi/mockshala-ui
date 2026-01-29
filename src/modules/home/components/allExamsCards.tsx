@@ -30,6 +30,7 @@ export function AllExamsCards({slug}:PropsType)
     const displayData = allExamData?.data?.slice(0, displayLimit) || [];
     const remainingCount = dataCount - displayLimit;
 
+    
     const formatName = (name?: string): string => {
     if (!name) return ''; 
     return String(name)
