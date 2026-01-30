@@ -15,24 +15,15 @@ import StartButton from "@/components/customButtoms/startButtom";
 import BuyNow from "@/components/customButtoms/buyNow";
 import { formatName } from "@/utils/formatting/formatName";
 import { formattingWord } from "@/utils/formatting/formattingWord";
-import { useTestDescriptionStore } from "@/stores/testStore";
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
+interface FilterDataProps {
+  filterData: TestDetailsData["tests"] | undefined;
 }
-function AllTests() {
 
-    const { testData }: StoreDataProps = useTestDescriptionStore();
-  // console.log("data is", testData);
+export function DifficultyTable({ filterData }: FilterDataProps) {
+  console.log("filter is", filterData);
 
-  const difficultyTextColor: Record<string, string> = {
-    beginner: "text-green-600",
-    intermediate: "text-orange-500",
-    pro: "text-red-600",
-  };
-
+  //  console.log(testData?.name);
   //Convert the time
 
   const formatDuration = (minutes: number): string => {
@@ -45,6 +36,12 @@ function AllTests() {
     if (remainingMinutes === 0) return `${hours} hr`;
 
     return `${hours} hr ${remainingMinutes} min`;
+  };
+
+  const difficultyTextColor: Record<string, string> = {
+    beginner: "text-green-600",
+    intermediate: "text-orange-500",
+    pro: "text-red-600",
   };
 
   return (
@@ -63,7 +60,7 @@ function AllTests() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {testData?.tests.map((item) => (
+          {filterData?.map((item) => (
             <TableRow key={item._id}>
               <TableCell
                 className={
@@ -81,8 +78,8 @@ function AllTests() {
               </TableCell>
 
               <TableCell className="pl-2 font-medium ">
-                <div className="max-w-xs w-full  truncate text-table-text-primary">
-                  <p title={item.name}>{formatName(item.name)}</p>
+                <div className="max-w-xs w-full truncate text-table-text-primary">
+                  <p title={formatName(item.name)}>{formatName(item.name)}</p>
                 </div>
               </TableCell>
               <TableCell className="text-center">
@@ -109,5 +106,3 @@ function AllTests() {
     </div>
   );
 }
-
-export default AllTests;

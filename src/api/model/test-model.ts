@@ -41,7 +41,8 @@ interface ExamCategory {
   updatedAt: string;
   updatedBy: string;
 }
-interface Test {
+
+export interface Test {
   publishedStatus: string;
   time: number;
   status: boolean;

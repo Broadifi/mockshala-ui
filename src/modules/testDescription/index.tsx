@@ -36,7 +36,7 @@ function DescriptionModule() {
     
   });
 
-  // console.log("data is",testData);
+  // console.log("data is",data);
   
   useEffect(() => {
     if (data?.data) {
@@ -82,7 +82,7 @@ function DescriptionModule() {
 
           {/* Header section */}
           <div className="  rounded-2xl
-            bg-white/10
+            bg-white/50
             backdrop-blur-2xl
             border border-white/60
             ring-1 ring-white/30
