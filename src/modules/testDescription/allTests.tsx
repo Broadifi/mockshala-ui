@@ -23,8 +23,7 @@ interface StoreDataProps {
   clearTestData: () => void;
 }
 function AllTests() {
-
-    const { testData }: StoreDataProps = useTestDescriptionStore();
+  const { testData }: StoreDataProps = useTestDescriptionStore();
   // console.log("data is", testData);
 
   const difficultyTextColor: Record<string, string> = {
@@ -48,10 +47,10 @@ function AllTests() {
   };
 
   return (
-    <div>
-      <Table>
+    <div className="h-[70vh] overflow-y-auto ">
+      <Table className="">
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader>
+        <TableHeader className="sticky top-0 z-50">
           <TableRow>
             <TableHead>Difficulty</TableHead>
             <TableHead className="text-center">Test Type</TableHead>

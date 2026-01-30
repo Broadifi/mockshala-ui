@@ -4,7 +4,7 @@ import { IMAGE_BASE_URL } from "@/api/url";
 import { question, testCount, validityImg } from "@/assets";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
-import { BookOpen, ChevronRight, FileText } from "lucide-react";
+import { BookOpen, ChevronRight, FileText, HeartPlus, Share2 } from "lucide-react";
 // import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { Badge } from "@/components/ui/badge";
 import TestDescription from "./testDescription";
@@ -143,6 +143,8 @@ function DescriptionModule() {
                   <span>{validity} months validity</span>
                 </div>
               </div>
+              
+           
             </div>
           </div>
 
@@ -214,6 +216,19 @@ function DescriptionModule() {
                       <p> {totalTests} mock tests</p>
                     </div>
                   </div>
+
+                     {/* Share and add to fav */}
+                    <div className="flex gap-8 pt-3 pb-5">
+                        <div className="flex gap-2 text-sm items-center">
+                          <Share2 size={18} className="text-gray-600"/>
+                          <p className="text-[#1e4064] ">Share Course</p>
+                        </div>
+
+                        <div className="flex gap-2 text-sm items-center">
+                          <HeartPlus size={18} className="text-gray-600"/>
+                          <p className="text-[#1e4064] ">Add to favorites</p>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
