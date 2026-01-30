@@ -47,10 +47,10 @@ function AllTests() {
   };
 
   return (
-    <div className="h-[70vh] overflow-y-auto ">
-      <Table className="">
+    <div className="w-full h-[70vh] overflow-hidden flex flex-col">
+      <Table className="w-full border-collapse">
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader className="sticky top-0 z-50">
+        <TableHeader className="sticky top-0 z-50 bg-white">
           <TableRow>
             <TableHead>Difficulty</TableHead>
             <TableHead className="text-center">Test Type</TableHead>
@@ -61,50 +61,56 @@ function AllTests() {
             <TableHead className="text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {testData?.tests.map((item) => (
-            <TableRow key={item._id}>
-              <TableCell
-                className={
-                  difficultyTextColor[item.difficultyLevel.toLowerCase()] ??
-                  "text-gray-600"
-                }
-              >
-                {formattingWord(item.difficultyLevel)}
-              </TableCell>
-
-              <TableCell className=" flex justify-center items-center">
-                <Badge variant={"secondary"}>
-                  {formattingWord(item.testType)}
-                </Badge>
-              </TableCell>
-
-              <TableCell className="pl-2 font-medium ">
-                <div className="max-w-xs w-full  truncate text-table-text-primary">
-                  <p title={item.name}>{formatName(item.name)}</p>
-                </div>
-              </TableCell>
-              <TableCell className="text-center">
-                {item.totalQuestions}
-              </TableCell>
-              <TableCell className="text-center">
-                {formatDuration(item.time)}
-              </TableCell>
-
-              <TableCell className="text-center">{item.highestScore}</TableCell>
-
-              <TableCell>
-                {item.isOpen ? (
-                  <StartButton title={"Start"} />
-                ) : (
-                  <BuyNow title={"Buy Now"} />
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter></TableFooter>
       </Table>
+      <div className="flex-1 overflow-y-auto scrollbar-hide">
+        <Table className="w-full border-collapse">
+          <TableBody>
+            {testData?.tests.map((item) => (
+              <TableRow key={item._id}>
+                <TableCell
+                  className={
+                    difficultyTextColor[item.difficultyLevel.toLowerCase()] ??
+                    "text-gray-600"
+                  }
+                >
+                  {formattingWord(item.difficultyLevel)}
+                </TableCell>
+
+                <TableCell className=" flex justify-center items-center">
+                  <Badge variant={"secondary"}>
+                    {formattingWord(item.testType)}
+                  </Badge>
+                </TableCell>
+
+                <TableCell className="pl-2 font-medium ">
+                  <div className="max-w-xs w-full  truncate text-table-text-primary">
+                    <p title={item.name}>{formatName(item.name)}</p>
+                  </div>
+                </TableCell>
+                <TableCell className="text-center">
+                  {item.totalQuestions}
+                </TableCell>
+                <TableCell className="text-center">
+                  {formatDuration(item.time)}
+                </TableCell>
+
+                <TableCell className="text-center">
+                  {item.highestScore}
+                </TableCell>
+
+                <TableCell>
+                  {item.isOpen ? (
+                    <StartButton title={"Start"} />
+                  ) : (
+                    <BuyNow title={"Buy Now"} />
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableFooter></TableFooter>
+        </Table>
+      </div>
     </div>
   );
 }
