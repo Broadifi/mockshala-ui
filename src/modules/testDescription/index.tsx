@@ -66,7 +66,7 @@ function DescriptionModule() {
       <div className="w-full  h-1/2">
         <div className="w-full container px-4 py-5 mx-auto">
           {/* bread crumbs   */}
-          <div className="flex gap-2 text-xs text-[#1B4965] items-center pb-8">
+          <div className="flex gap-2 text-xs text-[#1B4965] items-center pb-6 xl:pb-8">
             <span>Home</span>
             <ChevronRight size={18} />
 
@@ -81,12 +81,7 @@ function DescriptionModule() {
             <TestHeaderSkeleton />
           ) : (
             <div
-              className="  rounded-2xl
-            bg-white/50
-            backdrop-blur-2xl
-            border border-white/60
-            ring-1 ring-white/30
-            shadow-lg px-6 py-8 mb-6"
+             
             >
               {/* Title Section */}
               <TitleSection />
