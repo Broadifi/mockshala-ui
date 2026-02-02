@@ -126,7 +126,7 @@ function TitleSection() {
                   to-button-blue 
                   hover:from-blue-600 hover:to-blue-600 hover:shadow-md
                   text-white font-semibold
-                  transition-colors duration-200 hover:cursor-pointer"
+                  transition-colors duration-200 hover:cursor-pointer shadow-sm"
             >
               Buy Now
             </Button>      
@@ -168,15 +168,14 @@ function TitleSection() {
             <div className="flex items-center gap-2 text-sm">
               <img src={testCount} alt="questions" className="h-8 shadow-2xl" />
               <div>
-                {/* <p>Total tests</p> */}
-                <span>{totalTests} Total Tests</span>
+                 <h3><span className="text-lg font-semibold">{totalTests}</span> Total Tests</h3>
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
               <img src={question} alt="questions" className="h-8 shadow-2xl" />
 
-              <span>{totalQuestions} Total Questions</span>
+              <h3><span className="text-lg font-semibold">{totalQuestions}</span> Total Questions</h3>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
@@ -186,9 +185,10 @@ function TitleSection() {
                 className="h-6 shadow-2xl"
               />
 
-              <span>{validity} months validity</span>
+              <h3><span className="text-lg font-semibold">{validity}</span> Months Validity</h3>
             </div>
           </div>
+
         </div>
       </div>
     </div>
