@@ -5,6 +5,7 @@ import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "@tanstack/react-router";
 import { BookOpen, Clock, Languages, MoveRight } from "lucide-react";
+import { AllExamsCardsSkeleton } from "./skeleton/allExamsCardsSkeleton";
 
 
 interface PropsType{
@@ -47,7 +48,8 @@ export function AllExamsCards({slug}:PropsType)
   return (
    <section className='py-8 md:py-16 bg-gray-50 dark:bg-gray-900'>
       <div className='container mx-auto '>
-        {isLoading && <p>Loading...</p>}
+        {isLoading && <AllExamsCardsSkeleton/>}
+        
         {error && <p>Error: {error.message}</p>}
 
        
