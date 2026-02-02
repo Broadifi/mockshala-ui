@@ -7,10 +7,10 @@ function ButtonCustom({ title }: ButtonProps) {
   return (
     <div>
       <Button
-        className=" w-full bg-gradient-to-r from-button-blue
-         to-button-sky 
-        hover:from-blue-700 hover:to-blue-700 hover:shadow-md
-        text-white 
+        className=" w-full bg-gradient-to-r from-button-sky
+         to-button-blue 
+        hover:from-blue-600 hover:to-blue-600 hover:shadow-md
+        text-white font-semibold
         transition-colors duration-200 hover:cursor-pointer"
       >
         {title}

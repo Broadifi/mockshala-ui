@@ -95,8 +95,8 @@ body {
   --sidebar-ring: oklch(0.708 0 0);
   /* --color-primary: #1F3E72;
   --color-secondary: rgba(255, 255, 255, 0.78); */
-  --button-blue: oklch(54.6% 0.245 262.881);
-  --button-sky: oklch(58.8% 0.158 241.966);
+  --button-blue: oklch(0.60 0.28 258) ;
+  --button-sky: oklch(69.805% 0.1579 240.225);
   --table-text-primary : oklch(44.6% 0.03 256.802);
 }
 
