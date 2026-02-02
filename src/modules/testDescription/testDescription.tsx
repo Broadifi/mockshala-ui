@@ -12,12 +12,13 @@ interface StoreDataProps {
   setTestData: (data: TestDetailsData) => void;
   clearTestData: () => void;
 }
+
 function TestDescription() {
   const { testData }: StoreDataProps = useTestDescriptionStore();
   // console.log(testData?.name);
 
   return (
-    <div className="max-w-6xl w-full rounded-2xl border shadow-lg p-4 bg-white flex flex-col gap-3">
+    <div className="max-w-6xl w-full rounded-2xl border shadow-lg p-4 bg-white flex flex-col gap-3 overflow-x-auto">
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           <TabsList className="flex gap-5">
