@@ -30,13 +30,15 @@ function DescriptionModule() {
   //get the Setter function from zustand
   const {setTestData}: StoreDataProps = useTestDescriptionStore()
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
     queryFn: () => testAPI.getTestDetails(testSlug),
     
   });
 
   // console.log("data is",data);
+  console.log("isLoading",isLoading);
+  // console.log("is data", data);
   
   useEffect(() => {
     if (data?.data) {

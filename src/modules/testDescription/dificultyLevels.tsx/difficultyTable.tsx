@@ -21,7 +21,7 @@ interface FilterDataProps {
 }
 
 export function DifficultyTable({ filterData }: FilterDataProps) {
-  console.log("filter is", filterData);
+  // console.log("filter is", filterData);
 
   //  console.log(testData?.name);
   //Convert the time

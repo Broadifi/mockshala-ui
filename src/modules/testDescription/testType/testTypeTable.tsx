@@ -20,7 +20,7 @@ interface FilterDataProps {
 }
 
 export function TestTypeTable({ filterData }: FilterDataProps) {
-  console.log("filter is", filterData);
+  // console.log("filter is", filterData);
 
   //  console.log(testData?.name);
   //Convert the time
