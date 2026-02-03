@@ -5,7 +5,7 @@ import type { TestDetailsData } from "@/api/model/test-model";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Clock } from "lucide-react";
+import { ArrowRight, Clock, HeartPlus, Share2 } from "lucide-react";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -43,12 +43,12 @@ function TitleSection() {
       >
         {/* Image and Header */}
         <div className="flex gap-4 mb-3 items-center">
-          <div className="">
-            <div className=" w-full rounded-full  h-16 sm:h-20 p-2 relative overflow-hidden">
+          <div className="shrink-0">
+            <div className="rounded-full h-16 sm:h-20 w-16 sm:-20 p-2 relative overflow-hidden ">
               <img
                 src={IMAGE_BASE_URL + fetchTestData?.image}
                 alt={fetchTestData?.name || "Test series image"}
-                className="object-contain rounded-full h-full w-full relative z-20"
+                className="object-contain rounded-full h-full w-full relative z-20 "
               />
 
               <img
@@ -59,7 +59,7 @@ function TitleSection() {
             </div>
           </div>
 
-          <div >
+          <div>
             <h1 className="text-xl sm:text-2xl text-[#002966] text-shadow-xs  font-medium">
               {fetchTestData?.name}
             </h1>
@@ -82,57 +82,62 @@ function TitleSection() {
             <span>{totalQuestions} Total Questions</span>
           </div>
 
-           <div className="hidden sm:flex items-center gap-2 text-sm">
-              <img
-                src={validityImg}
-                alt="questions"
-                className="h-5 shadow-2xl"
-              />
+          <div className="hidden sm:flex items-center gap-2 text-sm">
+            <img src={validityImg} alt="questions" className="h-5 shadow-2xl" />
 
-              <span>{validity} months validity</span>
-            </div>
+            <span>{validity} months validity</span>
+          </div>
         </div>
 
-        {/* Price and buy now */}  
-          <div className=" mb-3 flex justify-between">
-            <div>
-              <div className="flex items-center gap-2">
-                <p className="text-xl font-bold text-button-blue">₹700</p>
-                <p className="text-gray-500 line-through text-base ">
-                  ₹{1000}
-                </p>
-              </div>
-
-              <div className="flex ">   
-                <Badge className="bg-green-600 text-white">30% off</Badge>
-              </div>
+        {/* Price and buy now */}
+        <div className=" mb-3 flex justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <p className="text-xl font-bold text-button-blue">₹700</p>
+              <p className="text-gray-500 line-through text-base ">₹{1000}</p>
             </div>
 
-            <div className="flex sm:hidden items-end">
-              <div className="flex items-center gap-1 text-gray-600 text-sm">
-                <Clock size={14} className="text-button-blue"/>
-                <p className="text-[#002966]">{validity} months{" "}</p>
-              </div>
+            <div className="flex ">
+              <Badge className="bg-green-600 text-white">30% off</Badge>
             </div>
-
           </div>
-      
 
-        <div className="mb-2">
+          <div className="flex sm:hidden items-end">
+            <div className="flex items-center gap-1 text-gray-600 text-sm">
+              <Clock size={14} className="text-button-blue" />
+              <p className="text-[#002966]">{validity} months </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-5">
           {/* Buy Now */}
-         
-            <Button
-              className="w-full bg-gradient-to-r from-button-sky text-lg
+
+          <Button
+            className="w-full sm:w-auto px-5 bg-gradient-to-r from-button-sky text-base
                   to-button-blue 
                   hover:from-blue-600 hover:to-blue-600 hover:shadow-md
                   text-white font-semibold
                   transition-colors duration-200 hover:cursor-pointer shadow-sm"
-            >
-              Buy Now
-            </Button>      
-          
+          >
+            Buy Now
+          </Button>
         </div>
 
+        {/* save and share */}
+        <div className="flex justify-between items-center">
+            
+                <Button variant={"ghost"} className="text-gray-600">Read Full Description
+                  <ArrowRight />
+                </Button>
+                 
+           
+            <div className="flex gap-4 ">
+              <HeartPlus size={18} className="text-gray-600" />
+              <Share2 size={18} className="text-gray-600" />                     
+          </div>
+        </div>
+        
       </div>
 
       {/* Above large screen */}
@@ -168,14 +173,20 @@ function TitleSection() {
             <div className="flex items-center gap-2 text-sm">
               <img src={testCount} alt="questions" className="h-8 shadow-2xl" />
               <div>
-                 <h3><span className="text-lg font-semibold">{totalTests}</span> Total Tests</h3>
+                <h3>
+                  <span className="text-lg font-semibold">{totalTests}</span>{" "}
+                  Total Tests
+                </h3>
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
               <img src={question} alt="questions" className="h-8 shadow-2xl" />
 
-              <h3><span className="text-lg font-semibold">{totalQuestions}</span> Total Questions</h3>
+              <h3>
+                <span className="text-lg font-semibold">{totalQuestions}</span>{" "}
+                Total Questions
+              </h3>
             </div>
 
             <div className="flex items-center gap-2 text-sm">
@@ -185,10 +196,12 @@ function TitleSection() {
                 className="h-6 shadow-2xl"
               />
 
-              <h3><span className="text-lg font-semibold">{validity}</span> Months Validity</h3>
+              <h3>
+                <span className="text-lg font-semibold">{validity}</span> Months
+                Validity
+              </h3>
             </div>
           </div>
-
         </div>
       </div>
     </div>

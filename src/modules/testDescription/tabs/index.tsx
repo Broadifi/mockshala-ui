@@ -76,12 +76,13 @@ export function TabsByType({ formatCategory, formatType }: DifficultyProps) {
       </TabsList>
 
       {formatCategory.map((item: string) => (
-        <TabsContent key={item} value={item}>
+        <TabsContent key={item} value={item} 
+          >
           <Card>
             {/* <CardHeader>
               <CardTitle className="text-[#002966]">{item} Level</CardTitle>
             </CardHeader> */}
-            <CardContent className="text-muted-foreground text-sm">
+            <CardContent className="text-muted-foreground text-sm ">
               {formatType === "difficulty" ? (
                 <DifficultyTable filterData={finalFilterData ?? []} />
               ) : (

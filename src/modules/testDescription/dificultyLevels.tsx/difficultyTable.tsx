@@ -45,7 +45,7 @@ export function DifficultyTable({ filterData }: FilterDataProps) {
   // };
 
   return (
-    <div className="w-full h-[70vh] overflow-y-auto flex flex-col">
+    <div className="w-full h-[70vh] overflow-y-auto flex flex-col ">
       <Table className="w-full border-collapse ">
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader className="sticky top-0 z-50 bg-white">

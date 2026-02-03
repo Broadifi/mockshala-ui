@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AllTests from "./allTests.tsx";
 import GroupByDifficulty from "./dificultyLevels.tsx/index.tsx";
-import GroupByTestType from "./testTypes.tsx/index.tsx";
+import GroupByTestType from "./testTypes/index.tsx";
 import HtmlSetter from "../home/components/htmlSetter.tsx";
 import { useTestDescriptionStore } from "@/stores/testStore.ts";
 import type { TestDetailsData } from "@/api/model/test-model.ts";
@@ -18,7 +18,7 @@ function TestDescription() {
   // console.log(testData?.name);
 
   return (
-    <div className="max-w-6xl w-full rounded-2xl border p-4 bg-white flex flex-col gap-3 overflow-x-auto">
+    <div className=" max-w-6xl w-full rounded-2xl border p-4 bg-white  flex-col gap-3 overflow-x-auto">
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           <TabsList className="flex gap-5">
