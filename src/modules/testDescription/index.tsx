@@ -73,7 +73,7 @@ function DescriptionModule() {
             <span>Exams</span>
             <ChevronRight size={18} />
 
-            <span>MPPSC Mock Test</span>
+            <span className="text-button-blue">MPPSC Mock Test</span>
           </div>
 
           {/* Header section */}
