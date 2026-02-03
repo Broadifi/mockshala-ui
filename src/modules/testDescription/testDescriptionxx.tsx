@@ -14,7 +14,7 @@ function TestDescriptionxx() {
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
-          <div className="relative -mx-4 px-4 py-3 overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0">
+          <div className="relative -mx-4 px-4  overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-1 mt-6 ">
             <TabsList className="bg-soft-blue-gradient inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2">
               <TabsTrigger
                 value="All Tests"
@@ -44,12 +44,12 @@ function TestDescriptionxx() {
           </div>
 
           {/* All Tests */}
-          <TabsContent value="All Tests" className="border-0 shadow-none ">
-            <Card className="border-0  shadow-none bg-soft-blue-gradient ">
+          <TabsContent value="All Tests" className="border-0 shadow-none  ">
+            <Card className="border-0  shadow-none bg-soft-blue-gradient py-4 md:py-6">
               <CardHeader className="px-0">
                 <CardTitle className="text-card-header-darkblue ">{`Available Tests(${testData?.tests.length})`}</CardTitle>
               </CardHeader>
-              <CardContent className="text-muted-foreground text-sm px-0 ">
+              <CardContent className="text-muted-foreground text-sm px-0 py-0">
                 <AllTests />
               </CardContent>
             </Card>
@@ -57,11 +57,11 @@ function TestDescriptionxx() {
 
           {/* Group by difficulty */}
           <TabsContent value="Group by difficulty level">
-            <Card className="border-0  shadow-none bg-soft-blue-gradient ">
+            <Card className="border-0  shadow-none bg-soft-blue-gradient py-4 md:py-6">
               <CardHeader className="px-0">
                 <CardTitle className="text-card-header-darkblue ">Choose Difficulty Level</CardTitle>
               </CardHeader>
-              <CardContent className="py-0 px-0">
+              <CardContent className=" px-0">
                 <GroupByDifficulty />
               </CardContent>
             </Card>
@@ -69,10 +69,11 @@ function TestDescriptionxx() {
 
           {/* Group by test type */}
           <TabsContent value="Group by test type">
-            <CardHeader className="px-0 ">
+            
+            <Card className="border-0  shadow-none bg-soft-blue-gradient py-4 md:py-6">
+              <CardHeader className="px-0 ">
                 <CardTitle className="text-card-header-darkblue ">Choose Test Types</CardTitle>
               </CardHeader>
-            <Card className="border-0  shadow-none bg-soft-blue-gradient ">
               <CardContent className="text-muted-foreground text-sm overflow-x-auto px-0">
                 <GroupByTestType />
               </CardContent>
