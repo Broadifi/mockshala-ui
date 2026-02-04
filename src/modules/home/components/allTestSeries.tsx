@@ -30,7 +30,7 @@ function AllTestSeries() {
     data?.data.featureCategories[0]._id ??
     null;
 
-  //   console.log(fetchFirstData);
+    // console.log(fetchFirstData);
 
   const { t } = useTranslation();
 

@@ -29,6 +29,13 @@ const DescriptionModal: React.FC<ModalProps> = ({ onClose, children }) => {
         <h1 className="text-xl text-title-darkblue text-shadow-lg font-semibold pb-3 place-self-start">
           Full Description
         </h1>
+
+         {/* <div className="mb-3 place-self-start bg-gray-200 rounded-lg px-2 py-1">
+             <h1 className=" text-xl text-title-darkblue text-shadow-lg font-semibold ">
+          Full Description
+        </h1>
+        </div> */}
+
         <div
           className="w-full h-full mx-4 bg-gray-100 shadow-lg rounded-xl border
          border-white overflow-y-scroll md:overflow-auto"

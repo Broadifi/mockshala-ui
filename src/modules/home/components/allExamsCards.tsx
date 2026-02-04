@@ -25,7 +25,7 @@ export function AllExamsCards({slug}:PropsType)
         enabled: !!slug
     })
 
-    // console.log(allExamData);
+    //  console.log(allExamData);
 
     const dataCount = allExamData?.totalCount || 0;
     const displayLimit = 7; // Show only 7 exam cards

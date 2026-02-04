@@ -71,7 +71,6 @@ function DescriptionModule() {
 
   // console.log(IMAGE_BASE_URL + fetchTestData?.image);
 
-  
   return (
     <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
       <div className="w-full  h-1/2">
@@ -98,7 +97,9 @@ function DescriptionModule() {
 
 
           {/* Description section */}
-          <div className="grid grid-rows-2 lg:grid-cols-12 gap-7">
+
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
             {/* Description Section */}
             <div className="col-span-9 overflow-x-auto">
               {width ? <TestDescription /> : <TestDescriptionMobile />}
