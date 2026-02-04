@@ -23,7 +23,7 @@ const DescriptionModal: React.FC<ModalProps> = ({ onClose, children }) => {
           className="place-self-end mt-5 mb-2 cursor-pointer"
         >
           <div className="bg-gray-200 rounded-lg p-1">
-            <X size={25} className="text-gray-700"/>
+            <X size={22} className="text-gray-700"/>
           </div>
         </button>
         <h1 className="text-xl text-title-darkblue text-shadow-lg font-semibold pb-3 place-self-start">

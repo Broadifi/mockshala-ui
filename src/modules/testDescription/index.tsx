@@ -6,7 +6,7 @@ import { useParams } from "@tanstack/react-router";
 
 // import { ImageWithFallback } from "../fallback/ImageWithFallback";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
@@ -29,6 +29,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { StickyTestHeader } from "./stickyTestHeader";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -44,6 +45,27 @@ function DescriptionModule() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   });
 
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
+
+  useEffect(() => {
+    if (!headerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowStickyHeader(!entry.isIntersecting);
+      },
+      {
+        threshold: 0,
+        rootMargin: "-64px 0px 0px 0px", // offset for header height
+      },
+    );
+
+    observer.observe(headerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  //Fetch params
   const { examCategory, testSlug, lang } = useParams({
     from: "/$lang/exams/$examCategory/$testSlug/",
   });
@@ -66,8 +88,6 @@ function DescriptionModule() {
     }
   }, [data, setTestData]);
 
-
-
   return (
     <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
       <div className="w-full  h-1/2">
@@ -84,8 +104,10 @@ function DescriptionModule() {
                 <BreadcrumbLink href={`/${lang}/exams`}>Exams</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-              <BreadcrumbItem >
-                <BreadcrumbPage className="text-button-blue">{data?.data.name}</BreadcrumbPage>
+              <BreadcrumbItem>
+                <BreadcrumbPage className="text-button-blue">
+                  {data?.data.name}
+                </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -104,11 +126,25 @@ function DescriptionModule() {
           {isLoading &&
             (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
 
-          {!isLoading && (
-            <div>
-              <TitleSection />
-            </div>
-          )}
+          {/* Sticky header */}
+          {/* <div
+            className={`
+            fixed top-0 left-0 right-0 z-50
+            transition-transform duration-300
+            ${showStickyHeader ? "translate-y-0" : "-translate-y-full"}
+          `}
+          >
+            <StickyTestHeader title={data?.data.name ?? ""} />
+          </div> */}
+
+          {/* Spacer to avoid content jump */}
+          {/* <div className={showStickyHeader ? "pt-12" : ""} /> */}
+
+          {/* OBSERVER SENTINEL */}
+          <div ref={headerRef} />
+
+          {/* Main Header */}
+          {!isLoading && <TitleSection />}
 
           {/* Description section */}
 
