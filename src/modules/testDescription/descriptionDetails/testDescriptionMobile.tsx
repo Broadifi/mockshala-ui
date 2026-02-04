@@ -9,13 +9,21 @@ import { useTestDescriptionStore } from "@/stores/testStore.ts";
 function TestDescriptionMobile() {
   const { testData } = useTestDescriptionStore();
 
+  const allTestLength = () => {
+    if (testData?.tests.length == undefined) {
+      return "Loading...";
+    } else {
+      return testData?.tests.length;
+    }
+  };
+
   return (
     <div className="w-full flex-col gap-3 bg-soft-blue-gradient ">
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
-          <div className="relative  overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
-            <TabsList className="bg-soft-blue-gradient inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2">
+          <div className="overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
+            <TabsList className="bg-soft-blue-gradient inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2 ">
               <TabsTrigger
                 value="All Tests"
                 className="whitespace-nowrap shrink-0 rounded-full p-4 data-[state=active]:bg-blue-600 bg-white data-[state=active]:text-white"
@@ -47,7 +55,7 @@ function TestDescriptionMobile() {
           <TabsContent value="All Tests" className="border-0 shadow-none  ">
             <Card className="border-0  shadow-none bg-soft-blue-gradient py-4 md:py-6">
               <div>
-                <h3 className="text-card-header-darkblue font-semibold tracking-wide">{`Available Tests(${testData?.tests.length})`}</h3>
+                <h3 className="text-card-header-darkblue font-semibold tracking-wide">{`Available Tests(${allTestLength()})`}</h3>
               </div>
               <AllTests />
             </Card>

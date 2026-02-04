@@ -19,6 +19,7 @@ import { useParams } from "@tanstack/react-router";
 import { queryClient } from "@/main";
 import { testDescriptionKey } from "@/api";
 import AllTestMobile from "./allTestMobile";
+import MobileAllTestCardSkeleton from "../skeleton/mobileAllTestCardSkeleton";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -64,8 +65,10 @@ function AllTests() {
   return (
     <div>
       {/* For mobile and tablet screen */}
-      <div className="flex lg:hidden">
+      <div className="flex lg:hidden">{
+        state?.status === "pending" ? <MobileAllTestCardSkeleton /> :
         <AllTestMobile filteredTests={testData?.tests} />
+        }
       </div>
 
       <div className="w-full h-[70vh] overflow-y-auto flex flex-col">

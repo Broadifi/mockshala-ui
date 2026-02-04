@@ -26,6 +26,7 @@ import BuyNowSkeleton from "./skeleton/buyCardSkeleton";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import TestDescription from "./descriptionDetails/testDescription";
 import TestDescriptionMobile from "./descriptionDetails/testDescriptionMobile";
+import MobileTestHeaderSkeleton from "./skeleton/mobileTestHeaderSkeleton";
 
 
 interface StoreDataProps {
@@ -70,6 +71,7 @@ function DescriptionModule() {
 
   // console.log(IMAGE_BASE_URL + fetchTestData?.image);
 
+  
   return (
     <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
       <div className="w-full  h-1/2">
@@ -86,14 +88,14 @@ function DescriptionModule() {
           </div>
 
           {/* Header section */}
-          {isLoading ? (
-            <TestHeaderSkeleton />
-          ) : (
+         {isLoading && (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
+
+          {!isLoading && (
             <div>
-              {/* Title Section */}
               <TitleSection />
             </div>
           )}
+
 
           {/* Description section */}
           <div className="grid grid-rows-2 lg:grid-cols-12 gap-7">

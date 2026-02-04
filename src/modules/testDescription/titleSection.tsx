@@ -6,6 +6,7 @@ import { IMAGE_BASE_URL } from "@/api/url";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, HeartPlus, Share2 } from "lucide-react";
+import { formatToK } from "@/utils/formatting/formatNumber";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -23,7 +24,7 @@ function TitleSection() {
   const totalQuestions = fetchTestData?.tests.reduce(
     (sum, test) => sum + test.totalQuestions,
     0,
-  );
+  ) ?? 0;
 
   let time = 0;
   if (fetchTestData) {
@@ -79,7 +80,7 @@ function TitleSection() {
           <div className="flex items-center gap-2 text-sm">
             <img src={question} alt="questions" className="h-6 shadow-2xl" />
 
-            <span>{totalQuestions} Total Questions</span>
+            <span>{formatToK(totalQuestions)} Total Questions</span>
           </div>
 
           <div className="hidden sm:flex items-center gap-2 text-sm">
@@ -184,7 +185,7 @@ function TitleSection() {
               <img src={question} alt="questions" className="h-8 shadow-2xl" />
 
               <h3>
-                <span className="text-lg font-semibold">{totalQuestions}</span>{" "}
+                <span className="text-lg font-semibold">{formatToK(totalQuestions)}</span>{" "}
                 Total Questions
               </h3>
             </div>

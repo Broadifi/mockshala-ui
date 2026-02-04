@@ -70,7 +70,7 @@ export function TabsByTypeMobile({ formatCategory, formatType }: DifficultyProps
       orientation="horizontal"
       className="w-full"
     >
-      <div className="relative overflow-x-auto scrollbar-hide lg:overflow-x-visible">
+      <div className="overflow-x-auto scrollbar-hide lg:overflow-x-visible ">
       <TabsList>
         {formatCategory.map((item: string) => (
           <TabsTrigger value={item} key={item}>
