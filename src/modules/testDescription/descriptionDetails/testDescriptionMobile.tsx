@@ -10,11 +10,11 @@ function TestDescriptionMobile() {
   const { testData } = useTestDescriptionStore();
 
   return (
-    <div className="max-w-6xl w-full flex-col gap-3 bg-soft-blue-gradient ">
+    <div className="w-full flex-col gap-3 bg-soft-blue-gradient ">
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
-          <div className="relative -mx-4 px-4  overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
+          <div className="relative  overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
             <TabsList className="bg-soft-blue-gradient inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2">
               <TabsTrigger
                 value="All Tests"
