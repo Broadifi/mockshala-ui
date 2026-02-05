@@ -9,6 +9,8 @@ export const homeQueryKey = createExtendedQueryKeys('home', {
 
     allTestSeries: (slug)=> ['home', 'allTestSeries',slug] as const,
 
+    currentAffairs: ()=> ['home', 'currentAffairs'] as const,
+
   }
 )
 

@@ -22,6 +22,10 @@
   "allTestSeries":{
     "title": "All Test Series",
     "subtitle": "Join thousands of successful students with our expertly designed test series for various competitive examinations"
+  },
+  "currentAffairs":{
+    "title": "Current Affairs",
+    "subtitle": "Stay updated with daily news analysis & editorials"
   }
 
 }

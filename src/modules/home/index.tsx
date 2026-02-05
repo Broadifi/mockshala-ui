@@ -1,4 +1,5 @@
 import AllTestSeries from "./components/allTestSeries";
+import CurrentAffairs from "./components/currentAffairs";
 import Hero from "./components/hero";
 import PopularExam from "./components/popularExam";
 import Stats from "./components/stats";
@@ -10,6 +11,7 @@ function HomeModule() {
       <Hero />
       
       <PopularExam/>
+      <CurrentAffairs />
       <WhyChoose />
       <AllTestSeries />
       <Stats/>

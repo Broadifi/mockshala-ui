@@ -14,8 +14,6 @@ import { IMAGE_BASE_URL } from "@/api/url";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 
-
-
 function PopularExam() {
 
    //for translation

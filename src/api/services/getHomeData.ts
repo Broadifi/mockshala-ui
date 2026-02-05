@@ -1,4 +1,4 @@
-import type { AllExamResponse, BannerResponse, DashboardPaidCategoriesResponse, PopularTestResponse } from "../model/home-model";
+import type { AllExamResponse, BannerResponse, CurrentAffairsResponse, DashboardPaidCategoriesResponse, PopularTestResponse } from "../model/home-model";
 import axios, { type AxiosResponse } from 'axios'
 import { apiUrl, BASE_URL } from "../url";
 import api from ".";
@@ -30,5 +30,12 @@ export const homeAPI = {
             await api.get(apiUrl.allExamData(examCategory))
 
         return response.data
-    }
+    },
+
+    getCurrentAffairsData:  async (): Promise<CurrentAffairsResponse> => {
+        const response: AxiosResponse<CurrentAffairsResponse> = 
+            await api.get(apiUrl.currentAffairs())
+
+        return response.data
+    },
 }

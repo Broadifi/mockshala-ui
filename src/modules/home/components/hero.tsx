@@ -65,6 +65,8 @@ export default function Hero() {
     };
   }, [api]);
 
+
+  //Handel mouse event
   const handleMouseEnter = () => {
     autoplay.current.stop();
   };

@@ -6,7 +6,7 @@ import { useParams } from "@tanstack/react-router";
 
 // import { ImageWithFallback } from "../fallback/ImageWithFallback";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
@@ -29,7 +29,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { StickyTestHeader } from "./stickyTestHeader";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -41,29 +40,11 @@ function DescriptionModule() {
   const width = useBreakpoints("lg");
   // console.log("width",width);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  });
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  // });
 
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const [showStickyHeader, setShowStickyHeader] = useState(false);
-
-  useEffect(() => {
-    if (!headerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowStickyHeader(!entry.isIntersecting);
-      },
-      {
-        threshold: 0,
-        rootMargin: "-64px 0px 0px 0px", // offset for header height
-      },
-    );
-
-    observer.observe(headerRef.current);
-    return () => observer.disconnect();
-  }, []);
+  // const [showStickyHeader, setShowStickyHeader] = useState(false);
 
   //Fetch params
   const { examCategory, testSlug, lang } = useParams({
@@ -88,81 +69,86 @@ function DescriptionModule() {
     }
   }, [data, setTestData]);
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 20) {
+  //       console.log("testimggh");
+
+  //       setShowStickyHeader(true);
+  //     } else {
+  //       setShowStickyHeader(false);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   // run once on mount (important if page loads already scrolled)
+  //   handleScroll();
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
   return (
-    <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
-      <div className="w-full  h-1/2">
-        <div className="w-full container px-4 py-5 mx-auto">
-          {/* bread crumbs   */}
+    <>
+    {/* sticky header */}
+      {/* {
+        <div
+          className={`bg-amber-300 p-5 z-50 shadow-2xl ${showStickyHeader ? "sticky top-13 md:top-15 lg:top-16 flex" : "hidden"}`}
+        >
+          Sticky Header
+        </div>
+      } */}
 
-          <Breadcrumb>
-            <BreadcrumbList className="text-xs md:text-sm text-[#1B4965] items-center pb-6 xl:pb-8">
-              <BreadcrumbItem>
-                <BreadcrumbLink href={`/${lang}/`}>Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink href={`/${lang}/exams`}>Exams</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage className="text-button-blue">
-                  {data?.data.name}
-                </BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+      <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
+        <div className="w-full  h-1/2">
+          <div className="w-full container px-4 py-5 mx-auto">
+            {/* bread crumbs   */}
 
-          {/* <div className="flex gap-2 text-xs text-[#1B4965] items-center pb-6 xl:pb-8">
-            <span>Home</span>
-            <ChevronRight size={18} />
+            <Breadcrumb>
+              <BreadcrumbList className="text-xs md:text-sm text-[#1B4965] items-center pb-6 xl:pb-8">
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/${lang}/`}>Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/${lang}/exams`}>Exams</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="text-button-blue">
+                    {data?.data.name}
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
 
-            <span>Exams</span>
-            <ChevronRight size={18} />
+            {/* Header section */}
+            {isLoading &&
+              (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
 
-            <span className="text-button-blue">MPPSC Mock Test</span>
-          </div> */}
+            {/* Main Header */}
+            {!isLoading && <TitleSection />}
 
-          {/* Header section */}
-          {isLoading &&
-            (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
+            {/* Description section */}
 
-          {/* Sticky header */}
-          {/* <div
-            className={`
-            fixed top-0 left-0 right-0 z-50
-            transition-transform duration-300
-            ${showStickyHeader ? "translate-y-0" : "-translate-y-full"}
-          `}
-          >
-            <StickyTestHeader title={data?.data.name ?? ""} />
-          </div> */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
+              {/* Description Section */}
+              <div className="col-span-9 overflow-x-auto">
+                {width ? <TestDescription /> : <TestDescriptionMobile />}
+              </div>
 
-          {/* Spacer to avoid content jump */}
-          {/* <div className={showStickyHeader ? "pt-12" : ""} /> */}
+              {/* Buy Now section */}
 
-          {/* OBSERVER SENTINEL */}
-          <div ref={headerRef} />
-
-          {/* Main Header */}
-          {!isLoading && <TitleSection />}
-
-          {/* Description section */}
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
-            {/* Description Section */}
-            <div className="col-span-9 overflow-x-auto">
-              {width ? <TestDescription /> : <TestDescriptionMobile />}
-            </div>
-
-            {/* Buy Now section */}
-
-            <div className=" col-span-3 lg:-mt-64 lg:mr-5 lg:z-10 ">
-              {isLoading ? <BuyNowSkeleton /> : <BuyNowSection />}
+              <div className=" col-span-3 lg:-mt-64 lg:mr-5 lg:z-10 ">
+                {isLoading ? <BuyNowSkeleton /> : <BuyNowSection />}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
