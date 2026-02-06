@@ -57,6 +57,7 @@ export function CurrentAffairs() {
           </p>
         </div>
 
+      {/* testing */}
         <div className="flex items-center">
           <Link to="/$lang/current-affairs" params={{ lang: baseLanguage }}>
             <button
@@ -66,6 +67,7 @@ export function CurrentAffairs() {
             >
               View All
               <ArrowRight size={17} />
+              
             </button>
           </Link>
         </div>
