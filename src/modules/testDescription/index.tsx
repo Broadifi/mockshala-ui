@@ -6,8 +6,6 @@ import { useParams } from "@tanstack/react-router";
 
 // import { ImageWithFallback } from "../fallback/ImageWithFallback";
 
-import { useEffect, useRef, useState } from "react";
-
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
 
@@ -29,7 +27,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { StickyTestHeader } from "./stickyTestHeader";
+import { useEffect } from "react";
+
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -45,25 +44,6 @@ function DescriptionModule() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   });
 
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const [showStickyHeader, setShowStickyHeader] = useState(false);
-
-  useEffect(() => {
-    if (!headerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowStickyHeader(!entry.isIntersecting);
-      },
-      {
-        threshold: 0,
-        rootMargin: "-64px 0px 0px 0px", // offset for header height
-      },
-    );
-
-    observer.observe(headerRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   //Fetch params
   const { examCategory, testSlug, lang } = useParams({
@@ -126,22 +106,6 @@ function DescriptionModule() {
           {isLoading &&
             (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
 
-          {/* Sticky header */}
-          {/* <div
-            className={`
-            fixed top-0 left-0 right-0 z-50
-            transition-transform duration-300
-            ${showStickyHeader ? "translate-y-0" : "-translate-y-full"}
-          `}
-          >
-            <StickyTestHeader title={data?.data.name ?? ""} />
-          </div> */}
-
-          {/* Spacer to avoid content jump */}
-          {/* <div className={showStickyHeader ? "pt-12" : ""} /> */}
-
-          {/* OBSERVER SENTINEL */}
-          <div ref={headerRef} />
 
           {/* Main Header */}
           {!isLoading && <TitleSection />}
