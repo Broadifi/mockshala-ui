@@ -1,27 +1,37 @@
-import { useSearch, useNavigate } from '@tanstack/react-router';
-import { Tag } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useSearch, useNavigate } from "@tanstack/react-router";
+import { Tag } from "lucide-react";
+import { useState, useEffect } from "react";
 
-import { Card } from '@/components/ui/card';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 
-import { DatePicker } from '@/modules/current-affairs/components/datePicker';
-import { LanguageSelector } from '@/modules/current-affairs/components/languageSelector';
-import type { CurrentAffairsAllFlagsData} from '@/api/model/current-affairs';
+import { DatePicker } from "@/modules/current-affairs/components/datePicker";
+import { LanguageSelector } from "@/modules/current-affairs/components/languageSelector";
+import type { CurrentAffairsAllFlagsData } from "@/api/model/current-affairs";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-
-interface FilterProps{
-  filters: CurrentAffairsAllFlagsData[]
+interface FilterProps {
+  filters: CurrentAffairsAllFlagsData[];
 }
 
-export default function FilterCurrentAffairs({filters}:FilterProps) {
+export default function FilterCurrentAffairs({ filters }: FilterProps) {
+  // console.log("filterrr", filters);
 
-  // console.log("filterrr",filters);
+  const navigate = useNavigate({ from: "/$lang/current-affairs" });
 
-  const navigate = useNavigate({ from: '/$lang/current-affairs' });
+  const search = useSearch({ from: "/$lang/current-affairs/" });
+  // console.log("serach Tag is", search.tags);
 
-  const search = useSearch({ from: '/$lang/current-affairs/' });
   const [selectedTags, setSelectedTags] = useState<string[]>(search.tags || []);
+
+  //Handel search
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = () => {
+    console.log("Search text:", searchText);
+  };
 
   useEffect(() => {
     navigate({
@@ -43,41 +53,58 @@ export default function FilterCurrentAffairs({filters}:FilterProps) {
   }, [search.tags]);
 
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev =>
-      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
   return (
-    <Card className='w-[16rem] p-4 flex-col gap-4 sticky top-22 h-fit hidden lg:flex'>
-      <h2 className='text-lg font-bold text-title-darkblue tracking-wider'>Filters</h2>
+    <Card className="w-[18rem] p-4 flex-col gap-4 sticky top-22 h-fit hidden lg:flex">
+      <h2 className="text-lg font-bold text-title-darkblue tracking-wider">
+        Filters
+      </h2>
       <DatePicker />
       <LanguageSelector labelHidden={true} />
-      <div>
-        <div className='font-semibold text-zinc-800 flex gap-1 items-center'>
-          <Tag size={15} className='font-semibold' />
-          <p>Select Tags</p>
+
+      {/* Tag section */}
+
+      <div className="mt-2">
+        <div className="mb-4">
+          <Field orientation="horizontal">
+            <Input
+              type="search"
+              placeholder="Search Tag..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <Button onClick={handleSearch}>Search</Button>
+          </Field>
         </div>
+
+        <div className="font-semibold text-zinc-800 flex gap-1 items-center">
+          <Tag size={15} className="font-semibold" />
+          <p className="text-title-gradient-blue">Select Tags</p>
+        </div>
+
         {/* All tags */}
-        <div className='space-y-2 mt-2  overflow-y-auto'>
-          {filters.map(item => (
-            <div key={item._id} className='flex items-center gap-3'>
-              <Checkbox
-                id={item._id}
-                className='border-gray-800 rounded-full'
-                checked={selectedTags.includes(item.name)}
-                onCheckedChange={() => {
-                  toggleTag(item.name);
-                }}
-              />
-              <label
-                htmlFor={item._id}
-                className='text-sm tracking-wider uppercase'
-              >
-                {item.name}
-              </label>
-            </div>
-          ))}
+        <div className="py-2  h-[50vh] overflow-y-auto ">
+          <div className="space-y-3">
+            {filters.map((item) => (
+              <div key={item._id} className="flex items-center gap-1 text-sm">
+                <Checkbox
+                  id={item._id}
+                  className="border-gray-600 rounded-full"
+                  checked={selectedTags.includes(item.name)}
+                  onCheckedChange={() => {
+                    toggleTag(item.name);
+                  }}
+                />
+                <label htmlFor={item._id} className=" uppercase text-gray-600">
+                  {item.name}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Card>

@@ -29,13 +29,13 @@ export function LanguageSelector({
 
   return (
     <div>
-      {labelHidden && <Label className='px-1 mb-2  text-title-darkblue'>Select Language</Label>}
+      {labelHidden && <Label className='px-1 mb-2 text-title-gradient-blue'>Select Language</Label>}
       <Select 
       defaultValue={currentLang} onValueChange={setLanguage}
       >
-        <SelectTrigger className='w-full'>
+        <SelectTrigger className='w-full relative'>
           <SelectValue placeholder='Select a language' />
-          <Languages className='text-primary ml-2' />
+          <Languages className='absolute hidden lg:block right-8' />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
