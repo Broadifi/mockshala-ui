@@ -34,14 +34,16 @@ export function CurrentAffairs() {
 
   //   console.log("Affairs data", currentAffairsData);
 
-
-
   return (
     <div className=" w-full container px-4 py-2 mx-auto lg:mt-20">
       <div className="flex justify-between">
         {/* HEADER */}
         <div className="text-center md:text-start xl:space-y-2">
-          <h3 className="py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h3
+            className="py-1 text-2xl xl:text-4xl font-bold 
+          bg-linear-to-r from-title-gradient-blue to-title-gradient-sky 
+          bg-clip-text text-transparent"
+          >
             {t("currentAffairs.title")}
           </h3>
           <p className="text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
@@ -49,9 +51,13 @@ export function CurrentAffairs() {
           </p>
         </div>
 
-      {/* testing */}
+        {/* testing */}
         <div className="flex items-center">
-          <Link to="/$lang/current-affairs" params={{ lang: baseLanguage }} search={{}}>
+          <Link
+            to="/$lang/current-affairs"
+            params={{ lang: baseLanguage }}
+            search={{}}
+          >
             <button
               className="text-button-blue flex items-center gap-1 font-medium 
               cursor-pointer hover:bg-gray-100 p-2 rounded-lg hover:shadow-md hover:-translate-y-1
@@ -59,7 +65,6 @@ export function CurrentAffairs() {
             >
               View All
               <ArrowRight size={17} />
-              
             </button>
           </Link>
         </div>

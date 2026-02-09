@@ -45,7 +45,7 @@ function AllTestSeries() {
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 xl:gap-40 lg:justify-between lg:items-start">
         {/* Heading */}
         <div className="text-center md:text-start space-y-1 lg:shrink-0">
-          <h3 className="py-1 text-xl sm:text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h3 className="py-1 text-xl sm:text-2xl xl:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
             {t("allTestSeries.title")}
           </h3>
 

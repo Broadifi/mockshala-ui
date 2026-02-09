@@ -54,8 +54,9 @@ body {
   --color-button-blue: var(--button-blue);
   --color-button-sky: var(--button-sky);
   --color-table-text-primary:var(--table-text-primary);
-  --color-title-darkblue:var(--title-darkblue)
-
+  --color-title-darkblue:var(--title-darkblue);
+  --color-title-gradient-blue:var(--title-gradient-blue);
+  --color-title-gradient-sky:var(--title-gradient-sky)
   /* --max-width-container: 1280px; */
 }
 
@@ -98,9 +99,12 @@ body {
   --color-secondary: rgba(255, 255, 255, 0.78); */
   --button-blue: oklch(0.60 0.28 258) ;
   --button-sky: oklch(69.805% 0.1579 240.225);
+
   --table-text-primary : oklch(44.6% 0.03 256.802);
   --title-darkblue: oklch(0.33 0.09 256);
 
+  --title-gradient-blue: oklch(52.4% 0.142 266.4);
+  --title-gradient-sky:oklch(65.415% 0.07208 220.133);
 }
 
 .dark {
@@ -135,10 +139,15 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
   --button-blue: oklch(54.6% 0.245 262.881);
   --button-sky: oklch(58.8% 0.158 241.966);
+
   --table-text-primary : oklch(44.6% 0.03 256.802);
   --title-darkblue: oklch(0.33 0.09 256);
+
+  --title-gradient-blue: oklch(52.4% 0.142 266.4);
+  --title-gradient-sky:oklch(65.415% 0.07208 220.133);
 }
 
 @layer base {
