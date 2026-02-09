@@ -109,8 +109,8 @@ export default function CurrentAffairsPage() {
   // console.log(filters);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)]">
-        {/* for mobile view */}
+    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-r from-gray-100/50 via-blue-100/30 to-indigo-100/60">
+      {/* for mobile view */}
       <div className="fixed lg:hidden top-16 left-0 right-0 z-50 bg-white">
         <div className="container mx-auto px-4 py-1 flex gap-2">
           <Sheet>

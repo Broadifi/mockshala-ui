@@ -35,7 +35,7 @@ export function CurrentAffairs() {
   //   console.log("Affairs data", currentAffairsData);
 
   return (
-    <div className=" w-full container px-4 py-2 mx-auto lg:mt-20">
+    <div className=" w-full container  px-4 py-2 mx-auto lg:mt-20">
       <div className="flex justify-between">
         {/* HEADER */}
         <div className="text-center md:text-start xl:space-y-2">
