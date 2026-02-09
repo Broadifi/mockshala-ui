@@ -1,4 +1,3 @@
-import React from "react";
 import { Badge } from "@/components/ui/badge";
 import ButtonCustom from "@/components/buttonCustom";
 
@@ -16,14 +15,10 @@ interface StoreDataProps {
 function BuyNowSection() {
   const { testData: fetchTestData }: StoreDataProps = useTestDescriptionStore();
 
-  // Total test count
-  const totalTests = fetchTestData?.tests.length;
-
+  const totalTests = fetchTestData?.tests?.length ?? 0;
   // total questions no
-  const totalQuestions = fetchTestData?.tests.reduce(
-    (sum, test) => sum + test.totalQuestions,
-    0,
-  );
+  const totalQuestions =
+    fetchTestData?.tests?.reduce((sum, test) => sum + test.totalQuestions, 0) ?? 0;
 
   let time = 0;
   if (fetchTestData) {
@@ -44,7 +39,7 @@ function BuyNowSection() {
         <img
           src={IMAGE_BASE_URL + fetchTestData?.image}
           alt={fetchTestData?.name || "Test series image"}
-          className="object-contain rounded-t-lg h-full w-full relative z-2"
+          className="object-contain rounded-t-lg h-full w-full relative z-20"
         />
 
         {/* <img
@@ -56,7 +51,7 @@ function BuyNowSection() {
         <img
           src={IMAGE_BASE_URL + fetchTestData?.image}
           alt={fetchTestData?.name || "Test series image"}
-          className="object-cover absolute inset-0 h-full w-full z-1 blur-[3px]"
+          className="object-cover absolute inset-0 h-full w-full z-10 blur-[3px]"
         />
       </div>
 

@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { motion, type Variants } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "@tanstack/react-router";
 import { featuresData } from "@/components/data/featuresData";
 

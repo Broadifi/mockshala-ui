@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { question, testCount, validityImg } from "@/assets";
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
@@ -22,7 +22,7 @@ function TitleSection() {
   const { testData: fetchTestData }: StoreDataProps = useTestDescriptionStore();
 
   // Total test count
-  const totalTests = fetchTestData?.tests.length;
+  const totalTests = fetchTestData?.tests.length ?? 0;
 
   // total questions no
   const totalQuestions =

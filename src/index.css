@@ -54,7 +54,7 @@ body {
   --color-button-blue: var(--button-blue);
   --color-button-sky: var(--button-sky);
   --color-table-text-primary:var(--table-text-primary);
-  --color-title-darkblue:var(--title-darkblue)
+  --color-title-darkblue:var(--title-darkblue);
 
   /* --max-width-container: 1280px; */
 }

@@ -2,7 +2,7 @@ import { testDescriptionKey } from "@/api";
 import { testAPI } from "@/api/services/getTestDetails";
 
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "@tanstack/react-router";
+import { Link, useParams } from "@tanstack/react-router";
 
 // import { ImageWithFallback } from "../fallback/ImageWithFallback";
 
@@ -27,8 +27,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useEffect } from "react";
 
+import { useEffect } from "react";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -42,8 +42,7 @@ function DescriptionModule() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  });
-
+  }, []);
 
   //Fetch params
   const { examCategory, testSlug, lang } = useParams({
@@ -77,13 +76,25 @@ function DescriptionModule() {
           <Breadcrumb>
             <BreadcrumbList className="text-xs md:text-sm text-[#1B4965] items-center pb-6 xl:pb-8">
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/${lang}/`}>Home</BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link to="/$lang" params={{ lang }}>
+                    Home
+                  </Link>
+                </BreadcrumbLink>
               </BreadcrumbItem>
+
               <BreadcrumbSeparator />
+
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/${lang}/exams`}>Exams</BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link to="/$lang/exams" params={{ lang }}>
+                    Exams
+                  </Link>
+                </BreadcrumbLink>
               </BreadcrumbItem>
+
               <BreadcrumbSeparator />
+
               <BreadcrumbItem>
                 <BreadcrumbPage className="text-button-blue">
                   {data?.data.name}
@@ -105,7 +116,6 @@ function DescriptionModule() {
           {/* Header section */}
           {isLoading &&
             (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
-
 
           {/* Main Header */}
           {!isLoading && <TitleSection />}

@@ -65,15 +65,17 @@ function AllTests() {
   return (
     <div>
       {/* For mobile and tablet screen */}
-      <div className="flex lg:hidden">{
-        state?.status === "pending" ? <MobileAllTestCardSkeleton /> :
-        <AllTestMobile filteredTests={testData?.tests} />
-        }
+      <div className="flex lg:hidden">
+        {state?.status === "pending" ? (
+          <MobileAllTestCardSkeleton />
+        ) : (
+          <AllTestMobile filteredTests={testData?.tests} />
+        )}
       </div>
 
-      <div className="w-full h-[70vh] overflow-y-auto flex flex-col">
+      <div className="w-full flex flex-col">
         {/* Above large screen */}
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex h-[70vh] overflow-y-auto flex-col">
           {state?.status === "pending" ? (
             <AllTestsTableSkeleton rows={7} />
           ) : (
