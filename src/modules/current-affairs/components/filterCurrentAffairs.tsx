@@ -1,5 +1,5 @@
 import { useSearch, useNavigate } from "@tanstack/react-router";
-import { Tag } from "lucide-react";
+import { Search, Tag } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import { Card } from "@/components/ui/card";
@@ -10,7 +10,6 @@ import { LanguageSelector } from "@/modules/current-affairs/components/languageS
 import type { CurrentAffairsAllFlagsData } from "@/api/model/current-affairs";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 interface FilterProps {
   filters: CurrentAffairsAllFlagsData[];
@@ -30,10 +29,15 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
   const [filteredFilters, setFilteredFilters] =
     useState<CurrentAffairsAllFlagsData[]>(filters);
 
+  //Visible
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   /* -------------------- SEARCH LOGIC -------------------- */
 
   const handleSearch = () => {
     const query = searchText.trim().toLowerCase();
+
+    console.log(query);
 
     if (!query) {
       setFilteredFilters(filters);
@@ -79,9 +83,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : [...prev, tag],
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
@@ -98,22 +100,40 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
 
       {/* Tag Search */}
       <div className="mt-2">
-        <div className="mb-4">
-          <Field orientation="horizontal">
-            <Input
-              type="search"
-              placeholder="Search Tag..."
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            />
-            <Button onClick={handleSearch}>Search</Button>
-          </Field>
-        </div>
+        <div className="flex justify-between items-center">
+          {isSearchOpen ? (
+            <div>
+              <Field orientation="horizontal">
+                <Input
+                  type="search"
+                  placeholder="Search Tag..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={() => handleSearch()}
+                />
+                <button onClick={handleSearch}>
+                  <Search size={"25"} className="text-title-gradient-blue" />
+                </button>
+              </Field>
+            </div>
+          ) : (
+            <div className="flex justify-between  w-full pb-1">
 
-        <div className="font-semibold text-zinc-800 flex gap-1 items-center">
-          <Tag size={15} />
-          <p className="text-title-gradient-blue">Select Tags</p>
+            <div className="font-semibold flex gap-1 items-center">
+              <Tag size={15} />
+              <p className="text-title-gradient-blue">Select Tags</p>
+            </div>
+
+            <div>
+              <button onClick={()=>setIsSearchOpen(true)}>
+                  <Search size={"25"} className="text-title-gradient-blue" />
+                </button>
+            </div>
+            </div>
+          )}
+
+          {/* button */}
+          <div></div>
         </div>
 
         {/* Tag List */}
@@ -132,10 +152,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                     checked={selectedTags.includes(item.name)}
                     onCheckedChange={() => toggleTag(item.name)}
                   />
-                  <label
-                    htmlFor={item._id}
-                    className="uppercase text-gray-600"
-                  >
+                  <label htmlFor={item._id} className="uppercase text-gray-600">
                     {item.name}
                   </label>
                 </div>
