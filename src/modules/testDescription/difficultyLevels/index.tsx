@@ -1,15 +1,13 @@
 import type { TestDetailsData } from "@/api/model/test-model";
 import {
-  Card,
-  CardContent,
-  //   CardDescription,
-  //   CardHeader,
-  //   CardTitle,
+
 } from "@/components/ui/card";
 import { useTestDescriptionStore } from "@/stores/testStore";
 import { formattingWord } from "@/utils/formatting/formattingWord";
-import React from "react";
+
 import { TabsByType } from "../tabs";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { TabsByTypeMobile } from "../tabs/tabsforMobile";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -20,6 +18,8 @@ interface StoreDataProps {
 function GroupByDifficulty() {
   const { testData }: StoreDataProps = useTestDescriptionStore();
 
+  // Fetch the width of screen
+  const width = useBreakpoints("lg");
   //Fetch what are the difficulties have in this test
   const difficulties = [
     ...new Set(testData?.tests.map((test) => test.difficultyLevel)),
@@ -34,11 +34,12 @@ function GroupByDifficulty() {
 
   return (
     <div>
-      <Card>
-        <CardContent className="text-muted-foreground text-sm">
-          <TabsByType formatCategory={formatDifficulties} formatType="difficulty"/>
-        </CardContent>
-      </Card>
+    {
+      width ? <TabsByType formatCategory={formatDifficulties} formatType="difficulty"/> :
+      <TabsByTypeMobile formatCategory={formatDifficulties} formatType="difficulty"/>
+    }
+          
+        
     </div>
   );
 }

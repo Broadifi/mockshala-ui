@@ -35,6 +35,8 @@ function Header() {
 
   //Fetch the language params
   const { lang } = useParams({ strict: false });
+  
+  const homepageLink  = lang ?? 'en';
 
   const isLoggedIn = true;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -49,13 +51,16 @@ function Header() {
       <div className="w-full container px-4 py-2">
         <div className="flex gap-4 justify-between w-full  ">
           {/* Title for all view */}
-          <div className="flex justify-center items-center">
+          <Link
+           to="/$lang" params={{ lang: homepageLink }}
+            className="flex justify-center items-center"
+          >
             <img
               src={mockShalaLogo}
               alt="mockShalaLogo"
               className="h-7 xl:h-8 w-auto"
             />
-          </div>
+          </Link>
 
           {/* Quick Access  for Tablet View*/}
           <div className="hidden  md:flex xl:hidden justify-center items-center text-muted-foreground">

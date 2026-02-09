@@ -9,7 +9,7 @@ function BuyNow({ title }: ButtonProps) {
         hover:border-blue-700
         text-orange-500 
         hover:text-blue-700
-        transition-colors duration-200 px-2 py-1"
+        transition-colors duration-200 px-2 py-1 hover:cursor-pointer"
       >
         {title}
       </button>

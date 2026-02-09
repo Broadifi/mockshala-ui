@@ -5,17 +5,15 @@ interface ButtonProps {
 }
 function ButtonCustom({ title }: ButtonProps) {
   return (
-    <div>
-      <Button
-        className=" w-full bg-gradient-to-r from-button-blue
-         to-button-sky 
-        hover:from-blue-700 hover:to-blue-700 hover:shadow-md
-        text-white 
-        transition-colors duration-200"
-      >
-        {title}
-      </Button>
-    </div>
+    <Button
+      className=" w-full bg-linear-to-r from-button-sky 
+         to-button-blue shadow-sm
+        hover:from-blue-600 hover:to-blue-600 hover:shadow-md
+        text-white font-semibold
+        transition-colors duration-200 hover:cursor-pointer"
+    >
+      {title}
+    </Button>
   );
 }
 

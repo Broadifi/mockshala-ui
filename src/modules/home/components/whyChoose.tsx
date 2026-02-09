@@ -1,37 +1,46 @@
 import { Card, CardContent } from "@/components/ui/card";
-
 import { motion, type Variants } from "framer-motion";
-import React from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "@tanstack/react-router";
 import { featuresData } from "@/components/data/featuresData";
 
 function WhyChoose() {
-  //Fetch the language params
+  // Fetch language param
   const { lang } = useParams({ strict: false });
 
-  // Parent container animation (stagger)
+  // Detect mobile screen
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreen = () => setIsMobile(window.innerWidth < 768);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // Parent container animation
   const containerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: isMobile ? 0.05 : 0.08,
       },
     },
   };
 
-  // Card animation (FIXED)
+  // Card animation
   const cardVariants: Variants = {
     hidden: {
       opacity: 0,
-      y: 40,
-      scale: 0.7,
+      y: 16,
+      scale: 0.95,
     },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.6,
+        duration: isMobile ? 0.45 : 0.6,
         ease: [0.16, 1, 0.3, 1],
       },
     },
@@ -41,9 +50,9 @@ function WhyChoose() {
     <div className="w-full container px-4 py-5 mx-auto">
       {/* HEADER */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: isMobile ? 0.3 : 0.6 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="text-center md:text-start mb-12 space-y-2"
       >
@@ -52,6 +61,7 @@ function WhyChoose() {
             ? featuresData.sectionTitle.titleHin
             : featuresData.sectionTitle.titleEn}
         </h3>
+
         <p className="text-sm xl:text-base text-gray-600 max-w-2xl">
           {lang === "hi"
             ? featuresData.sectionSubtitle.titleHin
@@ -64,7 +74,10 @@ function WhyChoose() {
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{
+          once: true,
+          amount: isMobile ? 0.15 : 0.4,
+        }}
         className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-10"
       >
         {featuresData.features.map((feature) => (
@@ -73,25 +86,18 @@ function WhyChoose() {
             variants={cardVariants}
             className="h-full"
           >
-            <Card
-              className="h-full group bg-white/80 backdrop-blur-md 
-          border border-gray-200  text-center"
-            >
-              <CardContent className="px-4 md:p-6 h-full flex flex-col ">
+            <Card className="h-full group bg-white/80 backdrop-blur-md border border-gray-200 text-center">
+              <CardContent className="px-4 md:p-6 h-full flex flex-col">
                 <div className="w-full flex justify-center items-center">
                   <div
-                    className={`h-10 w-10 md:w-12 md:h-12 rounded-xl ${feature.color} 
-                      flex items-center justify-center mb-4  transition-transform 
-                      duration-300`}
+                    className={`h-10 w-10 md:w-12 md:h-12 rounded-xl ${feature.color}
+                    flex items-center justify-center mb-4 transition-transform duration-300`}
                   >
-                    <feature.icon className=" md:h-6 md:w-6" />
+                    <feature.icon className="md:h-6 md:w-6" />
                   </div>
                 </div>
 
-                <h4
-                  className="text-lg md:text-xl font-semibold mb-2 md:mb-3
-              group-hover:text-blue-600 transition-colors"
-                >
+                <h4 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 group-hover:text-blue-600 transition-colors">
                   {lang === "hi" ? feature.titleHin : feature.titleEn}
                 </h4>
 
