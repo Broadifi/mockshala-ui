@@ -12,18 +12,20 @@ import {
 } from "@/components/ui/popover";
 
 export function DatePicker() {
+  //Fetch the language params
+  const { lang } = useParams({ strict: false });
 
-     //Fetch the language params
-    const { lang } = useParams({ strict: false });
-
-    const currentLang = lang ?? "en";
+  const currentLang = lang ?? "en";
 
   const navigate = useNavigate();
+
   const search = useSearch({ from: "/$lang/current-affairs/" });
+
+  // console.log("search is", search); //{date: '02-02-2026'}
+  
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState<Date | undefined>(
-    parseDateFromUrl(search.date),
-  );
+
+  const [date, setDate] = useState<Date | undefined>(parseDateFromUrl(search.date));
 
   function parseDateFromUrl(dateString?: string): Date | undefined {
     if (!dateString) return undefined;
@@ -32,8 +34,6 @@ export function DatePicker() {
   }
 
   function setDateToUrl(selectedDate: Date | undefined) {
- 
-
     navigate({
       to: `/${currentLang}/current-affairs/`,
       search: {
@@ -53,22 +53,24 @@ export function DatePicker() {
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <Label htmlFor="date" className="px-1">
+    <div className="flex flex-col gap-2">
+      <Label htmlFor="date" className="px-1 text-title-darkblue">
         Select Date
       </Label>
+
       <Popover open={open} onOpenChange={setOpen}>
         <div className="flex items-center gap-2">
           <PopoverTrigger asChild>
             <Button
               variant="outline"
               id="date"
-              className={` ${date ? "w-[90%]" : "w-full"} justify-between font-normal`}
+              className={` ${date ? "w-[90%]" : "w-full"} justify-between font-normal text-muted-foreground`}
             >
               {date ? date.toLocaleDateString("en-GB") : "Select date"}
-              <CalendarDays className="text-primary" />
+              <CalendarDays className="text-muted-foreground" />
             </Button>
           </PopoverTrigger>
+
           {date && (
             <RotateCcw
               size={18}

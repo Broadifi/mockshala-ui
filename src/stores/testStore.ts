@@ -6,9 +6,22 @@ interface TestStore {
   setTestData: (data: TestDetailsData) => void;
   clearTestData: () => void;
 }
+
+interface LanguageStore{
+  currentLang: string ;
+  setLanguage: (data:string) => void;
+   clearLanguage: () => void;
+}
+
 export const useTestDescriptionStore = create<TestStore>((set)=>({
     testData: null,
     setTestData: (data)=> set({testData: data}),
     clearTestData: () => set({testData:null})
     
+}))
+
+export const useNewsLanguage = create<LanguageStore>((set)=>({
+  currentLang: 'en',
+  setLanguage: (data)=> set({currentLang: data}),
+  clearLanguage: () => set({currentLang:'en'})
 }))

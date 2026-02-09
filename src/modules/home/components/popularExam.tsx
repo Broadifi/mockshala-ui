@@ -31,8 +31,8 @@ function PopularExam() {
       {/* HEADER */}
       <div className="text-center md:text-start xl:space-y-2">
         <h3
-          className="py-1 text-2xl xl:text-4xl font-bold 
-        bg-linear-to-r from-title-gradient-blue to-title-gradient-sky 
+          className="inline-block py-1 text-2xl xl:text-4xl font-bold 
+          bg-linear-to-r from-title-gradient-blue to-title-gradient-sky
          bg-clip-text text-transparent"
         >
           {t("popularTests.title")}

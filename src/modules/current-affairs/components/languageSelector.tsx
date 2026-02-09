@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useNewsLanguage } from '@/stores/testStore';
 
 interface LanguageSelectorProps {
   labelHidden?: boolean;
@@ -24,11 +25,13 @@ export function LanguageSelector({
   
   // const [language, setLanguage] = useAtom(languageAtom);
 
+  const {currentLang, setLanguage} = useNewsLanguage()
+
   return (
     <div>
-      {labelHidden && <Label className='px-1 mb-3'>Select Language</Label>}
+      {labelHidden && <Label className='px-1 mb-2  text-title-darkblue'>Select Language</Label>}
       <Select 
-      // defaultValue={language} onValueChange={setLanguage}
+      defaultValue={currentLang} onValueChange={setLanguage}
       >
         <SelectTrigger className='w-full'>
           <SelectValue placeholder='Select a language' />

@@ -56,7 +56,7 @@ function WhyChoose() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="text-center md:text-start mb-12 space-y-2"
       >
-        <h3 className="text-2xl xl:text-4xl py-2 font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
+        <h3 className="inline-block text-2xl xl:text-4xl py-2 font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
           {lang === "hi"
             ? featuresData.sectionTitle.titleHin
             : featuresData.sectionTitle.titleEn}

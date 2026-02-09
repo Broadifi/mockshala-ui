@@ -50,7 +50,7 @@ export default function FilterCurrentAffairs({filters}:FilterProps) {
 
   return (
     <Card className='w-[16rem] p-4 flex-col gap-4 sticky top-22 h-fit hidden lg:flex'>
-      <h2 className='text-lg font-semibold text-zinc-800'>Filters</h2>
+      <h2 className='text-lg font-bold text-title-darkblue tracking-wider'>Filters</h2>
       <DatePicker />
       <LanguageSelector labelHidden={true} />
       <div>
