@@ -47,8 +47,8 @@ function Header() {
     createHeaderData(lang || "en");
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center">
-      <div className="w-full container px-4 py-2">
+    <header className="fixed w-full left-0 top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center ">
+      <div className="w-full container px-4 py-3 md:py-2">
         <div className="flex gap-4 justify-between w-full  ">
           {/* Title for all view */}
           <Link

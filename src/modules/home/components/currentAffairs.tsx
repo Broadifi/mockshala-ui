@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import Autoplay from "embla-carousel-autoplay";
 import { Link, useParams } from "@tanstack/react-router";
 import { formatDate } from "@/utils/formatting/formatDate";
+import { Button } from "@/components/ui/button";
 
 export function CurrentAffairs() {
   //for translation
@@ -36,38 +37,18 @@ export function CurrentAffairs() {
 
   return (
     <div className=" w-full container  px-4 py-2 mx-auto lg:mt-20">
-      <div className="flex justify-between">
-        {/* HEADER */}
-        <div className="text-center md:text-start xl:space-y-2">
-          <h3
-            className="inline-block py-1 text-2xl xl:text-4xl font-bold 
+      {/* HEADER */}
+      <div className="text-center md:text-start xl:space-y-2">
+        <h3
+          className="inline-block py-1 text-2xl xl:text-4xl font-bold 
           bg-linear-to-r from-title-gradient-blue to-title-gradient-sky 
           bg-clip-text text-transparent"
-          >
-            {t("currentAffairs.title")}
-          </h3>
-          <p className="text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
-            {t("currentAffairs.subtitle")}
-          </p>
-        </div>
-
-        {/* testing */}
-        <div className="flex items-center">
-          <Link
-            to="/$lang/current-affairs"
-            params={{ lang: baseLanguage }}
-            search={{}}
-          >
-            <button
-              className="text-button-blue flex items-center gap-1 font-medium 
-              cursor-pointer hover:bg-gray-100 p-2 rounded-lg hover:shadow-md hover:-translate-y-1
-              transition-all duration-300"
-            >
-              View All
-              <ArrowRight size={17} />
-            </button>
-          </Link>
-        </div>
+        >
+          {t("currentAffairs.title")}
+        </h3>
+        <p className="text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
+          {t("currentAffairs.subtitle")}
+        </p>
       </div>
 
       <Carousel
@@ -150,6 +131,30 @@ export function CurrentAffairs() {
         <CarouselPrevious className="left-4" />
         <CarouselNext className="right-4" />
       </Carousel>
+
+      {/* testing */}
+      <div className=" flex justify-center pt-6">
+        <Link
+          to="/$lang/current-affairs"
+          params={{ lang: baseLanguage }}
+          search={{}}
+        >
+          <Button
+          variant="ghost"
+            className=" f px-6 py-2 rounded-full
+            border border-blue-200
+            bg-blue-100/70 backdrop-blur
+            text-blue-700 font-medium
+            transition-all duration-300
+            hover:bg-blue-600 hover:text-white
+            hover:shadow-lg hover:-translate-y-1
+            "
+          >
+            View All Current Affairs
+            <ArrowRight />
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }

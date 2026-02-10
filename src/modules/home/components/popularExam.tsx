@@ -131,7 +131,7 @@ function PopularExam() {
                   </div>
 
                   {/* CONTENT */}
-                  <div className="relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
+                  <div className=" relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
                     <h1
                       className="
                       text-xs md:text-sm font-semibold text-center

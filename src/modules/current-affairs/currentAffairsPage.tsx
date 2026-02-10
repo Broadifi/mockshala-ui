@@ -124,38 +124,40 @@ export default function CurrentAffairsPage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
       {/* for mobile view */}
-      <div className="fixed lg:hidden top-13 left-0 right-0 z-20 gradient-soft-blue-current-affairs">
-        <div className="container mx-auto px-4 py-2 flex gap-2 backdrop-blur-lg bg-white/50">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button className="bg-gray-700">
-                <ListFilter className="mr-2 h-4 w-4" />
-                Filters
-              </Button>
-            </SheetTrigger>
+      <div className="fixed lg:hidden top-15 left-0 right-0 z-20 gradient-soft-blue-current-affairs">
+        <div className=" backdrop-blur-lg bg-white/50">
+          <div className="container mx-auto px-4 py-2 flex gap-2">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button className="bg-gray-700">
+                  <ListFilter className="mr-2 h-4 w-4" />
+                  Filters
+                </Button>
+              </SheetTrigger>
 
-            <SheetContent className="w-fit">
-              {/* Visually hidden but accessible */}
-              <SheetTitle className="sr-only">Filters</SheetTitle>
+              <SheetContent className="w-fit px-2">
+                {/* Visually hidden but accessible */}
+                <SheetTitle className="sr-only">Filters</SheetTitle>
 
-              {/* Required for accessibility */}
-              <SheetDescription className="sr-only">
-                Filter current affairs by tags, language, and date
-              </SheetDescription>
+                {/* Required for accessibility */}
+                <SheetDescription className="sr-only">
+                  Filter current affairs by tags, language, and date
+                </SheetDescription>
 
-              <FilterCurrentAffairMobile filters={filters} />
-            </SheetContent>
-          </Sheet>
-          <LanguageSelector />
+                <FilterCurrentAffairMobile filters={filters} />
+              </SheetContent>
+            </Sheet>
+            <LanguageSelector />
+          </div>
         </div>
       </div>
 
-      <div className="flex gap-8 px-4 pt-10 lg:pt-8 container mx-auto pb-8">
+      <div className="flex gap-8 px-4  container mx-auto pb-8">
         <div className="hidden lg:block">
           <FilterCurrentAffairs filters={filters} />
         </div>
 
-        <section className="w-full mt-8 lg:mt-0">
+        <section className="w-full mt-29 lg:mt-8 ">
           <div className="pb-3 space-y-1">
             <h2
               className="inline-block text-2xl xl:text-4xl font-bold 
