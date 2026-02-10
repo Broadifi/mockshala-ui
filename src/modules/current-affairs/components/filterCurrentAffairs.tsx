@@ -1,15 +1,18 @@
 import { useSearch, useNavigate } from "@tanstack/react-router";
-import { Search, Tag } from "lucide-react";
+import { ChevronUp, Search, Tag } from "lucide-react";
 import { useState, useEffect } from "react";
 
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Field } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 
 import { DatePicker } from "@/modules/current-affairs/components/datePicker";
 import { LanguageSelector } from "@/modules/current-affairs/components/languageSelector";
+
 import type { CurrentAffairsAllFlagsData } from "@/api/model/current-affairs";
-import { Field } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+
+import { AnimatePresence, motion } from "framer-motion";
 
 interface FilterProps {
   filters: CurrentAffairsAllFlagsData[];
@@ -19,25 +22,18 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
   const navigate = useNavigate({ from: "/$lang/current-affairs" });
   const search = useSearch({ from: "/$lang/current-affairs/" });
 
-  // Selected (checked) tags
+  /* -------------------- STATE -------------------- */
+
   const [selectedTags, setSelectedTags] = useState<string[]>(search.tags || []);
-
-  // Search input
   const [searchText, setSearchText] = useState("");
-
-  // Visible tags after search
   const [filteredFilters, setFilteredFilters] =
     useState<CurrentAffairsAllFlagsData[]>(filters);
-
-  //Visible
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  /* -------------------- SEARCH LOGIC -------------------- */
+  /* -------------------- LIVE SEARCH -------------------- */
 
-  const handleSearch = () => {
+  useEffect(() => {
     const query = searchText.trim().toLowerCase();
-
-    console.log(query);
 
     if (!query) {
       setFilteredFilters(filters);
@@ -49,19 +45,29 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
     );
 
     setFilteredFilters(matched);
-  };
-
-  // Reset tag list when input is cleared
-  useEffect(() => {
-    if (!searchText) {
-      setFilteredFilters(filters);
-    }
   }, [searchText, filters]);
 
-  // Sync when API filters change
+  /*
+  // 🔥 Optional debounce (use this instead of the above effect if list is large)
   useEffect(() => {
-    setFilteredFilters(filters);
-  }, [filters]);
+    const timer = setTimeout(() => {
+      const query = searchText.trim().toLowerCase();
+
+      if (!query) {
+        setFilteredFilters(filters);
+        return;
+      }
+
+      setFilteredFilters(
+        filters.filter((item) =>
+          item.name.toLowerCase().includes(query),
+        ),
+      );
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, [searchText, filters]);
+  */
 
   /* -------------------- URL SYNC -------------------- */
 
@@ -79,18 +85,20 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
     setSelectedTags(search.tags ?? []);
   }, [search.tags]);
 
-  /* -------------------- CHECKBOX HANDLER -------------------- */
+  /* -------------------- HANDLERS -------------------- */
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
+      prev.includes(tag)
+        ? prev.filter((t) => t !== tag)
+        : [...prev, tag],
     );
   };
 
   /* -------------------- UI -------------------- */
 
   return (
-    <Card className="w-[18rem] p-4 flex-col gap-4 sticky top-22 h-fit hidden lg:flex">
+    <Card className="w-[18rem] p-3 flex-col gap-4 sticky top-22 h-fit hidden lg:flex">
       <h2 className="text-lg font-bold text-title-darkblue tracking-wider">
         Filters
       </h2>
@@ -98,45 +106,74 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
       <DatePicker />
       <LanguageSelector labelHidden />
 
-      {/* Tag Search */}
+      {/* -------------------- TAG SEARCH -------------------- */}
       <div className="mt-2">
-        <div className="flex justify-between items-center">
-          {isSearchOpen ? (
-            <div>
-              <Field orientation="horizontal">
-                <Input
-                  type="search"
-                  placeholder="Search Tag..."
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  onKeyDown={() => handleSearch()}
-                />
-                <button onClick={handleSearch}>
-                  <Search size={"25"} className="text-title-gradient-blue" />
-                </button>
-              </Field>
-            </div>
-          ) : (
-            <div className="flex justify-between  w-full pb-1">
+        <div className="flex items-center h-12 overflow-hidden">
+          <AnimatePresence mode="wait">
+            {isSearchOpen ? (
+              <motion.div
+                key="search"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 8 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="flex items-center gap-1 w-full"
+              >
+                <Field orientation="horizontal">
+                  <Input
+                    type="search"
+                    placeholder="Search Tag..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    autoFocus
+                    className="
+                      focus:outline-none
+                      focus:ring-0
+                      focus:ring-offset-0
+                      focus-visible:outline-none
+                      focus-visible:ring-0
+                    "
+                  />
 
-            <div className="font-semibold flex gap-1 items-center">
-              <Tag size={15} />
-              <p className="text-title-gradient-blue">Select Tags</p>
-            </div>
+                  <Search size={28} className="text-button-blue cursor-pointer" />
+                </Field>
 
-            <div>
-              <button onClick={()=>setIsSearchOpen(true)}>
-                  <Search size={"25"} className="text-title-gradient-blue" />
-                </button>
-            </div>
-            </div>
-          )}
+                <motion.button
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsSearchOpen(false)}
+                  className="flex"
+                >
+                  <ChevronUp size={24} className="text-title-gradient-blue cursor-pointer" />
+                </motion.button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="label"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="flex justify-between items-center w-full"
+              >
+                <div className="font-semibold flex gap-1 items-center">
+                  <Tag size={15} />
+                  <p className="text-title-gradient-blue">Select Tags</p>
+                </div>
 
-          {/* button */}
-          <div></div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsSearchOpen(true)}
+                >
+                  <Search size={25} className="text-title-gradient-blue cursor-pointer" />
+                </motion.button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
-        {/* Tag List */}
+        {/* -------------------- TAG LIST -------------------- */}
         <div className="py-2 h-[50vh] overflow-y-auto">
           {filteredFilters.length === 0 ? (
             <p className="text-sm text-gray-500 text-center mt-4">
@@ -152,7 +189,10 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                     checked={selectedTags.includes(item.name)}
                     onCheckedChange={() => toggleTag(item.name)}
                   />
-                  <label htmlFor={item._id} className="uppercase text-gray-600">
+                  <label
+                    htmlFor={item._id}
+                    className="uppercase text-gray-600 cursor-pointer"
+                  >
                     {item.name}
                   </label>
                 </div>

@@ -224,7 +224,7 @@ export default function CurrentAffairsPage() {
                                 key={index}
                               >
                                 <Tag size={10} />
-                                <span>{tag}</span>
+                                <span className="uppercase">{tag}</span>
                               </Badge>
                             ))}
                             {item.tags.length > 3 && (
