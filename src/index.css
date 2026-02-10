@@ -286,6 +286,16 @@ body {
   );
 }
 
+.gradient-soft-blue-current-affairs {
+  background-image: linear-gradient(
+    to right,
+    rgba(243, 244, 246, 0.7),  /* gray-100 / 70% */
+    rgba(219, 234, 254, 0.3),  /* blue-100 / 30% */
+    rgba(224, 231, 255, 0.6)   /* indigo-100 / 60% */
+  );
+}
+
+
 /* gradient card */
 .bg-inner {
   background-image: linear-gradient(to bottom, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #97aedb 100%);
@@ -296,6 +306,7 @@ body {
  /* background-image: linear-gradient(-225deg, #FFFEFF 0%, #eef8fd 100%); */
  /* background-image: linear-gradient(to top, #dfe9f3 0%, white 100%); */
 }
+
 
 /* @container (width >= 640px) {
   .container {

@@ -4,7 +4,7 @@ import { Route } from "@/routes/$lang/current-affairs";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { DatePicker } from "@/modules/current-affairs/components/datePicker";
-import { LanguageSelector } from "@/modules/current-affairs/components/languageSelector";
+
 import type { CurrentAffairsAllFlagsData} from '@/api/model/current-affairs';
 
 
@@ -12,7 +12,7 @@ interface FilterProps{
   filters: CurrentAffairsAllFlagsData[]
 }
 
-export default function FilterCurrentAffairSheet({filters}:FilterProps) {
+export default function FilterCurrentAffairMobile({filters}:FilterProps) {
 
 
   
@@ -50,7 +50,7 @@ export default function FilterCurrentAffairSheet({filters}:FilterProps) {
     <div className="w-[16rem] p-4 flex flex-col gap-4 h-fit overflow-y-scroll">
       <h2 className="text-lg font-semibold text-zinc-800">Filters</h2>
       <DatePicker />
-      <LanguageSelector />
+      {/* <LanguageSelector /> */}
       <div>
         <div className="font-semibold text-zinc-800 flex gap-1 items-center">
           <Tag size={15} className="font-semibold" />

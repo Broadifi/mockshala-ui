@@ -6,10 +6,16 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { SheetContent, SheetTrigger, Sheet } from "@/components/ui/sheet";
+import {
+  SheetContent,
+  SheetTrigger,
+  Sheet,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 import FilterCurrentAffairs from "./components/filterCurrentAffairs";
-import FilterCurrentAffairSheet from "./components/filterCurrentAffairSheet";
+
 import { LanguageSelector } from "./components/languageSelector";
 import NoResultFound from "./components/no-result-found";
 import { IMAGE_BASE_URL } from "@/api/url";
@@ -23,15 +29,15 @@ import {
 import { currentAffairsKeys } from "@/api";
 import { Badge } from "@/components/ui/badge";
 import { useNewsLanguage } from "@/stores/testStore";
+import FilterCurrentAffairMobile from "./components/filterCurrentAffairMobile";
 
 export default function CurrentAffairsPage() {
   //fetch language from URL
   const { lang } = useParams({ strict: false });
 
-
   //fetch language from Zustand store
-  const {currentLang} =useNewsLanguage()
-  
+  const { currentLang } = useNewsLanguage();
+
   const homepageLink = lang ?? "en";
 
   const { date, tags } = useSearch({ from: "/$lang/current-affairs/" });
@@ -116,19 +122,28 @@ export default function CurrentAffairsPage() {
   // console.log(filters);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-linear-to-r from-gray-100/70 via-blue-100/30 to-indigo-100/60">
+    <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
       {/* for mobile view */}
-      <div className="fixed lg:hidden top-16 left-0 right-0 z-50 bg-white">
-        <div className="container mx-auto px-4 py-1 flex gap-2">
+      <div className="fixed lg:hidden top-13 left-0 right-0 z-50 gradient-soft-blue-current-affairs">
+        <div className="container mx-auto px-4 py-2 flex gap-2 backdrop-blur-lg bg-white/50">
           <Sheet>
             <SheetTrigger asChild>
-              <Button className="bg-gray-700 ">
+              <Button className="bg-gray-700">
                 <ListFilter className="mr-2 h-4 w-4" />
                 Filters
               </Button>
             </SheetTrigger>
+
             <SheetContent className="w-fit">
-              <FilterCurrentAffairSheet filters={filters} />
+              {/* Visually hidden but accessible */}
+              <SheetTitle className="sr-only">Filters</SheetTitle>
+
+              {/* Required for accessibility */}
+              <SheetDescription className="sr-only">
+                Filter current affairs by tags, language, and date
+              </SheetDescription>
+
+              <FilterCurrentAffairMobile filters={filters} />
             </SheetContent>
           </Sheet>
           <LanguageSelector />
@@ -140,7 +155,7 @@ export default function CurrentAffairsPage() {
           <FilterCurrentAffairs filters={filters} />
         </div>
 
-        <section className="w-full">
+        <section className="w-full mt-8 lg:mt-0">
           <div className="pb-3 space-y-1">
             <h2
               className="inline-block text-2xl xl:text-4xl font-bold 
@@ -195,7 +210,9 @@ export default function CurrentAffairsPage() {
                       </div>
                       <div className="px-4 space-y-5">
                         <h2 className="text-title-darkblue text-xl font-semibold group-hover:text-blue-500 line-clamp-2">
-                          {currentLang === "en" ? item.title : item.titleInHindi}
+                          {currentLang === "en"
+                            ? item.title
+                            : item.titleInHindi}
                         </h2>
                         <p
                           className="text-zinc-600 text-sm line-clamp-2"
@@ -219,10 +236,7 @@ export default function CurrentAffairsPage() {
                           </div>
                           <div className="flex gap-2 flex-wrap py-1">
                             {item.tags.slice(0, 3).map((tag, index) => (
-                              <Badge
-                              variant={"secondary"}
-                                key={index}
-                              >
+                              <Badge variant={"secondary"} key={index}>
                                 <Tag size={10} />
                                 <span className="uppercase">{tag}</span>
                               </Badge>

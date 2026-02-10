@@ -33,7 +33,7 @@ export function LanguageSelector({
       <Select 
       defaultValue={currentLang} onValueChange={setLanguage}
       >
-        <SelectTrigger className='w-full relative'>
+        <SelectTrigger className='w-full relative border-gray-400'>
           <SelectValue placeholder='Select a language' />
           <Languages className='absolute hidden lg:block right-8' />
         </SelectTrigger>

@@ -47,28 +47,6 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
     setFilteredFilters(matched);
   }, [searchText, filters]);
 
-  /*
-  // 🔥 Optional debounce (use this instead of the above effect if list is large)
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const query = searchText.trim().toLowerCase();
-
-      if (!query) {
-        setFilteredFilters(filters);
-        return;
-      }
-
-      setFilteredFilters(
-        filters.filter((item) =>
-          item.name.toLowerCase().includes(query),
-        ),
-      );
-    }, 200);
-
-    return () => clearTimeout(timer);
-  }, [searchText, filters]);
-  */
-
   /* -------------------- URL SYNC -------------------- */
 
   useEffect(() => {
@@ -89,9 +67,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : [...prev, tag],
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
@@ -117,7 +93,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
                 transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="flex items-center gap-1 w-full"
+                className="flex items-center gap-2 w-full"
               >
                 <Field orientation="horizontal">
                   <Input
@@ -135,7 +111,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                     "
                   />
 
-                  <Search size={28} className="text-button-blue cursor-pointer" />
+                  {/* <Search size={28} className="text-button-blue cursor-pointer" /> */}
                 </Field>
 
                 <motion.button
@@ -144,7 +120,10 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                   onClick={() => setIsSearchOpen(false)}
                   className="flex"
                 >
-                  <ChevronUp size={24} className="text-title-gradient-blue cursor-pointer" />
+                  <ChevronUp
+                    size={26}
+                    className="text-title-gradient-blue cursor-pointer"
+                  />
                 </motion.button>
               </motion.div>
             ) : (
@@ -166,7 +145,10 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsSearchOpen(true)}
                 >
-                  <Search size={25} className="text-title-gradient-blue cursor-pointer" />
+                  <Search
+                    size={25}
+                    className="text-title-gradient-blue cursor-pointer"
+                  />
                 </motion.button>
               </motion.div>
             )}
