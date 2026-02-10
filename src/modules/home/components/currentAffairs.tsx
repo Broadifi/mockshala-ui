@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Calendar, Clock4, ExternalLink } from "lucide-react";
+import { ArrowRight, Calendar, Clock4 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { homeQueryKey } from "@/api";
 import { homeAPI } from "@/api/services/getHomeData";
@@ -98,30 +98,21 @@ export function CurrentAffairs() {
                     </div>
                   </div>
 
-                  {/* title section */}
-                  <div>
-                    <h2 className="line-clamp-2 font-semibold text-title-darkblue">
-                      {item.title}
-                    </h2>
-                  </div>
-
                   {/* tag section */}
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {item.tags.map((tag) => (
-                      <Badge variant="outline">{tag}</Badge>
+                  {
+                    item.tags.length>1 &&  <div className="flex flex-wrap gap-2 pt-1">
+                    {item.tags.slice(1).map((tag) => (
+                      <Badge variant="outline" >{tag}</Badge>
                     ))}
                   </div>
+                  }
+                 
 
-                  {/* read more section */}
-
-                  <div className="flex justify-center my-5 px-3 py-2 group-hover:bg-gray-100  rounded-lg cursor-pointer">
-                    <button className="text-sm text-button-blue flex gap-2 cursor-pointer group-hover:text-gray-700">
-                      Read Full Article
-                      <ExternalLink
-                        size={16}
-                        className="cursor-pointer group-hover:text-gray-600"
-                      />
-                    </button>
+                  {/* title section */}
+                  <div className="pb-4 xl:pb-5">
+                    <h2 className="line-clamp-3 font-semibold text-title-darkblue">
+                      {item.title}
+                    </h2>
                   </div>
                 </div>
               </div>
@@ -132,7 +123,7 @@ export function CurrentAffairs() {
         <CarouselNext className="right-4" />
       </Carousel>
 
-      {/* testing */}
+      {/* View All */}
       <div className=" flex justify-center pt-6">
         <Link
           to="/$lang/current-affairs"
@@ -140,7 +131,7 @@ export function CurrentAffairs() {
           search={{}}
         >
           <Button
-          variant="ghost"
+            variant="ghost"
             className=" f px-6 py-2 rounded-full
             border border-blue-200
             bg-blue-100/70 backdrop-blur
