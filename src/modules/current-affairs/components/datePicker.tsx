@@ -54,7 +54,7 @@ export function DatePicker() {
 
   return (
     <div className="flex flex-col gap-2">
-      <Label htmlFor="date" className="px-1 text-title-gradient-blue">
+      <Label htmlFor="date" className=" text-title-gradient-blue font-semibold text-base">
         Select Date
       </Label>
 

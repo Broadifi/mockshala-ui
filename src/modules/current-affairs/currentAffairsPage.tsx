@@ -124,7 +124,7 @@ export default function CurrentAffairsPage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
       {/* for mobile view */}
-      <div className="fixed lg:hidden top-13 left-0 right-0 z-50 gradient-soft-blue-current-affairs">
+      <div className="fixed lg:hidden top-13 left-0 right-0 z-20 gradient-soft-blue-current-affairs">
         <div className="container mx-auto px-4 py-2 flex gap-2 backdrop-blur-lg bg-white/50">
           <Sheet>
             <SheetTrigger asChild>

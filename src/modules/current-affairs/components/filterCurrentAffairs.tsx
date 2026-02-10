@@ -71,6 +71,16 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
     );
   };
 
+  
+  /*----------- Handle ChevronUp Button---------------*/
+
+  function handleChevronUp(){
+    setIsSearchOpen(false)
+     setFilteredFilters(filters);
+     setSearchText("")
+  }
+
+
   /* -------------------- UI -------------------- */
 
   return (
@@ -117,7 +127,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                 <motion.button
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsSearchOpen(false)}
+                   onClick={() => handleChevronUp()}
                   className="flex"
                 >
                   <ChevronUp
