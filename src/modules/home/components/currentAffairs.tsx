@@ -67,7 +67,7 @@ export function CurrentAffairs() {
           {currentAffairsData?.data.map((item) => (
             <CarouselItem
               key={item._id}
-              className="basis-1/1 sm:basis-1/2 lg:basis-1/4 p-4 group"
+              className="basis-1/1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 p-4 group"
             >
               <div className=" transition-transform duration-300 ease-in-out group-hover:scale-102 group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
                 {/* image section */}
@@ -106,7 +106,7 @@ export function CurrentAffairs() {
                   </div>
 
                   {/* tag section */}
-                  <div className="flex gap-2 pt-1">
+                  <div className="flex flex-wrap gap-2 pt-1">
                     {item.tags.map((tag) => (
                       <Badge variant="outline">{tag}</Badge>
                     ))}

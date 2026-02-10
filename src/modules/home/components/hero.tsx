@@ -78,7 +78,7 @@ export default function Hero() {
   return (
     <div>
       {/* for Mobile Screen */}
-      <div className="relative w-full flex pt-15 md:hidden">
+      <div className="relative w-full flex md:hidden">
         <Carousel
           setApi={setApi}
           plugins={[autoplay.current]}
@@ -127,7 +127,7 @@ export default function Hero() {
       {/* for Large Screen */}
       <div
         ref={sliderRef}
-        className="md:pt-18 lg:pt-20 relative w-full hidden md:flex"
+        className="md:pt-3 lg:pt-3 xl:pt-4 relative w-full hidden md:flex"
       >
         <Carousel
           setApi={setApi}
