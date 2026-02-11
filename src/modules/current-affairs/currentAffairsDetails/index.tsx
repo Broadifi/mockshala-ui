@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Bookmark,Copy,  Share} from "@/assets";
+import { Bookmark, Copy, Share } from "@/assets";
 import { Calendar } from "lucide-react";
 
 function CurrentAffairsDetails() {
@@ -48,43 +48,42 @@ function CurrentAffairsDetails() {
 
   return (
     <div className="gradient-soft-blue-current-affairs">
+      <section
+        className={`w-full container mx-auto px-4 py-4 ${isLoading ? "min-h-screen" : "h-fit"}`}
+      >
+        {isLoading && <SkeletonCurrentAffairSingle />}
 
-    <section
-      className={`w-full max-w-5xl mx-auto px-4 py-4 ${isLoading ? "min-h-screen" : "h-fit"}`}
-    >
-      {isLoading && <SkeletonCurrentAffairSingle />}
-
-      <div className="pt-8 flex flex-col gap-5">
-        {/* tags */}
-        <div className="flex gap-3 ">
-          {fetchData?.tags.map((tag) => (
-            <Badge className="bg-button-blue">{tag}</Badge>
-          ))}
-        </div>
-
-        {/* Heading */}
-        <div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-title-darkblue ">
-            {lang === "en" ? fetchData?.title : fetchData?.titleInHindi}
-          </h2>
-        </div>
-
-        {/* Date and actions */}
-        <div className="flex justify-between py-3 border-t border-b">
-          <div className="flex gap-1 items-center ">
-            <Calendar size={20} className="text-title-gradient-blue"/>
-            <p className="text-sm text-title-darkblue">
-              {formatDate(fetchData?.publishedDate ?? "")}
-            </p>
+        <div className="pt-8 flex flex-col gap-5">
+          {/* tags */}
+          <div className="flex gap-3 ">
+            {fetchData?.tags.map((tag) => (
+              <Badge className="bg-button-blue">{tag}</Badge>
+            ))}
           </div>
 
-          <div className="flex   items-center gap-4">
-            <div className="flex gap-1 items-center bg-blue-100/50 rounded-lg px-2 ">
-              <h2 className="text-sm text-title-darkblue">Languages: </h2>
+          {/* Heading */}
+          <div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-title-darkblue ">
+              {lang === "en" ? fetchData?.title : fetchData?.titleInHindi}
+            </h2>
+          </div>
 
-              <Select defaultValue={currentLang} onValueChange={setLanguage}>
-                <SelectTrigger
-                  className="
+          {/* Date and actions */}
+          <div className="flex justify-between pb-3 mb-2 border-b">
+            <div className="flex gap-1 items-center ">
+              <Calendar size={20} className="text-title-gradient-blue" />
+              <p className="text-sm text-title-darkblue">
+                {formatDate(fetchData?.publishedDate ?? "")}
+              </p>
+            </div>
+
+            <div className="flex   items-center gap-4">
+              <div className="flex gap-1 items-center bg-blue-100/50 rounded-lg px-2 ">
+                <h2 className="text-sm text-title-darkblue">Languages: </h2>
+
+                <Select defaultValue={currentLang} onValueChange={setLanguage}>
+                  <SelectTrigger
+                    className="
                         border-0
                         shadow-none
                         bg-transparent
@@ -94,61 +93,75 @@ function CurrentAffairsDetails() {
                         focus-visible:ring-0
                         focus-visible:outline-none
                         "
-                >
-                  <SelectValue placeholder="Select a language" className="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Languages</SelectLabel>
-                    <SelectItem value="hi">Hindi</SelectItem>
-                    <SelectItem value="en">English</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
+                  >
+                    <SelectValue placeholder="Select a language" className="" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Languages</SelectLabel>
+                      <SelectItem value="hi">Hindi</SelectItem>
+                      <SelectItem value="en">English</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <div className="flex gap-2 items-center">
-              <button className="cursor-pointer">
+              <div className="flex gap-2 items-center">
+                <button className="cursor-pointer">
                   <img src={Copy} alt="questions" className="h-6 shadow-2xl" />
-              </button>
-            </div>
-            <div className="flex gap-2 items-center">
-              <button className="cursor-pointer">
+                </button>
+              </div>
+              <div className="flex gap-2 items-center">
+                <button className="cursor-pointer">
                   <img src={Share} alt="questions" className="h-6 shadow-2xl" />
-              </button>
+                </button>
+              </div>
+
+              <div className="flex gap-2 items-center">
+                <button className="cursor-pointer">
+                  <img
+                    src={Bookmark}
+                    alt="questions"
+                    className="h-6 shadow-2xl"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Description section */}
+
+          <div className="grid grid-cols-12 gap-8 ">
+            {/* Image */}
+            <div className="col-span-6">
+              <img
+                src={`${IMAGE_BASE_URL}${fetchData?.image}`}
+                alt={fetchData?.title}
+                className="w-full rounded-lg"
+              />
             </div>
 
-            <div className="flex gap-2 items-center">
-              <button className="cursor-pointer">
-                  <img src={Bookmark} alt="questions" className="h-6 shadow-2xl" />
-              </button>
+            {/* Description */}
+            <div className="col-span-6">
+              {data && (
+                <HtmlSetter
+                  html={
+                    (lang === "en"
+                      ? fetchData?.description
+                      : fetchData?.descriptionInHindi) ?? ""
+                  }
+                />
+
+                // <div
+                //   dangerouslySetInnerHTML={{
+                //     __html: fetchData?.description ?? "",
+                //   }}
+                // />
+              )}
             </div>
           </div>
         </div>
-
-        {/* Image */}
-        <div>
-          <img
-            src={`${IMAGE_BASE_URL}${fetchData?.image}`}
-            alt={fetchData?.title}
-            className="w-full rounded-lg"
-          />
-        </div>
-
-        {/* Description */}
-        <div className="">
-          {data && (
-            <HtmlSetter
-              html={
-                (lang === "en"
-                  ? fetchData?.description
-                  : fetchData?.descriptionInHindi) ?? ""
-              }
-            />
-          )}
-        </div>
-      </div>
-    </section>
+      </section>
     </div>
   );
 }
