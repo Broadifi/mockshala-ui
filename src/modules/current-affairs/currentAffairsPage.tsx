@@ -28,15 +28,17 @@ import {
 
 import { currentAffairsKeys } from "@/api";
 import { Badge } from "@/components/ui/badge";
-import { useNewsLanguage } from "@/stores/testStore";
+
 import FilterCurrentAffairMobile from "./components/filterCurrentAffairMobile";
+import { useGlobalLanguage } from "@/stores/globalLanguageStore";
+
 
 export default function CurrentAffairsPage() {
   //fetch language from URL
   const { lang } = useParams({ strict: false });
 
   //fetch language from Zustand store
-  const { currentLang } = useNewsLanguage();
+  const { currentLang } = useGlobalLanguage();
 
   const homepageLink = lang ?? "en";
 
@@ -152,6 +154,7 @@ export default function CurrentAffairsPage() {
         </div>
       </div>
 
+    {/* left side sheet */}
       <div className="flex gap-8 px-4  container mx-auto pb-8">
         <div className="hidden lg:block">
           <FilterCurrentAffairs filters={filters} />

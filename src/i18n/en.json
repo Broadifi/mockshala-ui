@@ -26,6 +26,9 @@
   "currentAffairs":{
     "title": "Current Affairs",
     "subtitle": "Stay updated with daily news analysis & editorials"
+  },
+  "similarCurrentAffairs":{
+    "title": "Recommended for you"
   }
 
 }

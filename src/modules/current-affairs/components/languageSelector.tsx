@@ -11,7 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useNewsLanguage } from '@/stores/testStore';
+
+import { useParams } from '@tanstack/react-router';
+import { useGlobalLanguage } from '@/stores/globalLanguageStore';
+
 
 interface LanguageSelectorProps {
   labelHidden?: boolean;
@@ -21,17 +24,19 @@ export function LanguageSelector({
   labelHidden = false,
 }: LanguageSelectorProps) {
 
-
+const { lang } = useParams({ strict: false });
   
   // const [language, setLanguage] = useAtom(languageAtom);
 
-  const {currentLang, setLanguage} = useNewsLanguage()
+  const {currentLang, setLanguage} = useGlobalLanguage()
 
+  // console.log(currentLang);
+  
   return (
     <div>
       {labelHidden && <Label className='px-1 mb-2 text-title-gradient-blue'>Select Language</Label>}
-      <Select 
-      defaultValue={currentLang} onValueChange={setLanguage}
+      <Select defaultValue={lang}
+        value={currentLang} onValueChange={setLanguage}
       >
         <SelectTrigger className='w-full relative border-gray-400'>
           <SelectValue placeholder='Select a language' />

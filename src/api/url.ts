@@ -19,7 +19,9 @@ export const BASE_URL =
 
     currentAffairsBySlug: (slug: string)=> `/current-affairs/by-slug/${slug}`,
 
-    currentAffairsAllTags: ()=> '/current-affairs/tags'
+    currentAffairsAllTags: ()=> '/current-affairs/tags',
+
+    similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`
 
       
   }

@@ -32,7 +32,9 @@ export const authQueryKeys = createExtendedQueryKeys('auth', {
 export const currentAffairsKeys = createExtendedQueryKeys('currentAffairs',{
   currentAffairsDetails: (date, slug) => ['currentAffairs', 'currentAffairsDetails', date, slug],
 
-  newsFlags : ()=> ['currentAffairs', 'newsFlags']
+  newsFlags : ()=> ['currentAffairs', 'newsFlags'] as const,
+
+  similarNews: (id)=> ['currentAffairs', 'similarNews', id] as const,
 })
 
 export const queryKeys ={

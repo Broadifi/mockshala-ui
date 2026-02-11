@@ -71,3 +71,31 @@ export  interface CurrentAffairsAllFlagsRes {
   responseTimestamp: string;
   data: CurrentAffairsAllFlagsData[];
 }
+
+
+//Similar news
+
+export interface SimilarNewsData {
+  _id: string;
+  title: string;
+  titleInHindi: string;
+  tags: string[];
+  image: string;
+  description?: string | undefined;
+  descriptionInHindi?: string | undefined;
+  status: boolean;
+  publishedDate: string;
+  slug: string;
+  saveForLater: boolean;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SimilarNewsResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  data: SimilarNewsData[];
+}

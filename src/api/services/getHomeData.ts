@@ -11,7 +11,7 @@ export const homeAPI = {
        
     },
 
-    getPopularTestData:  async (): Promise<PopularTestResponse> =>{
+    getPopularTestData:  async () =>{
         const response: AxiosResponse<PopularTestResponse> = await axios.get(`${BASE_URL}${apiUrl.popularTests}`)
         
         return response.data

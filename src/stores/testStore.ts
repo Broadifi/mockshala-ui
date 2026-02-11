@@ -3,15 +3,11 @@ import { create } from "zustand";
 
 interface TestStore {
   testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
+  setTestData: (lang: TestDetailsData) => void;
   clearTestData: () => void;
 }
 
-interface LanguageStore{
-  currentLang: string ;
-  setLanguage: (data:string) => void;
-   clearLanguage: () => void;
-}
+
 
 export const useTestDescriptionStore = create<TestStore>((set)=>({
     testData: null,
@@ -20,8 +16,3 @@ export const useTestDescriptionStore = create<TestStore>((set)=>({
     
 }))
 
-export const useNewsLanguage = create<LanguageStore>((set)=>({
-  currentLang: 'en',
-  setLanguage: (data)=> set({currentLang: data}),
-  clearLanguage: () => set({currentLang:'en'})
-}))

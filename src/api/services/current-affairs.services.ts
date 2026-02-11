@@ -1,5 +1,5 @@
 import type { AxiosResponse } from "axios";
-import type { CurrentAffairsResponseAll, CurrentAffairsBySlugResponse } from "../model/current-affairs";import { apiUrl } from "../url";
+import type { CurrentAffairsResponseAll, CurrentAffairsBySlugResponse, SimilarNewsResponse } from "../model/current-affairs";import { apiUrl } from "../url";
 import api from ".";
 
 interface CurrentAffairsPaginationParams{
@@ -39,4 +39,10 @@ export async function fetchCurrentAffairAllTags():Promise<CurrentAffairsBySlugRe
             await api.get(apiUrl.currentAffairsAllTags())
 
         return response.data
+}
+
+export async function fetchSimilarNews(id:string) {
+    const response: AxiosResponse<SimilarNewsResponse> = await api.get(apiUrl.similarCurrentAffairs(id))
+
+    return response.data
 }

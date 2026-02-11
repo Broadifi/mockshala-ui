@@ -117,6 +117,12 @@ function Header() {
               </Button>
             </div>
 
+              {/* Language switch for tablet screen */}
+            <div className="flex xl:hidden">
+              <LangSwitch />
+            </div>
+
+
             {isLoggedIn ? (
               <Link
                 key="Profile"
@@ -212,15 +218,12 @@ function Header() {
                 <Badge className="absolute top-1 right-1 h-2 w-2 p-0 bg-red-500" />
               </Button>
             </div>
-
+            
+            {/* Language switch for large screen */}
             <div className="hidden xl:flex">
               <LanguageSwitch />
             </div>
-
-            <div className="flex xl:hidden">
-              <LangSwitch />
-            </div>
-
+            
             {isLoggedIn ? (
               <Link
                 key="Profile"
@@ -272,6 +275,11 @@ function Header() {
               </Button>
             </div>
 
+              {/* Language switch for tablet screen */}
+            <div className="flex xl:hidden">
+              <LangSwitch />
+            </div>
+            
             <div>
               {/* Mobile Menu Button - Now at the end */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
