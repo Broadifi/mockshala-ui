@@ -138,7 +138,7 @@ function CurrentAffairsDetails() {
               {/* Actions */}
               <div className="flex gap-2 md:gap-4">
                 {/* Copy */}
-                <div className="flex gap-2 items-center">
+                <div className="hidden md:flex gap-2 items-center">
                   <button className="cursor-pointer" 
                     onClick={()=>handleCopyButton()}
                     >
