@@ -10,6 +10,8 @@ import { Button } from "./ui/button";
 
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { useGlobalLanguage } from "@/stores/globalLanguageStore";
+import { useEffect } from "react";
+import { useNewsLanguage } from "@/stores/newsLanguageStore";
 
 function LangSwitch() {
   const navigate = useNavigate();
@@ -37,6 +39,14 @@ function LangSwitch() {
 
     setLanguage(value);
   };
+
+  const { setNewsLanguage } = useNewsLanguage();
+
+   //update News language when ever Global language is changed
+   useEffect(() => {
+      setNewsLanguage(currentLang);
+    }, [currentLang]);
+  
 
   return (
     <div>

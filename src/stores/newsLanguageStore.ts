@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 
 interface LanguageStore{
   newsCurrentLang: string ;
-  setNewsLanguage: (data:string) => void;
+  setNewsLanguage: (lang:string) => void;
   clearNewsLanguage: () => void;
 }
 

@@ -30,15 +30,23 @@ import { currentAffairsKeys } from "@/api";
 import { Badge } from "@/components/ui/badge";
 
 import FilterCurrentAffairMobile from "./components/filterCurrentAffairMobile";
-import { useGlobalLanguage } from "@/stores/globalLanguageStore";
+import { useNewsLanguage } from "@/stores/newsLanguageStore";
 
+import { currentAffairsData } from "@/components/data/currentAffairsData";
 
 export default function CurrentAffairsPage() {
   //fetch language from URL
   const { lang } = useParams({ strict: false });
 
-  //fetch language from Zustand store
-  const { currentLang } = useGlobalLanguage();
+
+  const { newsCurrentLang } = useNewsLanguage();
+
+  //Update the news language whenever global language update
+  // useEffect(() => {
+  //   setNewsLanguage(currentLang);
+  // }, [currentLang]);
+
+  //Now this language update will be done from the header language switcher
 
   const homepageLink = lang ?? "en";
 
@@ -88,6 +96,7 @@ export default function CurrentAffairsPage() {
     return data?.pages.flatMap((page) => page.data) ?? [];
   }, [data?.pages]);
 
+  //Scroll to save position
   useEffect(() => {
     const savedPosition = sessionStorage.getItem(
       "currentAffairsScrollPosition",
@@ -105,13 +114,13 @@ export default function CurrentAffairsPage() {
     }
   }, [allItems]);
 
+  //Scroll to top window
   useEffect(() => {
     refetch();
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [date, tags, refetch]);
 
   //   Fetch unique tag filters from full API
-
   const { data: allTags } = useQuery({
     queryKey: currentAffairsKeys.newsFlags(),
     queryFn: () => fetchCurrentAffairAllTags(),
@@ -154,7 +163,7 @@ export default function CurrentAffairsPage() {
         </div>
       </div>
 
-    {/* left side sheet */}
+      {/* left side sheet */}
       <div className="flex gap-8 px-4  container mx-auto pb-8">
         <div className="hidden lg:block">
           <FilterCurrentAffairs filters={filters} />
@@ -166,10 +175,14 @@ export default function CurrentAffairsPage() {
               className="inline-block text-2xl xl:text-4xl font-bold 
            bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent"
             >
-              Latest Articles
+              {newsCurrentLang === "en"
+                ? currentAffairsData.sectionTitle.titleEn
+                : currentAffairsData.sectionTitle.titleHin}
             </h2>
             <p className="text-subtitle-gray mb-4">
-              Stay informed with the latest news and insights
+              {newsCurrentLang === "en"
+                ? currentAffairsData.sectionSubtitle.titleEn
+                : currentAffairsData.sectionSubtitle.titleHin}
             </p>
           </div>
 
@@ -215,7 +228,7 @@ export default function CurrentAffairsPage() {
                       </div>
                       <div className="px-4 space-y-5">
                         <h2 className="text-title-darkblue text-xl font-semibold group-hover:text-blue-500 line-clamp-2">
-                          {currentLang === "en"
+                          {newsCurrentLang === "en"
                             ? item.title
                             : item.titleInHindi}
                         </h2>
@@ -223,7 +236,7 @@ export default function CurrentAffairsPage() {
                           className="text-zinc-600 text-sm line-clamp-2"
                           dangerouslySetInnerHTML={{
                             __html:
-                              currentLang === "en"
+                              newsCurrentLang === "en"
                                 ? item.description.replace(
                                     /<p>\s*<br\s*\/?>\s*<\/p>/g,
                                     "",

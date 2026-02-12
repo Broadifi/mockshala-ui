@@ -12,8 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import { useParams } from '@tanstack/react-router';
-import { useGlobalLanguage } from '@/stores/globalLanguageStore';
+import { useNewsLanguage } from '@/stores/newsLanguageStore';
 
 
 interface LanguageSelectorProps {
@@ -24,19 +23,16 @@ export function LanguageSelector({
   labelHidden = false,
 }: LanguageSelectorProps) {
 
-const { lang } = useParams({ strict: false });
-  
-  // const [language, setLanguage] = useAtom(languageAtom);
+  //fetch the current news language form local state just update the lang on news store,
+  // do not update the Global store data
 
-  const {currentLang, setLanguage} = useGlobalLanguage()
-
-  // console.log(currentLang);
+  const {newsCurrentLang,setNewsLanguage}= useNewsLanguage() 
   
   return (
-    <div>
+    <div >
       {labelHidden && <Label className='px-1 mb-2 text-title-gradient-blue'>Select Language</Label>}
-      <Select defaultValue={lang}
-        value={currentLang} onValueChange={setLanguage}
+      <Select defaultValue={newsCurrentLang}
+        value={newsCurrentLang} onValueChange={setNewsLanguage}
       >
         <SelectTrigger className='w-full relative border-gray-400'>
           <SelectValue placeholder='Select a language' />

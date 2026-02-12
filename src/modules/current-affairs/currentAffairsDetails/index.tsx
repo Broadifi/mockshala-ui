@@ -22,15 +22,14 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Copy } from "@/assets";
-import { Calendar } from "lucide-react";
-import { useGlobalLanguage } from "@/stores/globalLanguageStore";
+import { Calendar } from "lucide-react";;
 import SimilarCurrentAffairs from "./similarCurrentAffairs";
 import CurrentAffairsActions from "./currentAffairsActions";
-import { toast} from "sonner";
+import { toast } from "sonner";
+import { useNewsLanguage } from "@/stores/newsLanguageStore";
 
 function CurrentAffairsDetails() {
-  const { lang, slug } = useParams({ from: "/$lang/current-affairs/$slug/" });
-
+  const { slug } = useParams({ from: "/$lang/current-affairs/$slug/" });
 
   const { data, isLoading } = useQuery({
     queryKey: ["currentAffair", { slug }],
@@ -44,28 +43,24 @@ function CurrentAffairsDetails() {
 
   //   console.log(fetchData);
 
-  //fetch current select language from the previous current affair dashboard
-  const { currentLang, setLanguage } = useGlobalLanguage();
-
-  useEffect(() => {
-    setLanguage(lang);
-  }, [lang, setLanguage]);
+  const { newsCurrentLang, setNewsLanguage } = useNewsLanguage();
 
 
   //Copy the URL
- function handleCopyButton() {
-  const fullUrl = window.location.href;
+  function handleCopyButton() {
+    const fullUrl = window.location.href;
 
-  navigator.clipboard.writeText(fullUrl)
-    .then(() => {
-      // console.log("Copied:", fullUrl);
-      // optional toast
-      toast.success("Link copied to clipboard!");
-    })
-    .catch(() => {
-      toast.error("Failed to copy");
-    });
-}
+    navigator.clipboard
+      .writeText(fullUrl)
+      .then(() => {
+        // console.log("Copied:", fullUrl);
+        // optional toast
+        toast.success("Link copied to clipboard!");
+      })
+      .catch(() => {
+        toast.error("Failed to copy");
+      });
+  }
 
   return (
     <div className="gradient-soft-blue-current-affairs">
@@ -90,7 +85,7 @@ function CurrentAffairsDetails() {
           {/* Heading */}
           <div>
             <h2 className="text-3xl lg:text-4xl font-bold text-title-darkblue ">
-              {currentLang === "en"
+              {newsCurrentLang === "en"
                 ? fetchData?.title
                 : fetchData?.titleInHindi}
             </h2>
@@ -110,7 +105,11 @@ function CurrentAffairsDetails() {
               <div className="flex md:gap-1  items-center   ">
                 <h2 className="text-sm text-title-darkblue">Languages: </h2>
 
-                <Select defaultValue={currentLang} onValueChange={setLanguage}>
+                <Select
+                  defaultValue={newsCurrentLang}
+                  value={newsCurrentLang}
+                  onValueChange={setNewsLanguage}
+                >
                   <SelectTrigger
                     className="
                         border-0
@@ -139,9 +138,10 @@ function CurrentAffairsDetails() {
               <div className="flex gap-2 md:gap-4">
                 {/* Copy */}
                 <div className="hidden md:flex gap-2 items-center">
-                  <button className="cursor-pointer" 
-                    onClick={()=>handleCopyButton()}
-                    >
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => handleCopyButton()}
+                  >
                     <img
                       src={Copy}
                       alt="questions"
@@ -179,7 +179,7 @@ function CurrentAffairsDetails() {
             {data && (
               <HtmlSetter
                 html={
-                  (currentLang === "en"
+                  (newsCurrentLang === "en"
                     ? fetchData?.description
                     : fetchData?.descriptionInHindi) ?? ""
                 }
@@ -190,8 +190,6 @@ function CurrentAffairsDetails() {
 
         <SimilarCurrentAffairs id={data?.data._id} />
       </section>
-
-     
     </div>
   );
 }

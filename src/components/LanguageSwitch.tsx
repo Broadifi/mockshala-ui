@@ -1,13 +1,14 @@
-
 import { useGlobalLanguage } from "@/stores/globalLanguageStore";
+import { useNewsLanguage } from "@/stores/newsLanguageStore";
 import { useNavigate, useParams, useRouterState } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 export default function LanguageSwitch() {
   const { lang } = useParams({ strict: false });
   const navigate = useNavigate();
 
   //Set the updated language on Zustand store
-  const { setLanguage } = useGlobalLanguage();
+  const { currentLang, setLanguage } = useGlobalLanguage();
 
   //Fetch the whole location
   const { location } = useRouterState();
@@ -19,7 +20,6 @@ export default function LanguageSwitch() {
     const currentLang = currentPath.split("/")[1];
 
     // console.log(currentLang);
-    
 
     const updatedLang = currentLang === "en" ? "hi" : "en";
 
@@ -34,6 +34,13 @@ export default function LanguageSwitch() {
 
     setLanguage(updatedLang);
   };
+
+  const { setNewsLanguage } = useNewsLanguage();
+
+  //update News language when ever Global language is changed
+  useEffect(() => {
+    setNewsLanguage(currentLang);
+  }, [currentLang]);
 
   return (
     <button
