@@ -27,5 +27,10 @@
   },
   "similarCurrentAffairs":{
     "title": "आपके लिए सुझाया गया"
+  },
+  "currentAffairsHomePage":{
+    "title": "ताज़ा लेख",
+    "subtitle":"ताज़ा खबरों और महत्वपूर्ण जानकारियों से जुड़े रहें"
   }
+
 }

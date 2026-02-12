@@ -78,7 +78,7 @@ function CurrentAffairsDetails() {
           {/* tags */}
           <div className="flex gap-3 ">
             {fetchData?.tags.map((tag) => (
-              <Badge className="bg-button-blue">{tag}</Badge>
+              <Badge key={tag} className="bg-button-blue">{tag}</Badge>
             ))}
           </div>
 

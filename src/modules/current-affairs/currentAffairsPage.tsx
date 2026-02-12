@@ -32,14 +32,29 @@ import { Badge } from "@/components/ui/badge";
 import FilterCurrentAffairMobile from "./components/filterCurrentAffairMobile";
 import { useNewsLanguage } from "@/stores/newsLanguageStore";
 
-import { currentAffairsData } from "@/components/data/currentAffairsData";
+import i18n from "@/i18n";
 
 export default function CurrentAffairsPage() {
   //fetch language from URL
   const { lang } = useParams({ strict: false });
 
-
   const { newsCurrentLang } = useNewsLanguage();
+
+  const getLocalTranslation = (key: string): string => {
+    const bundle = i18n.getResourceBundle(
+      newsCurrentLang,
+      "translation",
+    ) as Record<string, unknown>;
+
+    return (
+      (key.split(".").reduce<unknown>((acc, k) => {
+        if (typeof acc === "object" && acc !== null && k in acc) {
+          return (acc as Record<string, unknown>)[k];
+        }
+        return undefined;
+      }, bundle) as string) || key
+    );
+  };
 
   //Update the news language whenever global language update
   // useEffect(() => {
@@ -175,14 +190,16 @@ export default function CurrentAffairsPage() {
               className="inline-block text-2xl xl:text-4xl font-bold 
            bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent"
             >
-              {newsCurrentLang === "en"
+              {/* {newsCurrentLang === "en"
                 ? currentAffairsData.sectionTitle.titleEn
-                : currentAffairsData.sectionTitle.titleHin}
+                : currentAffairsData.sectionTitle.titleHin} */}
+              {getLocalTranslation("currentAffairsHomePage.title")}
             </h2>
             <p className="text-subtitle-gray mb-4">
-              {newsCurrentLang === "en"
+              {/* {newsCurrentLang === "en"
                 ? currentAffairsData.sectionSubtitle.titleEn
-                : currentAffairsData.sectionSubtitle.titleHin}
+                : currentAffairsData.sectionSubtitle.titleHin} */}
+              {getLocalTranslation("currentAffairsHomePage.subtitle")}
             </p>
           </div>
 

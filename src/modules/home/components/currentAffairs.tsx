@@ -99,14 +99,15 @@ export function CurrentAffairs() {
                   </div>
 
                   {/* tag section */}
-                  {
-                    item.tags.length>1 &&  <div className="flex flex-wrap gap-2 pt-1">
-                    {item.tags.slice(1).map((tag) => (
-                      <Badge variant="outline" >{tag}</Badge>
-                    ))}
-                  </div>
-                  }
-                 
+                  {item.tags.length > 1 && (
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {item.tags.slice(1).map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
 
                   {/* title section */}
                   <div className="pb-4 xl:pb-5">

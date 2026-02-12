@@ -102,7 +102,7 @@ function SimilarCurrentAffairs({id}:IdProps) {
                   {
                     item.tags.length>1 &&  <div className="flex flex-wrap gap-2 pt-1">
                     {item.tags.slice(1).map((tag) => (
-                      <Badge variant="outline" >{tag}</Badge>
+                      <Badge key={tag} variant="outline" >{tag}</Badge>
                     ))}
                   </div>
                   }
