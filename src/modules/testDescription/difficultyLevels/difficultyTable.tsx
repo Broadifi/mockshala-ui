@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { TestDetailsData } from "@/api/model/test-model";
-import { Badge } from "@/components/ui/badge";
 import StartButton from "@/components/customButtons/startButtom";
 import BuyNow from "@/components/customButtons/buyNow";
 import { formatName } from "@/utils/formatting/formatName";
@@ -51,7 +50,7 @@ export function DifficultyTable({ filterData }: FilterDataProps) {
         <TableHeader className="sticky top-0 z-50 bg-white">
           <TableRow>
             {/* <TableHead>Difficulty</TableHead> */}
-            <TableHead className="text-center">Test Type</TableHead>
+            <TableHead className="pr-2">Test Type</TableHead>
             <TableHead>Test Name</TableHead>
             <TableHead className="text-center">Questions</TableHead>
             <TableHead className="text-center">Duration</TableHead>
@@ -71,10 +70,8 @@ export function DifficultyTable({ filterData }: FilterDataProps) {
                 {formattingWord(item.difficultyLevel)}
               </TableCell> */}
 
-              <TableCell className=" flex justify-center items-center">
-                <Badge variant={"secondary"}>
-                  {formattingWord(item.testType)}
-                </Badge>
+              <TableCell className="  pr-4  text-table-text-primary">
+                <p>{formattingWord(item.testType)}</p>
               </TableCell>
 
               <TableCell className="font-medium max-w-xs ">
@@ -99,7 +96,7 @@ export function DifficultyTable({ filterData }: FilterDataProps) {
                 {item.isOpen ? (
                   <StartButton title={"Start"} />
                 ) : (
-                  <BuyNow title={"Buy Now"} />
+                  <BuyNow title={"Unlock"} />
                 )}
               </TableCell>
             </TableRow>

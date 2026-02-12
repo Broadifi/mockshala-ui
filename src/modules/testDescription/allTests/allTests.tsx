@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { TestDetailsData } from "@/api/model/test-model";
-import { Badge } from "@/components/ui/badge";
 import StartButton from "@/components/customButtons/startButtom";
 import BuyNow from "@/components/customButtons/buyNow";
 import { formatName } from "@/utils/formatting/formatName";
@@ -105,10 +104,10 @@ function AllTests() {
                       {formattingWord(item.difficultyLevel)}
                     </TableCell>
 
-                    <TableCell className=" flex justify-center items-center">
-                      <Badge variant={"secondary"}>
+                    <TableCell className=" text-center  text-table-text-primary">
+                      <p>
                         {formattingWord(item.testType)}
-                      </Badge>
+                      </p>
                     </TableCell>
 
                     <TableCell className="font-medium max-w-xs">
@@ -135,7 +134,7 @@ function AllTests() {
                       {item.isOpen ? (
                         <StartButton title={"Start"} />
                       ) : (
-                        <BuyNow title={"Buy Now"} />
+                         <BuyNow title={"Unlock"} />
                       )}
                     </TableCell>
                   </TableRow>

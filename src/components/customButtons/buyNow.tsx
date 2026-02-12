@@ -1,17 +1,32 @@
+import { Lock } from "lucide-react";
+
 interface ButtonProps {
   title: string;
 }
+
 function BuyNow({ title }: ButtonProps) {
   return (
     <div className="flex justify-end">
       <button
-        className="flex w-20 items-center gap-2 rounded-lg border-2 border-orange-500
-        hover:border-blue-700
-        text-orange-500 
-        hover:text-blue-700
-        transition-colors duration-200 px-2 py-1 hover:cursor-pointer"
+        className="
+        relative overflow-hidden
+        flex items-center justify-center gap-2
+        w-25 px-4 py-2
+        rounded-lg
+        bg-gray-200
+        text-gray-600
+        border border-gray-300
+        cursor-pointer
+        shadow-sm
+      "
       >
-        {title}
+        {/* Shimmer effect */}
+        <span className="absolute inset-0 overflow-hidden rounded-lg">
+          <span className="shimmer absolute inset-0"></span>
+        </span>
+
+        <Lock size={16} className="opacity-70 relative z-10" />
+        <span className="relative z-10 font-medium">{title}</span>
       </button>
     </div>
   );

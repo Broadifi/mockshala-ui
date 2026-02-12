@@ -98,7 +98,7 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
                 {item.isOpen ? (
                   <StartButton title={"Start"} />
                 ) : (
-                  <BuyNow title={"Buy Now"} />
+                  <BuyNow title={"Unlock"} />
                 )}
               </TableCell>
             </TableRow>
