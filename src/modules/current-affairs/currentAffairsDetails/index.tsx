@@ -107,7 +107,7 @@ function CurrentAffairsDetails() {
 
             <div className="flex gap-2  md:gap-4">
               {/* Language section */}
-              <div className="flex gap-1  items-center   ">
+              <div className="flex md:gap-1  items-center   ">
                 <h2 className="text-sm text-title-darkblue">Languages: </h2>
 
                 <Select defaultValue={currentLang} onValueChange={setLanguage}>
