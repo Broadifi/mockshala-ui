@@ -2,21 +2,21 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface LanguageStore{
-  currentLang: string ;
-  setLanguage: (data:string) => void;
-   clearLanguage: () => void;
+  newsCurrentLang: string ;
+  setNewsLanguage: (data:string) => void;
+  clearNewsLanguage: () => void;
 }
 
 export const useNewsLanguage = create<LanguageStore>()(
   persist(
     (set) => ({
-      currentLang: "en",
+      newsCurrentLang: "en",
 
-      setLanguage: (lang) =>
-        set({ currentLang: lang }),
+      setNewsLanguage: (lang) =>
+        set({ newsCurrentLang: lang }),
 
-      clearLanguage: () =>
-        set({ currentLang: "en" }),
+      clearNewsLanguage: () =>
+        set({ newsCurrentLang: "en" }),
     }),
     {
       name: "news-language", // key in localStorage
