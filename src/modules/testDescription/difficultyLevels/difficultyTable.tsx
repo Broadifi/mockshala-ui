@@ -47,7 +47,7 @@ export function DifficultyTable({ filterData }: FilterDataProps) {
     <div className="w-full h-[70vh] overflow-y-auto flex flex-col ">
       <Table className="w-full border-collapse ">
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader className="sticky top-0 z-50 bg-white">
+        <TableHeader className="sticky top-0 z-10 bg-white">
           <TableRow>
             {/* <TableHead>Difficulty</TableHead> */}
             <TableHead className="pr-2">Test Type</TableHead>

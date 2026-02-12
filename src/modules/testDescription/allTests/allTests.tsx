@@ -80,7 +80,7 @@ function AllTests() {
           ) : (
             <Table className="w-full border-collapse ">
               {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-              <TableHeader className="sticky top-0 z-50 bg-white">
+              <TableHeader className="sticky top-0 z-10 bg-white">
                 <TableRow>
                   <TableHead>Difficulty</TableHead>
                   <TableHead className="text-center">Test Type</TableHead>

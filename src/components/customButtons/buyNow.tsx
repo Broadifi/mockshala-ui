@@ -25,8 +25,8 @@ function BuyNow({ title }: ButtonProps) {
           <span className="shimmer absolute inset-0"></span>
         </span>
 
-        <Lock size={16} className="opacity-70 relative z-10" />
-        <span className="relative z-10 font-medium">{title}</span>
+        <Lock size={16} className="opacity-70 relative " />
+        <span className="relative font-medium">{title}</span>
       </button>
     </div>
   );
