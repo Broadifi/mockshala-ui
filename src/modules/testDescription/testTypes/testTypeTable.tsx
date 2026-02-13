@@ -47,11 +47,11 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
     <div className="w-full h-[70vh] overflow-y-auto flex flex-col">
       <Table className="w-full border-collapse ">
         {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader className="sticky top-0 z-50 bg-white">
+        <TableHeader className="sticky top-0 z-10 bg-white">
           <TableRow>
             <TableHead>Difficulty</TableHead>
             {/* <TableHead className="text-center">Test Type</TableHead> */}
-            <TableHead className="pl-2">Test Name</TableHead>
+            <TableHead className="pl-5">Test Name</TableHead>
             <TableHead className="text-center">Questions</TableHead>
             <TableHead className="text-center">Duration</TableHead>
             <TableHead className="text-center">Max Score</TableHead>
@@ -64,7 +64,7 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
               <TableCell
                 className={
                   difficultyTextColor[item.difficultyLevel.toLowerCase()] ??
-                  "text-gray-600"
+                  "text-gray-600 "
                 }
               >
                 {formattingWord(item.difficultyLevel)}
@@ -76,7 +76,7 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
                 </Badge>
               </TableCell> */}
 
-              <TableCell className="font-medium max-w-xs ">
+              <TableCell className="font-medium max-w-xs pl-5">
                 <p
                   title={formatName(item.name)}
                   className="truncate overflow-hidden whitespace-nowrap text-table-text-primary"
@@ -98,7 +98,7 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
                 {item.isOpen ? (
                   <StartButton title={"Start"} />
                 ) : (
-                  <BuyNow title={"Buy Now"} />
+                  <BuyNow title={"Unlock"} />
                 )}
               </TableCell>
             </TableRow>

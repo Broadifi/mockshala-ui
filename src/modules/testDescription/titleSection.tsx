@@ -5,10 +5,11 @@ import type { TestDetailsData } from "@/api/model/test-model";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, HeartPlus, Share2 } from "lucide-react";
+import { ArrowRight, Clock, HeartPlus } from "lucide-react";
 import { formatToK } from "@/utils/formatting/formatNumber";
 import DescriptionModal from "./modal/modal";
 import FullDescriptionSection from "./fullDescriptionSection";
+import ShareOnMedia from "@/components/ui/shareOnMedia";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -39,6 +40,13 @@ function TitleSection() {
 
   //fetch descriptionDetails
   const descriptionDetails = fetchTestData?.description ?? "";
+
+   //Props for Social media share
+  const shareMedia = {
+    title: "Check this course 👇",
+    buttonName: "Share",
+    popupHeader: "Check this course"
+  }
 
   return (
     <div>
@@ -148,10 +156,7 @@ function TitleSection() {
               <p className="hidden sm:flex">Wishlist</p>
             </div>
 
-            <div className=" text-gray-500 flex items-center gap-1 text-[15px]">
-              <Share2 size={18} className="text-gray-600" />
-              <p className="hidden sm:flex">Share</p>
-            </div>
+             <ShareOnMedia data={shareMedia}/>
           </div>
         </div>
       </div>
