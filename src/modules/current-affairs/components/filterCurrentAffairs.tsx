@@ -71,20 +71,16 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
     );
   };
 
-  
-  /*----------- Handle ChevronUp Button---------------*/
-
-  function handleChevronUp(){
-    setIsSearchOpen(false)
-     setFilteredFilters(filters);
-     setSearchText("")
+  function handleChevronUp() {
+    setIsSearchOpen(false);
+    setFilteredFilters(filters);
+    setSearchText("");
   }
-
 
   /* -------------------- UI -------------------- */
 
   return (
-    <Card className="w-[18rem] p-3 flex-col gap-4 sticky top-24 h-fit hidden lg:flex">
+    <Card className="w-[18rem] p-3 flex-col gap-4 sticky top-24 hidden lg:flex h-[calc(100vh-8rem)]">
       <h2 className="text-lg font-bold text-title-darkblue tracking-wider">
         Filters
       </h2>
@@ -92,9 +88,10 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
       <DatePicker />
       <LanguageSelector labelHidden />
 
-      {/* -------------------- TAG SEARCH -------------------- */}
-      <div className="mt-2">
-        <div className="flex items-center h-12 overflow-hidden">
+      {/* -------------------- TAG SECTION WRAPPER -------------------- */}
+      <div className="mt-2 flex flex-col flex-1 min-h-0">
+        {/* -------------------- TAG SEARCH HEADER -------------------- */}
+        <div className="flex items-center h-12 overflow-hidden shrink-0">
           <AnimatePresence mode="wait">
             {isSearchOpen ? (
               <motion.div
@@ -102,32 +99,24 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
+                transition={{ duration: 0.25 }}
                 className="flex items-center gap-2 w-full"
               >
-                <Field orientation="horizontal">
+                <Field orientation="horizontal" className="flex-1">
                   <Input
                     type="search"
                     placeholder="Search Tag..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     autoFocus
-                    className="
-                      focus:outline-none
-                      focus:ring-0
-                      focus:ring-offset-0
-                      focus-visible:outline-none
-                      focus-visible:ring-0
-                    "
+                    className="focus:outline-none focus:ring-0"
                   />
-
-                  {/* <Search size={28} className="text-button-blue cursor-pointer" /> */}
                 </Field>
 
                 <motion.button
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                   onClick={() => handleChevronUp()}
+                  onClick={handleChevronUp}
                   className="flex"
                 >
                   <ChevronUp
@@ -142,7 +131,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
+                transition={{ duration: 0.25 }}
                 className="flex justify-between items-center w-full"
               >
                 <div className="font-semibold flex gap-1 items-center">
@@ -165,8 +154,8 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
           </AnimatePresence>
         </div>
 
-        {/* -------------------- TAG LIST -------------------- */}
-        <div className="py-2 h-[50vh] overflow-y-auto">
+        {/* -------------------- SCROLLABLE TAG LIST -------------------- */}
+        <div className="py-2 flex-1 overflow-y-auto min-h-0 pr-1">
           {filteredFilters.length === 0 ? (
             <p className="text-sm text-gray-500 text-center mt-4">
               No tags found
@@ -174,7 +163,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
           ) : (
             <div className="space-y-3">
               {filteredFilters.map((item) => (
-                <div key={item._id} className="flex items-center gap-1 text-sm">
+                <div key={item._id} className="flex items-center gap-2 text-sm">
                   <Checkbox
                     id={item._id}
                     className="border-gray-600 rounded-full"

@@ -39,9 +39,7 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
     }
 
     setFilteredFilters(
-      filters.filter((item) =>
-        item.name.toLowerCase().includes(query),
-      ),
+      filters.filter((item) => item.name.toLowerCase().includes(query)),
     );
   }, [searchText, filters]);
 
@@ -65,21 +63,18 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : [...prev, tag],
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
   /*----------- Handle ChevronUp Button---------------*/
 
-  function handleChevronUp(){
-    setIsSearchOpen(false)
-     setFilteredFilters(filters);
-     setSearchText("")
+  function handleChevronUp() {
+    setIsSearchOpen(false);
+    setFilteredFilters(filters);
+    setSearchText("");
   }
 
-  
   /* -------------------- UI -------------------- */
 
   return (
@@ -125,10 +120,7 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => handleChevronUp()}
                 >
-                  <ChevronUp
-                    size={24}
-                    className="text-title-gradient-blue"
-                  />
+                  <ChevronUp size={24} className="text-title-gradient-blue" />
                 </motion.button>
               </motion.div>
             ) : (
@@ -150,10 +142,7 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsSearchOpen(true)}
                 >
-                  <Search
-                    size={22}
-                    className="text-title-gradient-blue"
-                  />
+                  <Search size={22} className="text-title-gradient-blue" />
                 </motion.button>
               </motion.div>
             )}
@@ -161,13 +150,13 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
         </div>
 
         {/* -------------------- TAG LIST -------------------- */}
-        <div className="py-2">
+        <div className="py-2 ">
           {filteredFilters.length === 0 ? (
             <p className="text-sm text-gray-500 text-center mt-4">
               No tags found
             </p>
           ) : (
-            <div className="space-y-3 h-[70vh] overflow-y-auto">
+            <div className="space-y-3 h-[60vh] overflow-y-auto">
               {filteredFilters.map((item) => (
                 <div key={item._id} className="flex items-center gap-2 text-sm">
                   <Checkbox
