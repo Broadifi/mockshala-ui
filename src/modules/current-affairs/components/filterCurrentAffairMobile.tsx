@@ -20,8 +20,6 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
   const navigate = Route.useNavigate();
   const search = Route.useSearch();
 
-  /* -------------------- STATE -------------------- */
-
   const [selectedTags, setSelectedTags] = useState<string[]>(search.tags || []);
   const [searchText, setSearchText] = useState("");
   const [filteredFilters, setFilteredFilters] =
@@ -59,15 +57,11 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
     setSelectedTags(search.tags ?? []);
   }, [search.tags]);
 
-  /* -------------------- HANDLERS -------------------- */
-
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
-
-  /*----------- Handle ChevronUp Button---------------*/
 
   function handleChevronUp() {
     setIsSearchOpen(false);
@@ -78,16 +72,19 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
   /* -------------------- UI -------------------- */
 
   return (
-    <div className="w-[16rem] p-4 mt-10 flex flex-col gap-4 ">
-      <h2 className="text-lg font-bold text-title-darkblue tracking-wider mb-2">
+    <div className="w-[16rem] px-4 py-6 flex flex-col h-dvh">
+
+      <h2 className="text-lg font-bold text-title-darkblue tracking-wider mb-4">
         Filters
       </h2>
 
       <DatePicker />
 
-      {/* -------------------- TAG SEARCH -------------------- */}
-      <div className="">
-        <div className="flex items-center h-10 overflow-hidden">
+      {/* -------------------- TAG SECTION -------------------- */}
+      <div className="mt-4 flex flex-col flex-1 min-h-0">
+
+        {/* Search Header */}
+        <div className="flex items-center h-10 shrink-0 overflow-hidden">
           <AnimatePresence mode="wait">
             {isSearchOpen ? (
               <motion.div
@@ -98,29 +95,22 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
                 transition={{ duration: 0.25, ease: "easeInOut" }}
                 className="flex items-center gap-2 w-full"
               >
-                <Field orientation="horizontal">
+                <Field orientation="horizontal" className="flex-1">
                   <Input
                     type="search"
                     placeholder="Search Tag..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     autoFocus
-                    className="
-                      focus:outline-none
-                      focus:ring-0
-                      focus:ring-offset-0
-                      focus-visible:outline-none
-                      focus-visible:ring-0
-                    "
+                    className="focus:outline-none focus:ring-0"
                   />
                 </Field>
 
                 <motion.button
-                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  onClick={() => handleChevronUp()}
+                  onClick={handleChevronUp}
                 >
-                  <ChevronUp size={24} className="text-title-gradient-blue" />
+                  <ChevronUp size={22} className="text-title-gradient-blue" />
                 </motion.button>
               </motion.div>
             ) : (
@@ -129,39 +119,37 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
+                transition={{ duration: 0.25 }}
                 className="flex justify-between items-center w-full"
               >
                 <div className="font-semibold flex gap-1 items-center">
                   <Tag size={15} />
-                  <p className="text-title-gradient-blue ">Select Tags</p>
+                  <p className="text-title-gradient-blue">Select Tags</p>
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsSearchOpen(true)}
                 >
-                  <Search size={22} className="text-title-gradient-blue" />
+                  <Search size={20} className="text-title-gradient-blue" />
                 </motion.button>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
 
-        {/* -------------------- TAG LIST -------------------- */}
-        <div className="py-2 ">
+        {/* Scrollable Tag List */}
+        <div className="mt-3 flex-1 overflow-y-auto min-h-0 pr-1">
           {filteredFilters.length === 0 ? (
             <p className="text-sm text-gray-500 text-center mt-4">
               No tags found
             </p>
           ) : (
-            <div className="space-y-3 h-[60vh] overflow-y-auto">
+            <div className="space-y-3 pb-6">
               {filteredFilters.map((item) => (
                 <div key={item._id} className="flex items-center gap-2 text-sm">
                   <Checkbox
                     id={item._id}
-                    className="border-gray-600 rounded-full"
                     checked={selectedTags.includes(item.name)}
                     onCheckedChange={() => toggleTag(item.name)}
                   />
@@ -176,6 +164,7 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
             </div>
           )}
         </div>
+
       </div>
     </div>
   );

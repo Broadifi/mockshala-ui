@@ -166,7 +166,7 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
                 <div key={item._id} className="flex items-center gap-2 text-sm">
                   <Checkbox
                     id={item._id}
-                    className="border-gray-600 rounded-full"
+                    className="border-gray-600 "
                     checked={selectedTags.includes(item.name)}
                     onCheckedChange={() => toggleTag(item.name)}
                   />
