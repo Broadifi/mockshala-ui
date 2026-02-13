@@ -9,22 +9,30 @@ import { useQuery } from "@tanstack/react-query"
 import { Calendar, Clock4 } from "lucide-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslation } from "react-i18next";
-import { useGlobalLanguage } from "@/stores/globalLanguageStore";
+
+import { useNewsLanguage } from "@/stores/newsLanguageStore";
+import { Link, useParams } from "@tanstack/react-router";
+import { useEffect } from "react";
 
 interface IdProps{
     id: string | undefined
 }
 function SimilarCurrentAffairs({id}:IdProps) {
 
-    // const { currentLang } = useGlobalLanguage();
+    //fetch language from URL
+    const { lang } = useParams({ strict: false });
     
+    const homepageLink = lang ?? "en";
+
     //for translation
     const { t } = useTranslation();
 
     //fetch current select language from the previous current affair dashboard
-    const { currentLang} = useGlobalLanguage();
+    const { newsCurrentLang} = useNewsLanguage();
     
-
+    useEffect(()=>{
+       window.scrollTo({ top: 0, behavior: "instant" });
+    })
     //fetch similar news
     const {data}= useQuery({
         queryKey: currentAffairsKeys.similarNews(id),
@@ -52,7 +60,7 @@ function SimilarCurrentAffairs({id}:IdProps) {
 
       <Carousel
         opts={{
-          align: "center",
+          align: "start",
           loop: true,
         }}
         plugins={[
@@ -68,8 +76,13 @@ function SimilarCurrentAffairs({id}:IdProps) {
               key={item._id}
               className=" basis-1/1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 sm:p-4 group"
             >
+              <Link 
+                to={"/$lang/current-affairs/$slug"}
+                params={{ lang: homepageLink, slug: item.slug }}
+                key={item._id}
+              >
               <div className="transition-transform duration-300 ease-in-out 
-              group-hover:scale-102 group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
+              group-hover:scale-[1.02] group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
                 {/* image section */}
                 <div className="overflow-hidden relative">
                   <img
@@ -111,13 +124,14 @@ function SimilarCurrentAffairs({id}:IdProps) {
                   {/* title section */}
                   <div className="pb-4 xl:pb-5">
                     <h2 className="line-clamp-2 font-semibold text-title-darkblue">
-                      {currentLang === "en"
+                      {newsCurrentLang === "en"
                     ? item.title
                     : item.titleInHindi }
                     </h2>
                   </div>
                 </div>
               </div>
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>

@@ -11,7 +11,7 @@
 
 
   export function formatDateToISO(dateStr: string | undefined) {
-  if (!dateStr) return '';
+  if (!dateStr) return undefined;
   const [day, month, year] = dateStr.split('-');
   return `${year}-${month}-${day}`;
 }

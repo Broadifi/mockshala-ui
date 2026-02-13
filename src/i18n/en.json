@@ -23,7 +23,8 @@
   },
   "currentAffairs":{
     "title": "Current Affairs",
-    "subtitle": "Stay updated with daily news analysis & editorials"
+    "subtitle": "Stay updated with daily news analysis & editorials",
+    "viewAllButton": "View All Current Affairs"
   },
   "similarCurrentAffairs":{
     "title": "Recommended for you"

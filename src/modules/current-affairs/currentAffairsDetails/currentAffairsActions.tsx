@@ -20,9 +20,14 @@ function CurrentAffairsActions() {
   const title = "Check this current affair 👇";
 
   const copyLink = async () => {
-    await navigator.clipboard.writeText(shareUrl);
-    toast.success("Link copied to clipboard!");
-    setOpen(false);
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success("Link copied to clipboard!");
+      setOpen(false);
+    } catch (error) {
+      console.error("Clipboard copy failed:", error);
+      toast.error("Failed to copy link. Please try again.");
+    }
   };
 
   return (
@@ -55,7 +60,7 @@ function CurrentAffairsActions() {
               </WhatsappShareButton>
 
               <FacebookShareButton url={shareUrl} title={title}>
-                <FacebookIcon size={48} round/>
+                <FacebookIcon size={48} round />
               </FacebookShareButton>
 
               <TwitterShareButton url={shareUrl} title={title}>
@@ -63,7 +68,7 @@ function CurrentAffairsActions() {
               </TwitterShareButton>
 
               <LinkedinShareButton url={shareUrl} title={title}>
-                <LinkedinIcon size={48} round/>
+                <LinkedinIcon size={48} round />
               </LinkedinShareButton>
             </div>
 

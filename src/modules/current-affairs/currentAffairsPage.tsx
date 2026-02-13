@@ -33,6 +33,7 @@ import FilterCurrentAffairMobile from "./components/filterCurrentAffairMobile";
 import { useNewsLanguage } from "@/stores/newsLanguageStore";
 
 import i18n from "@/i18n";
+import DOMPurify from "dompurify";
 
 export default function CurrentAffairsPage() {
   //fetch language from URL
@@ -131,7 +132,7 @@ export default function CurrentAffairsPage() {
 
   //Scroll to top window
   useEffect(() => {
-    refetch();
+   
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [date, tags, refetch]);
 
@@ -146,6 +147,12 @@ export default function CurrentAffairsPage() {
   const filters = Array.isArray(allTags?.data) ? allTags.data : [];
 
   // console.log(filters);
+
+  //sanitization the HTML
+  const cleanHTML = (html: string) => {
+    const clean = DOMPurify.sanitize(html);
+    return clean.replace(/<p>\s*<br\s*\/?>\s*<\/p>/g, "");
+  };
 
   return (
     <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
@@ -190,15 +197,11 @@ export default function CurrentAffairsPage() {
               className="inline-block text-2xl xl:text-4xl font-bold 
            bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent"
             >
-              {/* {newsCurrentLang === "en"
-                ? currentAffairsData.sectionTitle.titleEn
-                : currentAffairsData.sectionTitle.titleHin} */}
+             
               {getLocalTranslation("currentAffairsHomePage.title")}
             </h2>
             <p className="text-subtitle-gray mb-4">
-              {/* {newsCurrentLang === "en"
-                ? currentAffairsData.sectionSubtitle.titleEn
-                : currentAffairsData.sectionSubtitle.titleHin} */}
+            
               {getLocalTranslation("currentAffairsHomePage.subtitle")}
             </p>
           </div>
@@ -254,14 +257,8 @@ export default function CurrentAffairsPage() {
                           dangerouslySetInnerHTML={{
                             __html:
                               newsCurrentLang === "en"
-                                ? item.description.replace(
-                                    /<p>\s*<br\s*\/?>\s*<\/p>/g,
-                                    "",
-                                  )
-                                : item.descriptionInHindi.replace(
-                                    /<p>\s*<br\s*\/?>\s*<\/p>/g,
-                                    "",
-                                  ),
+                                ? cleanHTML(item.description)
+                                : cleanHTML(item.descriptionInHindi),
                           }}
                         ></p>
                         <div className="space-y-2">

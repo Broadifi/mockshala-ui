@@ -69,7 +69,12 @@ export function CurrentAffairs() {
               key={item._id}
               className="basis-1/1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 md:p-4 group"
             >
-              <div className=" transition-transform duration-300 ease-in-out group-hover:scale-102 group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
+              <Link
+                to={"/$lang/current-affairs/$slug"}
+                params={{ lang: baseLanguage, slug: item.slug }}
+                key={item._id}
+              >
+              <div className=" transition-transform duration-300 ease-in-out group-hover:scale-[1.02] group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
                 {/* image section */}
                 <div className="overflow-hidden relative">
                   <img
@@ -117,6 +122,7 @@ export function CurrentAffairs() {
                   </div>
                 </div>
               </div>
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -133,7 +139,7 @@ export function CurrentAffairs() {
         >
           <Button
             variant="ghost"
-            className=" f px-6 py-2 rounded-full
+            className="px-6 py-2 rounded-full
             border border-blue-200
             bg-blue-100/70 backdrop-blur
             text-blue-700 font-medium
@@ -142,7 +148,7 @@ export function CurrentAffairs() {
             hover:shadow-lg hover:-translate-y-1
             "
           >
-            View All Current Affairs
+            {t("currentAffairs.viewAllButton")}
             <ArrowRight />
           </Button>
         </Link>
