@@ -2,7 +2,6 @@ import type { TestDetailsData } from "@/api/model/test-model";
 
 import { useTestDescriptionStore } from "@/stores/testStore";
 import { formattingWord } from "@/utils/formatting/formattingWord";
-import React from "react";
 import { TabsByType } from "../tabs";
 import { TabsByTypeMobile } from "../tabs/tabsforMobile";
 import { useBreakpoints } from "@/hooks/useBreakpoints";

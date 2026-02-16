@@ -467,3 +467,23 @@ body {
     padding-left: 1rem;
   }
 }
+
+/* Premium shimmer animation */
+.shimmer {
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.6) 40%,
+    transparent 60%
+  );
+  animation: shimmer 2.2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

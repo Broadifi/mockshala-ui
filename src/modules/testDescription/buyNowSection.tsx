@@ -1,11 +1,11 @@
-import React from "react";
 import { Badge } from "@/components/ui/badge";
 import ButtonCustom from "@/components/buttonCustom";
 
 import { IMAGE_BASE_URL } from "@/api/url";
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
-import { BookOpen, FileText, HeartPlus, Share2 } from "lucide-react";
+import { BookOpen, FileText, HeartPlus } from "lucide-react";
+import ShareOnMedia from "@/components/shareOnMedia";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;
@@ -16,14 +16,10 @@ interface StoreDataProps {
 function BuyNowSection() {
   const { testData: fetchTestData }: StoreDataProps = useTestDescriptionStore();
 
-  // Total test count
-  const totalTests = fetchTestData?.tests.length;
-
+  const totalTests = fetchTestData?.tests?.length ?? 0;
   // total questions no
-  const totalQuestions = fetchTestData?.tests.reduce(
-    (sum, test) => sum + test.totalQuestions,
-    0,
-  );
+  const totalQuestions =
+    fetchTestData?.tests?.reduce((sum, test) => sum + test.totalQuestions, 0) ?? 0;
 
   let time = 0;
   if (fetchTestData) {
@@ -32,6 +28,14 @@ function BuyNowSection() {
 
   //course validity
   const validity = Math.floor(time);
+
+  //Props for Social media share
+  const shareMedia = {
+    title: "Check this course 👇",
+    buttonName: "Share course",
+    popupHeader: "Check this course"
+  }
+
 
   return (
     <div
@@ -44,7 +48,7 @@ function BuyNowSection() {
         <img
           src={IMAGE_BASE_URL + fetchTestData?.image}
           alt={fetchTestData?.name || "Test series image"}
-          className="object-contain rounded-t-lg h-full w-full relative z-2"
+          className="object-contain rounded-t-lg h-full w-full relative z-20"
         />
 
         {/* <img
@@ -56,7 +60,7 @@ function BuyNowSection() {
         <img
           src={IMAGE_BASE_URL + fetchTestData?.image}
           alt={fetchTestData?.name || "Test series image"}
-          className="object-cover absolute inset-0 h-full w-full z-1 blur-[3px]"
+          className="object-cover absolute inset-0 h-full w-full z-10 blur-[3px]"
         />
       </div>
 
@@ -103,11 +107,8 @@ function BuyNowSection() {
 
         {/* Share and add to fav */}
         <div className="flex flex-col xl:flex-row items-center xl:justify-normal gap-4 xl:gap-8 pt-3 pb-5">
-          <div className="flex gap-2 text-sm items-center hover:cursor-pointer">
-            <Share2 size={18} className="text-gray-600" />
-            <p className="text-[#1e4064] ">Share course</p>
-          </div>
-
+          
+          <ShareOnMedia data={shareMedia}/>
           <div className="flex gap-2 text-sm items-center hover:cursor-pointer">
             <HeartPlus size={18} className="text-gray-600" />
             <p className="text-[#1e4064] ">Add to favorites</p>
