@@ -32,7 +32,8 @@ function SimilarCurrentAffairs({id}:IdProps) {
     
     useEffect(()=>{
        window.scrollTo({ top: 0, behavior: "instant" });
-    })
+    },[])
+    
     //fetch similar news
     const {data}= useQuery({
         queryKey: currentAffairsKeys.similarNews(id),
