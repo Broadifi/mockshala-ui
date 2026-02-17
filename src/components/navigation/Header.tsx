@@ -47,8 +47,8 @@ function Header() {
     createHeaderData(lang || "en");
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center">
-      <div className="w-full container px-4 py-2">
+    <header className="fixed w-full left-0 top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center ">
+      <div className="w-full container px-4 py-3 md:py-2">
         <div className="flex gap-4 justify-between w-full  ">
           {/* Title for all view */}
           <Link
@@ -116,6 +116,12 @@ function Header() {
                 <Badge className="absolute top-1 right-1 h-2 w-2 p-0 bg-red-500" />
               </Button>
             </div>
+
+              {/* Language switch for tablet screen */}
+            <div className="flex xl:hidden">
+              <LangSwitch />
+            </div>
+
 
             {isLoggedIn ? (
               <Link
@@ -212,15 +218,12 @@ function Header() {
                 <Badge className="absolute top-1 right-1 h-2 w-2 p-0 bg-red-500" />
               </Button>
             </div>
-
+            
+            {/* Language switch for large screen */}
             <div className="hidden xl:flex">
               <LanguageSwitch />
             </div>
-
-            <div className="flex xl:hidden">
-              <LangSwitch />
-            </div>
-
+            
             {isLoggedIn ? (
               <Link
                 key="Profile"
@@ -272,6 +275,11 @@ function Header() {
               </Button>
             </div>
 
+              {/* Language switch for tablet screen */}
+            <div className="flex xl:hidden">
+              <LangSwitch />
+            </div>
+            
             <div>
               {/* Mobile Menu Button - Now at the end */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>

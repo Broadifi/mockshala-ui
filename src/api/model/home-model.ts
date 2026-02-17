@@ -124,3 +124,33 @@ export  interface AllExamResponse {
   page: number;
   data: AllExamResponseData[];
 }
+
+
+//Current Affairs
+
+interface CurrentAffairs {
+  _id: string;
+  title: string;
+  titleInHindi: string;
+  tags: string[];
+  image: string;
+  description: string;
+  descriptionInHindi: string;
+  status: boolean;
+  publishedDate: string;
+  slug: string;
+  createdBy: object;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CurrentAffairsResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  totalCount: number;
+  hasNext: boolean;
+  page: number;
+  data: CurrentAffairs[];
+}

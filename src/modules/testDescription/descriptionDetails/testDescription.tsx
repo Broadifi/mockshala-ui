@@ -11,7 +11,7 @@ function TestDescription() {
   const { testData } = useTestDescriptionStore();
 
   return (
-    <div className="max-w-6xl w-full rounded-2xl border p-4 bg-white flex flex-col gap-3">
+    <div className="max-w-6xl w-full rounded-2xl border p-4 bg-white">
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}

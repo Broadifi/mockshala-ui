@@ -1,5 +1,3 @@
-
-
 {
   "nav": {
     "dashboard": "Dashboard",
@@ -22,6 +20,18 @@
   "allTestSeries":{
     "title": "All Test Series",
     "subtitle": "Join thousands of successful students with our expertly designed test series for various competitive examinations"
+  },
+  "currentAffairs":{
+    "title": "Current Affairs",
+    "subtitle": "Stay updated with daily news analysis & editorials",
+    "viewAllButton": "View All Current Affairs"
+  },
+  "similarCurrentAffairs":{
+    "title": "Recommended for you"
+  },
+  "currentAffairsHomePage":{
+    "title": "Latest Articles",
+    "subtitle":"Stay informed with the latest news and insights"
   }
 
 }

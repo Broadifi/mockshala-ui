@@ -13,7 +13,16 @@ export const BASE_URL =
     allExamData: (examCategory: string) =>
        `/test-series/?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
 
-    testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`
+    testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`,
+
+    currentAffairs: ()=> '/current-affairs',
+
+    currentAffairsBySlug: (slug: string)=> `/current-affairs/by-slug/${slug}`,
+
+    currentAffairsAllTags: ()=> '/current-affairs/tags',
+
+    similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`
+
       
   }
 

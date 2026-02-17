@@ -65,6 +65,8 @@ export default function Hero() {
     };
   }, [api]);
 
+
+  //Handel mouse event
   const handleMouseEnter = () => {
     autoplay.current.stop();
   };
@@ -125,7 +127,7 @@ export default function Hero() {
       {/* for Large Screen */}
       <div
         ref={sliderRef}
-        className="pt-5 relative w-full hidden md:flex"
+        className="md:pt-3 lg:pt-3 xl:pt-4 relative w-full hidden md:flex"
       >
         <Carousel
           setApi={setApi}

@@ -5,7 +5,7 @@ import { IMAGE_BASE_URL } from "@/api/url";
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
 import { BookOpen, FileText, HeartPlus } from "lucide-react";
-import ShareOnMedia from "@/components/ui/shareOnMedia";
+import ShareOnMedia from "@/components/shareOnMedia";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;

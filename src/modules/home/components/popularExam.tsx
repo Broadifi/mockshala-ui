@@ -14,12 +14,9 @@ import { IMAGE_BASE_URL } from "@/api/url";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 
-
-
 function PopularExam() {
-
-   //for translation
-    const { t } = useTranslation()
+  //for translation
+  const { t } = useTranslation();
 
   const { data: popularTestData } = useQuery({
     queryKey: homeQueryKey.popularTests(),
@@ -33,7 +30,11 @@ function PopularExam() {
     <div className=" w-full container px-4 py-2 mx-auto lg:mt-20">
       {/* HEADER */}
       <div className="text-center md:text-start xl:space-y-2">
-        <h3 className="py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <h3
+          className="inline-block py-1 text-2xl xl:text-4xl font-bold 
+          bg-linear-to-r from-title-gradient-blue to-title-gradient-sky
+         bg-clip-text text-transparent"
+        >
           {t("popularTests.title")}
         </h3>
         <p className="text-sm xl:text-base text-gray-600 dark:text-gray-300 max-w-2xl">
@@ -130,7 +131,7 @@ function PopularExam() {
                   </div>
 
                   {/* CONTENT */}
-                  <div className="relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
+                  <div className=" relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
                     <h1
                       className="
                       text-xs md:text-sm font-semibold text-center

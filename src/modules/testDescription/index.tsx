@@ -2,9 +2,11 @@ import { testDescriptionKey } from "@/api";
 import { testAPI } from "@/api/services/getTestDetails";
 
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "@tanstack/react-router";
+import { useParams } from "@tanstack/react-router";
 
 // import { ImageWithFallback } from "../fallback/ImageWithFallback";
+
+import { useEffect } from "react";
 
 import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
@@ -28,8 +30,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import { useEffect } from "react";
-
 interface StoreDataProps {
   testData: TestDetailsData | null;
   setTestData: (data: TestDetailsData) => void;
@@ -40,9 +40,11 @@ function DescriptionModule() {
   const width = useBreakpoints("lg");
   // console.log("width",width);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  // });
+
+  // const [showStickyHeader, setShowStickyHeader] = useState(false);
 
   //Fetch params
   const { examCategory, testSlug, lang } = useParams({
@@ -67,76 +69,86 @@ function DescriptionModule() {
     }
   }, [data, setTestData]);
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (window.scrollY > 20) {
+  //       console.log("testimggh");
+
+  //       setShowStickyHeader(true);
+  //     } else {
+  //       setShowStickyHeader(false);
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   // run once on mount (important if page loads already scrolled)
+  //   handleScroll();
+
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
   return (
-    <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
-      <div className="w-full  h-1/2">
-        <div className="w-full container px-4 py-5 mx-auto">
-          {/* bread crumbs   */}
+    <>
+    {/* sticky header */}
+      {/* {
+        <div
+          className={`bg-amber-300 p-5 z-50 shadow-2xl ${showStickyHeader ? "sticky top-13 md:top-15 lg:top-16 flex" : "hidden"}`}
+        >
+          Sticky Header
+        </div>
+      } */}
 
-          <Breadcrumb>
-            <BreadcrumbList className="text-xs md:text-sm text-[#1B4965] items-center pb-6 xl:pb-8">
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/$lang" params={{ lang }}>
-                    Home
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
+      <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
+        <div className="w-full  h-1/2">
+          <div className="w-full container px-4 py-5 mx-auto">
+            {/* bread crumbs   */}
 
-              <BreadcrumbSeparator />
+            <Breadcrumb>
+              <BreadcrumbList className="text-xs md:text-sm text-[#1B4965] items-center pb-6 xl:pb-8">
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/${lang}/`}>Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/${lang}/exams`}>Exams</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="text-button-blue">
+                    {data?.data.name}
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
 
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link to="/$lang/exams" params={{ lang }}>
-                    Exams
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
+            {/* Header section */}
+            {isLoading &&
+              (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
 
-              <BreadcrumbSeparator />
+            {/* Main Header */}
+            {!isLoading && <TitleSection />}
 
-              <BreadcrumbItem>
-                <BreadcrumbPage className="text-button-blue">
-                  {data?.data.name}
-                </BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+            {/* Description section */}
 
-          {/* <div className="flex gap-2 text-xs text-[#1B4965] items-center pb-6 xl:pb-8">
-            <span>Home</span>
-            <ChevronRight size={18} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
+              {/* Description Section */}
+              <div className="col-span-9 overflow-x-auto">
+                {width ? <TestDescription /> : <TestDescriptionMobile />}
+              </div>
 
-            <span>Exams</span>
-            <ChevronRight size={18} />
+              {/* Buy Now section */}
 
-            <span className="text-button-blue">MPPSC Mock Test</span>
-          </div> */}
-
-          {/* Header section */}
-          {isLoading &&
-            (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
-
-          {/* Main Header */}
-          {!isLoading && <TitleSection />}
-
-          {/* Description section */}
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-7">
-            {/* Description Section */}
-            <div className="col-span-9 overflow-x-auto">
-              {width ? <TestDescription /> : <TestDescriptionMobile />}
-            </div>
-
-            {/* Buy Now section */}
-
-            <div className=" col-span-3 lg:-mt-64 lg:mr-5 lg:z-10 ">
-              {isLoading ? <BuyNowSkeleton /> : <BuyNowSection />}
+              <div className=" col-span-3 lg:-mt-64 lg:mr-5 lg:z-10 ">
+                {isLoading ? <BuyNowSkeleton /> : <BuyNowSection />}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

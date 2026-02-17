@@ -9,7 +9,7 @@ import { ArrowRight, Clock, HeartPlus } from "lucide-react";
 import { formatToK } from "@/utils/formatting/formatNumber";
 import DescriptionModal from "./modal/modal";
 import FullDescriptionSection from "./fullDescriptionSection";
-import ShareOnMedia from "@/components/ui/shareOnMedia";
+import ShareOnMedia from "@/components/shareOnMedia";
 
 interface StoreDataProps {
   testData: TestDetailsData | null;

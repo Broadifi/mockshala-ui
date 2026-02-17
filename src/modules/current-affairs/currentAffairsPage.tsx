@@ -1,0 +1,308 @@
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { Link, useParams, useSearch } from "@tanstack/react-router";
+import { Calendar, ListFilter, Tag } from "lucide-react";
+import { useEffect, useMemo } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  SheetContent,
+  SheetTrigger,
+  Sheet,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
+
+import FilterCurrentAffairs from "./components/filterCurrentAffairs";
+
+import { LanguageSelector } from "./components/languageSelector";
+import NoResultFound from "./components/no-result-found";
+import { IMAGE_BASE_URL } from "@/api/url";
+import SkeletonCurrentAffairsGrid from "./components/current-affair-skeleton";
+import { formatDate, formatDateToISO } from "@/utils/formatting/formatDate";
+import {
+  fetchCurrentAffairAllTags,
+  fetchCurrentAffairs,
+} from "@/api/services/current-affairs.services";
+
+import { currentAffairsKeys } from "@/api";
+import { Badge } from "@/components/ui/badge";
+
+import FilterCurrentAffairMobile from "./components/filterCurrentAffairMobile";
+import { useNewsLanguage } from "@/stores/newsLanguageStore";
+
+import i18n from "@/i18n";
+import DOMPurify from "dompurify";
+
+export default function CurrentAffairsPage() {
+  //fetch language from URL
+  const { lang } = useParams({ strict: false });
+
+  const { newsCurrentLang } = useNewsLanguage();
+
+  const getLocalTranslation = (key: string): string => {
+    const bundle = i18n.getResourceBundle(
+      newsCurrentLang,
+      "translation",
+    ) as Record<string, unknown>;
+
+    return (
+      (key.split(".").reduce<unknown>((acc, k) => {
+        if (typeof acc === "object" && acc !== null && k in acc) {
+          return (acc as Record<string, unknown>)[k];
+        }
+        return undefined;
+      }, bundle) as string) || key
+    );
+  };
+
+  //Update the news language whenever global language update
+  // useEffect(() => {
+  //   setNewsLanguage(currentLang);
+  // }, [currentLang]);
+
+  //Now this language update will be done from the header language switcher
+
+  const homepageLink = lang ?? "en";
+
+  const { date, tags } = useSearch({ from: "/$lang/current-affairs/" });
+
+  const saveScrollPosition = () => {
+    sessionStorage.setItem(
+      "currentAffairsScrollPosition",
+      window.scrollY.toString(),
+    );
+  };
+
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+  } = useInfiniteQuery({
+    queryKey: ["currentAffairs", { date, tags }],
+    queryFn: ({ pageParam = 1 }) =>
+      fetchCurrentAffairs({
+        page: pageParam,
+        limit: 6,
+        date: formatDateToISO(date),
+        tags,
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      // Check if there are more items to load
+      if (lastPage && lastPage.hasNext) {
+        return allPages.length + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
+    staleTime: 1000 * 60 * 5,
+    // Keep data in cache even when component unmounts
+    gcTime: 1000 * 60 * 10,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+
+  //   console.log("affairs data", data);
+
+  const allItems = useMemo(() => {
+    return data?.pages.flatMap((page) => page.data) ?? [];
+  }, [data?.pages]);
+
+  //Scroll to save position
+  useEffect(() => {
+    const savedPosition = sessionStorage.getItem(
+      "currentAffairsScrollPosition",
+    );
+    if (savedPosition && allItems.length > 0) {
+      const timer = setTimeout(() => {
+        window.scrollTo({
+          top: parseInt(savedPosition),
+          behavior: "instant",
+        });
+        sessionStorage.removeItem("currentAffairsScrollPosition");
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [allItems]);
+
+  //Scroll to top window
+  useEffect(() => {
+   
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [date, tags, refetch]);
+
+  //   Fetch unique tag filters from full API
+  const { data: allTags } = useQuery({
+    queryKey: currentAffairsKeys.newsFlags(),
+    queryFn: () => fetchCurrentAffairAllTags(),
+  });
+
+  // console.log("all tags",allTags);
+
+  const filters = Array.isArray(allTags?.data) ? allTags.data : [];
+
+  // console.log(filters);
+
+  //sanitization the HTML
+  const cleanHTML = (html: string) => {
+    const clean = DOMPurify.sanitize(html);
+    return clean.replace(/<p>\s*<br\s*\/?>\s*<\/p>/g, "");
+  };
+
+  return (
+    <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
+      {/* for mobile view */}
+      <div className="fixed lg:hidden top-15 left-0 right-0 z-20 gradient-soft-blue-current-affairs">
+        <div className=" backdrop-blur-lg bg-white/50">
+          <div className="container mx-auto px-4 py-2 flex gap-2">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button className="bg-gray-700">
+                  <ListFilter className="mr-2 h-4 w-4" />
+                  Filters
+                </Button>
+              </SheetTrigger>
+
+              <SheetContent className="w-fit px-2">
+                {/* Visually hidden but accessible */}
+                <SheetTitle className="sr-only">Filters</SheetTitle>
+
+                {/* Required for accessibility */}
+                <SheetDescription className="sr-only">
+                  Filter current affairs by tags, language, and date
+                </SheetDescription>
+
+                <FilterCurrentAffairMobile filters={filters} />
+              </SheetContent>
+            </Sheet>
+            <LanguageSelector />
+          </div>
+        </div>
+      </div>
+
+      {/* left side sheet */}
+      <div className="flex gap-8 px-4  container mx-auto pb-8">
+        <div className="hidden lg:block">
+          <FilterCurrentAffairs filters={filters} />
+        </div>
+
+        <section className="w-full mt-14 lg:mt-8 ">
+          <div className="pb-3 space-y-1">
+            <h2
+              className="inline-block text-2xl xl:text-4xl font-bold 
+           bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent"
+            >
+             
+              {getLocalTranslation("currentAffairsHomePage.title")}
+            </h2>
+            <p className="text-subtitle-gray mb-4">
+            
+              {getLocalTranslation("currentAffairsHomePage.subtitle")}
+            </p>
+          </div>
+
+          {/* Loading Skeleton */}
+          {isLoading && allItems.length === 0 && (
+            <SkeletonCurrentAffairsGrid count={6} />
+          )}
+
+          {/* Infinite Scroll Content */}
+          {allItems.length > 0 && (
+            <InfiniteScroll
+              dataLength={allItems.length}
+              next={fetchNextPage}
+              hasMore={!!hasNextPage}
+              loader={
+                <div className="mt-6">
+                  <SkeletonCurrentAffairsGrid count={3} />
+                </div>
+              }
+              endMessage={
+                <div className="mt-8 text-center text-gray-500">
+                  🎉 You've seen all articles!
+                </div>
+              }
+              style={{ overflow: "visible" }}
+              scrollThreshold={0.3}
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+                {allItems.map((item) => (
+                  <Link
+                    to={"/$lang/current-affairs/$slug"}
+                    params={{ lang: homepageLink, slug: item.slug }}
+                    key={item._id}
+                    onClick={saveScrollPosition}
+                  >
+                    <Card className="p-0 h-[25rem] overflow-hidden group hover:shadow-lg cursor-pointer transition-shadow duration-300">
+                      <div className="w-full h-40 overflow-hidden">
+                        <img
+                          src={IMAGE_BASE_URL + item.image}
+                          alt={item.slug}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      </div>
+                      <div className="px-4 space-y-5">
+                        <h2 className="text-title-darkblue text-xl font-semibold group-hover:text-blue-500 line-clamp-2">
+                          {newsCurrentLang === "en"
+                            ? item.title
+                            : item.titleInHindi}
+                        </h2>
+                        <p
+                          className="text-zinc-600 text-sm line-clamp-2"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              newsCurrentLang === "en"
+                                ? cleanHTML(item.description)
+                                : cleanHTML(item.descriptionInHindi),
+                          }}
+                        ></p>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 text-zinc-500 text-sm">
+                            <Calendar size={14} />
+                            <p>{formatDate(item.publishedDate)}</p>
+                          </div>
+                          <div className="flex gap-2 flex-wrap py-1">
+                            {item.tags.slice(0, 3).map((tag, index) => (
+                              <Badge variant={"secondary"} key={index}>
+                                <Tag size={10} />
+                                <span className="uppercase">{tag}</span>
+                              </Badge>
+                            ))}
+                            {item.tags.length > 3 && (
+                              <div className="text-xs text-title-darkblue px-2 py-1">
+                                +{item.tags.length - 3} more
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </InfiniteScroll>
+          )}
+
+          {/* Loading Next Page */}
+          {isFetchingNextPage && (
+            <div className="mt-6">
+              <SkeletonCurrentAffairsGrid count={3} />
+            </div>
+          )}
+
+          {/* No Results */}
+          {allItems.length === 0 && !isLoading && (
+            <div className="mt-20 mx-auto w-fit">
+              <NoResultFound />
+            </div>
+          )}
+        </section>
+      </div>
+    </div>
+  );
+}

@@ -18,7 +18,7 @@ function TestDescriptionMobile() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-3 bg-soft-blue-gradient ">
+    <div className="w-full bg-soft-blue-gradient ">
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
