@@ -49,7 +49,7 @@ function PopularExam() {
           <button
             onClick={() => api?.scrollPrev()}
             className="
-                 z-20
+                 z-20 cursor-pointer
                 h-8 xl:h-9 w-8 xl:w-9 rounded-full
                 bg-white/70 backdrop-blur-md
                 shadow-lg border border-white/40
@@ -67,7 +67,7 @@ function PopularExam() {
           <button
             onClick={() => api?.scrollNext()}
             className="
-                 z-20
+                 z-20 cursor-pointer
                 h-8 xl:h-9 w-8 xl:w-9 rounded-full
                 bg-white/70 backdrop-blur-md
                 shadow-lg border border-white/40
@@ -92,7 +92,7 @@ function PopularExam() {
           }}
           className="w-full "
         >
-          <CarouselContent className="mx-auto">
+          <CarouselContent className="px-1 ">
             {popularTestData?.data.map((item) => (
               <CarouselItem
                 key={item._id}
@@ -145,7 +145,7 @@ function PopularExam() {
 
                     <button
                       className="
-                        mx-auto md:mt-3 flex items-center gap-1
+                        mx-auto md:mt-3 flex items-center gap-1 cursor-pointer
                         px-5 py-1.5 text-xs md:text-sm font-medium
                         rounded-full
                         bg-blue-500/10 text-blue-600
@@ -172,7 +172,7 @@ function PopularExam() {
         <Button
           variant="ghost"
           className="
-            px-6 py-2 rounded-full
+            px-6 py-2 rounded-full cursor-pointer
             border border-blue-200
             bg-blue-100/70 backdrop-blur
             text-blue-700 font-medium

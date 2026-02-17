@@ -156,7 +156,7 @@ export function AllExamsCards({slug}:PropsType)
                 +{remainingCount} More Tests
               </span>
               <button
-                className='bg-linear-to-r from-blue-600 to-purple-600 px-4 lg:px-6 py-2 lg:py-2.5 
+                className='bg-linear-to-r from-blue-600 to-purple-600 px-4 lg:px-6 py-2 lg:py-2.5 cursor-pointer
                   flex gap-2 justify-center items-center rounded-md text-white text-base font-semibold 
                   hover:from-blue-700 hover:to-purple-700 transition-all duration-300
                   shadow-md hover:shadow-lg'
