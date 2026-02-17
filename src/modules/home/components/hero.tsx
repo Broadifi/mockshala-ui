@@ -33,13 +33,13 @@ export default function Hero() {
   //   }
   // }, [bannerData]);
 
-  const autoplay = React.useRef(
-    Autoplay({
-      delay: 3500,
-      stopOnInteraction: false,
-      stopOnMouseEnter: false,
-    }),
-  );
+  // const autoplay = React.useRef(
+  //   Autoplay({
+  //     delay: 3500,
+  //     stopOnInteraction: false,
+  //     stopOnMouseEnter: false,
+  //   }),
+  // );
 
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
@@ -65,15 +65,14 @@ export default function Hero() {
     };
   }, [api]);
 
+  // //Handel mouse event
+  // const handleMouseEnter = () => {
+  //   autoplay.current.stop();
+  // };
 
-  //Handel mouse event
-  const handleMouseEnter = () => {
-    autoplay.current.stop();
-  };
-
-  const handleMouseLeave = () => {
-    autoplay.current.reset();
-  };
+  // const handleMouseLeave = () => {
+  //   autoplay.current.reset();
+  // };
 
   return (
     <div>
@@ -81,11 +80,15 @@ export default function Hero() {
       <div className="relative w-full flex md:hidden">
         <Carousel
           setApi={setApi}
-          plugins={[autoplay.current]}
-          opts={{ loop: true }}
+          plugins={[
+            Autoplay({
+              delay: 3500,
+            }),
+          ]}
+          opts={{ loop: true,
+            duration: 40, 
+           }}
           className="w-full relative"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
         >
           <CarouselContent>
             {bannerData?.data.map((item) => (
@@ -109,18 +112,20 @@ export default function Hero() {
 
         {/* DOTS */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-2 pointer-events-auto">
-          {Array.from({ length: bannerData?.data.length ?? 0 }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => api?.scrollTo(index)}
-              className={cn(
-                "h-2.5 w-2.5 rounded-full transition-all z-30",
-                current === index
-                  ? "bg-white w-6"
-                  : "bg-white/50 hover:bg-white",
-              )}
-            />
-          ))}
+          {Array.from({ length: bannerData?.data.length ?? 0 }).map(
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={cn(
+                  "h-2.5 w-2.5 rounded-full transition-all z-30",
+                  current === index
+                    ? "bg-white w-6"
+                    : "bg-white/50 hover:bg-white",
+                )}
+              />
+            ),
+          )}
         </div>
       </div>
 
@@ -131,14 +136,17 @@ export default function Hero() {
       >
         <Carousel
           setApi={setApi}
-          plugins={[autoplay.current]}
-          opts={{ loop: true,
-           
-          containScroll: "trimSnaps",
+          opts={{
+            loop: true,
+             duration: 40, 
+            containScroll: "trimSnaps",
           }}
+          plugins={[
+            Autoplay({
+              delay: 3500,
+            }),
+          ]}
           className="w-full relative"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
         >
           <CarouselContent className="-ml-1">
             {bannerData?.data.map((item) => (
@@ -151,7 +159,7 @@ export default function Hero() {
                     "relative overflow-hidden rounded-2xl transition-all duration-700 ease-in-out",
                     current === bannerData.data.indexOf(item)
                       ? "scale-100 opacity-100"
-                      : "scale-90 opacity-70"
+                      : "scale-90 opacity-70",
                   )}
                 >
                   <img
@@ -164,7 +172,6 @@ export default function Hero() {
             ))}
           </CarouselContent>
 
-
           {/* Arrows */}
           <CarouselPrevious className="left-6 bg-white/80 hover:bg-white cursor-pointer" />
           <CarouselNext className="right-6 bg-white/80 hover:bg-white cursor-pointer" />
@@ -172,18 +179,20 @@ export default function Hero() {
 
         {/* DOTS */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2 pointer-events-auto">
-          {Array.from({ length: bannerData?.data.length ?? 0 }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => api?.scrollTo(index)}
-              className={cn(
-                "h-2.5 w-2.5 rounded-full transition-all z-30",
-                current === index
-                  ? "bg-white w-6"
-                  : "bg-white/50 hover:bg-white",
-              )}
-            />
-          ))}
+          {Array.from({ length: bannerData?.data.length ?? 0 }).map(
+            (_, index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={cn(
+                  "h-2.5 w-2.5 rounded-full transition-all z-30",
+                  current === index
+                    ? "bg-white w-6"
+                    : "bg-white/50 hover:bg-white",
+                )}
+              />
+            ),
+          )}
         </div>
       </div>
     </div>
