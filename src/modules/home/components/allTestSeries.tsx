@@ -65,7 +65,7 @@ function AllTestSeries() {
                 <button
                   onClick={() => api?.scrollPrev()}
                   className="
-                            z-20
+                            z-20 cursor-pointer
                             h-7 w-7 sm:h-8 sm:w-8 xl:h-9 xl:w-9 rounded-full
                             bg-white/70 backdrop-blur-md
                             shadow-lg border border-white/40
@@ -87,7 +87,7 @@ function AllTestSeries() {
                 <button
                   onClick={() => api?.scrollNext()}
                   className="
-                            z-20
+                            z-20 cursor-pointer
                             h-7 w-7 sm:h-8 sm:w-8 xl:h-9 xl:w-9 rounded-full
                             bg-white/70 backdrop-blur-md
                             shadow-lg border border-white/40
@@ -116,8 +116,9 @@ function AllTestSeries() {
               >
                 <CarouselContent className="-ml-2">
                   {data?.data.featureCategories.map((item) => (
-                    <CarouselItem key={item._id} className="pl-2 basis-auto">
-                      <button onClick={() => handleClick(item.slug)}>
+                    <CarouselItem key={item._id} className="pl-2 basis-auto ">
+                      <button className="cursor-pointer"
+                        onClick={() => handleClick(item.slug)}>
                         <div
                           className={`${
                             activeId === item._id

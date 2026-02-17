@@ -13,10 +13,13 @@ import {
 import { IMAGE_BASE_URL } from "@/api/url";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useParams } from "@tanstack/react-router";
 
 function PopularExam() {
   //for translation
   const { t } = useTranslation();
+
+   const { lang } = useParams({ from:'/$lang' })
 
   const { data: popularTestData } = useQuery({
     queryKey: homeQueryKey.popularTests(),
@@ -49,7 +52,7 @@ function PopularExam() {
           <button
             onClick={() => api?.scrollPrev()}
             className="
-                 z-20
+                 z-20 cursor-pointer
                 h-8 xl:h-9 w-8 xl:w-9 rounded-full
                 bg-white/70 backdrop-blur-md
                 shadow-lg border border-white/40
@@ -67,7 +70,7 @@ function PopularExam() {
           <button
             onClick={() => api?.scrollNext()}
             className="
-                 z-20
+                 z-20 cursor-pointer
                 h-8 xl:h-9 w-8 xl:w-9 rounded-full
                 bg-white/70 backdrop-blur-md
                 shadow-lg border border-white/40
@@ -92,7 +95,7 @@ function PopularExam() {
           }}
           className="w-full "
         >
-          <CarouselContent className="mx-auto">
+          <CarouselContent className="">
             {popularTestData?.data.map((item) => (
               <CarouselItem
                 key={item._id}
@@ -101,7 +104,7 @@ function PopularExam() {
                 {/* GLASS CARD */}
                 <div
                   className="
-                    relative group/card h-49 md:h-60 xl:h-64 pt-2 
+                    relative group/card h-49 md:h-60 xl:h-64 pt-2 ml-1
                     rounded-3xl
                     bg-white/60 backdrop-blur-xl
                     border border-white/60
@@ -131,7 +134,8 @@ function PopularExam() {
                   </div>
 
                   {/* CONTENT */}
-                  <div className=" relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)] p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
+                  <div className=" relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)]
+                   p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
                     <h1
                       className="
                       text-xs md:text-sm font-semibold text-center
@@ -143,9 +147,18 @@ function PopularExam() {
                       {item.name}
                     </h1>
 
-                    <button
+                    <Link
+                         to={'/$lang/exams/$examCategory/$testSlug'}
+                     params={
+                      {
+                        lang: lang ,
+                        examCategory: item.examCategory.slug,
+                        testSlug: item.slug
+                      }
+                     }
+
                       className="
-                        mx-auto md:mt-3 flex items-center gap-1
+                        mx-auto md:mt-3 flex items-center gap-1 cursor-pointer
                         px-5 py-1.5 text-xs md:text-sm font-medium
                         rounded-full
                         bg-blue-500/10 text-blue-600
@@ -158,7 +171,7 @@ function PopularExam() {
                     >
                       {t("popularTests.viewTests")}
                       <ChevronRight size={14} />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </CarouselItem>
@@ -172,7 +185,7 @@ function PopularExam() {
         <Button
           variant="ghost"
           className="
-            px-6 py-2 rounded-full
+            px-6 py-2 rounded-full cursor-pointer
             border border-blue-200
             bg-blue-100/70 backdrop-blur
             text-blue-700 font-medium

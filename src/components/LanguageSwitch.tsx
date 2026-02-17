@@ -46,7 +46,7 @@ export default function LanguageSwitch() {
     <button
       onClick={() => toggleLanguage()}
       className={`
-            relative flex items-center
+            relative flex items-center cursor-pointer
             w-16 h-8
             rounded-full
             transition-colors duration-300
