@@ -103,8 +103,8 @@ export default function Hero() {
           </CarouselContent>
 
           {/* Arrows */}
-          <CarouselPrevious className="absolute left-5 bg-white/70 hover:bg-white" />
-          <CarouselNext className="absolute right-5 bg-white/70 hover:bg-white" />
+          <CarouselPrevious className="absolute left-5 bg-white/70 hover:bg-white cursor-pointer" />
+          <CarouselNext className="absolute right-5 bg-white/70 hover:bg-white cursor-pointer" />
         </Carousel>
 
         {/* DOTS */}
@@ -166,8 +166,8 @@ export default function Hero() {
 
 
           {/* Arrows */}
-          <CarouselPrevious className="left-6 bg-white/80 hover:bg-white" />
-          <CarouselNext className="right-6 bg-white/80 hover:bg-white" />
+          <CarouselPrevious className="left-6 bg-white/80 hover:bg-white cursor-pointer" />
+          <CarouselNext className="right-6 bg-white/80 hover:bg-white cursor-pointer" />
         </Carousel>
 
         {/* DOTS */}

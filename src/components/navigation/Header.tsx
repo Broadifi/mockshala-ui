@@ -176,7 +176,7 @@ function Header() {
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="font-medium">
+                  <Button variant="ghost" size="sm" className="font-medium cursor-pointer">
                     {t("nav.more")}
                     <ChevronDown />
                   </Button>
@@ -211,9 +211,10 @@ function Header() {
                 className="border-0 outline-0 text-sm w-full max-w-40"
               />
             </div>
+
             <div className="flex items-center">
               {/* Notifications */}
-              <Button variant="ghost" className="relative">
+              <Button variant="ghost" className="relative cursor-pointer">
                 <Bell />
                 <Badge className="absolute top-1 right-1 h-2 w-2 p-0 bg-red-500" />
               </Button>
