@@ -1,11 +1,11 @@
 export const createHeaderData = (lang: string) => ({
   headerData: [
-    {
-      titleEn: "Dashboard",
-      titleHin: "डैशबोर्ड",
-      allUsersAccess: true,
-      url: `/${lang}`,
-    },
+    // {
+    //   titleEn: "Dashboard",
+    //   titleHin: "डैशबोर्ड",
+    //   allUsersAccess: true,
+    //   url: `/${lang}`,
+    // },
     {
       titleEn: "Exams",
       titleHin: "परीक्षाएँ",
@@ -30,6 +30,12 @@ export const createHeaderData = (lang: string) => ({
       allUsersAccess: true,
       url: `/${lang}/editorials-corner`,
     },
+      {
+      titleEn: "Resources",
+      titleHin: "संसाधन",
+      allUsersAccess: false,
+      url: `/${lang}/resources`,
+    }
   ],
 
   moreOptionData: [
@@ -44,23 +50,18 @@ export const createHeaderData = (lang: string) => ({
       titleHin: "समसामयिक घटनाएँ",
       allUsersAccess: false,
       url: `/${lang}/current-affairs`,
-    },
-    {
-      titleEn: "Resources",
-      titleHin: "संसाधन",
-      allUsersAccess: false,
-      url: `/${lang}/resources`,
-    },
+    }
+  
   ],
 
   // 📱 Tablet Header
   headerDataTablet: [
-    {
-      titleEn: "Dashboard",
-      titleHin: "डैशबोर्ड",
-      allUsersAccess: true,
-      url: `/${lang}`,
-    },
+    // {
+    //   titleEn: "Dashboard",
+    //   titleHin: "डैशबोर्ड",
+    //   allUsersAccess: true,
+    //   url: `/${lang}`,
+    // },
     {
       titleEn: "Exams",
       titleHin: "परीक्षाएँ",
@@ -73,15 +74,16 @@ export const createHeaderData = (lang: string) => ({
       allUsersAccess: true,
       url: `/${lang}/free-mocks`,
     },
-  ],
-
-  moreOptionDataTablet: [
     {
       titleEn: "Our Plans",
       titleHin: "हमारी योजनाएँ",
       allUsersAccess: true,
       url: `/${lang}/our-plans`,
     },
+  ],
+
+  moreOptionDataTablet: [
+  
     {
       titleEn: "Editorials Corner",
       titleHin: "संपादकीय अनुभाग",
