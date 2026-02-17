@@ -1,11 +1,5 @@
 export const createHeaderData = (lang: string) => ({
   headerData: [
-    // {
-    //   titleEn: "Dashboard",
-    //   titleHin: "डैशबोर्ड",
-    //   allUsersAccess: true,
-    //   url: `/${lang}`,
-    // },
     {
       titleEn: "Exams",
       titleHin: "परीक्षाएँ",
@@ -56,12 +50,6 @@ export const createHeaderData = (lang: string) => ({
 
   // 📱 Tablet Header
   headerDataTablet: [
-    // {
-    //   titleEn: "Dashboard",
-    //   titleHin: "डैशबोर्ड",
-    //   allUsersAccess: true,
-    //   url: `/${lang}`,
-    // },
     {
       titleEn: "Exams",
       titleHin: "परीक्षाएँ",
