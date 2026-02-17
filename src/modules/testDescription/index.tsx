@@ -59,9 +59,10 @@ function DescriptionModule() {
     queryFn: () => testAPI.getTestDetails(testSlug),
   });
 
-  // console.log("data is",data);
-  // console.log("isLoading", isLoading);
-  // console.log("is data", data);
+   useEffect(() => {
+   
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   useEffect(() => {
     if (data?.data) {

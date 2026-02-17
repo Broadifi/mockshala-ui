@@ -10,6 +10,14 @@ import AllTests from "../allTests/allTests.tsx";
 function TestDescription() {
   const { testData } = useTestDescriptionStore();
 
+  const allTestLength = () => {
+    if (testData?.tests.length == undefined) {
+      return "Loading...";
+    } else {
+      return testData?.tests.length;
+    }
+  };
+
   return (
     <div className="max-w-6xl w-full rounded-2xl border p-4 bg-white">
       <div>
@@ -48,7 +56,7 @@ function TestDescription() {
           <TabsContent value="All Tests">
             <Card className="border-0 lg:border shadow-none lg:shadow">
               <CardHeader className="px-0 lg:px-6">
-                <CardTitle className="text-title-darkblue ">{`Available Tests(${testData?.tests.length})`}</CardTitle>
+                <CardTitle className="text-title-darkblue ">{`Available Tests(${allTestLength()})`}</CardTitle>
               </CardHeader>
               <CardContent className="text-muted-foreground text-sm px-0 lg:px-6">
                 <AllTests />
