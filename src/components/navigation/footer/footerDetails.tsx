@@ -1,5 +1,6 @@
 import { mockShalaLogo } from "@/assets";
 import FooterPopularTests from "./footerPopularTests";
+import FooterExamCategory from "./footerExamcategory";
 
 function FooterDetails() {
   return (
@@ -30,7 +31,7 @@ function FooterDetails() {
       </div>
       <div className="col-span-3 space-y-6">
         <h3 className="text-title-darkblue font-semibold text-xl">Popular Categories</h3>
-        <FooterPopularTests />
+        <FooterExamCategory />
       </div>
       <div className="col-span-3 bg-amber-100">04</div>
     </div>
