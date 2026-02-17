@@ -11,10 +11,10 @@ function FooterExamCategory() {
   });
 
   return (
-  <div className="flex flex-col gap-4 text-subtitle-gray text-sm">
+  <div className="flex flex-col gap-5 text-subtitle-gray text-sm">
     {
       data?.data.featureCategories.map((item)=>(
-        <p className="cursor-pointer">{item.categoryName}</p>
+        <p className="cursor-pointer hover:text-button-blue">{item.categoryName}</p>
       ))
     }
   </div>

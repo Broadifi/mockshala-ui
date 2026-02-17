@@ -1,7 +1,7 @@
 function JoinOurTeam() {
   return (
     <>
-      <div >
+      <div className="pb-8">
         {/* Animated Gradient Border Wrapper */}
         <div className="relative p-0.5 rounded-2xl bg-linear-to-r from-blue-400 via-cyan-400 to-blue-600 animate-border">
           {/* Main Card */}

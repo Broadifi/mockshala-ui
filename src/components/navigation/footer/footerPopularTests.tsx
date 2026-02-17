@@ -14,21 +14,19 @@ function FooterPopularTests() {
   const { lang } = useParams({ from: "/$lang" });
 
   return (
-    <div className="flex flex-col gap-4 text-subtitle-gray text-sm">
+    <div className="flex flex-col gap-5 text-subtitle-gray text-sm">
       {popularTestData?.data.map((item) => (
         <Link
-           to={'/$lang/exams/$examCategory/$testSlug'}
-                     params={
-                      {
-                        lang: lang ,
-                        examCategory: item.examCategory.slug,
-                        testSlug: item.slug
-                      }
-                     }
+          to={"/$lang/exams/$examCategory/$testSlug"}
+          params={{
+            lang: lang,
+            examCategory: item.examCategory.slug,
+            testSlug: item.slug,
+          }}
+          className="hover:text-button-blue"
         >
           {item.name}
         </Link>
-       
       ))}
     </div>
   );
