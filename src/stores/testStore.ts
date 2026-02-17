@@ -3,7 +3,7 @@ import { create } from "zustand";
 
 interface TestStore {
   testData: TestDetailsData | null;
-  setTestData: (lang: TestDetailsData) => void;
+  setTestData: (data: TestDetailsData) => void;
   clearTestData: () => void;
 }
 

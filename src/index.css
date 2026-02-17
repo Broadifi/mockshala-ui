@@ -487,3 +487,71 @@ body {
     transform: translateX(100%);
   }
 }
+
+  /* STYLES */
+ 
+        /* Animated Border */
+        @keyframes borderMove {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+
+        .animate-border {
+          background-size: 200% 200%;
+          animation: borderMove 6s linear infinite;
+        }
+
+        /* Shimmer Background */
+        .shimmerFooter {
+          background: linear-gradient(
+            110deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.15) 50%,
+            transparent 75%
+          );
+          background-size: 200% 100%;
+          animation: shimmerFooter 5s infinite linear;
+        }
+
+        @keyframes shimmerFooter {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+
+        /* Glow Button */
+        .glow-btn {
+          background: white;
+          color: #1d4ed8;
+          font-weight: 600;
+          padding: 12px 28px;
+          border-radius: 10px;
+          position: relative;
+          transition: all 0.3s ease;
+          box-shadow: 0 0 0 rgba(255,255,255,0);
+        }
+
+      .glow-btn:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 0 6px rgba(255,255,255,0.4),
+          0 0 18px rgba(59,130,246,0.4),
+          0 0 32px rgba(37,99,235,0.25);
+      }
+
+        /* Floating Particles */
+        .particle {
+          position: absolute;
+          width: 5px;
+          height: 5px;
+          background: white;
+          border-radius: 50%;
+          opacity: 0.6;
+          animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0); opacity: 0.5; }
+          50% { transform: translateY(-20px); opacity: 1; }
+          100% { transform: translateY(0); opacity: 0.5; }
+        }
+    
