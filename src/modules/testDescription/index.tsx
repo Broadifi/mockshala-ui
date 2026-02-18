@@ -107,9 +107,9 @@ function DescriptionModule() {
         </div>
       } */}
 
-      <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
+      <div className="w-full bg-soft-blue-gradient h-full min-h-screen pb-6 lg:pb-10 xl:pb-12">
         <div className="w-full  h-1/2">
-          <div className="w-full container px-4 py-5 mx-auto">
+          <div className="w-full container px-4 py-5 mx-auto ">
             {/* bread crumbs   */}
 
             <Breadcrumb>
