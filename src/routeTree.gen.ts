@@ -12,15 +12,19 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as LangRouteImport } from './routes/$lang'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LangIndexRouteImport } from './routes/$lang/index'
+import { Route as LangTermsAndConditionsIndexRouteImport } from './routes/$lang/terms-and-conditions/index'
 import { Route as LangSuccessStoryIndexRouteImport } from './routes/$lang/success-story/index'
 import { Route as LangResourcesIndexRouteImport } from './routes/$lang/resources/index'
 import { Route as LangProfileIndexRouteImport } from './routes/$lang/profile/index'
+import { Route as LangPrivacyPolicyIndexRouteImport } from './routes/$lang/privacy-policy/index'
 import { Route as LangOurPlansIndexRouteImport } from './routes/$lang/our-plans/index'
 import { Route as LangLoginIndexRouteImport } from './routes/$lang/login/index'
 import { Route as LangFreeMocksIndexRouteImport } from './routes/$lang/free-mocks/index'
 import { Route as LangExamsIndexRouteImport } from './routes/$lang/exams/index'
 import { Route as LangEditorialsCornerIndexRouteImport } from './routes/$lang/editorials-corner/index'
 import { Route as LangCurrentAffairsIndexRouteImport } from './routes/$lang/current-affairs/index'
+import { Route as LangCancellationRefundIndexRouteImport } from './routes/$lang/cancellation-refund/index'
+import { Route as LangAboutIndexRouteImport } from './routes/$lang/about/index'
 import { Route as LangExamsExamCategoryIndexRouteImport } from './routes/$lang/exams/$examCategory/index'
 import { Route as LangCurrentAffairsSlugIndexRouteImport } from './routes/$lang/current-affairs/$slug/index'
 import { Route as LangExamsExamCategoryTestSlugIndexRouteImport } from './routes/$lang/exams/$examCategory/$testSlug/index'
@@ -40,6 +44,12 @@ const LangIndexRoute = LangIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LangRoute,
 } as any)
+const LangTermsAndConditionsIndexRoute =
+  LangTermsAndConditionsIndexRouteImport.update({
+    id: '/terms-and-conditions/',
+    path: '/terms-and-conditions/',
+    getParentRoute: () => LangRoute,
+  } as any)
 const LangSuccessStoryIndexRoute = LangSuccessStoryIndexRouteImport.update({
   id: '/success-story/',
   path: '/success-story/',
@@ -53,6 +63,11 @@ const LangResourcesIndexRoute = LangResourcesIndexRouteImport.update({
 const LangProfileIndexRoute = LangProfileIndexRouteImport.update({
   id: '/profile/',
   path: '/profile/',
+  getParentRoute: () => LangRoute,
+} as any)
+const LangPrivacyPolicyIndexRoute = LangPrivacyPolicyIndexRouteImport.update({
+  id: '/privacy-policy/',
+  path: '/privacy-policy/',
   getParentRoute: () => LangRoute,
 } as any)
 const LangOurPlansIndexRoute = LangOurPlansIndexRouteImport.update({
@@ -86,6 +101,17 @@ const LangCurrentAffairsIndexRoute = LangCurrentAffairsIndexRouteImport.update({
   path: '/current-affairs/',
   getParentRoute: () => LangRoute,
 } as any)
+const LangCancellationRefundIndexRoute =
+  LangCancellationRefundIndexRouteImport.update({
+    id: '/cancellation-refund/',
+    path: '/cancellation-refund/',
+    getParentRoute: () => LangRoute,
+  } as any)
+const LangAboutIndexRoute = LangAboutIndexRouteImport.update({
+  id: '/about/',
+  path: '/about/',
+  getParentRoute: () => LangRoute,
+} as any)
 const LangExamsExamCategoryIndexRoute =
   LangExamsExamCategoryIndexRouteImport.update({
     id: '/exams/$examCategory/',
@@ -109,15 +135,19 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteWithChildren
   '/$lang/': typeof LangIndexRoute
+  '/$lang/about': typeof LangAboutIndexRoute
+  '/$lang/cancellation-refund': typeof LangCancellationRefundIndexRoute
   '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
   '/$lang/exams': typeof LangExamsIndexRoute
   '/$lang/free-mocks': typeof LangFreeMocksIndexRoute
   '/$lang/login': typeof LangLoginIndexRoute
   '/$lang/our-plans': typeof LangOurPlansIndexRoute
+  '/$lang/privacy-policy': typeof LangPrivacyPolicyIndexRoute
   '/$lang/profile': typeof LangProfileIndexRoute
   '/$lang/resources': typeof LangResourcesIndexRoute
   '/$lang/success-story': typeof LangSuccessStoryIndexRoute
+  '/$lang/terms-and-conditions': typeof LangTermsAndConditionsIndexRoute
   '/$lang/current-affairs/$slug': typeof LangCurrentAffairsSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
@@ -125,15 +155,19 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$lang': typeof LangIndexRoute
+  '/$lang/about': typeof LangAboutIndexRoute
+  '/$lang/cancellation-refund': typeof LangCancellationRefundIndexRoute
   '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
   '/$lang/exams': typeof LangExamsIndexRoute
   '/$lang/free-mocks': typeof LangFreeMocksIndexRoute
   '/$lang/login': typeof LangLoginIndexRoute
   '/$lang/our-plans': typeof LangOurPlansIndexRoute
+  '/$lang/privacy-policy': typeof LangPrivacyPolicyIndexRoute
   '/$lang/profile': typeof LangProfileIndexRoute
   '/$lang/resources': typeof LangResourcesIndexRoute
   '/$lang/success-story': typeof LangSuccessStoryIndexRoute
+  '/$lang/terms-and-conditions': typeof LangTermsAndConditionsIndexRoute
   '/$lang/current-affairs/$slug': typeof LangCurrentAffairsSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
@@ -143,15 +177,19 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteWithChildren
   '/$lang/': typeof LangIndexRoute
+  '/$lang/about/': typeof LangAboutIndexRoute
+  '/$lang/cancellation-refund/': typeof LangCancellationRefundIndexRoute
   '/$lang/current-affairs/': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner/': typeof LangEditorialsCornerIndexRoute
   '/$lang/exams/': typeof LangExamsIndexRoute
   '/$lang/free-mocks/': typeof LangFreeMocksIndexRoute
   '/$lang/login/': typeof LangLoginIndexRoute
   '/$lang/our-plans/': typeof LangOurPlansIndexRoute
+  '/$lang/privacy-policy/': typeof LangPrivacyPolicyIndexRoute
   '/$lang/profile/': typeof LangProfileIndexRoute
   '/$lang/resources/': typeof LangResourcesIndexRoute
   '/$lang/success-story/': typeof LangSuccessStoryIndexRoute
+  '/$lang/terms-and-conditions/': typeof LangTermsAndConditionsIndexRoute
   '/$lang/current-affairs/$slug/': typeof LangCurrentAffairsSlugIndexRoute
   '/$lang/exams/$examCategory/': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug/': typeof LangExamsExamCategoryTestSlugIndexRoute
@@ -162,15 +200,19 @@ export interface FileRouteTypes {
     | '/'
     | '/$lang'
     | '/$lang/'
+    | '/$lang/about'
+    | '/$lang/cancellation-refund'
     | '/$lang/current-affairs'
     | '/$lang/editorials-corner'
     | '/$lang/exams'
     | '/$lang/free-mocks'
     | '/$lang/login'
     | '/$lang/our-plans'
+    | '/$lang/privacy-policy'
     | '/$lang/profile'
     | '/$lang/resources'
     | '/$lang/success-story'
+    | '/$lang/terms-and-conditions'
     | '/$lang/current-affairs/$slug'
     | '/$lang/exams/$examCategory'
     | '/$lang/exams/$examCategory/$testSlug'
@@ -178,15 +220,19 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$lang'
+    | '/$lang/about'
+    | '/$lang/cancellation-refund'
     | '/$lang/current-affairs'
     | '/$lang/editorials-corner'
     | '/$lang/exams'
     | '/$lang/free-mocks'
     | '/$lang/login'
     | '/$lang/our-plans'
+    | '/$lang/privacy-policy'
     | '/$lang/profile'
     | '/$lang/resources'
     | '/$lang/success-story'
+    | '/$lang/terms-and-conditions'
     | '/$lang/current-affairs/$slug'
     | '/$lang/exams/$examCategory'
     | '/$lang/exams/$examCategory/$testSlug'
@@ -195,15 +241,19 @@ export interface FileRouteTypes {
     | '/'
     | '/$lang'
     | '/$lang/'
+    | '/$lang/about/'
+    | '/$lang/cancellation-refund/'
     | '/$lang/current-affairs/'
     | '/$lang/editorials-corner/'
     | '/$lang/exams/'
     | '/$lang/free-mocks/'
     | '/$lang/login/'
     | '/$lang/our-plans/'
+    | '/$lang/privacy-policy/'
     | '/$lang/profile/'
     | '/$lang/resources/'
     | '/$lang/success-story/'
+    | '/$lang/terms-and-conditions/'
     | '/$lang/current-affairs/$slug/'
     | '/$lang/exams/$examCategory/'
     | '/$lang/exams/$examCategory/$testSlug/'
@@ -237,6 +287,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/terms-and-conditions/': {
+      id: '/$lang/terms-and-conditions/'
+      path: '/terms-and-conditions'
+      fullPath: '/$lang/terms-and-conditions'
+      preLoaderRoute: typeof LangTermsAndConditionsIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/success-story/': {
       id: '/$lang/success-story/'
       path: '/success-story'
@@ -256,6 +313,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/$lang/profile'
       preLoaderRoute: typeof LangProfileIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/privacy-policy/': {
+      id: '/$lang/privacy-policy/'
+      path: '/privacy-policy'
+      fullPath: '/$lang/privacy-policy'
+      preLoaderRoute: typeof LangPrivacyPolicyIndexRouteImport
       parentRoute: typeof LangRoute
     }
     '/$lang/our-plans/': {
@@ -300,6 +364,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangCurrentAffairsIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/cancellation-refund/': {
+      id: '/$lang/cancellation-refund/'
+      path: '/cancellation-refund'
+      fullPath: '/$lang/cancellation-refund'
+      preLoaderRoute: typeof LangCancellationRefundIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/about/': {
+      id: '/$lang/about/'
+      path: '/about'
+      fullPath: '/$lang/about'
+      preLoaderRoute: typeof LangAboutIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/exams/$examCategory/': {
       id: '/$lang/exams/$examCategory/'
       path: '/exams/$examCategory'
@@ -326,15 +404,19 @@ declare module '@tanstack/react-router' {
 
 interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
+  LangAboutIndexRoute: typeof LangAboutIndexRoute
+  LangCancellationRefundIndexRoute: typeof LangCancellationRefundIndexRoute
   LangCurrentAffairsIndexRoute: typeof LangCurrentAffairsIndexRoute
   LangEditorialsCornerIndexRoute: typeof LangEditorialsCornerIndexRoute
   LangExamsIndexRoute: typeof LangExamsIndexRoute
   LangFreeMocksIndexRoute: typeof LangFreeMocksIndexRoute
   LangLoginIndexRoute: typeof LangLoginIndexRoute
   LangOurPlansIndexRoute: typeof LangOurPlansIndexRoute
+  LangPrivacyPolicyIndexRoute: typeof LangPrivacyPolicyIndexRoute
   LangProfileIndexRoute: typeof LangProfileIndexRoute
   LangResourcesIndexRoute: typeof LangResourcesIndexRoute
   LangSuccessStoryIndexRoute: typeof LangSuccessStoryIndexRoute
+  LangTermsAndConditionsIndexRoute: typeof LangTermsAndConditionsIndexRoute
   LangCurrentAffairsSlugIndexRoute: typeof LangCurrentAffairsSlugIndexRoute
   LangExamsExamCategoryIndexRoute: typeof LangExamsExamCategoryIndexRoute
   LangExamsExamCategoryTestSlugIndexRoute: typeof LangExamsExamCategoryTestSlugIndexRoute
@@ -342,15 +424,19 @@ interface LangRouteChildren {
 
 const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
+  LangAboutIndexRoute: LangAboutIndexRoute,
+  LangCancellationRefundIndexRoute: LangCancellationRefundIndexRoute,
   LangCurrentAffairsIndexRoute: LangCurrentAffairsIndexRoute,
   LangEditorialsCornerIndexRoute: LangEditorialsCornerIndexRoute,
   LangExamsIndexRoute: LangExamsIndexRoute,
   LangFreeMocksIndexRoute: LangFreeMocksIndexRoute,
   LangLoginIndexRoute: LangLoginIndexRoute,
   LangOurPlansIndexRoute: LangOurPlansIndexRoute,
+  LangPrivacyPolicyIndexRoute: LangPrivacyPolicyIndexRoute,
   LangProfileIndexRoute: LangProfileIndexRoute,
   LangResourcesIndexRoute: LangResourcesIndexRoute,
   LangSuccessStoryIndexRoute: LangSuccessStoryIndexRoute,
+  LangTermsAndConditionsIndexRoute: LangTermsAndConditionsIndexRoute,
   LangCurrentAffairsSlugIndexRoute: LangCurrentAffairsSlugIndexRoute,
   LangExamsExamCategoryIndexRoute: LangExamsExamCategoryIndexRoute,
   LangExamsExamCategoryTestSlugIndexRoute:

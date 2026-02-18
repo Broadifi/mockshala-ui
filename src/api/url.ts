@@ -21,7 +21,9 @@ export const BASE_URL =
 
     currentAffairsAllTags: ()=> '/current-affairs/tags',
 
-    similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`
+    similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`,
+
+    siteConfig: ()=> '/site-configs'
 
       
   }

@@ -28,7 +28,7 @@ export interface ExamCategory {
   slug: string;
 }
 
-export interface Data {
+export interface PopularTestData {
   _id: string;
   name: string;
   slug: string;
@@ -41,7 +41,7 @@ export interface PopularTestResponse {
   status: boolean;
   statusCode: number;
   responseTimestamp: string;
-  data: Data[];
+  data: PopularTestData[];
 }
 
 //all test series Categories

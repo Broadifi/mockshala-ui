@@ -27,6 +27,7 @@ function PopularExam() {
     ...QUERY_CONFIG.static,
   });
 
+
   const [api, setApi] = React.useState<CarouselApi | null>(null);
 
   return (
