@@ -106,7 +106,7 @@ export default function CurrentAffairsPage() {
     refetchOnReconnect: false,
   });
 
-  //   console.log("affairs data", data);
+    // console.log("affairs data", data);
 
   const allItems = useMemo(() => {
     return data?.pages.flatMap((page) => page.data) ?? [];

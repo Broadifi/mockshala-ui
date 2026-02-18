@@ -23,7 +23,9 @@ export const BASE_URL =
 
     similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`,
 
-    siteConfig: ()=> '/site-configs'
+    siteConfig: ()=> '/site-configs',
+
+    editorialsCorner: ()=> '/editorials'
 
       
   }
