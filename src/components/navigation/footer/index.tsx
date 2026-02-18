@@ -9,7 +9,7 @@ import JoinOurTeam from "./joinOurTeam";
 
 function FooterCTA() {
   return (
-    <div className="lg:pt-2">
+    <div >
       <div className="w-full container px-4 py-2 mx-auto  space-y-5">
         <div className="lg:my-12">
           <JoinOurTeam />

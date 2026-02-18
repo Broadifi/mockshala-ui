@@ -1,13 +1,13 @@
 function JoinOurTeam() {
   return (
     <>
-      <div className="pb-8">
+      <div className="pb-2 lg:pb-8 pt-5">
         {/* Animated Gradient Border Wrapper */}
         <div className="relative p-0.5 rounded-2xl bg-linear-to-r from-blue-400 via-cyan-400 to-blue-600 animate-border">
           {/* Main Card */}
           <div
             className="relative overflow-hidden rounded-2xl bg-linear-to-r from-blue-700 to-blue-600 
-        px-6 py-10 md:py-12 md:px-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            px-4 py-8 md:px-8 md:py-10  lg:py-12 lg:px-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
           >
             {/* SHIMMER EFFECT */}
             <div className="absolute inset-0 shimmerFooter" />
@@ -34,7 +34,7 @@ function JoinOurTeam() {
 
             {/* GLOW BUTTON */}
             <div className="relative z-10">
-              <button className="glow-btn cursor-pointer">Apply Now</button>
+              <button className="glow-btn cursor-pointer px-5 py-2 md:px-7 md:py-3">Apply Now</button>
             </div>
           </div>
         </div>

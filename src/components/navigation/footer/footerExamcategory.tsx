@@ -11,13 +11,19 @@ function FooterExamCategory() {
   });
 
   return (
-  <div className="flex flex-col gap-5 text-subtitle-gray text-sm">
-    {
-      data?.data.featureCategories.map((item)=>(
-        <p className="cursor-pointer hover:text-button-blue">{item.categoryName}</p>
-      ))
-    }
-  </div>
+    <ul className="space-y-3 lg:space-y-4 text-sm">
+      {data?.data.featureCategories.map((item) => (
+        <li key={item.slug} className="flex gap-2 items-start">
+          {/* custom bullet */}
+          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-title-gradient-blue"></span>
+
+          {/* text */}
+          <p className="text-subtitle-gray text-sm hover:text-button-blue cursor-pointer">
+            {item.categoryName}
+          </p>
+        </li>
+      ))}
+    </ul>
   );
 }
 

@@ -6,10 +6,11 @@ import FooterSocialMedia from "./footerSocialMedia";
 
 function FooterDetails() {
   return (
-    <div className="grid grid-cols-1  lg:grid-cols-12 gap-8 xl:gap-10 py-10">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 py-10 mt-10">
       {/* ABOUT */}
-      <div className="lg:col-span-4">
-        <div className="space-y-6 lg:space-y-10">
+      <div className="lg:col-span-4 space-y-4 lg:space-y-10 flex flex-col justify-between">
+       
+          {/* MockShala logo and description */}
           <div className="space-y-6 pr-5">
             <img
               src={mockShalaLogo}
@@ -31,7 +32,7 @@ function FooterDetails() {
           <div className="hidden lg:flex">
             <FooterSocialMedia />
           </div>
-        </div>
+    
       </div>
 
       {/* POPULAR TESTS */}
