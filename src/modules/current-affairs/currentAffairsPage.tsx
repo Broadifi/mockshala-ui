@@ -155,7 +155,7 @@ export default function CurrentAffairsPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
+    <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs pb-6 lg:pb-10">
       {/* for mobile view */}
       <div className="fixed lg:hidden top-15 left-0 right-0 z-20 gradient-soft-blue-current-affairs">
         <div className=" backdrop-blur-lg bg-white/50">
