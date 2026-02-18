@@ -15,7 +15,7 @@ function FooterExamCategory() {
       {data?.data.featureCategories.map((item) => (
         <li key={item.slug} className="flex gap-2 items-start">
           {/* custom bullet */}
-          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-title-gradient-blue"></span>
+          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-title-gradient-blue shrink-0"></span>
 
           {/* text */}
           <p className="text-subtitle-gray text-sm hover:text-button-blue cursor-pointer">

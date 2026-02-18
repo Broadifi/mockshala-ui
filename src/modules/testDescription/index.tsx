@@ -69,6 +69,12 @@ function DescriptionModule() {
     }
   }, [data, setTestData]);
 
+
+  useEffect(() => {
+   
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
   // useEffect(() => {
   //   const handleScroll = () => {
   //     if (window.scrollY > 20) {

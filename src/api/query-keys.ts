@@ -37,9 +37,14 @@ export const currentAffairsKeys = createExtendedQueryKeys('currentAffairs',{
   similarNews: (id)=> ['currentAffairs', 'similarNews', id] as const,
 })
 
+export const siteConfigsKeys = createExtendedQueryKeys('siteConfigsKeys',{
+  siteConfigsDetails: ()=> ['siteConfigsKeys','siteConfigsDetails'] as const
+})
+
 export const queryKeys ={
     auth: authQueryKeys,
     home: homeQueryKey,
     testKey: testDescriptionKey,
-    currentAffairsKeys 
+    currentAffairsKeys ,
+    siteConfigsKeys
 }

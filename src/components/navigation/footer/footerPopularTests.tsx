@@ -17,7 +17,7 @@ function FooterPopularTests() {
    <ul className="space-y-3 lg:space-y-4 text-sm">
   {popularTestData?.data.map((item) => (
     <li key={item.slug} className="flex gap-2 items-start">
-      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-title-gradient-blue"></span>
+      <span className="mt-2 h-1.5 w-1.5 rounded-full bg-title-gradient-blue shrink-0"></span>
       <Link
         to={"/$lang/exams/$examCategory/$testSlug"}
         params={{
