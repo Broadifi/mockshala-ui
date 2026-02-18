@@ -3,14 +3,7 @@ import FooterDetails from "./footerDetails";
 import FooterSocialMedia from "./footerSocialMedia";
 import JoinOurTeam from "./joinOurTeam";
 
-
-{
-  /* <div className=" w-full container px-4 py-2 mx-auto lg:mt-20"></div> */
-}
-
 function FooterCTA() {
- 
-  // console.log(data);
 
   return (
     <div>

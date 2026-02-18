@@ -12,6 +12,7 @@ function FooterContactDetails() {
     ...QUERY_CONFIG.static,
   });
 
+  const contactEmail = data?.data.contactEmail;
   const contactNo = data?.data.contactNumber;
 
   const WhatsappNo = data?.data.contactWhatsapp;
@@ -32,7 +33,9 @@ function FooterContactDetails() {
           <Mail size={20} className="text-title-gradient-blue" />
         </div>
         <p className=" text-subtitle-gray text-sm cursor-pointer hover:text-button-blue">
-          <a href="mailto:contact@mockshala.com"> {data?.data.contactEmail}</a>
+          <a href={`mailto:${contactEmail}?subject=Support Request`}>
+            {contactEmail}
+          </a>
         </p>
       </div>
 

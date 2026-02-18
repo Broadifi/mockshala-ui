@@ -34,7 +34,15 @@ function JoinOurTeam() {
 
             {/* GLOW BUTTON */}
             <div className="relative z-10">
-              <button className="glow-btn cursor-pointer px-5 py-2 md:px-7 md:py-3">Apply Now</button>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSc2k8dHWa-PRRxfc9zIjUaXANyJLC_Kt0ohA9b1XNOnkwqFfA/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="glow-btn cursor-pointer px-5 py-2 md:px-7 md:py-3">
+                  Apply Now
+                </button>
+              </a>
             </div>
           </div>
         </div>

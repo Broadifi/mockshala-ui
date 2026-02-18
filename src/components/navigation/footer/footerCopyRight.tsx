@@ -5,9 +5,9 @@ function FooterCopyRight() {
 
   const footerLinks = [
     { label: "About", path: "/$lang/about/" },
-    { label: "Privacy Policy", path: "/$lang/privacyPolicy/" },
-    { label: "Terms & Condition", path: "/$lang/termsofCondition/" },
-    { label: "Cancellation & Refund", path: "/$lang/cancellationRefund/" },
+    { label: "Privacy Policy", path: "/$lang/privacy-policy/" },
+    { label: "Terms & Conditions", path: "/$lang/terms-and-conditions/" },
+    { label: "Cancellation & Refund", path: "/$lang/cancellation-refund/" },
   ];
 
   return (

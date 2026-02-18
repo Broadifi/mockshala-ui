@@ -4,6 +4,23 @@ import { QUERY_CONFIG } from "@/api/config";
 import { useQuery } from "@tanstack/react-query";
 import { facebook, instagram } from "@/assets";
 
+/**
+ * Normalize URL → ensures it starts with http/https
+ */
+const normalizeUrl = (url:string |undefined) => {
+  if (!url) return null;
+
+  const trimmed = url.trim();
+
+  if (!trimmed) return null;
+
+  if (!/^https?:\/\//i.test(trimmed)) {
+    return `https://${trimmed}`;
+  }
+
+  return trimmed;
+};
+
 function FooterSocialMedia() {
   const { data } = useQuery({
     queryKey: queryKeys.siteConfigsKeys.siteConfigsDetails(),
@@ -11,8 +28,8 @@ function FooterSocialMedia() {
     ...QUERY_CONFIG.static,
   });
 
-  const facebookLInk = data?.data.facebook
-  const instagramLink = data?.data.instagram
+  const facebookLink = normalizeUrl(data?.data?.facebook);
+  const instagramLink = normalizeUrl(data?.data?.instagram);
 
   return (
     <div>
@@ -21,11 +38,13 @@ function FooterSocialMedia() {
         Stay connected with us on social media
       </p>
 
-      {/* Share Buttons */}
+      {/* Social Icons */}
       <div className="flex gap-6 mt-3 mb-6">
-        <div>
+        
+        {/* FACEBOOK */}
+        {facebookLink ? (
           <a
-            href={facebookLInk}
+            href={facebookLink}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -35,9 +54,16 @@ function FooterSocialMedia() {
               className="h-10 cursor-pointer transition-transform duration-300 hover:scale-110"
             />
           </a>
-        </div>
+        ) : (
+          <img
+            src={facebook}
+            alt="facebookLogo"
+            className="h-10 opacity-40 cursor-not-allowed"
+          />
+        )}
 
-        <div>
+        {/* INSTAGRAM */}
+        {instagramLink ? (
           <a
             href={instagramLink}
             target="_blank"
@@ -49,7 +75,13 @@ function FooterSocialMedia() {
               className="h-10 cursor-pointer transition-transform duration-300 hover:scale-110"
             />
           </a>
-        </div>
+        ) : (
+          <img
+            src={instagram}
+            alt="instagramLogo"
+            className="h-10 opacity-40 cursor-not-allowed"
+          />
+        )}
       </div>
     </div>
   );
