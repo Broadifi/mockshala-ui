@@ -17,6 +17,10 @@ function Plans() {
   });
 
   const plansData = data?.data;
+    const dataLength = plansData?.length ?? 0
+
+  console.log(plansData?.length);
+  
 
   const [selected, setSelected] = useState<{ [planId: string]: string[] }>({});
 
@@ -58,6 +62,9 @@ function Plans() {
       <div className="w-full container px-4 py-5 mx-auto space-y-12">
         
         {/* ================= STUDENT PLANS ================= */}
+        {
+            dataLength > 1 && 
+        
         <div>
           <div className="text-center w-full py-2 md:py-5">
             <h2 className="text-2xl xl:text-4xl font-bold mb-4 md:mb-6 bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
@@ -154,6 +161,8 @@ function Plans() {
               })}
           </div>
         </div>
+
+            }
 
         {/* ================= UNLIMITED PLANS ================= */}
         <div className="pb-4 md:pb-6">

@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "@tanstack/react-router";
 import { BadgeQuestionMark, BookOpen, Clock } from "lucide-react";
 import { AllExamsCardsSkeleton } from "./skeleton/allExamsCardsSkeleton";
-import { formatToK } from "@/utils/formatting/formatNumber";
+// import { formatToK } from "@/utils/formatting/formatNumber";
 import ViewAllButton from "@/components/customButtons/viewAllButton";
 import { useTranslation } from "react-i18next";
 
@@ -88,14 +88,16 @@ export function AllExamsCards({ slug }: PropsType) {
                   <div className="flex sm:flex-col items-center gap-2 sm:gap-1">
                     <BookOpen className="h-4 w-4 text-blue-600 " />
                     <span className="text-xs text-gray-500">
-                      {series.tests.length} Tests
+                      {/* {series.tests.length} Tests */}
+                      33 Tests 
                     </span>
                   </div>
 
                   <div className="flex sm:flex-col items-center gap-2 sm:gap-1">
                     <BadgeQuestionMark className="h-4 w-4 text-green-600 " />
                     <span className="text-xs text-gray-500">
-                      {formatToK(series.totalQuestions)} Questions
+                      {/* {formatToK(series.totalQuestions)} Questions */}
+                      2k Questions
                     </span>
                   </div>
 
