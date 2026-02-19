@@ -25,7 +25,9 @@ export const BASE_URL =
 
     siteConfig: ()=> '/site-configs',
 
-    editorialsCorner: ()=> '/editorials'
+    editorialsCorner: ()=> '/editorials',
+
+    plans:() => '/plans'
 
       
   }

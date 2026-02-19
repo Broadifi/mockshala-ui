@@ -2,6 +2,7 @@ import AllTestSeries from "./components/allTestSeries";
 import CurrentAffairs from "./components/currentAffairs";
 import EditorialCornerHome from "./components/EditorialCornerHome";
 import Hero from "./components/hero";
+import Plans from "./components/plans";
 import PopularExam from "./components/popularExam";
 import Stats from "./components/stats";
 import WhyChoose from "./components/whyChoose";
@@ -14,7 +15,8 @@ function HomeModule() {
       <AllTestSeries />
       <PopularExam/> 
       <EditorialCornerHome/>  
-      <WhyChoose />     
+      <WhyChoose />  
+      <Plans/>   
       <Stats/>
       
     </div>

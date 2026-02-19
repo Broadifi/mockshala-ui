@@ -43,7 +43,15 @@
   "moreEditorials":{
     "title": "More Editorials"
   },
-  "viewAll": "View All"
+  "viewAll": "View All",
+
+  "plans":{
+    "title": "Pricing & Plans",
+    "subtitle": "Unlock your potential with the right plan"
+  },
+  "studentPlan": "Best Plans For Students",
+
+  "unlimitedPlan": "Unlimited Plans"
 
 
 }
