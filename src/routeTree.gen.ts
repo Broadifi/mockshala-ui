@@ -24,8 +24,10 @@ import { Route as LangExamsIndexRouteImport } from './routes/$lang/exams/index'
 import { Route as LangEditorialsCornerIndexRouteImport } from './routes/$lang/editorials-corner/index'
 import { Route as LangCurrentAffairsIndexRouteImport } from './routes/$lang/current-affairs/index'
 import { Route as LangCancellationRefundIndexRouteImport } from './routes/$lang/cancellation-refund/index'
+import { Route as LangAllExamsIndexRouteImport } from './routes/$lang/all-exams/index'
 import { Route as LangAboutIndexRouteImport } from './routes/$lang/about/index'
 import { Route as LangExamsExamCategoryIndexRouteImport } from './routes/$lang/exams/$examCategory/index'
+import { Route as LangEditorialsCornerSlugIndexRouteImport } from './routes/$lang/editorials-corner/$slug/index'
 import { Route as LangCurrentAffairsSlugIndexRouteImport } from './routes/$lang/current-affairs/$slug/index'
 import { Route as LangExamsExamCategoryTestSlugIndexRouteImport } from './routes/$lang/exams/$examCategory/$testSlug/index'
 
@@ -107,6 +109,11 @@ const LangCancellationRefundIndexRoute =
     path: '/cancellation-refund/',
     getParentRoute: () => LangRoute,
   } as any)
+const LangAllExamsIndexRoute = LangAllExamsIndexRouteImport.update({
+  id: '/all-exams/',
+  path: '/all-exams/',
+  getParentRoute: () => LangRoute,
+} as any)
 const LangAboutIndexRoute = LangAboutIndexRouteImport.update({
   id: '/about/',
   path: '/about/',
@@ -116,6 +123,12 @@ const LangExamsExamCategoryIndexRoute =
   LangExamsExamCategoryIndexRouteImport.update({
     id: '/exams/$examCategory/',
     path: '/exams/$examCategory/',
+    getParentRoute: () => LangRoute,
+  } as any)
+const LangEditorialsCornerSlugIndexRoute =
+  LangEditorialsCornerSlugIndexRouteImport.update({
+    id: '/editorials-corner/$slug/',
+    path: '/editorials-corner/$slug/',
     getParentRoute: () => LangRoute,
   } as any)
 const LangCurrentAffairsSlugIndexRoute =
@@ -136,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/$lang': typeof LangRouteWithChildren
   '/$lang/': typeof LangIndexRoute
   '/$lang/about': typeof LangAboutIndexRoute
+  '/$lang/all-exams': typeof LangAllExamsIndexRoute
   '/$lang/cancellation-refund': typeof LangCancellationRefundIndexRoute
   '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
@@ -149,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/$lang/success-story': typeof LangSuccessStoryIndexRoute
   '/$lang/terms-and-conditions': typeof LangTermsAndConditionsIndexRoute
   '/$lang/current-affairs/$slug': typeof LangCurrentAffairsSlugIndexRoute
+  '/$lang/editorials-corner/$slug': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
 }
@@ -156,6 +171,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$lang': typeof LangIndexRoute
   '/$lang/about': typeof LangAboutIndexRoute
+  '/$lang/all-exams': typeof LangAllExamsIndexRoute
   '/$lang/cancellation-refund': typeof LangCancellationRefundIndexRoute
   '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
@@ -169,6 +185,7 @@ export interface FileRoutesByTo {
   '/$lang/success-story': typeof LangSuccessStoryIndexRoute
   '/$lang/terms-and-conditions': typeof LangTermsAndConditionsIndexRoute
   '/$lang/current-affairs/$slug': typeof LangCurrentAffairsSlugIndexRoute
+  '/$lang/editorials-corner/$slug': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
 }
@@ -178,6 +195,7 @@ export interface FileRoutesById {
   '/$lang': typeof LangRouteWithChildren
   '/$lang/': typeof LangIndexRoute
   '/$lang/about/': typeof LangAboutIndexRoute
+  '/$lang/all-exams/': typeof LangAllExamsIndexRoute
   '/$lang/cancellation-refund/': typeof LangCancellationRefundIndexRoute
   '/$lang/current-affairs/': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner/': typeof LangEditorialsCornerIndexRoute
@@ -191,6 +209,7 @@ export interface FileRoutesById {
   '/$lang/success-story/': typeof LangSuccessStoryIndexRoute
   '/$lang/terms-and-conditions/': typeof LangTermsAndConditionsIndexRoute
   '/$lang/current-affairs/$slug/': typeof LangCurrentAffairsSlugIndexRoute
+  '/$lang/editorials-corner/$slug/': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory/': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug/': typeof LangExamsExamCategoryTestSlugIndexRoute
 }
@@ -201,6 +220,7 @@ export interface FileRouteTypes {
     | '/$lang'
     | '/$lang/'
     | '/$lang/about'
+    | '/$lang/all-exams'
     | '/$lang/cancellation-refund'
     | '/$lang/current-affairs'
     | '/$lang/editorials-corner'
@@ -214,6 +234,7 @@ export interface FileRouteTypes {
     | '/$lang/success-story'
     | '/$lang/terms-and-conditions'
     | '/$lang/current-affairs/$slug'
+    | '/$lang/editorials-corner/$slug'
     | '/$lang/exams/$examCategory'
     | '/$lang/exams/$examCategory/$testSlug'
   fileRoutesByTo: FileRoutesByTo
@@ -221,6 +242,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$lang'
     | '/$lang/about'
+    | '/$lang/all-exams'
     | '/$lang/cancellation-refund'
     | '/$lang/current-affairs'
     | '/$lang/editorials-corner'
@@ -234,6 +256,7 @@ export interface FileRouteTypes {
     | '/$lang/success-story'
     | '/$lang/terms-and-conditions'
     | '/$lang/current-affairs/$slug'
+    | '/$lang/editorials-corner/$slug'
     | '/$lang/exams/$examCategory'
     | '/$lang/exams/$examCategory/$testSlug'
   id:
@@ -242,6 +265,7 @@ export interface FileRouteTypes {
     | '/$lang'
     | '/$lang/'
     | '/$lang/about/'
+    | '/$lang/all-exams/'
     | '/$lang/cancellation-refund/'
     | '/$lang/current-affairs/'
     | '/$lang/editorials-corner/'
@@ -255,6 +279,7 @@ export interface FileRouteTypes {
     | '/$lang/success-story/'
     | '/$lang/terms-and-conditions/'
     | '/$lang/current-affairs/$slug/'
+    | '/$lang/editorials-corner/$slug/'
     | '/$lang/exams/$examCategory/'
     | '/$lang/exams/$examCategory/$testSlug/'
   fileRoutesById: FileRoutesById
@@ -371,6 +396,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangCancellationRefundIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/all-exams/': {
+      id: '/$lang/all-exams/'
+      path: '/all-exams'
+      fullPath: '/$lang/all-exams'
+      preLoaderRoute: typeof LangAllExamsIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/about/': {
       id: '/$lang/about/'
       path: '/about'
@@ -383,6 +415,13 @@ declare module '@tanstack/react-router' {
       path: '/exams/$examCategory'
       fullPath: '/$lang/exams/$examCategory'
       preLoaderRoute: typeof LangExamsExamCategoryIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
+    '/$lang/editorials-corner/$slug/': {
+      id: '/$lang/editorials-corner/$slug/'
+      path: '/editorials-corner/$slug'
+      fullPath: '/$lang/editorials-corner/$slug'
+      preLoaderRoute: typeof LangEditorialsCornerSlugIndexRouteImport
       parentRoute: typeof LangRoute
     }
     '/$lang/current-affairs/$slug/': {
@@ -405,6 +444,7 @@ declare module '@tanstack/react-router' {
 interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
   LangAboutIndexRoute: typeof LangAboutIndexRoute
+  LangAllExamsIndexRoute: typeof LangAllExamsIndexRoute
   LangCancellationRefundIndexRoute: typeof LangCancellationRefundIndexRoute
   LangCurrentAffairsIndexRoute: typeof LangCurrentAffairsIndexRoute
   LangEditorialsCornerIndexRoute: typeof LangEditorialsCornerIndexRoute
@@ -418,6 +458,7 @@ interface LangRouteChildren {
   LangSuccessStoryIndexRoute: typeof LangSuccessStoryIndexRoute
   LangTermsAndConditionsIndexRoute: typeof LangTermsAndConditionsIndexRoute
   LangCurrentAffairsSlugIndexRoute: typeof LangCurrentAffairsSlugIndexRoute
+  LangEditorialsCornerSlugIndexRoute: typeof LangEditorialsCornerSlugIndexRoute
   LangExamsExamCategoryIndexRoute: typeof LangExamsExamCategoryIndexRoute
   LangExamsExamCategoryTestSlugIndexRoute: typeof LangExamsExamCategoryTestSlugIndexRoute
 }
@@ -425,6 +466,7 @@ interface LangRouteChildren {
 const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
   LangAboutIndexRoute: LangAboutIndexRoute,
+  LangAllExamsIndexRoute: LangAllExamsIndexRoute,
   LangCancellationRefundIndexRoute: LangCancellationRefundIndexRoute,
   LangCurrentAffairsIndexRoute: LangCurrentAffairsIndexRoute,
   LangEditorialsCornerIndexRoute: LangEditorialsCornerIndexRoute,
@@ -438,6 +480,7 @@ const LangRouteChildren: LangRouteChildren = {
   LangSuccessStoryIndexRoute: LangSuccessStoryIndexRoute,
   LangTermsAndConditionsIndexRoute: LangTermsAndConditionsIndexRoute,
   LangCurrentAffairsSlugIndexRoute: LangCurrentAffairsSlugIndexRoute,
+  LangEditorialsCornerSlugIndexRoute: LangEditorialsCornerSlugIndexRoute,
   LangExamsExamCategoryIndexRoute: LangExamsExamCategoryIndexRoute,
   LangExamsExamCategoryTestSlugIndexRoute:
     LangExamsExamCategoryTestSlugIndexRoute,
