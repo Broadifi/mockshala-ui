@@ -2,7 +2,7 @@ export interface EditorialCornerData {
   _id: string;
   title: string;
   metaTitle: string;
-  tags: undefined[];
+  tags: string[];
   image: string;
   thumbnailImage: string;
   description: string;

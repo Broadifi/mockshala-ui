@@ -10,10 +10,12 @@ import Share from '@/assets/currentAffairs/share.png'
 import facebook from '@/assets/siteConfig/facebook.png'
 import instagram from '@/assets/siteConfig/instagram.png'
 import aboutus from '@/assets/aboutus/aboutus.jpg'
+import comingSoon from '@/assets/comingSoon/coming-soon.png'
 
 export {mockShalaLogo, imgFallBack, 
     question, testCount,validityImg, NoResultFoundImg,
     Bookmark, Copy, Share,
     facebook, instagram,
-    aboutus
+    aboutus,
+    comingSoon
 }

@@ -1,6 +1,10 @@
+import ComingSoon from "../comingSoon"
+
 function EditorialCornerDashboard() {
   return (
-    <div>Editorial Corner</div>
+    <div>
+      <ComingSoon/>
+    </div>
   )
 }
 
