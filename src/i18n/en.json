@@ -36,6 +36,14 @@
   "editorialCorner":{
     "title": "Editorial Corner",
     "subtitle":"Sophisticated perspectives on modern challenges, governance, and technology for the progressive learner."
-  }
+  },
+  "moreTest": {
+    "title": "More Tests"
+  },
+  "moreEditorials":{
+    "title": "More Editorials"
+  },
+  "viewAll": "View All"
+
 
 }
