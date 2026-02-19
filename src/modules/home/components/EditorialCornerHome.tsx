@@ -132,7 +132,7 @@ function EditorialCornerHome() {
               bg-soft-blue-gradient rounded-lg border border-gray-200
             "
           >
-            <span className="text-xl lg:text-2xl text-button-blue font-bold text-center">
+            <span className="text-lg sm:text-xl lg:text-2xl text-button-blue font-bold text-center">
               +{remainingCount} {t("moreEditorials.title")}
             </span>
 
