@@ -19,7 +19,7 @@ function Plans() {
   const plansData = data?.data;
     const dataLength = plansData?.length ?? 0
 
-  console.log(plansData?.length);
+  // console.log(plansData?.length);
   
 
   const [selected, setSelected] = useState<{ [planId: string]: string[] }>({});
