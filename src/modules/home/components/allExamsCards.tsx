@@ -148,7 +148,7 @@ export function AllExamsCards({ slug }: PropsType) {
               to="/$lang/all-exams"
               params={{ lang }}
               preload="intent"
-              aria-label="View all editorials"
+              aria-label="View all exams"
               className="
               group hover:shadow-lg transition-all duration-300 hover:scale-[1.02]
               flex flex-col justify-center items-center gap-4 p-6
