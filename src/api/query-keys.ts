@@ -43,7 +43,7 @@ export const siteConfigsKeys = createExtendedQueryKeys('siteConfigsKeys',{
 
 
 export const editorialsCornerKeys= createExtendedQueryKeys('editorialsCorner',{
-  editorialsCornerDetails: (page: number, limit: number) => ['editorialsCorner',page , limit]
+  editorialsCornerDetails: (page: number, limit: number) => ['editorialsCorner',page , limit] as const
 })
 
 export const queryKeys ={
