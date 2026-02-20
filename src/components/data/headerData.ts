@@ -43,12 +43,14 @@ export const createHeaderData = (lang: string) => ({
       titleHin: "सफलता की कहानी",
       allUsersAccess: false,
       url: `/${lang}/success-story`,
+      isChild: false,
     },
     {
       titleEn: "Current Affairs",
       titleHin: "समसामयिक घटनाएँ",
       allUsersAccess: false,
       url: `/${lang}/current-affairs`,
+      isChild: false,
     }
   
   ],

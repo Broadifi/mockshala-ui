@@ -26,6 +26,7 @@ import LangSwitch from "../langSwitch";
 import LanguageSwitch from "../LanguageSwitch";
 import { useTranslation } from "react-i18next";
 import { ExamModule } from "@/modules/exams";
+import { ExamNavigation } from "@/modules/examNavigationMobile";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -68,7 +69,7 @@ function Header() {
           <div className="hidden  lg:flex xl:hidden justify-center items-center text-muted-foreground">
             {headerDataTablet.map((item, index) =>
               item.isChild ? (
-                <ExamModule key={index}/>
+                <ExamModule key={index} />
               ) : (
                 <Link
                   key={lang === "hi" ? item.titleHin : item.titleEn}
@@ -168,7 +169,7 @@ function Header() {
           <div className="hidden xl:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
             {headerData.map((item, index) =>
               item.isChild ? (
-                <ExamModule key={index}/>
+                <ExamModule key={index} />
               ) : (
                 <Link
                   key={lang === "hi" ? item.titleHin : item.titleEn}
@@ -327,20 +328,24 @@ function Header() {
                       </Link>
                     )}
 
-                    {[...headerData, ...moreOptionData].map((item) => (
-                      <Link
-                        key={lang === "hi" ? item.titleHin : item.titleEn}
-                        to={item.url}
-                        onClick={() => setMobileOpen(false)}
-                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                          isActive(item.url)
-                            ? "bg-primary/10 text-primary"
-                            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                        }`}
-                      >
-                        {lang === "hi" ? item.titleHin : item.titleEn}
-                      </Link>
-                    ))}
+                    {[...headerData, ...moreOptionData].map((item) =>
+                      item.isChild ? (
+                        <ExamNavigation />
+                      ) : (
+                        <Link
+                          key={lang === "hi" ? item.titleHin : item.titleEn}
+                          to={item.url}
+                          onClick={() => setMobileOpen(false)}
+                          className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                            isActive(item.url)
+                              ? "bg-primary/10 text-primary"
+                              : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                          }`}
+                        >
+                          {lang === "hi" ? item.titleHin : item.titleEn}
+                        </Link>
+                      ),
+                    )}
 
                     {!isLoggedIn && (
                       <div>
