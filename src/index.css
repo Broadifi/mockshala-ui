@@ -297,7 +297,9 @@ body {
   );
 }
 
-
+.exam-card-gradient{
+ background-image: linear-gradient(120deg, #f3f8f8 0%, #eff5f8 100%);
+}
 /* gradient card */
 .bg-inner {
   background-image: linear-gradient(to bottom, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #97aedb 100%);

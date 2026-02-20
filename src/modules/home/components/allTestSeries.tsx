@@ -22,6 +22,8 @@ function AllTestSeries() {
     ...QUERY_CONFIG.static,
   });
 
+  // console.log(data);
+  
   const fetchFirstData = data?.data.featureCategories[0].slug;
 
   // Derive activeId from slug or use first category

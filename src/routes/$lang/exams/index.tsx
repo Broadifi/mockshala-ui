@@ -1,3 +1,4 @@
+import ComingSoon from '@/modules/comingSoon'
 import { createFileRoute,  } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/$lang/exams/')({
@@ -6,5 +7,10 @@ export const Route = createFileRoute('/$lang/exams/')({
 
 function RouteComponent() {
   
-  return <div>Hello "/exams"!</div>
+  return <div>
+    <p className='text-center'>All Exam will appear here</p>
+    
+      <ComingSoon/>
+      
+  </div>
 }
