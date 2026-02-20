@@ -66,9 +66,9 @@ function Header() {
 
           {/* Quick Access  for Tablet View*/}
           <div className="hidden  lg:flex xl:hidden justify-center items-center text-muted-foreground">
-            {headerDataTablet.map((item) =>
+            {headerDataTablet.map((item, index) =>
               item.isChild ? (
-                <ExamModule />
+                <ExamModule key={index}/>
               ) : (
                 <Link
                   key={lang === "hi" ? item.titleHin : item.titleEn}
@@ -166,9 +166,9 @@ function Header() {
 
           {/* Quick Access  for Large View*/}
           <div className="hidden xl:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
-            {headerData.map((item) =>
+            {headerData.map((item, index) =>
               item.isChild ? (
-                <ExamModule />
+                <ExamModule key={index}/>
               ) : (
                 <Link
                   key={lang === "hi" ? item.titleHin : item.titleEn}

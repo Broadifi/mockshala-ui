@@ -33,10 +33,11 @@ export function ExamModule() {
   const categories = data?.data?.featureCategories ?? [];
 
   const [activeIndex, setActiveIndex] = React.useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = React.useState<string>("");
 
   const fetchFirstData = data?.data.featureCategories[0].slug;
   return (
-    <NavigationMenu>
+    <NavigationMenu value={menuOpen} onValueChange={setMenuOpen}>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Exams</NavigationMenuTrigger>
@@ -78,6 +79,7 @@ export function ExamModule() {
                   {fetchFirstData && (
                     <FilterExamByCategory
                       slug={activeIndex ?? fetchFirstData}
+                      onTestClick={() => setMenuOpen("")}
                     />
                   )}
                 </div>

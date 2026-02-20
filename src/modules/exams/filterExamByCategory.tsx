@@ -10,13 +10,11 @@ import { ExamCardsSkeleton } from "./skeleton/ExamCardsSkeleton";
 
 interface PropsType {
   slug: string;
+  onTestClick?: () => void;
 }
 
-function FilterExamByCategory({ slug }: PropsType) {
-  const {
-    data: allExamData,
-    isLoading,
-  } = useQuery({
+function FilterExamByCategory({ slug, onTestClick }: PropsType) {
+  const { data: allExamData, isLoading } = useQuery({
     queryKey: homeQueryKey.allTestSeries(slug),
     queryFn: () => homeAPI.getAllExamByCategory(slug),
     enabled: !!slug,
@@ -32,12 +30,14 @@ function FilterExamByCategory({ slug }: PropsType) {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
           {allExamData?.data.map((test) => (
             <Link
+            key={test._id}
               to={"/$lang/exams/$examCategory/$testSlug"}
               params={{
                 lang: lang,
                 examCategory: test.examCategory.slug,
                 testSlug: test.slug,
               }}
+              onClick={onTestClick}
               className="flex items-center gap-3 border rounded-lg p-2 hover:shadow-sm transition"
             >
               <ImageWithFallback
