@@ -3,7 +3,6 @@ import {
   Bell,
   ChevronDown,
   ChevronRight,
-  CircleUserRound,
   Menu,
   Search,
   X,
@@ -306,7 +305,7 @@ function Header() {
                   <div className="flex items-center">
                     <button className="lg:hidden ">
                       {mobileOpen ? (
-                        <X size={20}/>
+                        <X size={20} />
                       ) : (
                         <Menu className="h-6 w-6" />
                       )}
@@ -315,10 +314,10 @@ function Header() {
                 </SheetTrigger>
                 <SheetContent
                   side="right"
-                  className={`${menuView === "main" ? "w-xs" : "w-full"} px-4`}
+                  className={`${menuView === "main" ? "px-6" : "px-4"} w-full `}
                 >
                   {menuView === "main" && (
-                    <div className="flex flex-col space-y-2 mt-12">
+                    <div className="flex flex-col space-y-2 mt-15">
                       {isLoggedIn && (
                         <Link
                           key="Profile"
@@ -331,8 +330,10 @@ function Header() {
                               : "text-title-darkblue hover:text-accent-foreground"
                           }`}
                         >
-                          <CircleUserRound className="text-blue-600" />
-                          <h3>Profile</h3>
+                          {/* <CircleUserRound className="text-blue-600" />
+                          <h3>Profile</h3> */}
+                          <ProfileIcon/>
+                           <h3>Profile</h3>
                         </Link>
                       )}
 
@@ -345,7 +346,10 @@ function Header() {
                               className="flex gap-5 items-center px-3 py-3 text-sm font-medium text-title-darkblue"
                             >
                               {lang === "hi" ? item.titleHin : item.titleEn}
-                              <ChevronRight size={20} className="text-text-title-darkblue"/>
+                              <ChevronRight
+                                size={20}
+                                className="text-text-title-darkblue"
+                              />
                             </button>
                           </div>
                         ) : (
@@ -388,7 +392,12 @@ function Header() {
 
                   {/* LEVEL 2 SCREEN */}
                   {menuView === "exam" && (
-                    <ExamNavigation onBack={() => setMenuView("main")} />
+                    <ExamNavigation
+                      onBack={() => {
+                        setMenuView("main");
+                        setMobileOpen(false);
+                      }}
+                    />
                   )}
                 </SheetContent>
               </Sheet>
