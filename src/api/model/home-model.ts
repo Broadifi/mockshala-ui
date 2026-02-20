@@ -74,6 +74,7 @@ export interface DashboardPaidCategoriesResponse {
 
 
 //All Exams by category on Home page
+
 export interface AllExamResponse {
   error: boolean
   status: boolean
@@ -112,18 +113,6 @@ export interface ExamCategory {
   _id: string
   slug: string
 }
-
-// export  interface AllExamResponse {
-//   error: boolean;
-//   status: boolean;
-//   statusCode: number;
-//   responseTimestamp: string;
-//   totalCount: number;
-//   hasNext: boolean;
-//   page: number;
-//   data: AllExamResponseData[];
-// }
-
 
 //Current Affairs
 

@@ -82,6 +82,7 @@ export function AllExamsCards({ slug }: PropsType) {
                 </div>
               </div>
 
+               {/* TODO: Update to dynamic value */}
               <div className="space-y-4 flex-1">
                 {/* Stats */}
                 <div className="grid sm:grid-cols-3 gap-1 sm:gap-2 text-center">
