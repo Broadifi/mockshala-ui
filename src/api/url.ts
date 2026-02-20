@@ -11,7 +11,7 @@ export const BASE_URL =
     dashboardPaidCategories: '/exam-categories/dashboard?isPaid=true',
 
     allExamData: (examCategory: string) =>
-       `/test-series/?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
+       `/test-series/get-dashboard-test-series?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
 
     testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`,
 
@@ -25,7 +25,9 @@ export const BASE_URL =
 
     siteConfig: ()=> '/site-configs',
 
-    editorialsCorner: ()=> '/editorials'
+    editorialsCorner: ()=> '/editorials',
+
+    plans:() => '/plans'
 
       
   }

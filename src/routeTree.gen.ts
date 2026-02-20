@@ -23,6 +23,7 @@ import { Route as LangFreeMocksIndexRouteImport } from './routes/$lang/free-mock
 import { Route as LangExamsIndexRouteImport } from './routes/$lang/exams/index'
 import { Route as LangEditorialsCornerIndexRouteImport } from './routes/$lang/editorials-corner/index'
 import { Route as LangCurrentAffairsIndexRouteImport } from './routes/$lang/current-affairs/index'
+import { Route as LangCheckoutIndexRouteImport } from './routes/$lang/checkout/index'
 import { Route as LangCancellationRefundIndexRouteImport } from './routes/$lang/cancellation-refund/index'
 import { Route as LangAllExamsIndexRouteImport } from './routes/$lang/all-exams/index'
 import { Route as LangAboutIndexRouteImport } from './routes/$lang/about/index'
@@ -103,6 +104,11 @@ const LangCurrentAffairsIndexRoute = LangCurrentAffairsIndexRouteImport.update({
   path: '/current-affairs/',
   getParentRoute: () => LangRoute,
 } as any)
+const LangCheckoutIndexRoute = LangCheckoutIndexRouteImport.update({
+  id: '/checkout/',
+  path: '/checkout/',
+  getParentRoute: () => LangRoute,
+} as any)
 const LangCancellationRefundIndexRoute =
   LangCancellationRefundIndexRouteImport.update({
     id: '/cancellation-refund/',
@@ -151,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/$lang/about': typeof LangAboutIndexRoute
   '/$lang/all-exams': typeof LangAllExamsIndexRoute
   '/$lang/cancellation-refund': typeof LangCancellationRefundIndexRoute
+  '/$lang/checkout': typeof LangCheckoutIndexRoute
   '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
   '/$lang/exams': typeof LangExamsIndexRoute
@@ -173,6 +180,7 @@ export interface FileRoutesByTo {
   '/$lang/about': typeof LangAboutIndexRoute
   '/$lang/all-exams': typeof LangAllExamsIndexRoute
   '/$lang/cancellation-refund': typeof LangCancellationRefundIndexRoute
+  '/$lang/checkout': typeof LangCheckoutIndexRoute
   '/$lang/current-affairs': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner': typeof LangEditorialsCornerIndexRoute
   '/$lang/exams': typeof LangExamsIndexRoute
@@ -197,6 +205,7 @@ export interface FileRoutesById {
   '/$lang/about/': typeof LangAboutIndexRoute
   '/$lang/all-exams/': typeof LangAllExamsIndexRoute
   '/$lang/cancellation-refund/': typeof LangCancellationRefundIndexRoute
+  '/$lang/checkout/': typeof LangCheckoutIndexRoute
   '/$lang/current-affairs/': typeof LangCurrentAffairsIndexRoute
   '/$lang/editorials-corner/': typeof LangEditorialsCornerIndexRoute
   '/$lang/exams/': typeof LangExamsIndexRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/$lang/about'
     | '/$lang/all-exams'
     | '/$lang/cancellation-refund'
+    | '/$lang/checkout'
     | '/$lang/current-affairs'
     | '/$lang/editorials-corner'
     | '/$lang/exams'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
     | '/$lang/about'
     | '/$lang/all-exams'
     | '/$lang/cancellation-refund'
+    | '/$lang/checkout'
     | '/$lang/current-affairs'
     | '/$lang/editorials-corner'
     | '/$lang/exams'
@@ -267,6 +278,7 @@ export interface FileRouteTypes {
     | '/$lang/about/'
     | '/$lang/all-exams/'
     | '/$lang/cancellation-refund/'
+    | '/$lang/checkout/'
     | '/$lang/current-affairs/'
     | '/$lang/editorials-corner/'
     | '/$lang/exams/'
@@ -389,6 +401,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangCurrentAffairsIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/checkout/': {
+      id: '/$lang/checkout/'
+      path: '/checkout'
+      fullPath: '/$lang/checkout'
+      preLoaderRoute: typeof LangCheckoutIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/cancellation-refund/': {
       id: '/$lang/cancellation-refund/'
       path: '/cancellation-refund'
@@ -446,6 +465,7 @@ interface LangRouteChildren {
   LangAboutIndexRoute: typeof LangAboutIndexRoute
   LangAllExamsIndexRoute: typeof LangAllExamsIndexRoute
   LangCancellationRefundIndexRoute: typeof LangCancellationRefundIndexRoute
+  LangCheckoutIndexRoute: typeof LangCheckoutIndexRoute
   LangCurrentAffairsIndexRoute: typeof LangCurrentAffairsIndexRoute
   LangEditorialsCornerIndexRoute: typeof LangEditorialsCornerIndexRoute
   LangExamsIndexRoute: typeof LangExamsIndexRoute
@@ -468,6 +488,7 @@ const LangRouteChildren: LangRouteChildren = {
   LangAboutIndexRoute: LangAboutIndexRoute,
   LangAllExamsIndexRoute: LangAllExamsIndexRoute,
   LangCancellationRefundIndexRoute: LangCancellationRefundIndexRoute,
+  LangCheckoutIndexRoute: LangCheckoutIndexRoute,
   LangCurrentAffairsIndexRoute: LangCurrentAffairsIndexRoute,
   LangEditorialsCornerIndexRoute: LangEditorialsCornerIndexRoute,
   LangExamsIndexRoute: LangExamsIndexRoute,

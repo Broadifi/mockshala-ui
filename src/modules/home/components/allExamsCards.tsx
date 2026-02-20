@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "@tanstack/react-router";
 import { BadgeQuestionMark, BookOpen, Clock } from "lucide-react";
 import { AllExamsCardsSkeleton } from "./skeleton/allExamsCardsSkeleton";
-import { formatToK } from "@/utils/formatting/formatNumber";
+// import { formatToK } from "@/utils/formatting/formatNumber";
 import ViewAllButton from "@/components/customButtons/viewAllButton";
 import { useTranslation } from "react-i18next";
 
@@ -48,7 +48,7 @@ export function AllExamsCards({ slug }: PropsType) {
   };
 
   return (
-    <section className="py-8 md:py-16 bg-gray-50 dark:bg-gray-900">
+    <section className="py-8 md:py-12 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto ">
         {isLoading && <AllExamsCardsSkeleton />}
 
@@ -82,20 +82,23 @@ export function AllExamsCards({ slug }: PropsType) {
                 </div>
               </div>
 
+               {/* TODO: Update to dynamic value */}
               <div className="space-y-4 flex-1">
                 {/* Stats */}
                 <div className="grid sm:grid-cols-3 gap-1 sm:gap-2 text-center">
                   <div className="flex sm:flex-col items-center gap-2 sm:gap-1">
                     <BookOpen className="h-4 w-4 text-blue-600 " />
                     <span className="text-xs text-gray-500">
-                      {series.tests.length} Tests
+                      {/* {series.tests.length} Tests */}
+                      33 Tests 
                     </span>
                   </div>
 
                   <div className="flex sm:flex-col items-center gap-2 sm:gap-1">
                     <BadgeQuestionMark className="h-4 w-4 text-green-600 " />
                     <span className="text-xs text-gray-500">
-                      {formatToK(series.totalQuestions)} Questions
+                      {/* {formatToK(series.totalQuestions)} Questions */}
+                      2k Questions
                     </span>
                   </div>
 

@@ -19,7 +19,7 @@ function PopularExam() {
   //for translation
   const { t } = useTranslation();
 
-   const { lang } = useParams({ from:'/$lang' })
+  const { lang } = useParams({ from: "/$lang" });
 
   const { data: popularTestData } = useQuery({
     queryKey: homeQueryKey.popularTests(),
@@ -27,11 +27,10 @@ function PopularExam() {
     ...QUERY_CONFIG.static,
   });
 
-
   const [api, setApi] = React.useState<CarouselApi | null>(null);
 
   return (
-    <div className=" w-full container px-4 py-2 mx-auto lg:mt-20">
+    <div className=" w-full container px-4 py-2 mx-auto ">
       {/* HEADER */}
       <div className="text-center md:text-start xl:space-y-2">
         <h3
@@ -135,8 +134,10 @@ function PopularExam() {
                   </div>
 
                   {/* CONTENT */}
-                  <div className=" relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)]
-                   p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto ">
+                  <div
+                    className=" relative flex flex-col justify-between h-[calc(100%-5rem)] md:h-[calc(100%-7rem)]
+                   p-2 mt-1 md:p-3  lg:p-4 overflow-y-auto "
+                  >
                     <h1
                       className="
                       text-xs md:text-sm font-semibold text-center
@@ -149,15 +150,12 @@ function PopularExam() {
                     </h1>
 
                     <Link
-                         to={'/$lang/exams/$examCategory/$testSlug'}
-                     params={
-                      {
-                        lang: lang ,
+                      to={"/$lang/exams/$examCategory/$testSlug"}
+                      params={{
+                        lang: lang,
                         examCategory: item.examCategory.slug,
-                        testSlug: item.slug
-                      }
-                     }
-
+                        testSlug: item.slug,
+                      }}
                       className="
                         mx-auto md:mt-3 flex items-center gap-1 cursor-pointer
                         px-5 py-1.5 text-xs md:text-sm font-medium

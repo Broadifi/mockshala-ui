@@ -73,58 +73,46 @@ export interface DashboardPaidCategoriesResponse {
 }
 
 
-//All Exams
+//All Exams by category on Home page
 
-interface Tests {
-  _id: string;
-  name: string;
-  testType: string;
-  examType: string;
-  time: number;
-  image: string;
-  instruction: string;
-  isOpen: boolean;
-  totalQuestions: number;
+export interface AllExamResponse {
+  error: boolean
+  status: boolean
+  statusCode: number
+  responseTimestamp: string
+  totalCount: number
+  data: AllExamResponseData[]
 }
 
-interface CountByTestType {
-  FULL_LENGTH_MOCK: number;
+export interface AllExamResponseData {
+  status: boolean
+  approveStatus: string
+  isPaid: boolean
+  price: number
+  durationTime: number
+  _id: string
+  name: string
+  exam: Exam
+  examCategory: ExamCategory
+  description: string
+  extraDescription?: string
+  image: string
+  createdBy: string
+  createdAt: string
+  updatedAt: string
+  updatedBy: string
+  slug: string
 }
 
-interface ALLExamCategory {
-  _id: string;
-  slug: string;
+export interface Exam {
+  _id: string
+  slug: string
 }
 
-interface AllExamResponseData {
-  _id: string;
-  name: string;
-  slug: string;
-  image: string;
-  tests: Tests[];
-  countByTestType: CountByTestType;
-  freeTestCount: number;
-  paidTestCount: number;
-  totalQuestions: number;
-  status: boolean;
-  isPaid: boolean;
-  examCategory: ALLExamCategory;
-  createdBy: object;
-  createdAt: string;
-  updatedAt: string;
+export interface ExamCategory {
+  _id: string
+  slug: string
 }
-
-export  interface AllExamResponse {
-  error: boolean;
-  status: boolean;
-  statusCode: number;
-  responseTimestamp: string;
-  totalCount: number;
-  hasNext: boolean;
-  page: number;
-  data: AllExamResponseData[];
-}
-
 
 //Current Affairs
 
