@@ -44,9 +44,9 @@ export function ExamModule() {
             {isLoading ? (
               <ExamModuleSkeleton />
             ) : (
-              <div className="grid grid-cols-12 w-150 xl:w-212 h-130 xl:h-106">
+              <div className="grid grid-cols-12 w-150 xl:w-212 h-120 xl:h-106">
                 {/* LEFT SIDEBAR */}
-                <div className="col-span-4 border-r exam-card-gradient overflow-y-auto rounded-md">
+                <div className="col-span-5 xl:col-span-4 border-r exam-card-gradient overflow-y-auto rounded-md">
                   {categories.map((cat) => (
                     <div
                       key={cat._id}
@@ -74,7 +74,7 @@ export function ExamModule() {
                 </div>
 
                 {/* RIGHT SIDE CARDS */}
-                <div className="col-span-8 p-4 xl:p-6 overflow-y-auto">
+                <div className="col-span-7 xl:col-span-8 p-4 xl:p-6 overflow-y-auto">
                   {fetchFirstData && (
                     <FilterExamByCategory
                       slug={activeIndex ?? fetchFirstData}

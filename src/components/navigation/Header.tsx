@@ -65,7 +65,7 @@ function Header() {
           </Link>
 
           {/* Quick Access  for Tablet View*/}
-          <div className="hidden  md:flex xl:hidden justify-center items-center text-muted-foreground">
+          <div className="hidden  lg:flex xl:hidden justify-center items-center text-muted-foreground">
             {headerDataTablet.map((item) =>
               item.isChild ? (
                 <ExamModule />
@@ -110,7 +110,7 @@ function Header() {
           </div>
 
           {/* Notification, bell and login/profile for tablet view */}
-          <div className="hidden md:flex xl:hidden gap-2  justify-center items-center text-muted-foreground">
+          <div className="hidden lg:flex xl:hidden gap-2  justify-center items-center text-muted-foreground">
             <button>
               <Search className="h-5 w-5" />
             </button>
@@ -276,7 +276,7 @@ function Header() {
           </div>
 
           {/* Notification, Search and Login/Profile For Mobile Screen */}
-          <div className="flex md:hidden gap-3  justify-center items-center text-muted-foreground">
+          <div className="flex lg:hidden gap-3  justify-center items-center text-muted-foreground">
             <button>
               <Search className="h-6 w-6" />
             </button>
