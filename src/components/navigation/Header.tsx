@@ -25,6 +25,7 @@ import { createHeaderData } from "../data/headerData";
 import LangSwitch from "../langSwitch";
 import LanguageSwitch from "../LanguageSwitch";
 import { useTranslation } from "react-i18next";
+import { ExamModule } from "@/modules/exams";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -35,8 +36,8 @@ function Header() {
 
   //Fetch the language params
   const { lang } = useParams({ strict: false });
-  
-  const homepageLink  = lang ?? 'en';
+
+  const homepageLink = lang ?? "en";
 
   const isLoggedIn = true;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -52,7 +53,8 @@ function Header() {
         <div className="flex gap-4 justify-between w-full  ">
           {/* Title for all view */}
           <Link
-           to="/$lang" params={{ lang: homepageLink }}
+            to="/$lang"
+            params={{ lang: homepageLink }}
             className="flex justify-center items-center"
           >
             <img
@@ -64,15 +66,19 @@ function Header() {
 
           {/* Quick Access  for Tablet View*/}
           <div className="hidden  md:flex xl:hidden justify-center items-center text-muted-foreground">
-            {headerDataTablet.map((item) => (
-              <Link
-                key={lang === "hi" ? item.titleHin : item.titleEn}
-                to={item.url}
-                className={`px-2.5 py-1.5 text-xs font-medium rounded-md transition-colors ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
-              >
-                {lang === "hi" ? item.titleHin : item.titleEn}
-              </Link>
-            ))}
+            {headerDataTablet.map((item) =>
+              item.isChild ? (
+                <ExamModule />
+              ) : (
+                <Link
+                  key={lang === "hi" ? item.titleHin : item.titleEn}
+                  to={item.url}
+                  className={`px-2.5 py-1.5 text-xs font-medium rounded-md transition-colors ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
+                >
+                  {lang === "hi" ? item.titleHin : item.titleEn}
+                </Link>
+              ),
+            )}
 
             {/* more Option */}
             <div>
@@ -117,11 +123,10 @@ function Header() {
               </Button>
             </div>
 
-              {/* Language switch for tablet screen */}
+            {/* Language switch for tablet screen */}
             <div className="flex xl:hidden">
               <LangSwitch />
             </div>
-
 
             {isLoggedIn ? (
               <Link
@@ -161,22 +166,30 @@ function Header() {
 
           {/* Quick Access  for Large View*/}
           <div className="hidden xl:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
-            {headerData.map((item) => (
-              <Link
-                key={lang === "hi" ? item.titleHin : item.titleEn}
-                to={item.url}
-                className={`lg:px-1 lg:py-1 xl:px-2 xl:py-2 text-sm font-medium rounded-md transition-colors 
-              ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
-              >
-                {lang === "hi" ? item.titleHin : item.titleEn}
-              </Link>
-            ))}
+            {headerData.map((item) =>
+              item.isChild ? (
+                <ExamModule />
+              ) : (
+                <Link
+                  key={lang === "hi" ? item.titleHin : item.titleEn}
+                  to={item.url}
+                  className={`lg:px-1 lg:py-1 xl:px-2 xl:py-2 text-sm font-medium rounded-md transition-colors 
+                  ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
+                >
+                  {lang === "hi" ? item.titleHin : item.titleEn}
+                </Link>
+              ),
+            )}
 
             {/* more Option */}
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="font-medium cursor-pointer">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="font-medium cursor-pointer"
+                  >
                     {t("nav.more")}
                     <ChevronDown />
                   </Button>
@@ -219,12 +232,12 @@ function Header() {
                 <Badge className="absolute top-1 right-1 h-2 w-2 p-0 bg-red-500" />
               </Button>
             </div>
-            
+
             {/* Language switch for large screen */}
             <div className="hidden xl:flex">
               <LanguageSwitch />
             </div>
-            
+
             {isLoggedIn ? (
               <Link
                 key="Profile"
@@ -276,11 +289,11 @@ function Header() {
               </Button>
             </div>
 
-              {/* Language switch for tablet screen */}
+            {/* Language switch for tablet screen */}
             <div className="flex xl:hidden">
               <LangSwitch />
             </div>
-            
+
             <div>
               {/* Mobile Menu Button - Now at the end */}
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>

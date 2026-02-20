@@ -5,30 +5,35 @@ export const createHeaderData = (lang: string) => ({
       titleHin: "परीक्षाएँ",
       allUsersAccess: true,
       url: `/${lang}/exams`,
+      isChild: true,
     },
     {
       titleEn: "Free Mocks",
       titleHin: "निःशुल्क मॉक टेस्ट",
       allUsersAccess: true,
       url: `/${lang}/free-mocks`,
+      isChild: false,
     },
     {
       titleEn: "Our Plans",
       titleHin: "हमारी योजनाएँ",
       allUsersAccess: true,
       url: `/${lang}/our-plans`,
+      isChild: false,
     },
     {
       titleEn: "Editorials Corner",
       titleHin: "संपादकीय अनुभाग",
       allUsersAccess: true,
       url: `/${lang}/editorials-corner`,
+      isChild: false,
     },
       {
       titleEn: "Resources",
       titleHin: "संसाधन",
       allUsersAccess: false,
       url: `/${lang}/resources`,
+      isChild: false,
     }
   ],
 
@@ -55,18 +60,21 @@ export const createHeaderData = (lang: string) => ({
       titleHin: "परीक्षाएँ",
       allUsersAccess: true,
       url: `/${lang}/exams`,
+      isChild: true,
     },
     {
       titleEn: "Free Mocks",
       titleHin: "निःशुल्क मॉक टेस्ट",
       allUsersAccess: true,
       url: `/${lang}/free-mocks`,
+      isChild: false,
     },
     {
       titleEn: "Our Plans",
       titleHin: "हमारी योजनाएँ",
       allUsersAccess: true,
       url: `/${lang}/our-plans`,
+      isChild: false,
     },
   ],
 
