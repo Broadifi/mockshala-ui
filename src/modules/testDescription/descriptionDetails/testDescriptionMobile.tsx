@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input.tsx";
 import { Search } from "lucide-react";
 
 function TestDescriptionMobile() {
-  const { tests, filterTests, resetTests, originalTests } = useTestDescriptionStore();
+  const { tests, filterTests, resetTests, originalTests } =
+    useTestDescriptionStore();
 
   const [searchText, setSearchText] = useState("");
 
@@ -37,8 +38,10 @@ function TestDescriptionMobile() {
     } else {
       // filterTests((item) => item.name.toLowerCase().includes(query));
 
-      const matched = originalTests.filter((item)=> item.name.toLowerCase().includes(query))
-      filterTests(matched)
+      const matched = originalTests.filter((item) =>
+        item.name.toLowerCase().includes(query),
+      );
+      filterTests(matched);
     }
   }, [searchText, filterTests, resetTests, originalTests]);
 
@@ -48,16 +51,32 @@ function TestDescriptionMobile() {
 
   return (
     <div className="w-full bg-soft-blue-gradient ">
-      <div className=" flex items-center justify-end pt-4 gap-3 pr-3">
-        <Input
-          type="search"
-          placeholder="Search Test..."
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          className="bg-white rounded-lg
-           focus-visible:ring-1 focus-visible:ring-blue-200"
-        />
-        <Search size={25} className="text-title-gradient-blue cursor-pointer" />
+      <div className="flex justify-center md:justify-end pt-4">
+        <div className="relative w-full md:max-w-md">
+          <Input
+            type="search"
+            placeholder="Search Test..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className=" w-full
+        pr-10
+        rounded-xl
+        border border-gray-200
+        bg-white
+        shadow-sm
+        placeholder:text-gray-400
+        focus-visible:ring-2
+        focus-visible:ring-blue-200
+        focus-visible:border-blue-300
+        transition-all duration-200
+      "
+          />
+
+          <Search
+            size={18}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+          />
+        </div>
       </div>
 
       <div>
