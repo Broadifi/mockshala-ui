@@ -7,23 +7,21 @@ import type { TestDetailsData } from "@/api/model/test-model";
 import { BookOpen, FileText, HeartPlus } from "lucide-react";
 import ShareOnMedia from "@/components/shareOnMedia";
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
+interface BuyNowSectionProps {
+  testData: TestDetailsData | undefined;
 }
 
-function BuyNowSection() {
-  const { testData: fetchTestData }: StoreDataProps = useTestDescriptionStore();
+function BuyNowSection({ testData }: BuyNowSectionProps) {
+  const { originalTests } = useTestDescriptionStore();
 
-  const totalTests = fetchTestData?.tests?.length ?? 0;
+  const totalTests = originalTests?.length ?? 0;
   // total questions no
   const totalQuestions =
-    fetchTestData?.tests?.reduce((sum, test) => sum + test.totalQuestions, 0) ?? 0;
+    originalTests?.reduce((sum, test) => sum + test.totalQuestions, 0) ?? 0;
 
   let time = 0;
-  if (fetchTestData) {
-    time = fetchTestData?.durationTime / 30;
+  if (testData) {
+    time = testData?.durationTime / 30;
   }
 
   //course validity
@@ -33,9 +31,8 @@ function BuyNowSection() {
   const shareMedia = {
     title: "Check this course 👇",
     buttonName: "Share course",
-    popupHeader: "Check this course"
-  }
-
+    popupHeader: "Check this course",
+  };
 
   return (
     <div
@@ -46,8 +43,8 @@ function BuyNowSection() {
       {/* Image div */}
       <div className="w-full rounded-t-2xl h-56 p-2 relative overflow-hidden">
         <img
-          src={IMAGE_BASE_URL + fetchTestData?.image}
-          alt={fetchTestData?.name || "Test series image"}
+          src={IMAGE_BASE_URL + testData?.image}
+          alt={testData?.name || "Test series image"}
           className="object-contain rounded-t-lg h-full w-full relative z-20"
         />
 
@@ -58,8 +55,8 @@ function BuyNowSection() {
                   /> */}
 
         <img
-          src={IMAGE_BASE_URL + fetchTestData?.image}
-          alt={fetchTestData?.name || "Test series image"}
+          src={IMAGE_BASE_URL + testData?.image}
+          alt={testData?.name || "Test series image"}
           className="object-cover absolute inset-0 h-full w-full z-10 blur-[3px]"
         />
       </div>
@@ -107,8 +104,7 @@ function BuyNowSection() {
 
         {/* Share and add to fav */}
         <div className="flex flex-col xl:flex-row items-center xl:justify-normal gap-4 xl:gap-8 pt-3 pb-5">
-          
-          <ShareOnMedia data={shareMedia}/>
+          <ShareOnMedia data={shareMedia} />
           <div className="flex gap-2 text-sm items-center hover:cursor-pointer">
             <HeartPlus size={18} className="text-gray-600" />
             <p className="text-[#1e4064] ">Add to favorites</p>

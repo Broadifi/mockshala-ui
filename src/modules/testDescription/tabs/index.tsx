@@ -3,7 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DifficultyTable } from "../difficultyLevels/difficultyTable";
 import { useState } from "react";
 import { useTestDescriptionStore } from "@/stores/testStore";
-import type { TestDetailsData } from "@/api/model/test-model";
 import { formattingWord } from "@/utils/formatting/formattingWord";
 import { TestTypeTable } from "../testTypes/testTypeTable";
 
@@ -12,15 +11,9 @@ interface DifficultyProps {
   formatType: string;
 }
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
-}
-
 export function TabsByType({ formatCategory, formatType }: DifficultyProps) {
   //fetch all test data
-  const { testData }: StoreDataProps = useTestDescriptionStore();
+  const { tests } = useTestDescriptionStore();
 
   const [activeTab, setActiveTab] = useState(formatCategory[0]);
 
@@ -32,7 +25,7 @@ export function TabsByType({ formatCategory, formatType }: DifficultyProps) {
 
   function getFilterData(formatType: string) {
     if (formatType === "difficulty") {
-      const filterDifficultyData = testData?.tests.filter((test) => {
+      const filterDifficultyData = tests.filter((test) => {
         const matchDifficulty = activeTab
           ? formattingWord(test.difficultyLevel) === activeTab
           : true;
@@ -42,7 +35,7 @@ export function TabsByType({ formatCategory, formatType }: DifficultyProps) {
 
       return filterDifficultyData;
     } else if (formatType === "testType") {
-      const filterTestTypeData = testData?.tests.filter((test) => {
+      const filterTestTypeData = tests.filter((test) => {
         const matchType = activeTab
           ? formattingWord(test.testType) === activeTab
           : true;

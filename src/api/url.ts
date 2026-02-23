@@ -15,6 +15,8 @@ export const BASE_URL =
 
     testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`,
 
+    //  testDetails: (testSlug: string) =>`/test-series/by-slug/v2/${testSlug}`,
+
     currentAffairs: ()=> '/current-affairs',
 
     currentAffairsBySlug: (slug: string)=> `/current-affairs/by-slug/${slug}`,

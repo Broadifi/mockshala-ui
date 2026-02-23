@@ -5,20 +5,56 @@ import GroupByDifficulty from "../difficultyLevels/index.tsx";
 import GroupByTestType from "../testTypes/index.tsx";
 import HtmlSetter from "../../../components/htmlSetter.tsx";
 import { useTestDescriptionStore } from "@/stores/testStore.ts";
+import { useParams } from "@tanstack/react-router";
+import { queryClient } from "@/main";
+import { testDescriptionKey } from "@/api";
+import type { TestDetailsResponse } from "@/api/model/test-model";
+import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input.tsx";
+import { Search } from "lucide-react";
 
 function TestDescriptionMobile() {
-  const { testData } = useTestDescriptionStore();
+  const { tests, filterTests, resetTests } = useTestDescriptionStore();
+
+  const [searchText, setSearchText] = useState("");
+
+  const { examCategory, testSlug } = useParams({
+    from: "/$lang/exams/$examCategory/$testSlug/",
+  });
+
+  // Get the description from query data
+  const queryData = queryClient.getQueryData(
+    testDescriptionKey.testDetails(examCategory, testSlug),
+  ) as TestDetailsResponse | undefined;
+
+  useEffect(() => {
+    const query = searchText.trim().toLowerCase();
+
+    if (query === "") {
+      resetTests();
+    } else {
+      filterTests((item) => item.name.toLowerCase().includes(query));
+    }
+  }, [searchText, filterTests, resetTests]);
 
   const allTestLength = () => {
-    if (testData?.tests.length == undefined) {
-      return "Loading...";
-    } else {
-      return testData?.tests.length;
-    }
+    return tests.length ?? 0;
   };
 
   return (
     <div className="w-full bg-soft-blue-gradient ">
+      <div className=" flex items-center justify-end pt-4 gap-3 pr-3">
+        <Input
+          type="search"
+          placeholder="Search Test..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="bg-white rounded-lg
+           focus-visible:ring-1 focus-visible:ring-blue-200"
+        />
+        <Search size={25} className="text-title-gradient-blue cursor-pointer" />
+      </div>
+
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
@@ -88,7 +124,7 @@ function TestDescriptionMobile() {
           <TabsContent value="Test description">
             <Card className="mt-3">
               <CardContent>
-                <HtmlSetter html={testData?.description ?? ""} />
+                <HtmlSetter html={queryData?.data?.description ?? ""} />
               </CardContent>
             </Card>
           </TabsContent>
