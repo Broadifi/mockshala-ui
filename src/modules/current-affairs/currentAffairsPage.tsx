@@ -87,7 +87,7 @@ export default function CurrentAffairsPage() {
     queryFn: ({ pageParam = 1 }) =>
       fetchCurrentAffairs({
         page: pageParam,
-        limit: 6,
+        limit: 12,
         date: formatDateToISO(date),
         tags,
       }),
