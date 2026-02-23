@@ -65,7 +65,9 @@ export function ExamNavigation({ onBack, onClose }: NavigationProps) {
               </AccordionTrigger>
 
               <AccordionContent>
-                <FilterExamsMobile slug={openItem} onTestClick={onClose} />
+                {openItem === cat.slug && (
+                  <FilterExamsMobile slug={cat.slug} onTestClick={onClose} />
+                )}
               </AccordionContent>
             </AccordionItem>
           ))}
