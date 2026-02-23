@@ -6,12 +6,12 @@ import GroupByTestType from "../testTypes/index.tsx";
 import HtmlSetter from "../../../components/htmlSetter.tsx";
 import { useTestDescriptionStore } from "@/stores/testStore.ts";
 import { useParams } from "@tanstack/react-router";
-import { queryClient } from "@/main";
 import { testDescriptionKey } from "@/api";
-import type { TestDetailsResponse } from "@/api/model/test-model";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input.tsx";
 import { Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { testAPI } from "@/api/services/getTestDetails.ts";
 
 function TestDescriptionMobile() {
   const { tests, filterTests, resetTests, originalTests } =
@@ -24,9 +24,11 @@ function TestDescriptionMobile() {
   });
 
   // Get the description from query data
-  const queryData = queryClient.getQueryData(
-    testDescriptionKey.testDetails(examCategory, testSlug),
-  ) as TestDetailsResponse | undefined;
+   // ✅ Use useQuery for reactive updates
+  const { data: queryData, isLoading } = useQuery({
+    queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
+    queryFn: () => testAPI.getTestDetails(testSlug),
+  });
 
   // Filter search query in locally
 
@@ -45,13 +47,16 @@ function TestDescriptionMobile() {
     }
   }, [searchText, filterTests, resetTests, originalTests]);
 
-  const allTestLength = () => {
+   const allTestLength = () => {
+    if (isLoading) {
+      return "Loading...";
+    }
     return tests.length ?? 0;
   };
 
   return (
     <div className="w-full bg-soft-blue-gradient ">
-      <div className="flex justify-center md:justify-end pt-4">
+      <div className="flex justify-center md:justify-end pt-4 px-1">
         <div className="relative w-full md:max-w-md">
           <Input
             type="search"
@@ -74,7 +79,7 @@ function TestDescriptionMobile() {
 
           <Search
             size={18}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
           />
         </div>
       </div>
@@ -145,10 +150,15 @@ function TestDescriptionMobile() {
             </div>
           </TabsContent>
 
+           {/* ✅ Test description - Uses reactive queryData */}
           <TabsContent value="Test description">
-            <Card className="mt-3">
+            <Card>
               <CardContent>
-                <HtmlSetter html={queryData?.data?.description ?? ""} />
+                {isLoading ? (
+                  <div className="text-muted-foreground">Loading description...</div>
+                ) : (
+                  <HtmlSetter html={queryData?.data?.description ?? ""} />
+                )}
               </CardContent>
             </Card>
           </TabsContent>
