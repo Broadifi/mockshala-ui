@@ -1,12 +1,5 @@
 import { Link, useLocation, useParams } from "@tanstack/react-router";
-import {
-  Bell,
-  ChevronDown,
-  ChevronRight,
-  Menu,
-  Search,
-  X,
-} from "lucide-react";
+import { Bell, ChevronDown, ChevronRight, Menu, Search, X } from "lucide-react";
 
 import { Button } from "../ui/button";
 import {
@@ -18,7 +11,14 @@ import {
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Badge } from "../ui/badge";
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet";
 import { mockShalaLogo } from "@/assets";
 import ProfileIcon from "../ProfileIcon";
 import { createHeaderData } from "../data/headerData";
@@ -300,7 +300,15 @@ function Header() {
 
             <div>
               {/* Mobile Menu Button - Now at the end */}
-              <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <Sheet
+                open={mobileOpen}
+                onOpenChange={(open) => {
+                  setMobileOpen(open);
+                  if (!open) {
+                    setMenuView("main");
+                  }
+                }}
+              >
                 <SheetTrigger asChild>
                   <div className="flex items-center">
                     <button className="lg:hidden ">
@@ -316,6 +324,14 @@ function Header() {
                   side="right"
                   className={`${menuView === "main" ? "px-6" : "px-4"} w-full `}
                 >
+                  {/* For screen reader */}
+                  <SheetHeader className="sr-only">
+                    <SheetTitle>Mobile Navigation Menu</SheetTitle>
+                    <SheetDescription>
+                      Browse exams, profile, and navigation links
+                    </SheetDescription>
+                  </SheetHeader>
+
                   {menuView === "main" && (
                     <div className="flex flex-col space-y-2 mt-15">
                       {isLoggedIn && (
@@ -330,31 +346,27 @@ function Header() {
                               : "text-title-darkblue hover:text-accent-foreground"
                           }`}
                         >
-                          {/* <CircleUserRound className="text-blue-600" />
-                          <h3>Profile</h3> */}
-                          <ProfileIcon/>
-                           <h3>Profile</h3>
+                          <ProfileIcon />
+                          <h3>Profile</h3>
                         </Link>
                       )}
 
-                      {[...headerData, ...moreOptionData].map((item) =>
+                      {[...headerData, ...moreOptionData].map((item, index) =>
                         item.isChild ? (
-                          <div className="flex justify-between items-center">
-                            <button
-                              key="exam"
-                              onClick={() => setMenuView("exam")}
-                              className="flex gap-5 items-center px-3 py-3 text-sm font-medium text-title-darkblue"
-                            >
-                              {lang === "hi" ? item.titleHin : item.titleEn}
-                              <ChevronRight
-                                size={20}
-                                className="text-text-title-darkblue"
-                              />
-                            </button>
-                          </div>
+                          <button
+                            key={index}
+                            onClick={() => setMenuView("exam")}
+                            className="flex gap-5 items-center px-3 py-3 text-sm font-medium text-title-darkblue"
+                          >
+                            {lang === "hi" ? item.titleHin : item.titleEn}
+                            <ChevronRight
+                              size={20}
+                              className="text-text-title-darkblue"
+                            />
+                          </button>
                         ) : (
                           <Link
-                            key={lang === "hi" ? item.titleHin : item.titleEn}
+                            key={index}
                             to={item.url}
                             onClick={() => setMobileOpen(false)}
                             className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -395,6 +407,8 @@ function Header() {
                     <ExamNavigation
                       onBack={() => {
                         setMenuView("main");
+                      }}
+                      onClose={() => {
                         setMobileOpen(false);
                       }}
                     />

@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 
 import {
@@ -26,16 +24,12 @@ export function ExamModule() {
     ...QUERY_CONFIG.static,
   });
 
-  // console.log(data);
-
-  // const fetchFirstData = data?.data.featureCategories[0].slug;
-
   const categories = data?.data?.featureCategories ?? [];
 
   const [activeIndex, setActiveIndex] = React.useState<string | null>(null);
   const [menuOpen, setMenuOpen] = React.useState<string>("");
 
-  const fetchFirstData = data?.data.featureCategories[0].slug;
+  const fetchFirstData = data?.data?.featureCategories?.[0]?.slug;
   return (
     <NavigationMenu value={menuOpen} onValueChange={setMenuOpen}>
       <NavigationMenuList>
