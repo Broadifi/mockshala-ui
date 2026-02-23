@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input.tsx";
 import { Search } from "lucide-react";
 
 function TestDescriptionMobile() {
-  const { tests, filterTests, resetTests } = useTestDescriptionStore();
+  const { tests, filterTests, resetTests, originalTests } = useTestDescriptionStore();
 
   const [searchText, setSearchText] = useState("");
 
@@ -27,15 +27,20 @@ function TestDescriptionMobile() {
     testDescriptionKey.testDetails(examCategory, testSlug),
   ) as TestDetailsResponse | undefined;
 
+  // Filter search query in locally
+
   useEffect(() => {
     const query = searchText.trim().toLowerCase();
 
     if (query === "") {
       resetTests();
     } else {
-      filterTests((item) => item.name.toLowerCase().includes(query));
+      // filterTests((item) => item.name.toLowerCase().includes(query));
+
+      const matched = originalTests.filter((item)=> item.name.toLowerCase().includes(query))
+      filterTests(matched)
     }
-  }, [searchText, filterTests, resetTests]);
+  }, [searchText, filterTests, resetTests, originalTests]);
 
   const allTestLength = () => {
     return tests.length ?? 0;

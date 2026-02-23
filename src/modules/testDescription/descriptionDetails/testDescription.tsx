@@ -15,7 +15,7 @@ import { testAPI } from "@/api/services/getTestDetails.ts";
 
 
 function TestDescription() {
-  const { tests, filterTests, resetTests } = useTestDescriptionStore();
+  const { tests, filterTests, resetTests , originalTests} = useTestDescriptionStore();
 
   const [searchText, setSearchText] = useState("");
 
@@ -34,9 +34,11 @@ function TestDescription() {
     if (query === "") {
       resetTests();
     } else {
-      filterTests((item) => item.name.toLowerCase().includes(query));
+      // filterTests((item) => item.name.toLowerCase().includes(query));
+      const matched = originalTests.filter((item)=> item.name.toLowerCase().includes(query))
+      filterTests(matched)
     }
-  }, [searchText, filterTests, resetTests]);
+  }, [searchText, filterTests, resetTests,originalTests]);
 
   const allTestLength = () => {
     if (isLoading) {

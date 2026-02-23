@@ -6,7 +6,8 @@ interface TestStore {
   originalTests: Test[];
   setTests: (data: Test[]) => void;
   setOriginalTests: (data: Test[]) => void;
-  filterTests: (predicate: (test: Test) => boolean) => void;
+  filterTests:(data: Test[]) => void;
+  // filterTests: (predicate: (test: Test) => boolean) => void;
   resetTests: () => void;
   clearTests: () => void;
 }
@@ -17,9 +18,11 @@ export const useTestDescriptionStore = create<TestStore>((set)=>({
     setTests: (data) => set({ tests: data, originalTests: data }),
     setOriginalTests: (data) => set({ originalTests: data }),
 
-    filterTests: (predicate) => set((state) => ({
-      tests: state.originalTests.filter(predicate)
-    })),
+    // filterTests: (predicate) => set((state) => ({
+    //   tests: state.originalTests.filter(predicate)
+    // })),
+
+    filterTests: (data)=> set({tests:data}),
     
     resetTests: () => set((state) => ({ tests: state.originalTests })),
     clearTests: () => set({ tests: [], originalTests: [] })
