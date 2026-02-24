@@ -102,7 +102,7 @@ export default function FilterCurrentAffairMobile({ filters }: FilterProps) {
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     autoFocus
-                    className="focus:outline-none focus:ring-0"
+                    className=" focus-visible:ring-1 focus-visible:ring-blue-200"
                   />
                 </Field>
 
