@@ -21,7 +21,7 @@ const EditorialCornerDetails = () => {
 
   const fetchData = data?.data;
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   console.log(fetchData);
   if (isLoading) {
@@ -35,27 +35,27 @@ const EditorialCornerDetails = () => {
   };
   const cleanHTML = DOMPurify.sanitize(decodeHTML(fetchData.description));
   return (
-    <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7">
+    <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
       <Link to={`/${lang}/editorials-corner/`}>
-        <div className="flex flex-row justify-start items-center gap-2">
+        <div className="flex flex-row justify-start items-center gap-2 bg-card gradient-soft-blue-current-affairs">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
+            width="25"
+            height="25"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            className="text-blue-700 font-bold"
+            className="text-title-gradient-blue font-bold hover:text-title-darkblue"
           >
             <path d="m12 19-7-7 7-7" />
             <path d="M19 12H5" />
           </svg>
-          <span className="inline-block text-xl xl:text-2xl font-bold    bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent hover:to-title-gradient-blue">
+          <p className="inline-block text-sm min-[785px]:text-xl min-[880px]:text-2xl min-[1285px]:text-3xl min-[785px]:font-bold  font-bold hover:text-title-darkblue text-title-gradient-blue ">
             Back to Editorial Corner
-          </span>
+          </p>
         </div>
       </Link>
       <div className=" w-full flex flex-row justify-center ">
@@ -65,7 +65,7 @@ const EditorialCornerDetails = () => {
           className="rounded-2xl"
         />
       </div>
-      <h3 className="text-black font-bold text-5xl">{fetchData.title}</h3>
+      <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">{fetchData.title}</h3>
       <div className="text-sm text-gray-600 flex flex-row justify-start items-center gap-2 mx-1">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@ const EditorialCornerDetails = () => {
           <rect width="18" height="18" x="3" y="4" rx="2" />
           <path d="M3 10h18" />
         </svg>
-        <h3 className="text-base">
+        <h3 className="lg:text-lg md:text-base text-sm">
           Published on:{formatDate(fetchData.publishedDate)}
         </h3>
       </div>
@@ -95,9 +95,9 @@ const EditorialCornerDetails = () => {
         }}
       />
 
-      <div className="flex flex-col justify-start text-sm text-gray-600">
-        <span>Article ID:{fetchData._id}</span>
-        <span>Slug:{`/${fetchData.slug}`}</span>
+      <div className="flex flex-col justify-start  text-gray-600  ">
+        <span className="lg:text-base md:text-sm text-xs text-justify">Article ID:{fetchData._id}</span>
+        <span className="lg:text-base md:text-sm text-xs text-justify">Slug:{`/${fetchData.slug}`}</span>
       </div>
     </div>
   );
