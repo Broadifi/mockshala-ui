@@ -1,5 +1,11 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState, useEffect, useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/api/services/auth-services";
 import { toast } from "sonner";
@@ -40,6 +46,7 @@ export function LoginWithOtp({
   mobileNumber,
 }: OtpDialogProps) {
   const [resendTimer, setResendTimer] = useState(0);
+  const resendTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   //Schema for form validation
   const form = useForm<OtpFormData>({
@@ -52,27 +59,53 @@ export function LoginWithOtp({
     if (mobileNumber) {
       form.setValue("mobile", mobileNumber);
     }
-  }, [mobileNumber, form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mobileNumber]);
 
-  //   useEffect(()=>{
-  //     setResendTimer(10)
-  //   },[])
+  // Start resend timer automatically when OTP dialog opens
+  useEffect(() => {
+    if (open) {
+      // Reset OTP form when dialog opens
+      form.reset({ mobile: mobileNumber, otp: "" });
+
+      // Clear any existing timer
+      if (resendTimerRef.current) {
+        clearInterval(resendTimerRef.current);
+      }
+
+      // Start timer automatically (30 seconds)
+      setResendTimer(30);
+      resendTimerRef.current = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev <= 1) {
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    // Cleanup function - clear timer when dialog closes or component unmounts
+    return () => {
+      console.log("Cleanup: Clearing timer", resendTimerRef.current);
+      if (resendTimerRef.current) {
+        clearInterval(resendTimerRef.current);
+        resendTimerRef.current = null;
+      }
+    };
+  }, [open, mobileNumber, form]);
 
   //   OTP Verification
   const verifyOtpMutation = useMutation({
     mutationFn: authApi.otpVerification,
     onSuccess: (response) => {
-        
       if (response.status) {
-        window.localStorage.setItem('USER_TOKEN', response.data.token)
+        window.localStorage.setItem("USER_TOKEN", response.data.token);
         toast.success("Login successful!", {
           duration: 3000,
         });
 
         onOpenChange(false);
-
-        console.log(response);
-        
       } else {
         toast.error("Login failed. Please try again.", { duration: 5000 });
       }
@@ -93,12 +126,22 @@ export function LoginWithOtp({
         toast.success("OTP resent to your mobile number", {
           duration: 2000,
         });
-        // Start 60 second timer
-        setResendTimer(10);
-        const timer = setInterval(() => {
+
+        // Clear any existing timer before starting a new one
+        if (resendTimerRef.current) {
+          clearInterval(resendTimerRef.current);
+          resendTimerRef.current = null;
+        }
+
+        // Start timer again (30 seconds)
+        setResendTimer(30);
+        resendTimerRef.current = setInterval(() => {
           setResendTimer((prev) => {
             if (prev <= 1) {
-              clearInterval(timer);
+              if (resendTimerRef.current) {
+                clearInterval(resendTimerRef.current);
+                resendTimerRef.current = null;
+              }
               return 0;
             }
             return prev - 1;
@@ -113,14 +156,10 @@ export function LoginWithOtp({
   });
 
   const handleSubmit = (data: OtpFormData) => {
-    console.log("Form submitted with data:", data);
-    console.log("OTP value:", data.otp, "Length:", data.otp.length);
     if (data.otp.length === 4) {
-      console.log("OTP valid, calling API");
       // Include mobile number in the mutation call
       verifyOtpMutation.mutate(data);
     } else {
-      console.log("OTP invalid");
       toast.error("Please enter a valid 4-digit OTP", { duration: 3000 });
     }
   };
@@ -204,19 +243,31 @@ export function LoginWithOtp({
                             containerClassName="flex gap-4 "
                           >
                             <InputOTPGroup>
-                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={0} />
+                              <InputOTPSlot
+                                className="data-[active=true]:border-blue-500"
+                                index={0}
+                              />
                             </InputOTPGroup>
 
                             <InputOTPGroup>
-                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={1} />
+                              <InputOTPSlot
+                                className="data-[active=true]:border-blue-500"
+                                index={1}
+                              />
                             </InputOTPGroup>
 
                             <InputOTPGroup>
-                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={2} />
+                              <InputOTPSlot
+                                className="data-[active=true]:border-blue-500"
+                                index={2}
+                              />
                             </InputOTPGroup>
 
                             <InputOTPGroup>
-                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={3} />
+                              <InputOTPSlot
+                                className="data-[active=true]:border-blue-500"
+                                index={3}
+                              />
                             </InputOTPGroup>
                           </InputOTP>
                         </FormControl>
