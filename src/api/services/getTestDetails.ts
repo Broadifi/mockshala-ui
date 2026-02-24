@@ -10,5 +10,6 @@ export const testAPI = {
         await api.get(apiUrl.testDetails(testSlug))
 
         return response.data
+   
     }
 }

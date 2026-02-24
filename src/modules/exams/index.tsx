@@ -1,5 +1,7 @@
+import ComingSoon from "../comingSoon";
 function ExamsModule() {
-  return <div>ExamsModule</div>;
+
+  return (<div><ComingSoon/></div>)
 }
 
 export default ExamsModule;

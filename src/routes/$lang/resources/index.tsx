@@ -1,3 +1,4 @@
+import ResourcesModule from '@/modules/resources'
 import { createFileRoute,  } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/$lang/resources/')({
@@ -5,6 +6,7 @@ export const Route = createFileRoute('/$lang/resources/')({
 })
 
 function RouteComponent() {
+
+  return <ResourcesModule />
   
-  return <div>Hello "/resources"!</div>
 }
