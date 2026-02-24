@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -27,6 +27,7 @@ import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { mockShalaLogo } from "@/assets";
 import { useState } from "react";
 import { LoginWithOtp } from "./loginWithOtp";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 
 interface LoginDialogProps {
   open: boolean;
@@ -36,8 +37,8 @@ interface LoginDialogProps {
 export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
   //control OTP dialog open state
   const [isOTPDialogOpen, setOTPDialogOpen] = useState(false);
- 
-  const [mobileNo, setMobileNo] = useState('')
+
+  const [mobileNo, setMobileNo] = useState("");
 
   const form = useForm<createUserLoginFormData>({
     resolver: zodResolver(createUserLoginSchema),
@@ -52,13 +53,13 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
       if (response.status) {
         // console.log(response);
 
-        setMobileNo(form.getValues('mobile'))
+        setMobileNo(form.getValues("mobile"));
         toast.success("Otp has been sent in your register mobile number", {
-          duration: 2000,
+          duration: 3000,
         });
       }
       onOpenChange(false);
-      setOTPDialogOpen(true)
+      setOTPDialogOpen(true);
     },
 
     onError: (error: AxiosError<ErrorObject>) => {
@@ -67,7 +68,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
   });
 
   const handleSubmit = (data: createUserLoginFormData) => {
-    console.log("coming data", data);
+    // console.log("coming data", data);
 
     loginMutation.mutate(data);
   };
@@ -81,6 +82,13 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
           className=" p-0 overflow-hidden border-0 shadow-2xl rounded-2xl sm:rounded-3xl w-[95vw] sm:w-full"
           style={{ maxWidth: "720px", fontFamily: "'DM Sans', sans-serif" }}
         >
+          <DialogHeader className="sr-only">
+            <DialogTitle>Login</DialogTitle>
+            <DialogDescription>
+              Enter your mobile number to receive OTP
+            </DialogDescription>
+          </DialogHeader>
+
           <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] min-h-auto md:min-h-105">
             {/* ─── LEFT PANEL (Hidden on Mobile) ─── */}
             <div className="hidden md:flex">
@@ -98,7 +106,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
               </div>
               {/* Heading */}
               <h2 className="text-xl sm:text-2xl font-bold text-title-darkblue mb-1 pr-6 md:pr-0">
-                Welcome Back
+                Welcome Back 👋
               </h2>
               <p className="text-xs sm:text-sm text-muted-foreground mb-6 sm:mb-7">
                 Enter your details to access your account
@@ -121,7 +129,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                         </FormLabel>
 
                         <FormControl>
-                          <div className="flex items-center gap-2 border rounded-md px-2 py-1 sm:py-2 bg-gray-50 focus-within:ring-1 focus-within:ring-blue-500">
+                          <div className="flex items-center gap-2 border rounded-md px-2 py-1  bg-gray-50 focus-within:ring-1 focus-within:ring-blue-500">
                             <Smartphone
                               size={16}
                               className="text-gray-400 flex-shrink-0"
@@ -130,7 +138,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                             <Input
                               type="tel"
                               placeholder="Enter your mobile number"
-                              className="border-0 p-0 text-sm sm:text-base focus-visible:ring-0 focus-visible:ring-offset-0"
+                              className="font-medium tracking-wider border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-50 shadow-none"
                               {...field}
                             />
                           </div>

@@ -1,5 +1,5 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/api/services/auth-services";
 import { toast } from "sonner";
@@ -39,29 +39,42 @@ export function LoginWithOtp({
   onOpenChange,
   mobileNumber,
 }: OtpDialogProps) {
-
   const [resendTimer, setResendTimer] = useState(0);
 
   //Schema for form validation
   const form = useForm<OtpFormData>({
     resolver: zodResolver(otpSchema),
-    defaultValues: { mobile: mobileNumber, otp: "" },
+    defaultValues: { mobile: mobileNumber || "", otp: "" },
   });
 
-console.log(mobileNumber);
+  // Set mobile number when component mounts or mobileNumber changes
+  useEffect(() => {
+    if (mobileNumber) {
+      form.setValue("mobile", mobileNumber);
+    }
+  }, [mobileNumber, form]);
 
-//   OTP Verification
+  //   useEffect(()=>{
+  //     setResendTimer(10)
+  //   },[])
+
+  //   OTP Verification
   const verifyOtpMutation = useMutation({
     mutationFn: authApi.otpVerification,
     onSuccess: (response) => {
+        
       if (response.status) {
+        window.localStorage.setItem('USER_TOKEN', response.data.token)
         toast.success("Login successful!", {
-          duration: 2000,
+          duration: 3000,
         });
-      
+
         onOpenChange(false);
-      }else{
-         toast.error('Login failed. Please try again.', { duration: 5000 })
+
+        console.log(response);
+        
+      } else {
+        toast.error("Login failed. Please try again.", { duration: 5000 });
       }
     },
 
@@ -70,8 +83,7 @@ console.log(mobileNumber);
     },
   });
 
-
-//   Resend OTP
+  //   Resend OTP
   const resendOtpMutation = useMutation({
     mutationFn: async () => {
       return authApi.login({ mobile: mobileNumber });
@@ -101,21 +113,17 @@ console.log(mobileNumber);
   });
 
   const handleSubmit = (data: OtpFormData) => {
-    console.log(form.getValues('otp'));
-     
-    console.log("otp verification",data);
-    
+    console.log("Form submitted with data:", data);
+    console.log("OTP value:", data.otp, "Length:", data.otp.length);
     if (data.otp.length === 4) {
+      console.log("OTP valid, calling API");
+      // Include mobile number in the mutation call
       verifyOtpMutation.mutate(data);
     } else {
+      console.log("OTP invalid");
       toast.error("Please enter a valid 4-digit OTP", { duration: 3000 });
     }
   };
-
-//   function testCClick(){
-//     console.log("workinmg");
-    
-//   }
 
   const handleResendOtp = () => {
     if (resendTimer === 0) {
@@ -132,6 +140,13 @@ console.log(mobileNumber);
         className="p-0 overflow-hidden border-0 shadow-2xl rounded-2xl sm:rounded-3xl w-[95vw] sm:w-full"
         style={{ maxWidth: "720px", fontFamily: "'DM Sans', sans-serif" }}
       >
+        <DialogHeader className="sr-only">
+          <DialogTitle>OTP Verification</DialogTitle>
+          <DialogDescription>
+            Enter the OTP sent to your registered mobile number
+          </DialogDescription>
+        </DialogHeader>
+
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] min-h-auto md:min-h-105">
           {/* ─── LEFT PANEL (Static, no animations) ─── */}
           <LoginLeftPanelOtp />
@@ -157,48 +172,51 @@ console.log(mobileNumber);
             </p>
 
             {/* Mobile Number Display */}
-            <div className="mb-6 sm:mb-8">
-              <label className="text-xs sm:text-sm font-medium text-gray-700 mb-2 block">
-                * Mobile Number
+            <div className="mb-6">
+              <label className="text-xs sm:text-sm font-semibold text-gray-800 mb-2 block">
+                <span className="text-red-700">*</span> Mobile Number
               </label>
-              <div className="w-full px-3 py-2.5 sm:py-3 border border-gray-300 rounded-md bg-gray-50 text-gray-600 text-sm sm:text-base">
+              <div className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-600 text-sm sm:text-base">
                 {mobileNumber}
               </div>
             </div>
 
             {/* OTP Input */}
-            <div className="mb-6 sm:mb-8">
+            <div className="mb-6 ">
               <Form {...form}>
-                <form onSubmit={(e) => void form.handleSubmit(handleSubmit)(e)}
-                    >
+                <form
+                  onSubmit={(e) => {
+                    void form.handleSubmit(handleSubmit)(e);
+                  }}
+                >
                   <FormField
                     control={form.control}
                     name="otp"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="sr-only">
-                          One-Time Password
+                      <FormItem className="mb-8">
+                        <FormLabel className="text-xs sm:text-sm font-semibold text-gray-800 block">
+                          <span className="text-red-700">*</span> OTP
                         </FormLabel>
                         <FormControl>
                           <InputOTP
                             maxLength={4}
                             {...field}
-                            // containerClassName='justify-between [&>[data-slot="input-otp-group"]>div]:w-12 [&>[data-slot="input-otp-group"]>div]:h-12 [&>[data-slot="input-otp-group"]>div]:text-lg [&>[data-slot="input-otp-group"]>div]:border-slate-200 [&>[data-slot="input-otp-group"]>div]:bg-white [&>[data-slot="input-otp-group"]>div]:text-slate-900'
+                            containerClassName="flex gap-4 "
                           >
                             <InputOTPGroup>
-                              <InputOTPSlot index={0} />
+                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={0} />
                             </InputOTPGroup>
 
                             <InputOTPGroup>
-                              <InputOTPSlot index={1} />
+                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={1} />
                             </InputOTPGroup>
 
                             <InputOTPGroup>
-                              <InputOTPSlot index={2} />
+                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={2} />
                             </InputOTPGroup>
 
                             <InputOTPGroup>
-                              <InputOTPSlot index={3} />
+                              <InputOTPSlot className="data-[active=true]:border-blue-500" index={3} />
                             </InputOTPGroup>
                           </InputOTP>
                         </FormControl>
@@ -208,8 +226,8 @@ console.log(mobileNumber);
                   />
 
                   <Button
-                    // disabled={loadingState }
-                    
+                    type="submit"
+                    disabled={loadingState}
                     className="
                         w-full flex gap-2 justify-center items-center
                         px-3 sm:px-5 py-2.5 sm:py-3 rounded-full
@@ -230,11 +248,16 @@ console.log(mobileNumber);
             </div>
 
             {/* Resend OTP Button */}
-            <div className="mb-6 sm:mb-8">
+            <div className="mb-6 sm:mb-8 flex gap-3">
+              <span className="text-xs text-muted-foreground">
+                Didn&apos;t receive the code ?
+              </span>
+
               <button
                 onClick={handleResendOtp}
                 disabled={resendTimer > 0 || resendLoading}
-                className="text-sm text-blue-500 font-medium hover:underline disabled:text-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="text-xs text-button-blue font-semibold hover:underline disabled:text-gray-400 cursor-pointer
+                 disabled:cursor-not-allowed transition-colors"
               >
                 {resendLoading ? (
                   <div className="flex items-center gap-2">
