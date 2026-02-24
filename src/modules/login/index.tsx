@@ -23,6 +23,8 @@ import type { AxiosError } from "axios";
 import type { ErrorObject } from "@/api/model/error-model";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
+import { ImageWithFallback } from "../fallback/ImageWithFallback";
+import { mockShalaLogo } from "@/assets";
 
 interface LoginDialogProps {
   open: boolean;
@@ -41,7 +43,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
     mutationFn: authApi.login,
     onSuccess: (response) => {
       if (response.status) {
-        console.log(response);
+        // console.log(response);
         toast.success("Otp has been sent in your register mobile number", {
           duration: 2000,
         });
@@ -65,21 +67,29 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="p-0 overflow-hidden border-0 shadow-2xl rounded-3xl "
+        className=" p-0 overflow-hidden border-0 shadow-2xl rounded-2xl sm:rounded-3xl w-[95vw] sm:w-full"
         style={{ maxWidth: "720px", fontFamily: "'DM Sans', sans-serif" }}
       >
-        <div className="grid grid-cols-[1fr_1.1fr] min-h-105 ">
-          {/* ─── LEFT PANEL ─── */}
-
-          <LoginLeftPanel />
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] min-h-auto md:min-h-105">
+          {/* ─── LEFT PANEL (Hidden on Mobile) ─── */}
+          <div className="hidden md:flex">
+            <LoginLeftPanel />
+          </div>
 
           {/* ─── RIGHT PANEL ─── */}
-          <div className="relative flex flex-col justify-center bg-white px-9 py-10">
+          <div className="relative flex flex-col justify-center bg-white px-5 sm:px-9 py-8 sm:py-10 min-h-auto sm:min-h-105">
+            <div className="flex md:hidden pb-6 pt-1">
+              <ImageWithFallback
+                src={mockShalaLogo}
+                alt="mockShalaLogo"
+                className="h-8 w-auto"
+              />
+            </div>
             {/* Heading */}
-            <h2 className="text-2xl font-bold text-title-darkblue mb-1">
+            <h2 className="text-xl sm:text-2xl font-bold text-title-darkblue mb-1 pr-6 md:pr-0">
               Welcome Back
             </h2>
-            <p className="text-sm text-muted-foreground mb-7">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-6 sm:mb-7">
               Enter your details to access your account
             </p>
 
@@ -95,18 +105,21 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                   name="mobile"
                   render={({ field }) => (
                     <FormItem className="mb-4">
-                      <FormLabel className="text-sm font-medium text-gray-700 mb-1 block">
+                      <FormLabel className="text-xs sm:text-sm font-medium text-gray-700 mb-1 block">
                         Mobile Number
                       </FormLabel>
 
                       <FormControl>
-                        <div className="flex items-center gap-2 border rounded-md px-2 py-1 bg-gray-50 focus-within:ring-1 focus-within:ring-blue-500">
-                          <Smartphone size={16} className="text-gray-400" />
+                        <div className="flex items-center gap-2 border rounded-md px-2 py-1 sm:py-2 bg-gray-50 focus-within:ring-1 focus-within:ring-blue-500">
+                          <Smartphone
+                            size={16}
+                            className="text-gray-400 flex-shrink-0"
+                          />
 
                           <Input
                             type="tel"
                             placeholder="Enter your mobile number"
-                            className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="border-0 p-0 text-sm sm:text-base focus-visible:ring-0 focus-visible:ring-offset-0"
                             {...field}
                           />
                         </div>
@@ -125,32 +138,33 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                     w-full flex gap-2 justify-center items-center
                     px-3 sm:px-5 py-2 rounded-lg
                     bg-linear-to-r from-button-blue to-button-sky
-                    text-white font-semibold
+                    text-white text-sm sm:text-base font-semibold
                     shadow-sm cursor-pointer
                     transition-colors duration-200
                     hover:from-blue-600 hover:to-blue-600 hover:shadow-md
+                    active:scale-95 sm:active:scale-100
                   "
                 >
                   {loadingState && <Spinner className="mr-2" />}
                   Get OTP
-                  <MoveRight className="w-4 sm:w-5" />
+                  <MoveRight className="w-3 h-3 sm:w-4 sm:h-5" />
                 </Button>
               </form>
             </Form>
 
             {/* Divider */}
-            <div className="flex items-center gap-2.5 my-5 ">
+            <div className="flex items-center gap-2.5 my-5 sm:my-6">
               <div className="divider-line" />
-              <span className="text-[11px] text-gray-400 tracking-widest font-medium whitespace-nowrap">
+              <span className="text-[10px] sm:text-[11px] text-gray-400 tracking-widest font-medium whitespace-nowrap">
                 OR CONTINUE WITH
               </span>
               <div className="divider-line" />
             </div>
 
             {/* Social Buttons */}
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-5 sm:mb-6">
               {/* Google */}
-              <button className="social-btn">
+              <button className="social-btn p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -173,7 +187,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
             </div>
 
             {/* Terms */}
-            <p className="text-center text-[11.5px] text-gray-400">
+            <p className="text-center text-[10px] sm:text-[11.5px] text-gray-400">
               By joining, you agree to our{" "}
               <a href="#" className="text-blue-500 font-medium hover:underline">
                 Terms

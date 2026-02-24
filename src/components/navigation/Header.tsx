@@ -56,6 +56,11 @@ function Header() {
   // Nested Sheet Navigation open
   const [menuView, setMenuView] = useState<"main" | "exam">("main");
 
+  const handleLoginMobile= ()=> {
+      setIsLoginDialogOpen(true);
+       setMobileOpen(false);
+  }
+
   return (
     <header className="fixed w-full left-0 top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center ">
       <div className="w-full container px-4 py-3 md:py-2">
@@ -152,23 +157,19 @@ function Header() {
                 <ProfileIcon />
               </Link>
             ) : (
-              <div>
-                <Link
-                  key={"Login"}
-                  to="/$lang/login"
-                  params={{ lang: `${lang}` }}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-3 "
-                >
-                  <Button
-                    variant={"default"}
-                    size={"sm"}
-                    className="p-4 shadow-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+              <div
+                key={"LoginTablet"}
+                onClick={() => setIsLoginDialogOpen(true)}
+                className="px-2 2xl:px-3"
+              >
+                <Button
+                  variant={"default"}
+                  size={"sm"}
+                  className="p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                    hover:scale-[1.03] hover:shadow-xl"
-                  >
-                    Login/Signup
-                  </Button>
-                </Link>
+                >
+                  Login/Signup
+                </Button>
               </div>
             )}
           </div>
@@ -196,7 +197,6 @@ function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    
                     className="font-medium cursor-pointer text-xs 2xl:text-sm"
                   >
                     {t("nav.more")}
@@ -382,22 +382,19 @@ function Header() {
                       )}
 
                       {!isLoggedIn && (
-                        <div>
-                          <Link
-                            key={"Login"}
-                            to="/$lang/login"
-                            params={{ lang: `${lang}` }}
-                            onClick={() => setMobileOpen(false)}
-                            className="px-3 py-3 "
+                        <div
+                          key={"LoginMobile"}
+                          onClick={() => handleLoginMobile()}
+                          className="px-2 2xl:px-3"
+                        >
+                          <Button
+                            variant={"default"}
+                            size={"sm"}
+                            className="p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+                              hover:scale-[1.03] hover:shadow-xl"
                           >
-                            <Button
-                              variant={"default"}
-                              size={"sm"}
-                              className="p-4 shadow-lg  bg-linear-to-r from-blue-600  to-sky-500"
-                            >
-                              Login/Signup
-                            </Button>
-                          </Link>
+                            Login/Signup
+                          </Button>
                         </div>
                       )}
                     </div>
@@ -421,12 +418,11 @@ function Header() {
         </div>
       </div>
 
-      <LoginModule 
+      <LoginModule
         open={isLoginDialogOpen}
         onOpenChange={setIsLoginDialogOpen}
       />
     </header>
-    
   );
 }
 
