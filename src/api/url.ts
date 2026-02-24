@@ -6,6 +6,8 @@ export const BASE_URL =
   export const apiUrl = {
     mobileLogin: '/auth/send-login-otp-mobile',
 
+    otpVerificationLogin : '/auth/login-with-otp-mobile',
+
 
     banners: '/banners',
 
