@@ -7,7 +7,7 @@ import { apiUrl } from "../url";
 
 
 export const resourcesAPI = {
-  getResources: async (page: number = 1, limit: number = 1, search?: string, category?: string) => {
+  getResources: async (page: number = 1, limit: number = 5, search?: string, category?: string) => {
     const response: AxiosResponse<ResourcesResponse> =
       await api.get(apiUrl.resources(), {
         params: {

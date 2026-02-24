@@ -4,25 +4,40 @@ import type { Daum } from "@/api/model/resource";
 
 interface ResourceListProps {
   items: Daum[] | undefined;
-  isCategoryLoading: boolean;
+  isFetching: boolean;
+  isLoading: boolean; 
 }
 
-function ResourceList({ items, isCategoryLoading }: ResourceListProps) {
+function ResourceList({ items, isFetching, isLoading }: ResourceListProps) {
+  
+ 
+  if (isLoading) {
+    return (
+      <div className="w-full mt-4">
+        <Skeleton className="h-14 mb-2 rounded-lg bg-gray-200" />
+        <Skeleton className="h-14 mb-2 rounded-lg bg-gray-200" />
+        <Skeleton className="h-14 mb-2 rounded-lg bg-gray-200" />
+      </div>
+    );
+  }
+
+  
+  if (!items || items.length === 0) {
+    return (
+      <div className={`flex justify-center items-center py-12 text-gray-500 text-lg font-medium transition-opacity duration-300 ${isFetching ? "opacity-50" : "opacity-100"}`}>
+        {isFetching ? "Searching..." : "No Data Available "}
+      </div>
+    );
+  }
+
+
   return (
-    <div className="lg:mt-10  space-y-3 min-h-[150px]">
-      {isCategoryLoading ? (
-        <div className="w-full mt-4">
-          <Skeleton className="h-14  mb-2 rounded-lg bg-gray-200" />
-          <Skeleton className="h-14   mb-2 rounded-lg bg-gray-200" />
-          <Skeleton className="h-14  mb-2 rounded-lg bg-gray-200" />
-        </div>
-      ) : !items || items.length === 0 ? (
-        <div className="flex justify-center items-center py-12 text-gray-500 text-lg font-medium">
-          No Data Found
-        </div>
-      ) : (
-        items.map((item) => <ResourceCard key={item._id} item={item} />)
-      )}
+    <div className={`lg:mt-10 space-y-3 min-h-[150px] transition-opacity duration-300 ${
+      isFetching ? "opacity-50 pointer-events-none" : "opacity-100"
+    }`}>
+      {items.map((item) => (
+        <ResourceCard key={item._id} item={item} />
+      ))}
     </div>
   );
 }

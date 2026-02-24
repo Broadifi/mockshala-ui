@@ -5,6 +5,7 @@ import { examCategoriesAPI } from "@/api/services/exam-categories";
 import ResourceFilters from "./components/ResourceFilters";
 import ResourceList from "./components/ResourceList"; 
 import { SmartPagination } from "./components/Pagination";
+import { keepPreviousData } from "@tanstack/react-query";
 
 
 function ResourcesModule() {
@@ -13,7 +14,7 @@ function ResourcesModule() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  
+  const LIMIT = 4;
 
   useEffect (() => {
     const Timer = 
@@ -37,13 +38,14 @@ function ResourcesModule() {
     queryFn: () => examCategoriesAPI.examCategoriesData(),
   });
 
-  const { data, isFetching } = useQuery({
+  const { data, isFetching, isLoading } = useQuery({
     queryKey: ["resources", page, searchTerm, selectedCategory],
     queryFn: () =>
-      resourcesAPI.getResources(page, 1, searchTerm, selectedCategory),
+      resourcesAPI.getResources(page, LIMIT, searchTerm, selectedCategory),
+       placeholderData: keepPreviousData,
   });
 
-  const totalPages = data ? Math.ceil(data.totalCount / 1) : 0;
+  const totalPages = data ? Math.ceil(data.totalCount / LIMIT) : 0;
   return (
     <div className="gradient-soft-blue-current-affairs w-full min-h-screen">
       <div className="w-full container mx-auto px-4 sm:px-6 py-6">
@@ -57,12 +59,13 @@ function ResourcesModule() {
           categories={categoryResponse?.data}
           isCategoryLoading={isCategoryLoading}
           isFetching={isFetching}
+          
         />        
-        <ResourceList items={data?.data} isCategoryLoading={isCategoryLoading}/>
+        <ResourceList items={data?.data} isFetching={isFetching} isLoading={isLoading}/>
 
       
        {data && (
-        <div className="flex justify-end ">
+        <div className="flex justify-end mt-6 ">
          <SmartPagination
             currentPage={page}
             totalPages={totalPages}
