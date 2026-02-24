@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { resourcesAPI } from "@/api/services/resources";
 import { examCategoriesAPI } from "@/api/services/exam-categories";
 
+
 import Pagination from "./components/Pagination";
 import ResourceFilters from "./components/ResourceFilters";
 import ResourceList from "./components/ResourceList"; 
@@ -39,7 +40,7 @@ function ResourcesModule() {
   const { data, isFetching } = useQuery({
     queryKey: ["resources", page, searchTerm, selectedCategory],
     queryFn: () =>
-      resourcesAPI.getResources(page, 3, searchTerm, selectedCategory),
+      resourcesAPI.getResources(page, 1, searchTerm, selectedCategory),
   });
 
   return (
@@ -57,11 +58,15 @@ function ResourcesModule() {
           isFetching={isFetching}
         />        
         <ResourceList items={data?.data} isCategoryLoading={isCategoryLoading}/>
-       {isCategoryLoading&& <Pagination 
+
+      
+       {data && (
+         <Pagination 
            page={page} 
            setPage={setPage} 
-           hasNext={data?.hasNext} 
-        />}
+          totalPages={data?.totalCount ? Math.ceil(data.totalCount / 1) : 0}
+         />
+       )}
 
       </div>
     </div>

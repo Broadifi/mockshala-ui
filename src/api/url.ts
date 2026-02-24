@@ -29,7 +29,7 @@ export const BASE_URL =
 
     editorialsCorner: ()=> '/editorials',
 
-    plans:() => '/plans'
+    plans:() => '/plans',
 
     resources : ()=> '/resources',
 

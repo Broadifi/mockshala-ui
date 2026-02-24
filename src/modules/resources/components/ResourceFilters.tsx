@@ -23,7 +23,7 @@ function ResourceFilters({
   isCategoryLoading,
 }: ResourceFiltersProps) {
   return (
-    <div className="flex flex-col container items-center sm:flex-row sm:justify-between sm:items-center gap-4 mb-3 lg:mt-4">
+    <div className="flex flex-col container items-start sm:flex-row sm:justify-between sm:items-center gap-4 mb-3 lg:mt-4">
       <div className="flex flex-col">
         <h1 className="text-xl sm:text-2xl font-bold tracking-wide text-blue-600">
           RESOURCES
@@ -61,7 +61,7 @@ function ResourceFilters({
           )}
         </div>
 
-        <div className="flex items-center border bg-white px-3 w-full sm:w-auto">
+        <div className=" relative flex items-center border bg-white px-3 w-full sm:w-auto">
           <input
             type="text"
             placeholder="Search here.."
@@ -69,6 +69,14 @@ function ResourceFilters({
             onChange={(e) => setSearchTerm(e.target.value)}
             className="outline-none py-2 w-full"
           />
+            {searchTerm && (
+              <button
+                onClick={() => setSearchTerm("")}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            )}
         </div>
       </div>
     </div>
