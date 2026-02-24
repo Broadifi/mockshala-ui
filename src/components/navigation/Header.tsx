@@ -38,7 +38,7 @@ function Header() {
   
   const homepageLink  = lang ?? 'en';
 
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;

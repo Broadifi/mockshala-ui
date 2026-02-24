@@ -45,7 +45,7 @@ function TestDescriptionMobile() {
       );
       filterTests(matched);
     }
-  }, [searchText, filterTests, resetTests, originalTests]);
+  }, [searchText, filterTests, resetTests]);
 
    const allTestLength = () => {
     if (isLoading) {
