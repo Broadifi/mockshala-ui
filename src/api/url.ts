@@ -4,6 +4,9 @@ export const BASE_URL =
   'https://userapi.mockshala.com/api'
 
   export const apiUrl = {
+    mobileLogin: '/auth/send-login-otp-mobile',
+
+
     banners: '/banners',
 
     popularTests: '/test-series/popular-exams',

@@ -47,7 +47,7 @@ export default function LanguageSwitch() {
       onClick={() => toggleLanguage()}
       className={`
             relative flex items-center cursor-pointer
-            w-16 h-8
+            w-15 h-7 2xl:w-16 2xl:h-8
             rounded-full
             transition-colors duration-300
             ${lang === "en" ? "bg-sky-600" : "bg-gray-400"}
@@ -57,7 +57,7 @@ export default function LanguageSwitch() {
       <span
         className={`
               absolute left-1 top-1
-              h-6 w-6
+              h-5 w-5 2xl:h-6 2xl:w-6
               rounded-full bg-white
               transition-transform duration-300
               ${lang === "en" ? "translate-x-8" : "translate-x-0"}

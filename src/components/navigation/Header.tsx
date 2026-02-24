@@ -27,6 +27,7 @@ import LanguageSwitch from "../LanguageSwitch";
 import { useTranslation } from "react-i18next";
 import { ExamModule } from "@/modules/exams";
 import { ExamNavigation } from "@/modules/examNavigationMobile";
+import { LoginModule } from "@/modules/login";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -42,6 +43,10 @@ function Header() {
 
   const isLoggedIn = false;
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  //control login dialog open state
+  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
+
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
@@ -169,7 +174,7 @@ function Header() {
           </div>
 
           {/* Quick Access  for Large View*/}
-          <div className="hidden xl:flex lg:gap-1 xl:gap-2  justify-center items-center text-muted-foreground">
+          <div className="hidden xl:flex xl:gap-1 2xl:gap-2  justify-center items-center text-muted-foreground">
             {headerData.map((item, index) =>
               item.isChild ? (
                 <ExamModule key={index} />
@@ -177,7 +182,7 @@ function Header() {
                 <Link
                   key={lang === "hi" ? item.titleHin : item.titleEn}
                   to={item.url}
-                  className={`lg:px-1 lg:py-1 xl:px-2 xl:py-2 text-sm font-medium rounded-md transition-colors 
+                  className={`xl:px-1 xl:py-1 2xl:px-1.5 2xl:py-1.5 xl:text-xs 2xl:text-sm font-medium rounded-md transition-colors 
                   ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
                 >
                   {lang === "hi" ? item.titleHin : item.titleEn}
@@ -191,8 +196,8 @@ function Header() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    size="sm"
-                    className="font-medium cursor-pointer"
+                    
+                    className="font-medium cursor-pointer text-xs 2xl:text-sm"
                   >
                     {t("nav.more")}
                     <ChevronDown />
@@ -219,8 +224,8 @@ function Header() {
           </div>
 
           {/*Notification, Search and Login/Profile For Large Screen */}
-          <div className="hidden xl:flex gap-2 items-center text-muted-foreground">
-            <div className="border border-muted-foreground flex gap-1 items-center rounded-3xl px-2 py-1.5">
+          <div className="hidden xl:flex gap-1 2xl:gap-2 items-center text-muted-foreground">
+            <div className="border border-muted-foreground flex gap-1 items-center rounded-3xl px-1 py-1 2xl:px-2 2xl:py-1.5">
               <Search size={20} />
               <input
                 type="text"
@@ -258,23 +263,19 @@ function Header() {
                 <ProfileIcon />
               </Link>
             ) : (
-              <div>
-                <Link
-                  key={"Login"}
-                  to="/$lang/login"
-                  params={{ lang: `${lang}` }}
-                  onClick={() => setMobileOpen(false)}
-                  className="px-3 py-3 "
-                >
-                  <Button
-                    variant={"default"}
-                    size={"sm"}
-                    className="p-4 shadow-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+              <div
+                key={"Login"}
+                onClick={() => setIsLoginDialogOpen(true)}
+                className="px-2 2xl:px-3"
+              >
+                <Button
+                  variant={"default"}
+                  size={"sm"}
+                  className="p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                    hover:scale-[1.03] hover:shadow-xl"
-                  >
-                    Login/Signup
-                  </Button>
-                </Link>
+                >
+                  Login/Signup
+                </Button>
               </div>
             )}
           </div>
@@ -419,7 +420,13 @@ function Header() {
           </div>
         </div>
       </div>
+
+      <LoginModule 
+        open={isLoginDialogOpen}
+        onOpenChange={setIsLoginDialogOpen}
+      />
     </header>
+    
   );
 }
 

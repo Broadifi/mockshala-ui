@@ -34,7 +34,7 @@ export function ExamModule() {
     <NavigationMenu value={menuOpen} onValueChange={setMenuOpen}>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Exams</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="lg:text-xs 2xl:text-sm">Exams</NavigationMenuTrigger>
           <NavigationMenuContent>
             {isLoading ? (
               <ExamModuleSkeleton />

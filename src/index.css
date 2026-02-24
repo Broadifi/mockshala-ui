@@ -556,3 +556,144 @@ body {
           100% { transform: translateY(0); opacity: 0.5; }
         }
     
+
+/* Animation for Login card */
+
+
+/* ── Animations ── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+@keyframes floatYDelay {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(12px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 40px 10px rgba(99, 153, 255, 0.25); }
+  50%       { box-shadow: 0 0 70px 20px rgba(99, 153, 255, 0.45); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.06); }
+}
+
+/* ── Animation Utility Classes ── */
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: floatYDelay 7s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s ease-in-out infinite;
+}
+
+/* ── Left Panel Background ── */
+.left-panel-bg {
+  background: radial-gradient(ellipse at 30% 40%, #1a3a6e 0%, #0b1e3d 50%, #060f22 100%);
+}
+
+/* ── Big Blue Orb ── */
+.big-orb {
+  background: radial-gradient(circle at 35% 35%, #4f8ef7, #2563d4 55%, #1040a0);
+}
+
+/* ── Floating Icon Pill ── */
+.icon-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(8px);
+}
+
+/* ── OTP Button ── */
+.otp-btn {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  transition: filter 0.2s ease;
+}
+
+.otp-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* ── Phone Input Wrapper ── */
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 50px;
+  background: #f9fafb;
+  gap: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.phone-input-wrap:focus-within {
+  border-color: #3b82f6;
+  background: #ffffff;
+}
+
+.phone-input-wrap input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  color: #374151;
+  flex: 1;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.phone-input-wrap input::placeholder {
+  color: #9ca3af;
+}
+
+/* ── Social Button ── */
+.social-btn {
+  border: 1.5px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+ transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.social-btn:hover {
+  background: #f5f8ff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.12);
+}
+
+/* ── Divider line ── */
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: #f0f0f0;
+}
+
+/* ── Sparkle dots on orb ── */
+.sparkle-lg {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.sparkle-sm {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.5);
+}
