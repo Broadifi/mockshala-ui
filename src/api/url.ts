@@ -22,6 +22,7 @@ export const BASE_URL =
     currentAffairsBySlug: (slug: string)=> `/current-affairs/by-slug/${slug}`,
 
     currentAffairsAllTags: ()=> '/current-affairs/tags',
+    
 
     similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`,
 
@@ -29,9 +30,11 @@ export const BASE_URL =
 
     editorialsCorner: ()=> '/editorials',
 
-    plans:() => '/plans'
+    plans:() => '/plans',
+    editorialsCornerBySlug: (slug: string)=> `/editorials/by-slug/${slug}`,
 
       
   }
 
   export const IMAGE_BASE_URL = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL ?? "https://mockshala.s3.ap-south-1.amazonaws.com/";
+  console.log( IMAGE_BASE_URL=== import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL);

@@ -1,5 +1,8 @@
+import ComingSoon from "../comingSoon";
 function ProfileModule() {
-  return <div>ProfileModule</div>;
+  return(
+    <ComingSoon/>
+  )
 }
 
 export default ProfileModule;

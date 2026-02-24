@@ -1,5 +1,5 @@
 import type { AxiosResponse } from "axios"
-import type { EditorialCornerResponse } from "../model/editorial-corner"
+import type { EditorialCornerResponse ,EditorialCornerData} from "../model/editorial-corner"
 import api from "."
 import { apiUrl } from "../url"
 
@@ -19,4 +19,10 @@ export async function fetchEditorialCorners({
     })
 
     return response.data
+}
+export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialCornerData> {
+      const response: AxiosResponse<EditorialCornerData> = 
+            await api.get(apiUrl.editorialsCornerBySlug(slug))
+
+        return response.data
 }

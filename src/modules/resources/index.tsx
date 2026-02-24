@@ -1,5 +1,14 @@
+
+
+
+import ComingSoon from "../comingSoon"
+
 function ResourcesModule() {
-  return <div>ResourcesModule</div>;
+  return (
+    <div>
+      <ComingSoon/>
+    </div>
+  )
 }
 
-export default ResourcesModule;
+export default ResourcesModule

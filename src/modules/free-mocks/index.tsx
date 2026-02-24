@@ -1,5 +1,11 @@
+import ComingSoon from "../comingSoon"
+
 function FreeMocksModule() {
-  return <div>FreeMocksModule</div>;
+  return (
+    <div>
+      <ComingSoon/>
+    </div>
+  )
 }
 
-export default FreeMocksModule;
+export default FreeMocksModule
