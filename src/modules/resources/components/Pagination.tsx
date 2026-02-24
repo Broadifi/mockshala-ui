@@ -1,63 +1,160 @@
-import React from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
-
-interface PaginationProps {
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  totalPages: number; 
+interface SmartPaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  className?: string;
+  maxVisiblePages?: number;
 }
 
-function Pagination({ page, setPage, totalPages }: PaginationProps) {
-  
-  
-  const getPageNumbers = () => {
-    const pages = [];
-    if (totalPages <= 5) {
-     
-      for (let i = 1; i <= totalPages; i++) pages.push(i);
+
+export function SmartPagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+  className = '',
+  maxVisiblePages = 5,
+}: SmartPaginationProps) {
+  // Don't render if there's only one page or no pages
+  if (totalPages <= 1) return null;
+
+  const renderPaginationItems = () => {
+    const items = [];
+
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages if total is small
+      for (let i = 1; i <= totalPages; i++) {
+        items.push(
+          <PaginationItem key={i}>
+            <PaginationLink
+              isActive={currentPage === i}
+              onClick={() => onPageChange(i)}
+              className="cursor-pointer"
+            >
+              {i}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
     } else {
-      
-      if (page <= 3) {
-        pages.push(1, 2, 3, 4, "...", totalPages);
-      } else if (page >= totalPages - 2) {
-        pages.push(1, "...", totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
-      } else {
-        pages.push(1, "...", page - 1, page, page + 1, "...", totalPages);
+      // Always show first page
+      items.push(
+        <PaginationItem key={1}>
+          <PaginationLink
+            isActive={currentPage === 1}
+            onClick={() => onPageChange(1)}
+            className="cursor-pointer"
+          >
+            1
+          </PaginationLink>
+        </PaginationItem>
+      );
+
+      // Show ellipsis if current page is far from start
+      if (currentPage > 3) {
+        items.push(
+          <PaginationItem key="ellipsis-start">
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+
+      // Show pages around current page
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        if (i !== 1 && i !== totalPages) {
+          items.push(
+            <PaginationItem key={i}>
+              <PaginationLink
+                isActive={currentPage === i}
+                onClick={() => onPageChange(i)}
+                className="cursor-pointer"
+              >
+                {i}
+              </PaginationLink>
+            </PaginationItem>
+          );
+        }
+      }
+
+      // Show ellipsis if current page is far from end
+      if (currentPage < totalPages - 2) {
+        items.push(
+          <PaginationItem key="ellipsis-end">
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+
+      // Always show last page
+      if (totalPages > 1) {
+        items.push(
+          <PaginationItem key={totalPages}>
+            <PaginationLink
+              isActive={currentPage === totalPages}
+              onClick={() => onPageChange(totalPages)}
+              className="cursor-pointer"
+            >
+              {totalPages}
+            </PaginationLink>
+          </PaginationItem>
+        );
       }
     }
-    return pages;
+
+    return items;
   };
 
- 
-  if (!totalPages || totalPages <= 1) return null;
+  const handlePrevious = () => {
+    if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+    }
+  };
 
   return (
-    <div className="flex justify-end items-center gap-2 mt-6">
-      
-     
-      {getPageNumbers().map((item, index) => (
-        <React.Fragment key={index}>
-          {item === "..." ? (
-            <span className="px-2 text-gray-400">...</span>
-          ) : (
-            <button
-              onClick={() => setPage(item as number)}
-              className={`px-3 py-1 border rounded transition ${
-                page === item
-                  ? "bg-blue-600 text-white font-medium" 
-                  : "hover:bg-gray-100 text-gray-700" 
-              }`}
-            >
-              {item}
-            </button>
-          )}
-        </React.Fragment>
-      ))}
+    <Pagination className={className}>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            onClick={handlePrevious}
+            className={
+              currentPage === 1 
+                ? "pointer-events-none opacity-50" 
+                : "cursor-pointer"
+            }
+          />
+        </PaginationItem>
 
-      
+        <div className='hidden md:flex'>{renderPaginationItems()}</div>
 
-    </div>
+        <PaginationItem>
+          <PaginationNext
+            onClick={handleNext}
+            className={
+              currentPage === totalPages 
+                ? "pointer-events-none opacity-50" 
+                : "cursor-pointer"
+            }
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 }
-
-export default Pagination;

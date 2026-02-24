@@ -2,11 +2,9 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { resourcesAPI } from "@/api/services/resources";
 import { examCategoriesAPI } from "@/api/services/exam-categories";
-
-
-import Pagination from "./components/Pagination";
 import ResourceFilters from "./components/ResourceFilters";
 import ResourceList from "./components/ResourceList"; 
+import { SmartPagination } from "./components/Pagination";
 
 
 function ResourcesModule() {
@@ -14,6 +12,8 @@ function ResourcesModule() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchInput, setSearchInput] = useState("");
+
+  
 
   useEffect (() => {
     const Timer = 
@@ -43,6 +43,7 @@ function ResourcesModule() {
       resourcesAPI.getResources(page, 1, searchTerm, selectedCategory),
   });
 
+  const totalPages = data ? Math.ceil(data.totalCount / 1) : 0;
   return (
     <div className="gradient-soft-blue-current-affairs w-full min-h-screen">
       <div className="w-full container mx-auto px-4 sm:px-6 py-6">
@@ -61,11 +62,14 @@ function ResourcesModule() {
 
       
        {data && (
-         <Pagination 
-           page={page} 
-           setPage={setPage} 
-          totalPages={data?.totalCount ? Math.ceil(data.totalCount / 1) : 0}
-         />
+        <div className="flex justify-end ">
+         <SmartPagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            className='w-fit mx-0'
+          />
+        </div>
        )}
 
       </div>
