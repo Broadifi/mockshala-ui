@@ -6,20 +6,79 @@ import GroupByTestType from "@/modules/testDescription/testTypes/index.tsx";
 import HtmlSetter from "@/components/htmlSetter.tsx";
 import { useTestDescriptionStore } from "@/stores/testStore.ts";
 import AllTests from "../allTests/allTests.tsx";
+import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input.tsx";
+import { useParams } from "@tanstack/react-router";
+import { testDescriptionKey } from "@/api";
+import { useQuery } from "@tanstack/react-query";
+import { testAPI } from "@/api/services/getTestDetails.ts";
+import { Search } from "lucide-react";
 
 function TestDescription() {
-  const { testData } = useTestDescriptionStore();
+  const { tests, filterTests, resetTests, originalTests } =
+    useTestDescriptionStore();
+
+  const [searchText, setSearchText] = useState("");
+
+  const { examCategory, testSlug } = useParams({
+    from: "/$lang/exams/$examCategory/$testSlug/",
+  });
+
+  const { data: queryData, isLoading } = useQuery({
+    queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
+    queryFn: () => testAPI.getTestDetails(testSlug),
+  });
+
+  useEffect(() => {
+    const query = searchText.trim().toLowerCase();
+
+    if (query === "") {
+      resetTests();
+    } else {
+      // filterTests((item) => item.name.toLowerCase().includes(query));
+      const matched = originalTests.filter((item) =>
+        item.name.toLowerCase().includes(query),
+      );
+      filterTests(matched);
+    }
+  }, [searchText, filterTests, resetTests, originalTests]);
 
   const allTestLength = () => {
-    if (testData?.tests.length == undefined) {
+    if (isLoading) {
       return "Loading...";
-    } else {
-      return testData?.tests.length;
     }
+    return tests.length ?? 0;
   };
 
   return (
     <div className="max-w-6xl w-full rounded-2xl border p-4 bg-white">
+      <div className="flex justify-end pb-4">
+        <div className="relative w-full max-w-sm">
+          <Input
+            type="search"
+            placeholder="Search Test..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="
+                pr-10 
+                rounded-2xl
+                border-gray-300
+                bg-white
+                shadow-sm
+                focus-visible:ring-1
+                focus-visible:ring-blue-300
+                focus-visible:border-blue-300
+                transition-all duration-200
+              "
+          />
+
+          {/* Search Icon */}
+          <Search
+            size={18}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+          />
+        </div>
+      </div>
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
@@ -85,7 +144,7 @@ function TestDescription() {
           <TabsContent value="Test description">
             <Card>
               <CardContent>
-                <HtmlSetter html={testData?.description ?? ""} />
+                <HtmlSetter html={queryData?.data?.description ?? ""} />
               </CardContent>
             </Card>
           </TabsContent>

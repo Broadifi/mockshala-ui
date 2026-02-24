@@ -6,7 +6,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { TestDetailsData } from "@/api/model/test-model";
 import StartButton from "@/components/customButtons/startButtom";
 import BuyNow from "@/components/customButtons/buyNow";
 import { formatName } from "@/utils/formatting/formatName";
@@ -20,13 +19,8 @@ import { testDescriptionKey } from "@/api";
 import AllTestMobile from "./allTestMobile";
 import MobileAllTestCardSkeleton from "../skeleton/mobileAllTestCardSkeleton";
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
-}
 function AllTests() {
-  const { testData }: StoreDataProps = useTestDescriptionStore();
+  const { tests } = useTestDescriptionStore();
 
   const { examCategory, testSlug } = useParams({
     from: "/$lang/exams/$examCategory/$testSlug/",
@@ -39,7 +33,7 @@ function AllTests() {
 
   // console.log("isFetching", state);
 
-  // console.log("data is", testData?.tests.length);
+  // console.log("data is", tests.length);
 
   const difficultyTextColor: Record<string, string> = {
     beginner: "text-green-600",
@@ -68,7 +62,7 @@ function AllTests() {
         {state?.status === "pending" ? (
           <MobileAllTestCardSkeleton />
         ) : (
-          <AllTestMobile filteredTests={testData?.tests} />
+          <AllTestMobile filteredTests={tests} />
         )}
       </div>
 
@@ -92,7 +86,7 @@ function AllTests() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {testData?.tests.map((item) => (
+                {tests.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell
                       className={
@@ -105,9 +99,7 @@ function AllTests() {
                     </TableCell>
 
                     <TableCell className=" text-center  text-table-text-primary">
-                      <p>
-                        {formattingWord(item.testType)}
-                      </p>
+                      <p>{formattingWord(item.testType)}</p>
                     </TableCell>
 
                     <TableCell className="font-medium max-w-xs">
@@ -134,7 +126,7 @@ function AllTests() {
                       {item.isOpen ? (
                         <StartButton title={"Start"} />
                       ) : (
-                         <BuyNow title={"Unlock"} />
+                        <BuyNow title={"Unlock"} />
                       )}
                     </TableCell>
                   </TableRow>

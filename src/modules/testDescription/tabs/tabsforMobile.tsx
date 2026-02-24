@@ -3,7 +3,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useState } from "react";
 import { useTestDescriptionStore } from "@/stores/testStore";
-import type { TestDetailsData } from "@/api/model/test-model";
 import { formattingWord } from "@/utils/formatting/formattingWord";
 
 import AllTestMobile from "../allTests/allTestMobile";
@@ -13,18 +12,15 @@ interface DifficultyProps {
   formatType: string;
 }
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
-}
-
-export function TabsByTypeMobile({ formatCategory, formatType }: DifficultyProps) {
+export function TabsByTypeMobile({
+  formatCategory,
+  formatType,
+}: DifficultyProps) {
   //fetch all test data
-  const { testData }: StoreDataProps = useTestDescriptionStore();
+  const { tests } = useTestDescriptionStore();
 
-  // console.log(testData?.tests);
-  
+  // console.log(tests);
+
   const [activeTab, setActiveTab] = useState(formatCategory[0]);
 
   const handleTabSwitch = (currentTab: string) => {
@@ -35,7 +31,7 @@ export function TabsByTypeMobile({ formatCategory, formatType }: DifficultyProps
 
   function getFilterData(formatType: string) {
     if (formatType === "difficulty") {
-      const filterDifficultyData = testData?.tests.filter((test) => {
+      const filterDifficultyData = tests.filter((test) => {
         const matchDifficulty = activeTab
           ? formattingWord(test.difficultyLevel) === activeTab
           : true;
@@ -45,7 +41,7 @@ export function TabsByTypeMobile({ formatCategory, formatType }: DifficultyProps
 
       return filterDifficultyData;
     } else if (formatType === "testType") {
-      const filterTestTypeData = testData?.tests.filter((test) => {
+      const filterTestTypeData = tests.filter((test) => {
         const matchType = activeTab
           ? formattingWord(test.testType) === activeTab
           : true;
@@ -71,21 +67,21 @@ export function TabsByTypeMobile({ formatCategory, formatType }: DifficultyProps
       className="w-full"
     >
       <div className="overflow-x-auto scrollbar-hide lg:overflow-x-visible ">
-      <TabsList>
-        {formatCategory.map((item: string) => (
-          <TabsTrigger value={item} key={item}>
-            {item}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+        <TabsList>
+          {formatCategory.map((item: string) => (
+            <TabsTrigger value={item} key={item}>
+              {item}
+            </TabsTrigger>
+          ))}
+        </TabsList>
       </div>
       {formatCategory.map((item: string) => (
-        <TabsContent key={item} value={item} 
+        <TabsContent
+          key={item}
+          value={item}
           className="border-0 shadow-none px-0 "
-          >
-          <Card
-            className="border-0  shadow-none bg-soft-blue-gradient px-0"
-          >
+        >
+          <Card className="border-0  shadow-none bg-soft-blue-gradient px-0">
             {/* <CardHeader>
               <CardTitle className="text-[#002966]">{item} Level</CardTitle>
             </CardHeader> */}
@@ -105,7 +101,6 @@ export function TabsByTypeMobile({ formatCategory, formatType }: DifficultyProps
                 <AllTestMobile filteredTests={finalFilterData ?? []} />
               )}
             </CardContent>
-
           </Card>
         </TabsContent>
       ))}

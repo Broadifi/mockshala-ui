@@ -55,7 +55,7 @@ function EditorialCornerHome() {
               to="/$lang/editorials-corner/$slug"
               params={{
                 lang,
-                slug: item.slug, // 👈 make sure API returns slug
+                slug: item.slug,
               }}
               preload="intent"
               className="block"

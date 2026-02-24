@@ -9,7 +9,7 @@ export const Route = createRootRoute({
     <>
       <Header />
       {/* Main content wrapper */}
-      <main className="pt-15  lg:pt-16">
+      <main className="pt-15  lg:pt-13">
         <Outlet />
       </main>
       <FooterCTA />

@@ -5,20 +5,85 @@ import GroupByDifficulty from "../difficultyLevels/index.tsx";
 import GroupByTestType from "../testTypes/index.tsx";
 import HtmlSetter from "../../../components/htmlSetter.tsx";
 import { useTestDescriptionStore } from "@/stores/testStore.ts";
+import { useParams } from "@tanstack/react-router";
+import { testDescriptionKey } from "@/api";
+import { useEffect, useState } from "react";
+import { Input } from "@/components/ui/input.tsx";
+import { Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { testAPI } from "@/api/services/getTestDetails.ts";
 
 function TestDescriptionMobile() {
-  const { testData } = useTestDescriptionStore();
+  const { tests, filterTests, resetTests, originalTests } =
+    useTestDescriptionStore();
 
-  const allTestLength = () => {
-    if (testData?.tests.length == undefined) {
-      return "Loading...";
+  const [searchText, setSearchText] = useState("");
+
+  const { examCategory, testSlug } = useParams({
+    from: "/$lang/exams/$examCategory/$testSlug/",
+  });
+
+  // Get the description from query data
+   // ✅ Use useQuery for reactive updates
+  const { data: queryData, isLoading } = useQuery({
+    queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
+    queryFn: () => testAPI.getTestDetails(testSlug),
+  });
+
+  // Filter search query in locally
+
+  useEffect(() => {
+    const query = searchText.trim().toLowerCase();
+
+    if (query === "") {
+      resetTests();
     } else {
-      return testData?.tests.length;
+      // filterTests((item) => item.name.toLowerCase().includes(query));
+
+      const matched = originalTests.filter((item) =>
+        item.name.toLowerCase().includes(query),
+      );
+      filterTests(matched);
     }
+  }, [searchText, filterTests, resetTests]);
+
+   const allTestLength = () => {
+    if (isLoading) {
+      return "Loading...";
+    }
+    return tests.length ?? 0;
   };
 
   return (
     <div className="w-full bg-soft-blue-gradient ">
+      <div className="flex justify-center md:justify-end pt-4 px-1">
+        <div className="relative w-full md:max-w-md">
+          <Input
+            type="search"
+            placeholder="Search Test..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className=" w-full
+        pr-10
+        rounded-xl
+        border border-gray-200
+        bg-white
+        shadow-sm
+        placeholder:text-gray-400
+        focus-visible:ring-2
+        focus-visible:ring-blue-200
+        focus-visible:border-blue-300
+        transition-all duration-200
+      "
+          />
+
+          <Search
+            size={18}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+          />
+        </div>
+      </div>
+
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
@@ -85,10 +150,15 @@ function TestDescriptionMobile() {
             </div>
           </TabsContent>
 
+           {/* ✅ Test description - Uses reactive queryData */}
           <TabsContent value="Test description">
-            <Card className="mt-3">
+            <Card>
               <CardContent>
-                <HtmlSetter html={testData?.description ?? ""} />
+                {isLoading ? (
+                  <div className="text-muted-foreground">Loading description...</div>
+                ) : (
+                  <HtmlSetter html={queryData?.data?.description ?? ""} />
+                )}
               </CardContent>
             </Card>
           </TabsContent>

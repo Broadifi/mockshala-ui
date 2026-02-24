@@ -46,11 +46,16 @@ export const editorialsCornerKeys= createExtendedQueryKeys('editorialsCorner',{
   editorialsCornerDetails: (page: number, limit: number) => ['editorialsCorner',page , limit] as const
 })
 
+export const plansKeys = createExtendedQueryKeys('plans',{
+  plansDetails: ()=> ['plans', 'plansDetails'] as const
+})
+
 export const queryKeys ={
     auth: authQueryKeys,
     home: homeQueryKey,
     testKey: testDescriptionKey,
     currentAffairsKeys ,
     siteConfigsKeys,
-    editorialsCornerKeys
+    editorialsCornerKeys,
+    plansKeys
 }

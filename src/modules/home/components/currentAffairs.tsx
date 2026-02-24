@@ -58,7 +58,7 @@ export function CurrentAffairs() {
         }}
         plugins={[
           Autoplay({
-            delay: 2000,
+            delay: 3000,
           }),
         ]}
         className="w-full mt-6 sm:mt-8 "
