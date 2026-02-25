@@ -9,7 +9,7 @@ function ResourceCard({ item }: { item: Daum }) {
   const pdfUrl = hasPdf ? IMAGE_BASE_URL + item.file?.path : undefined;
 
  
-  const containerClasses = `flex items-center flex-col sm:flex-row sm:items-center sm:justify-between border-1 px-4 sm:px-6 py-4 bg-white transition w-full ${
+  const containerClasses = `flex flex-row items-center justify-between gap-3 border px-4 sm:px-6 py-3 sm:py-4 bg-white transition w-full ${
     hasPdf ? "cursor-pointer hover:bg-gray-100" : "cursor-default"
   }`;
 
@@ -17,11 +17,11 @@ function ResourceCard({ item }: { item: Daum }) {
   const CardContent = (
     <>
       {/* Left Side */}
-      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-35 text-center sm:text-left w-full sm:w-auto">
-        <p className="text-gray-400 text-sm sm:text-xs whitespace-nowrap">
+      <div className="flex flex-row sm:flex-row sm:items-center gap-9 sm:gap-30 text-center sm:text-left w-full sm:w-auto overflow-hidden">
+        <p className="text-gray-400 text-sm sm:text-xs whitespace-nowrap shrink-0">
           {formatDate(item.publishedDate)}
         </p>
-        <p className="font-medium uppercase text-sm sm:text-base">
+        <p className="font-medium uppercase text-sm sm:text-base truncate">
           {item.title}
         </p>
       </div>
@@ -29,7 +29,7 @@ function ResourceCard({ item }: { item: Daum }) {
       {/* Right Side */}
       {hasPdf ? (
        
-        <div className="flex items-center gap-2 text-blue-600 font-medium mt-2 sm:mt-0 group-hover:underline">
+        <div className="flex items-center gap-2 text-blue-600 font-medium shrink-0 sm:mt-0 group-hover:underline">
           <div className="p-2.5 rounded-2xl flex items-center justify-center bg-blue-50">
             <div className="h-4 w-4 flex items-center justify-center">
               <FileText />

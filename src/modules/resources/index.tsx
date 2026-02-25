@@ -69,7 +69,7 @@ function ResourcesModule() {
 
       
        {data && (
-        <div className="flex justify-end mt-6 ">
+        <div className="flex font-small   justify-center lg:justify-end mt-9 ">
          <SmartPagination
             currentPage={page}
             totalPages={totalPages}
