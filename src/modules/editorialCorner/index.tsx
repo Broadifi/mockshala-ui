@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { formatDate } from "@/utils/formatting/formatDate";
-
+import { SmartPagination } from "./pagination";
 
 import type {
   EditorialCornerData,
@@ -9,17 +9,20 @@ import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
 import DOMPurify from "dompurify";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 
 function EditorialCornerDashboard() {
-  const page = 1;
-  const limit = 15
+  // const page = 1;
+  const limit = 8;
   const lang="en";
+  const [page,setPage]=useState(1);
+
   // useEffect(()=>{
   //   window.scrollTo(top:"0px",)
   // })
   // const [editorialCorner,setEditorialCorner]=useState<EditorialCornerData|null>(null);
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["editorials"],
+    queryKey: ["editorials",page,limit],
     queryFn: () => fetchEditorialCorners({page,limit}),
   });
   const fetchData=data?.data;
@@ -37,7 +40,9 @@ function EditorialCornerDashboard() {
   // const cleanHTML = DOMPurify.sanitize(decodeHTML(fetchData));
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
+  const totalPages = data?.totalCount ? Math.ceil(data.totalCount / limit) : 1;
   return (
+    <>
     <div className="w-full container mx-auto px-4 py-4 flex flex-col  flex-wrap gap-6  gradient-soft-blue-current-affairs ">
       {/* {data?.data.map((item: EditorialCornerData) => (
         <p key={item._id}>{item.title}</p>
@@ -60,10 +65,10 @@ function EditorialCornerDashboard() {
                 key={item._id}
                 className="flex flex-col  items-start gap-2 rounded-3xl  cursor-pointer min-[765px]:w-88  pb-5 shadow-sm hover:shadow-2xl w-full min-[1022px]:w-70  min-[1285px]:w-88 bg-card"
               >
-                <div className="rounded-t-3xl  h-40  w-full overflow-hidden">
+                <div className="rounded-t-3xl  h-40  w-full overflow-hidden ">
                   <img
                     src={`${IMAGE_BASE_URL}${item.thumbnailImage}`}
-                    alt={item.slug}
+                    alt={item.metaTitle}
                     className="hover:scale-105 transition-transform duration-300 h-full w-full object-contain "
                   />
                 </div>
@@ -103,7 +108,19 @@ function EditorialCornerDashboard() {
         })}
       </div>
       {/* {editorialCorner && <EditorialCornerMain item={editorialCorner}/>} */}
-    </div>
+      </div>
+      <div className="flex flex-row justify-center md:justify-end items-center py-3 gradient-soft-blue-current-affairs">
+        <SmartPagination
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+            className='w-fit mx-0 '
+          />
+      </div>
+      
+    </>
+    
+    
   );
 }
 export default EditorialCornerDashboard;

@@ -89,21 +89,23 @@ const EditorialCornerDetails = () => {
       </div>
 
       <div className="  ">
-        <div className="w-[50%]  min-[1028px]:float-left float-none rounded-2xl flex flex-row justify-center items-center bg-transparent" style={{
-          backgroundImage: `url(${IMAGE_BASE_URL}${fetchData.image})`,
-        }} ><div className="h-">
-          <img
-            src={`${IMAGE_BASE_URL}${fetchData.image}`}
-            alt={fetchData.metaTitle}
-            className=" bg-cover mr-7 backdrop-blur-3xl  bg-transparent w-[50%] h-[50%]"
-          />
+        <div
+          className="w-[50%]  min-[1028px]:float-left float-none rounded-2xl flex flex-row justify-center items-center bg-transparent h-70 mr-5 mb-6"
+          style={{
+            backgroundImage: `url(${IMAGE_BASE_URL}${fetchData.image})`,
+          }}
+        >
+          <div className="h-full w-full bg-transparent flex flex-row justify-center items-center backdrop-blur-3xl rounded-2xl">
+            <img
+              src={`${IMAGE_BASE_URL}${fetchData.image}`}
+              alt={fetchData.metaTitle}
+              className=" mr-7    h-full w-[45%]"
+            />
+          </div>
         </div>
-          
-        </div>
-          
-       
+
         <p
-          className="  text-gray-600  min-[1028px]:text-lg md:text-base text-sm text-justify "
+          className="  text-gray-600  min-[1028px]:text-lg md:text-base text-sm text-justify pt-5 px-2"
           dangerouslySetInnerHTML={{
             __html: cleanHTML,
           }}
