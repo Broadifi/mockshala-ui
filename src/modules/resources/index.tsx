@@ -14,7 +14,7 @@ function ResourcesModule() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  const LIMIT = 4;
+  const LIMIT = 5;
 
   useEffect (() => {
     const Timer = 
@@ -28,8 +28,9 @@ function ResourcesModule() {
     return () => clearTimeout(Timer)
 
   
-  },[searchInput])
+  },[searchInput, selectedCategory])
   
+
 
 
 
@@ -38,12 +39,15 @@ function ResourcesModule() {
     queryFn: () => examCategoriesAPI.examCategoriesData(),
   });
 
+
+
   const { data, isFetching, isLoading } = useQuery({
     queryKey: ["resources", page, searchTerm, selectedCategory],
     queryFn: () =>
       resourcesAPI.getResources(page, LIMIT, searchTerm, selectedCategory),
        placeholderData: keepPreviousData,
   });
+
 
   const totalPages = data ? Math.ceil(data.totalCount / LIMIT) : 0;
   return (

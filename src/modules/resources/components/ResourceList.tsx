@@ -13,10 +13,12 @@ function ResourceList({ items, isFetching, isLoading }: ResourceListProps) {
  
   if (isLoading) {
     return (
-      <div className="w-full mt-4">
-        <Skeleton className="h-14 mb-2 rounded-lg bg-gray-200" />
-        <Skeleton className="h-14 mb-2 rounded-lg bg-gray-200" />
-        <Skeleton className="h-14 mb-2 rounded-lg bg-gray-200" />
+      <div className="w-full mt-10 border ">
+        <Skeleton className="h-14 mb-4  bg-gray-200" />
+        <Skeleton className="h-14 mb-4  bg-gray-200" />
+        <Skeleton className="h-14 mb-4  bg-gray-200" />
+        <Skeleton className="h-14 mb-4  bg-gray-200" />
+        <Skeleton className="h-14 mb-4  bg-gray-200" />
       </div>
     );
   }

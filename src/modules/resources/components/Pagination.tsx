@@ -127,6 +127,7 @@ export function SmartPagination({
       onPageChange(currentPage + 1);
     }
   };
+  
 
   return (
     <Pagination className={className}>
