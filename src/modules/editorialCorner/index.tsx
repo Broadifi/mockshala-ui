@@ -68,7 +68,7 @@ function EditorialCornerDashboard() {
                   />
                 </div>
 
-                <div className="text-xl font-bold line-clamp-2 px-5 hover:text-blue-800 max-[1022px]:text-lg max-[765px]:text-base text-title-darkblue">
+                <div className="text-xl font-bold line-clamp-2 px-5 hover:text-blue-800 max-[1022px]:text-lg max-[765px]:text-base text-title-darkblue pt-2">
                   {item.title}
                 </div>
                 <div
@@ -95,7 +95,7 @@ function EditorialCornerDashboard() {
                     <rect width="18" height="18" x="3" y="4" rx="2" />
                     <path d="M3 10h18" />
                   </svg>
-                  <span className="px-2 text-sm max-[1022px]:text-lg max-[765px]:text-base">{formatDate(item.publishedDate)}</span>
+                  <span className="px-2 text-sm max-[1022px]:text-lg max-[765px]:text-base text-title-gradient-blue">{formatDate(item.publishedDate)}</span>
                 </div>
               </div>
             </Link>
