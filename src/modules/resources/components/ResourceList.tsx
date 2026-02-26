@@ -30,9 +30,9 @@ function ResourceList({
 
   if (isLoading) {
     return (
-      <div className="w-full mt-10">
-        {Array.from({ length: 11 }).map((_, index) => (
-          <Skeleton key={index} className="h-14 mb-2 rounded-lg bg-gray-200" />
+      <div className=" grid grid-cols-4  mt-10">
+        {Array.from({ length: 12 }).map((_, index) => (
+          <Skeleton key={index} className="h-45 mb-2 w-75 rounded-lg bg-gray-200" />
         ))}
       </div>
     );
@@ -52,7 +52,7 @@ function ResourceList({
   }
 
   return (
-    <div className="lg:mt-10 space-y-3 min-h-[150px]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6">
       {items.map((item) => (
         <ResourceCard key={item._id} item={item} />
       ))}
@@ -63,11 +63,11 @@ function ResourceList({
             Loading more resources...
           </div>
         )}
-        {!hasNextPage && items.length > 0 && (
+        {/* {!hasNextPage && items.length > 0 && (
           <div className="text-gray-400 text-sm">
             You have reached the end of the list.
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

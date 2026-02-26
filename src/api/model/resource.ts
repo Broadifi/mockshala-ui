@@ -13,7 +13,7 @@ export interface Daum {
   _id: string
   title: string
   file: File
-  examCategory: string
+  examCategory: ExamCategory
   publishedDate: string
   createdBy: string
   createdAt: string
@@ -29,4 +29,10 @@ export interface File {
   path: string
   createdAt: string
   updatedAt: string
+}
+
+export interface ExamCategory {
+  _id: string
+  categoryName: string
+  slug: string
 }
