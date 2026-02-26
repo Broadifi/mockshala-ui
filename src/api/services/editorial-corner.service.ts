@@ -26,3 +26,25 @@ export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialC
 
         return response.data
 }
+// services/data.service.ts
+import axios from "axios";
+
+//  interface DataItem {
+//   id: number;
+//   title: string;
+//   date: string;
+// }
+
+export const fetchEdtiorialCornerByDate = async (
+  startDate: string,
+  endDate: string
+): Promise<EditorialCornerData> => {
+  const response: AxiosResponse<EditorialCornerData>= await api.get(apiUrl.editorialsCorner(), {
+    params: {
+      startDate,
+      endDate,
+    },
+  });
+
+  return response.data;
+};

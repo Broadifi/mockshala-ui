@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { formatDate } from "@/utils/formatting/formatDate";
-import { SmartPagination } from "./pagination";
-
+// import { SmartPagination } from "./pagination";
+import FetchEdtiorialCornerByDate from "./editorialCornerDate";
 import type {
   EditorialCornerData,
 } from "@/api/model/editorial-corner";
@@ -12,10 +12,10 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 function EditorialCornerDashboard() {
-  // const page = 1;
+  const page = 1;
   const limit = 8;
   const lang="en";
-  const [page,setPage]=useState(1);
+  // const [page,setPage]=useState(1);
 
   // useEffect(()=>{
   //   window.scrollTo(top:"0px",)
@@ -47,7 +47,8 @@ function EditorialCornerDashboard() {
       {/* {data?.data.map((item: EditorialCornerData) => (
         <p key={item._id}>{item.title}</p>
       ))} */}
-      <header className="flex flex-col space-y-1 mt-4 ">
+      <header className="flex flex-row justify-between">
+        <header className="flex flex-col space-y-1 mt-4 ">
         <h2 className="inline-block text-2xl xl:text-4xl font-bold    bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
           Editorial Corner
         </h2>
@@ -56,6 +57,9 @@ function EditorialCornerDashboard() {
           journey
         </p>
       </header>
+      <FetchEdtiorialCornerByDate/>
+      </header>
+      
 
       <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-4 ">
         {data?.data.map((item: EditorialCornerData) => {
@@ -65,11 +69,11 @@ function EditorialCornerDashboard() {
                 key={item._id}
                 className="flex flex-col  items-start gap-2 rounded-3xl  cursor-pointer min-[765px]:w-88  pb-5 shadow-sm hover:shadow-2xl w-full min-[1022px]:w-70  min-[1285px]:w-88 bg-card"
               >
-                <div className="rounded-t-3xl  h-40  w-full overflow-hidden ">
+                <div className="rounded-t-3xl    w-full overflow-hidden h-52">
                   <img
                     src={`${IMAGE_BASE_URL}${item.thumbnailImage}`}
                     alt={item.metaTitle}
-                    className="hover:scale-105 transition-transform duration-300 h-full w-full object-contain "
+                    className="hover:scale-105 transition-transform duration-300 w-full h-full"
                   />
                 </div>
 
@@ -109,14 +113,17 @@ function EditorialCornerDashboard() {
       </div>
       {/* {editorialCorner && <EditorialCornerMain item={editorialCorner}/>} */}
       </div>
-      <div className="flex flex-row justify-center md:justify-end items-center py-3 gradient-soft-blue-current-affairs">
+      {/* <div className="flex flex-row justify-center md:justify-end items-center py-3 gradient-soft-blue-current-affairs">
         <SmartPagination
             currentPage={page}
             totalPages={totalPages}
             onPageChange={setPage}
             className='w-fit mx-0 '
           />
-      </div>
+       
+      </div> */}
+      {/* <FetchEdtiorialCornerByDate/> */}
+      
       
     </>
     

@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Link } from "@tanstack/react-router";
 import { url } from "inspector";
+import { IoIosArrowForward } from "react-icons/io";
 const EditorialCornerDetails = () => {
   const { slug } = useParams({ from: "/$lang/editorials-corner/$slug/" });
   const lang = "en";
@@ -37,7 +38,7 @@ const EditorialCornerDetails = () => {
   const cleanHTML = DOMPurify.sanitize(decodeHTML(fetchData.description));
   return (
     <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
-      <Link to={`/${lang}/editorials-corner/`}>
+      {/* <Link to={`/${lang}/editorials-corner/`}>
         <div className="flex flex-row justify-start items-center gap-2 bg-card gradient-soft-blue-current-affairs group">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +59,7 @@ const EditorialCornerDetails = () => {
             Back to Editorial Corner
           </p>
         </div>
-      </Link>
+      </Link> */}
       <div className="flex flex-col justify-start gap-2">
         <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           {fetchData.title}
@@ -87,25 +88,20 @@ const EditorialCornerDetails = () => {
           </h3>
         </div>
       </div>
-
+      <div className="flex flex-row  items-center text-subtitle-gray "><span className="cursor-pointer hover:hover:text-blue-800">Home</span> <IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800"><Link to={`/${lang}/editorials-corner/` }>Editorial Corner </Link></span><IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800">{fetchData.title}</span></div>
       <div className="  ">
-        <div
-          className="w-[50%]  min-[1028px]:float-left float-none rounded-2xl flex flex-row justify-center items-center bg-transparent h-70 mr-5 mb-6"
-          style={{
-            backgroundImage: `url(${IMAGE_BASE_URL}${fetchData.image})`,
-          }}
-        >
-          <div className="h-full w-full bg-transparent flex flex-row justify-center items-center backdrop-blur-3xl rounded-2xl">
+        
+          <div className="h-[40%] w-[40%]  flex flex-row justify-center items-center  rounded-2xl float-left mb-3">
             <img
               src={`${IMAGE_BASE_URL}${fetchData.image}`}
               alt={fetchData.metaTitle}
-              className=" mr-7    h-full w-[45%]"
+              className=" mr-7    bg-contain overflow-hidden rounded-2xl"
             />
           </div>
-        </div>
+       
 
         <p
-          className="  text-gray-600  min-[1028px]:text-lg md:text-base text-sm text-justify pt-5 px-2"
+          className="  text-gray-600  min-[1028px]:text-lg md:text-base text-sm text-justify  px-2"
           dangerouslySetInnerHTML={{
             __html: cleanHTML,
           }}

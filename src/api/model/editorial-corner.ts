@@ -22,4 +22,6 @@ export interface EditorialCornerResponse {
   hasNext: boolean;
   page: number;
   data: EditorialCornerData[];
+  // currentPage: number;
+  
 }
