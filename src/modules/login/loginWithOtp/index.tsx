@@ -33,6 +33,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { useAuthStore } from "@/stores/authStore";
 
 interface OtpDialogProps {
   open: boolean;
@@ -47,6 +48,8 @@ export function LoginWithOtp({
 }: OtpDialogProps) {
   const [resendTimer, setResendTimer] = useState(0);
   const resendTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const {setAccessToken, setUserDetails}= useAuthStore((state)=> state.auth)
 
   //Schema for form validation
   const form = useForm<OtpFormData>({
@@ -87,7 +90,7 @@ export function LoginWithOtp({
 
     // Cleanup function - clear timer when dialog closes or component unmounts
     return () => {
-      console.log("Cleanup: Clearing timer", resendTimerRef.current);
+      // console.log("Cleanup: Clearing timer", resendTimerRef.current);
       if (resendTimerRef.current) {
         clearInterval(resendTimerRef.current);
         resendTimerRef.current = null;
@@ -95,12 +98,15 @@ export function LoginWithOtp({
     };
   }, [open, mobileNumber, form]);
 
+
   //   OTP Verification
   const verifyOtpMutation = useMutation({
     mutationFn: authApi.otpVerification,
     onSuccess: (response) => {
       if (response.status) {
-        window.localStorage.setItem("USER_TOKEN", response.data.token);
+        setAccessToken(response.data.token)
+        setUserDetails(response.data.user)
+        
         toast.success("Login successful!", {
           duration: 3000,
         });
@@ -165,6 +171,9 @@ export function LoginWithOtp({
   };
 
   const handleResendOtp = () => {
+    form.setValue("otp", "");
+    form.setFocus("otp");
+
     if (resendTimer === 0) {
       resendOtpMutation.mutate();
     }
@@ -191,7 +200,7 @@ export function LoginWithOtp({
           <LoginLeftPanelOtp />
 
           {/* ─── RIGHT PANEL ─── */}
-          <div className="relative flex flex-col justify-center bg-white px-5 sm:px-9 py-8 sm:py-10 min-h-auto sm:min-h-105">
+          <div className="relative flex flex-col justify-center bg-white px-5 sm:px-9 py-8 sm:py-10 xl:py-13 min-h-auto sm:min-h-105">
             {/* Logo for mobile */}
             <div className="flex md:hidden pb-6 pt-1">
               <ImageWithFallback
@@ -221,7 +230,7 @@ export function LoginWithOtp({
             </div>
 
             {/* OTP Input */}
-            <div className="mb-6 ">
+            <div>
               <Form {...form}>
                 <form
                   onSubmit={(e) => {
@@ -232,7 +241,7 @@ export function LoginWithOtp({
                     control={form.control}
                     name="otp"
                     render={({ field }) => (
-                      <FormItem className="mb-8">
+                      <FormItem className="mb-4">
                         <FormLabel className="text-xs sm:text-sm font-semibold text-gray-800 block">
                           <span className="text-red-700">*</span> OTP
                         </FormLabel>
@@ -276,6 +285,32 @@ export function LoginWithOtp({
                     )}
                   />
 
+                  {/* Resend OTP Button */}
+                  <div className="mb-6 sm:mb-8 flex gap-3">
+                    <span className="text-xs text-muted-foreground">
+                      Didn&apos;t receive the code ?
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={handleResendOtp}
+                      disabled={resendTimer > 0 || resendLoading}
+                      className="text-xs text-button-blue font-semibold hover:underline disabled:text-gray-400 cursor-pointer
+                 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {resendLoading ? (
+                        <div className="flex items-center gap-2">
+                          <Spinner className="w-3 h-3" />
+                          Resending...
+                        </div>
+                      ) : resendTimer > 0 ? (
+                        `Resend OTP in ${resendTimer}s`
+                      ) : (
+                        "Resend OTP"
+                      )}
+                    </button>
+                  </div>
+
                   <Button
                     type="submit"
                     disabled={loadingState}
@@ -298,33 +333,8 @@ export function LoginWithOtp({
               </Form>
             </div>
 
-            {/* Resend OTP Button */}
-            <div className="mb-6 sm:mb-8 flex gap-3">
-              <span className="text-xs text-muted-foreground">
-                Didn&apos;t receive the code ?
-              </span>
-
-              <button
-                onClick={handleResendOtp}
-                disabled={resendTimer > 0 || resendLoading}
-                className="text-xs text-button-blue font-semibold hover:underline disabled:text-gray-400 cursor-pointer
-                 disabled:cursor-not-allowed transition-colors"
-              >
-                {resendLoading ? (
-                  <div className="flex items-center gap-2">
-                    <Spinner className="w-3 h-3" />
-                    Resending...
-                  </div>
-                ) : resendTimer > 0 ? (
-                  `Resend OTP in ${resendTimer}s`
-                ) : (
-                  "Resend OTP"
-                )}
-              </button>
-            </div>
-
             {/* Terms */}
-            <p className="text-center text-[10px] sm:text-[11.5px] text-gray-400 mt-6 sm:mt-7">
+            <p className="text-center text-xs sm:text-[11.5px] text-gray-400 mt-6 sm:mt-7 ">
               By joining, you agree to our{" "}
               <a href="#" className="text-blue-500 font-medium hover:underline">
                 Terms

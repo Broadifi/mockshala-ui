@@ -57,9 +57,9 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
         toast.success("Otp has been sent in your register mobile number", {
           duration: 3000,
         });
+        onOpenChange(false);
+        setOTPDialogOpen(true);
       }
-      onOpenChange(false);
-      setOTPDialogOpen(true);
     },
 
     onError: (error: AxiosError<ErrorObject>) => {

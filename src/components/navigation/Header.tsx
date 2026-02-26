@@ -28,6 +28,7 @@ import { useTranslation } from "react-i18next";
 import { ExamModule } from "@/modules/exams";
 import { ExamNavigation } from "@/modules/examNavigationMobile";
 import { LoginModule } from "@/modules/login";
+import { useAuthStore } from "@/stores/authStore";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -41,7 +42,11 @@ function Header() {
 
   const homepageLink = lang ?? "en";
 
-  const isLoggedIn = false;
+   const {accessToken}= useAuthStore((state)=> state.auth)
+
+  // const isLoggedIn = false;
+  const isLoggedIn = accessToken? true: false;
+
   const [mobileOpen, setMobileOpen] = useState(false);
 
   //control login dialog open state
