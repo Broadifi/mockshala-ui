@@ -51,7 +51,7 @@ function ResourcesModule() {
 
   const totalPages = data ? Math.ceil(data.totalCount / LIMIT) : 0;
   return (
-    <div className="gradient-soft-blue-current-affairs w-full min-h-screen">
+    <div className="gradient-soft-blue-current-affairs w-full">
       <div className="w-full container mx-auto px-4 sm:px-6 py-6">
         
         {/* 1. Header & Filters */}

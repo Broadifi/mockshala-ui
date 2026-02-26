@@ -28,7 +28,7 @@ function ResourceFilters({
         <h1 className="text-xl sm:text-2xl font-bold tracking-wide text-blue-600">
           RESOURCES
         </h1>
-        <div className="w-14 h-1.5 sm:w-16 sm:h-1.5 bg-yellow-400 rounded-full mt-1.5 "></div>
+        {/* <div className="w-14 h-1.5 sm:w-16 sm:h-1.5 bg-yellow-400 rounded-full mt-1.5 "></div> */}
       </div>
 
       <div className="flex flex-col md:flex-row gap-3 w-full lg:w-auto">

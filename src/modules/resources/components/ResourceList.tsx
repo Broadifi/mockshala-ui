@@ -30,7 +30,7 @@ function ResourceList({ items, isFetching, isLoading }: ResourceListProps) {
       <div className={`flex justify-center items-center py-12 text-gray-500 text-lg font-medium transition-opacity duration-300 ${isFetching ? "opacity-50" : "opacity-100"}`}>
         {isFetching ? "Searching..." : (
           <div className="flex flex-col gap-5 justify-center items-center">
-            <img src={illustration} alt="No results found" className="w-60 h-60 object-contain mt-20 " />
+            <img src={illustration} alt="No results found" className="w-60 h-60 object-contain mt-20 mix-blend-multiply" />
             <h2>No Data Found</h2>
           </div>
         )}

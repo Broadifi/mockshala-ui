@@ -9,7 +9,7 @@ function ResourceCard({ item }: { item: Daum }) {
   const pdfUrl = hasPdf ? IMAGE_BASE_URL + item.file?.path : undefined;
 
  
-  const containerClasses = `flex flex-row items-center justify-between gap-3 border px-4 sm:px-6 py-3 sm:py-4 bg-white transition w-full ${
+  const containerClasses = `flex flex-row items-center justify-between gap-3 border rounded-lg px-4 sm:px-6 py-3 sm:py-4 bg-white transition w-full ${
     hasPdf ? "cursor-pointer hover:bg-gray-100" : "cursor-default"
   }`;
 

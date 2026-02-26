@@ -137,9 +137,13 @@ export function SmartPagination({
   };
 
   return (
+   
     <Pagination className={className}>
-      <PaginationContent className="flex items-center gap-1 sm:gap-2">
-        <PaginationItem>
+      {/* ✅ MAGIC: flex-wrap jure dewa holo jate chhoto screen-e layout bhenge niche nambe */}
+      <PaginationContent className="flex flex-wrap items-center justify-center gap-2 sm:gap-2 w-full">
+        
+        {/* ⬅️ PREVIOUS BUTTON: Chhoto screen-e order-2 (niche baa dike), Boro screen-e order-1 (ekdum baa dike) */}
+        <PaginationItem className="order-2 sm:order-1 flex-1 sm:flex-none flex justify-end sm:justify-center mt-2 sm:mt-0 pr-2 sm:pr-0">
           <PaginationPrevious
             onClick={handlePrevious}
             className={`border-none bg-transparent hover:bg-gray-100 rounded-full px-3 sm:px-4 ${
@@ -150,11 +154,13 @@ export function SmartPagination({
           />
         </PaginationItem>
 
-        <div className='flex flex-wrap items-center justify-center gap-1 sm:gap-2'>
+        {/* 🔢 PAGE NUMBERS: Chhoto screen-e order-1 ar w-full (upore puro line nibe), Boro screen-e order-2 ar w-auto (majhkane bose jabe) */}
+        <div className="order-1 sm:order-2 w-full sm:w-auto flex flex-wrap items-center justify-center gap-1 sm:gap-2">
           {renderPaginationItems()}
         </div>
 
-        <PaginationItem>
+        {/* ➡️ NEXT BUTTON: order-3 (sob jaigatei last-e thakbe, kintu mobile-e niche daan dike) */}
+        <PaginationItem className="order-3 sm:order-3 flex-1 sm:flex-none flex justify-start sm:justify-center mt-2 sm:mt-0 pl-2 sm:pl-0">
           <PaginationNext
             onClick={handleNext}
             className={`border-none bg-transparent hover:bg-gray-100 rounded-full px-3 sm:px-4 ${
@@ -164,7 +170,9 @@ export function SmartPagination({
             }`}
           />
         </PaginationItem>
+
       </PaginationContent>
     </Pagination>
   );
+  
 }
