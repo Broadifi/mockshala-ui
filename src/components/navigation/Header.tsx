@@ -29,6 +29,7 @@ import { ExamModule } from "@/modules/exams";
 import { ExamNavigation } from "@/modules/examNavigationMobile";
 import { LoginModule } from "@/modules/login";
 import { useAuthStore } from "@/stores/authStore";
+import ProfileDropdown from "./profileDropdown";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -42,7 +43,7 @@ function Header() {
 
   const homepageLink = lang ?? "en";
 
-   const {accessToken}= useAuthStore((state)=> state.auth)
+  const {accessToken}= useAuthStore((state)=> state.auth)
 
   // const isLoggedIn = false;
   const isLoggedIn = accessToken? true: false;
@@ -253,20 +254,22 @@ function Header() {
             </div>
 
             {isLoggedIn ? (
-              <Link
-                key="Profile"
-                to="/$lang/profile"
-                params={{ lang: `${lang}` }}
-                onClick={() => setMobileOpen(false)}
-                className={`flex gap-2 px-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive("/profile")
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                }`}
-              >
-                {/* <CircleUserRound size={28} strokeWidth={2} className="text-blue-600" /> */}
-                <ProfileIcon />
-              </Link>
+              // <Link
+              //   key="Profile"
+              //   to="/$lang/profile"
+              //   params={{ lang: `${lang}` }}
+              //   onClick={() => setMobileOpen(false)}
+              //   className={`flex gap-2 px-2 rounded-md text-sm font-medium transition-colors ${
+              //     isActive("/profile")
+              //       ? "bg-primary/10 text-primary"
+              //       : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+              //   }`}
+              // >
+              //   {/* <CircleUserRound size={28} strokeWidth={2} className="text-blue-600" /> */}
+              //   <ProfileIcon />
+              // </Link>
+
+              <ProfileDropdown/>
             ) : (
               <div
                 key={"Login"}
