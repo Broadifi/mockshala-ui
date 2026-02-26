@@ -88,14 +88,14 @@ const EditorialCornerDetails = () => {
           </h3>
         </div>
       </div>
-      <div className="flex flex-row  items-center text-subtitle-gray "><span className="cursor-pointer hover:hover:text-blue-800">Home</span> <IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800"><Link to={`/${lang}/editorials-corner/` }>Editorial Corner </Link></span><IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800">{fetchData.title}</span></div>
-      <div className="  ">
+      <div className="flex flex-row  items-center text-subtitle-gray "><span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">Home</span> <IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base"><Link to={`/${lang}/editorials-corner/` }>Editorial Corner </Link></span><IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800">{fetchData.metaTitle}</span></div>
+      <div className="flex-col sm:flex-none   items-center justify-center ">
         
-          <div className="h-[40%] w-[40%]  flex flex-row justify-center items-center  rounded-2xl float-left mb-3">
+          <div className="sm:h-[50%] sm:w-[50%]  flex flex-row justify-center items-center  rounded-2xl sm:float-left mb-2 sm:px-2 float-none h-full w-full  sm:mb-3.5 ">
             <img
               src={`${IMAGE_BASE_URL}${fetchData.image}`}
               alt={fetchData.metaTitle}
-              className=" mr-7    bg-contain overflow-hidden rounded-2xl"
+              className=" mr-7    bg-contain overflow-hidden rounded-2xl mx-auto "
             />
           </div>
        

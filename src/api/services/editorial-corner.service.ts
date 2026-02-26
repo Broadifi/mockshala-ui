@@ -5,20 +5,40 @@ import { apiUrl } from "../url"
 
 interface FetchEditorial {
     page: number,
-    limit: number
+    limit: number,
+    date?:string,
+    tags?:string[]
 }
 
-export async function fetchEditorialCorners({
-    page=1, limit
-}:FetchEditorial){
-    const response: AxiosResponse<EditorialCornerResponse> = await api.get(apiUrl.editorialsCorner(),{
-        params:{
-            page,
-            limit
-        }
-    })
+// export async function fetchEditorialCorners({
+//     page=1, limit, date, tags = []
+// }:FetchEditorial){
+//     const response: AxiosResponse<EditorialCornerResponse> = await api.get(apiUrl.editorialsCorner(),{
+//         params:{
+//             page,
+//             limit,date,tags
+//         }
+//     })
 
-    return response.data
+//     return response.data
+// }
+export async function fetchEditorialCorners({
+  page = 1,
+  limit,
+  date,
+  tags = [],
+}: FetchEditorial) {
+  const response: AxiosResponse<EditorialCornerResponse> =
+    await api.get(apiUrl.editorialsCorner(), {
+      params: {
+        page,
+        limit,
+        date,
+        tags,
+      },
+    });
+
+  return response.data;
 }
 export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialCornerData> {
       const response: AxiosResponse<EditorialCornerData> = 
