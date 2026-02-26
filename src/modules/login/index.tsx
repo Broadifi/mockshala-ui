@@ -28,6 +28,7 @@ import { mockShalaLogo } from "@/assets";
 import { useState } from "react";
 import { LoginWithOtp } from "./loginWithOtp";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { NewUserRegistration } from "./newUserRegistration";
 
 interface LoginDialogProps {
   open: boolean;
@@ -37,6 +38,8 @@ interface LoginDialogProps {
 export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
   //control OTP dialog open state
   const [isOTPDialogOpen, setOTPDialogOpen] = useState(false);
+
+  const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
   const [mobileNo, setMobileNo] = useState("");
 
@@ -58,7 +61,12 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
           duration: 3000,
         });
         onOpenChange(false);
-        setOTPDialogOpen(true);
+
+        if (response.data.newUser) {
+          setRegistrationOpen(true);
+        } else {
+          setOTPDialogOpen(true);
+        }
       }
     },
 
@@ -129,16 +137,35 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                         </FormLabel>
 
                         <FormControl>
-                          <div className="flex items-center gap-2 border rounded-md px-2 py-1  bg-gray-50 focus-within:ring-1 focus-within:ring-blue-500">
+                          <div
+                            className="
+      flex items-center gap-2 px-3 py-2
+      bg-gray-50
+      border border-gray-200
+      rounded-lg
+
+      focus-within:outline-none
+      focus-within:ring-2 focus-within:ring-blue-500/70
+      focus-within:ring-offset-0
+      focus-within:border-transparent
+
+      transition-all duration-200
+    "
+                          >
                             <Smartphone
                               size={16}
-                              className="text-gray-400 flex-shrink-0"
+                              className="text-gray-400 shrink-0"
                             />
 
                             <Input
                               type="tel"
                               placeholder="Enter your mobile number"
-                              className="font-medium tracking-wider border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-gray-50 shadow-none"
+                              className=" text-lg
+        border-0 bg-transparent shadow-none
+        focus-visible:ring-0 focus-visible:outline-none
+        px-0 h-auto
+        font-medium tracking-wider
+      "
                               {...field}
                             />
                           </div>
@@ -230,6 +257,12 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
       <LoginWithOtp
         open={isOTPDialogOpen}
         onOpenChange={setOTPDialogOpen}
+        mobileNumber={mobileNo}
+      />
+
+      <NewUserRegistration
+        open={isRegistrationOpen}
+        onOpenChange={setRegistrationOpen}
         mobileNumber={mobileNo}
       />
     </>

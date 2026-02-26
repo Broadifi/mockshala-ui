@@ -1,5 +1,5 @@
 import type { AxiosResponse } from "axios";
-import type { AuthLoginData, AuthOtpData, LoginResponse, OtpResponse } from "../model/auth-model";
+import type { AuthLoginData, AuthOtpData, AuthRegistrationData, LoginResponse, OtpResponse, RegistrationResponse } from "../model/auth-model";
 import api from ".";
 import { apiUrl } from "../url";
 
@@ -17,4 +17,13 @@ export const authApi ={
 
         return response.data
     },
+
+    registrationVerification: async(data:AuthRegistrationData) => {
+        const response: AxiosResponse<RegistrationResponse> = await api.post(
+            apiUrl.registrationUser,data)
+
+        return response.data
+    },
+
+
 }

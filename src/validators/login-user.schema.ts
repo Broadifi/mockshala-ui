@@ -20,3 +20,30 @@ export const otpSchema = z.object({
 })
 
 export type OtpFormData = z.infer<typeof otpSchema>
+
+//Registration Data
+
+export const registrationSchema = z.object({
+  mobile: z.string().length(10),
+
+  otp: z
+    .string()
+    .length(4, "Please enter your OTP code."),
+    
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name is too long")
+    .trim(),
+
+  email: z
+    .string()
+    .trim()
+    .email("Please enter a valid email address")
+    .optional()
+    .or(z.literal("")), // allows empty string
+  
+});
+
+
+export type registrationFormData = z.infer<typeof registrationSchema>

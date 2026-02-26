@@ -16,9 +16,11 @@ import { Button } from "@/components/ui/button";
 import { mockShalaLogo } from "@/assets";
 import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
 
-import LoginLeftPanelOtp from "./loginLeftPanelOtp";
 import { useForm } from "react-hook-form";
-import { otpSchema, type OtpFormData } from "@/validators/login-user.schema";
+import {
+  registrationSchema,
+  type registrationFormData,
+} from "@/validators/login-user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -34,6 +36,8 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useAuthStore } from "@/stores/authStore";
+import RegistrationLeftPanel from "./registrationLeftPanel";
+import { Input } from "@/components/ui/input";
 
 interface OtpDialogProps {
   open: boolean;
@@ -41,13 +45,13 @@ interface OtpDialogProps {
   mobileNumber: string;
 }
 
-export function LoginWithOtp({
+export function NewUserRegistration({
   open,
   onOpenChange,
   mobileNumber,
 }: OtpDialogProps) {
 
-  const otpSlotClass = `
+const otpSlotClass = `
     font-medium
   border border-gray-200 bg-gray-50 rounded-lg
 
@@ -65,12 +69,14 @@ export function LoginWithOtp({
   const [resendTimer, setResendTimer] = useState(0);
   const resendTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const {setAccessToken, setUserDetails}= useAuthStore((state)=> state.auth)
+  const { setAccessToken, setUserDetails } = useAuthStore(
+    (state) => state.auth,
+  );
 
   //Schema for form validation
-  const form = useForm<OtpFormData>({
-    resolver: zodResolver(otpSchema),
-    defaultValues: { mobile: mobileNumber || "", otp: "" },
+  const form = useForm<registrationFormData>({
+    resolver: zodResolver(registrationSchema),
+    defaultValues: { mobile: mobileNumber || "", otp: "", name: "", email: "" },
   });
 
   // Set mobile number when component mounts or mobileNumber changes
@@ -85,7 +91,7 @@ export function LoginWithOtp({
   useEffect(() => {
     if (open) {
       // Reset OTP form when dialog opens
-      form.reset({ mobile: mobileNumber, otp: "" });
+      form.reset({ mobile: mobileNumber, otp: "", name: "", email: "" });
 
       // Clear any existing timer
       if (resendTimerRef.current) {
@@ -114,15 +120,14 @@ export function LoginWithOtp({
     };
   }, [open, mobileNumber, form]);
 
-
-  //   OTP Verification
-  const verifyOtpMutation = useMutation({
-    mutationFn: authApi.otpVerification,
+  //   Registration Verification
+  const verifyRegistrationMutation = useMutation({
+    mutationFn: authApi.registrationVerification,
     onSuccess: (response) => {
       if (response.status) {
-        setAccessToken(response.data.token)
-        setUserDetails(response.data.user)
-        
+        setAccessToken(response.data.token);
+        setUserDetails(response.data.user);
+
         toast.success("Login successful!", {
           duration: 3000,
         });
@@ -177,10 +182,10 @@ export function LoginWithOtp({
     },
   });
 
-  const handleSubmit = (data: OtpFormData) => {
+  const handleSubmit = (data: registrationFormData) => {
     if (data.otp.length === 4) {
       // Include mobile number in the mutation call
-      verifyOtpMutation.mutate(data);
+      verifyRegistrationMutation.mutate(data);
     } else {
       toast.error("Please enter a valid 4-digit OTP", { duration: 3000 });
     }
@@ -195,7 +200,7 @@ export function LoginWithOtp({
     }
   };
 
-  const loadingState = verifyOtpMutation.isPending;
+  const loadingState = verifyRegistrationMutation.isPending;
   const resendLoading = resendOtpMutation.isPending;
 
   return (
@@ -207,13 +212,13 @@ export function LoginWithOtp({
         <DialogHeader className="sr-only">
           <DialogTitle>OTP Verification</DialogTitle>
           <DialogDescription>
-            Enter the OTP sent to your registered mobile number
+             Enter the OTP sent to your mobile number to verify and create your account.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] min-h-auto md:min-h-105">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] min-h-auto md:min-h-105">
           {/* ─── LEFT PANEL (Static, no animations) ─── */}
-          <LoginLeftPanelOtp />
+          <RegistrationLeftPanel />
 
           {/* ─── RIGHT PANEL ─── */}
           <div className="relative flex flex-col justify-center bg-white px-5 sm:px-9 py-8 sm:py-10 xl:py-13 min-h-auto sm:min-h-105">
@@ -228,11 +233,11 @@ export function LoginWithOtp({
 
             {/* Heading with emoji */}
             <h2 className="text-xl sm:text-2xl font-bold text-title-darkblue mb-2">
-              Welcome Back 👋
+              Join the Community
             </h2>
 
             <p className="text-xs sm:text-sm text-muted-foreground mb-6 sm:mb-8">
-              Enter the 4 digit OTP sent to your mobile number.
+                Enter the 4 digit OTP sent to your mobile number to verify and create your account.
             </p>
 
             {/* Mobile Number Display */}
@@ -297,6 +302,82 @@ export function LoginWithOtp({
                           </InputOTP>
                         </FormControl>
                         <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="mb-4">
+                        <FormLabel className="text-xs sm:text-sm font-semibold text-gray-800 block">
+                          <span className="text-red-700">*</span> Full Name
+                        </FormLabel>
+
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Enter your name"
+                            className="
+                                font-medium tracking-wide 
+                                bg-gray-50
+                                border border-gray-200
+                                rounded-lg
+
+                                focus-visible:outline-none
+                                focus-visible:ring-2 focus-visible:ring-blue-500/70
+                                focus-visible:ring-offset-0
+                                focus-visible:border-transparent
+
+                                transition-all duration-200
+                                "
+                            {...field}
+                          />
+                        </FormControl>
+
+                        {/* ✅ Reserve space ALWAYS */}
+                        <div className="transition-opacity duration-200">
+                          <FormMessage />
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="mb-4">
+                        <FormLabel className="text-xs sm:text-sm font-semibold text-gray-800 block">
+                          Email
+                        </FormLabel>
+
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="
+                            font-medium tracking-wide
+                            bg-gray-50
+                            border border-gray-200
+                            rounded-lg
+
+                            focus-visible:outline-none
+                            focus-visible:ring-2 focus-visible:ring-blue-500/70
+                            focus-visible:ring-offset-0
+                            focus-visible:border-transparent
+
+                            transition-all duration-200
+                            "
+                            {...field}
+                          />
+                        </FormControl>
+
+                        {/* ✅ Reserve space ALWAYS */}
+                        <div className=" transition-opacity duration-200">
+                          <FormMessage />
+                        </div>
                       </FormItem>
                     )}
                   />

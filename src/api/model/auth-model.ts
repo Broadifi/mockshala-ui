@@ -7,6 +7,13 @@ export interface AuthOtpData{
   otp: string;
 }
 
+export interface AuthRegistrationData {
+  mobile: string;
+  otp: string;
+  name: string;
+  email?: string;
+}
+
 //Login Response for mobile login to get otp
  export interface LoginResponse {
   error: boolean;
@@ -70,6 +77,40 @@ interface ProfilePicture {
   mimetype: string;
   size: number;
   path: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+
+//Registration Verification
+
+export interface RegistrationResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  data: RegistrationData;
+}
+interface RegistrationData {
+  _id: string;
+  token: string;
+  user: RegistrationUser;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface RegistrationUser {
+  isRegistered: boolean;
+  registeredBy: string;
+  country: string;
+  status: boolean;
+  isEmailVerified: boolean;
+  isPasswordExist: boolean;
+  _id: string;
+  mobile: string;
+  name: string;
+  emailVerificationOtp: string;
+  emailVerificationOtpExpiry?: string | null
   createdAt: string;
   updatedAt: string;
 }

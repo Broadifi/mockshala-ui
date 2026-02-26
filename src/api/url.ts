@@ -8,6 +8,7 @@ export const BASE_URL =
 
     otpVerificationLogin : '/auth/login-with-otp-mobile',
 
+    registrationUser: '/auth/verify-mobile-otp',
 
     banners: '/banners',
 
