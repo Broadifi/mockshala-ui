@@ -4,23 +4,24 @@ import { resourcesAPI } from "@/api/services/resources";
 import { examCategoriesAPI } from "@/api/services/exam-categories";
 import ResourceFilters from "./components/ResourceFilters";
 import ResourceList from "./components/ResourceList"; 
-import { SmartPagination } from "./components/Pagination";
+// import { SmartPagination } from "./components/Pagination";
 import { keepPreviousData } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 
 function ResourcesModule() {
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchInput, setSearchInput] = useState("");
 
-  const LIMIT = 5;
+  const LIMIT = 7;
 
   useEffect (() => {
     const Timer = 
     setTimeout(()=> {
       setSearchTerm(searchInput);
-      setPage(1);
+      // setPage(1);
       console.log("Api Hit: ", searchInput)
     }, 500);
     
@@ -40,16 +41,26 @@ function ResourcesModule() {
   });
 
 
-
-  const { data, isFetching, isLoading } = useQuery({
-    queryKey: ["resources", page, searchTerm, selectedCategory],
-    queryFn: () =>
-      resourcesAPI.getResources(page, LIMIT, searchTerm, selectedCategory),
+  
+  const { data, isFetching, isLoading,fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ["resources", searchTerm, selectedCategory],
+    queryFn: ({ pageParam = 1 }) =>
+      resourcesAPI.getResources(pageParam, LIMIT, searchTerm, selectedCategory),
+      initialPageParam: 1,
        placeholderData: keepPreviousData,
+       getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.data.length < LIMIT) {
+          return undefined
+        }
+        return allPages.length + 1
+      },
   });
 
 
-  const totalPages = data ? Math.ceil(data.totalCount / LIMIT) : 0;
+  // const totalPages = data ? Math.ceil(data.totalCount / LIMIT) : 0;
+
+  const allResources = data?.pages.flatMap((page) => page.data) || [];
+
   return (
     <div className="gradient-soft-blue-current-affairs w-full">
       <div className="w-full container mx-auto px-4 sm:px-6 py-6">
@@ -65,9 +76,11 @@ function ResourcesModule() {
           isFetching={isFetching}
           
         />        
-        <ResourceList items={data?.data} isFetching={isFetching} isLoading={isLoading}/>
+        <ResourceList items={allResources}  isLoading={isLoading} fetchNextPage={fetchNextPage} 
+          hasNextPage={hasNextPage} 
+          isFetchingNextPage={isFetchingNextPage}/>
 
-      
+{/*       
        {data && (
         <div className="flex font-small   justify-center lg:justify-end mt-9 ">
          <SmartPagination
@@ -77,7 +90,7 @@ function ResourcesModule() {
             className='w-fit mx-0'
           />
         </div>
-       )}
+       )} */}
 
       </div>
     </div>
