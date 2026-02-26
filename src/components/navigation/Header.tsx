@@ -30,6 +30,7 @@ import { ExamNavigation } from "@/modules/examNavigationMobile";
 import { LoginModule } from "@/modules/login";
 import { useAuthStore } from "@/stores/authStore";
 import ProfileDropdown from "./profileDropdown";
+import LogoutMobile from "./logoutMobile";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -43,10 +44,10 @@ function Header() {
 
   const homepageLink = lang ?? "en";
 
-  const {accessToken}= useAuthStore((state)=> state.auth)
+  const { accessToken } = useAuthStore((state) => state.auth);
 
   // const isLoggedIn = false;
-  const isLoggedIn = accessToken? true: false;
+  const isLoggedIn = accessToken ? true : false;
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -62,10 +63,10 @@ function Header() {
   // Nested Sheet Navigation open
   const [menuView, setMenuView] = useState<"main" | "exam">("main");
 
-  const handleLoginMobile= ()=> {
-      setIsLoginDialogOpen(true);
-       setMobileOpen(false);
-  }
+  const handleLoginMobile = () => {
+    setIsLoginDialogOpen(true);
+    setMobileOpen(false);
+  };
 
   return (
     <header className="fixed w-full left-0 top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center ">
@@ -149,19 +150,7 @@ function Header() {
             </div>
 
             {isLoggedIn ? (
-              <Link
-                key="Profile"
-                to="/$lang/profile"
-                params={{ lang: `${lang}` }}
-                onClick={() => setMobileOpen(false)}
-                className={`flex gap-2 px-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive("/profile")
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                }`}
-              >
-                <ProfileIcon />
-              </Link>
+              <ProfileDropdown />
             ) : (
               <div
                 key={"LoginTablet"}
@@ -269,7 +258,7 @@ function Header() {
               //   <ProfileIcon />
               // </Link>
 
-              <ProfileDropdown/>
+              <ProfileDropdown />
             ) : (
               <div
                 key={"Login"}
@@ -389,7 +378,13 @@ function Header() {
                         ),
                       )}
 
-                      {!isLoggedIn && (
+                      {isLoggedIn ? (
+                        <LogoutMobile
+                          onClose={() => {
+                            setMobileOpen(false);
+                          }}
+                        />
+                      ) : (
                         <div
                           key={"LoginMobile"}
                           onClick={() => handleLoginMobile()}
@@ -398,7 +393,7 @@ function Header() {
                           <Button
                             variant={"default"}
                             size={"sm"}
-                            className="px-3 py-2 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+                            className="px-3 py-2 my-5 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                               hover:scale-[1.03] hover:shadow-xl"
                           >
                             Login/Signup

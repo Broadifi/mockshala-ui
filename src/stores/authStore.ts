@@ -8,6 +8,7 @@ interface AuthState {
     setAccessToken: (accessToken: string) => void
     userDetails: User | RegistrationUser | null
     setUserDetails: (details: User | RegistrationUser) => void
+    logout: () => void
   }
 }
 
@@ -36,6 +37,13 @@ export const useAuthStore = create<AuthState>()((set)=> {
                  window.localStorage.setItem(cookiesKeys.userDetails, JSON.stringify(userDetails));
 
                  return {...state, auth:{...state.auth, userDetails}}
+            }),
+
+            logout: () => set((state)=> {
+                 window.localStorage.removeItem(cookiesKeys.accessToken);
+                 window.localStorage.removeItem(cookiesKeys.userDetails);
+                 
+                 return {...state, auth:{...state.auth, accessToken: '', userDetails: null}}
             })
         }
     }

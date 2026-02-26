@@ -11,7 +11,7 @@ function ProfileIcon() {
       transition-all duration-300
       cursor-pointer
     ">
-      <User className="w-5 h-5 lg:w-6 lh:h-6 text-white" />
+      <User className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
     </div>
   );
 }
