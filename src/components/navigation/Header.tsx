@@ -160,7 +160,7 @@ function Header() {
                 <Button
                   variant={"default"}
                   size={"sm"}
-                  className="p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+                  className="cursor-pointer p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                    hover:scale-[1.03] hover:shadow-xl"
                 >
                   Login/Signup
@@ -268,7 +268,7 @@ function Header() {
                 <Button
                   variant={"default"}
                   size={"sm"}
-                  className="p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+                  className="cursor-pointer p-2 2xl:p-4 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                    hover:scale-[1.03] hover:shadow-xl"
                 >
                   Login/Signup
@@ -393,7 +393,7 @@ function Header() {
                           <Button
                             variant={"default"}
                             size={"sm"}
-                            className="px-3 py-2 my-5 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+                            className="cursor-pointer px-3 py-2 my-5 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                               hover:scale-[1.03] hover:shadow-xl"
                           >
                             Login/Signup
