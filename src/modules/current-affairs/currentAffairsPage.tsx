@@ -191,7 +191,7 @@ export default function CurrentAffairsPage() {
           <FilterCurrentAffairs filters={filters} />
         </div>
 
-        <section className="w-full mt-14 lg:mt-8 ">
+        <section className="w-full mt-14 lg:mt-11 ">
           <div className="pb-3 space-y-1">
             <h2
               className="inline-block text-2xl xl:text-4xl font-bold 

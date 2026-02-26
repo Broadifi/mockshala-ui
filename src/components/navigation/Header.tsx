@@ -68,7 +68,7 @@ function Header() {
 
   return (
     <header className="fixed w-full left-0 top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md  flex justify-center ">
-      <div className="w-full container px-4 py-3 md:py-2">
+      <div className="w-full container px-4 py-2">
         <div className="flex gap-4 justify-between w-full  ">
           {/* Title for all view */}
           <Link
@@ -153,7 +153,7 @@ function Header() {
                 to="/$lang/profile"
                 params={{ lang: `${lang}` }}
                 onClick={() => setMobileOpen(false)}
-                className={`flex gap-2 px-2 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex gap-2 px-2 rounded-md text-sm font-medium transition-colors ${
                   isActive("/profile")
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
@@ -258,7 +258,7 @@ function Header() {
                 to="/$lang/profile"
                 params={{ lang: `${lang}` }}
                 onClick={() => setMobileOpen(false)}
-                className={`flex gap-2 px-2 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex gap-2 px-2 rounded-md text-sm font-medium transition-colors ${
                   isActive("/profile")
                     ? "bg-primary/10 text-primary"
                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
