@@ -139,18 +139,18 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                         <FormControl>
                           <div
                             className="
-      flex items-center gap-2 px-3 py-2
-      bg-gray-50
-      border border-gray-200
-      rounded-lg
+                              flex items-center gap-2 px-3 py-2
+                              bg-gray-50
+                              border border-gray-200
+                              rounded-lg
 
-      focus-within:outline-none
-      focus-within:ring-2 focus-within:ring-blue-500/70
-      focus-within:ring-offset-0
-      focus-within:border-transparent
+                              focus-within:outline-none
+                              focus-within:ring-2 focus-within:ring-blue-500/70
+                              focus-within:ring-offset-0
+                              focus-within:border-transparent
 
-      transition-all duration-200
-    "
+                              transition-all duration-200
+                            "
                           >
                             <Smartphone
                               size={16}
@@ -160,12 +160,12 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
                             <Input
                               type="tel"
                               placeholder="Enter your mobile number"
-                              className=" text-lg
-        border-0 bg-transparent shadow-none
-        focus-visible:ring-0 focus-visible:outline-none
-        px-0 h-auto
-        font-medium tracking-wider
-      "
+                              className=" lg:text-md
+                                border-0 bg-transparent shadow-none
+                                focus-visible:ring-0 focus-visible:outline-none
+                                px-0 h-auto
+                                font-medium tracking-wider
+                              "
                               {...field}
                             />
                           </div>

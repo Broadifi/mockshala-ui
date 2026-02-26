@@ -216,7 +216,7 @@ const otpSlotClass = `
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] min-h-auto md:min-h-105">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] min-h-auto md:min-h-105">
           {/* ─── LEFT PANEL (Static, no animations) ─── */}
           <RegistrationLeftPanel />
 

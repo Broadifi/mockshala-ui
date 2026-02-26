@@ -218,7 +218,7 @@ export function LoginWithOtp({
           {/* ─── RIGHT PANEL ─── */}
           <div className="relative flex flex-col justify-center bg-white px-5 sm:px-9 py-8 sm:py-10 xl:py-13 min-h-auto sm:min-h-105">
             {/* Logo for mobile */}
-            <div className="flex md:hidden pb-6 pt-1">
+            <div className="flex md:hidden pb-8 pt-2">
               <ImageWithFallback
                 src={mockShalaLogo}
                 alt="mockShalaLogo"
