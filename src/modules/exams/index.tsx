@@ -16,8 +16,12 @@ import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { IMAGE_BASE_URL } from "@/api/url";
 import FilterExamByCategory from "./filterExamByCategory";
 import { ExamModuleSkeleton } from "./skeleton/ExamModuleSkeleton";
+import { useTranslation } from "react-i18next";
 
 export function ExamModule() {
+
+  const { t } = useTranslation();
+
   const { data, isLoading } = useQuery({
     queryKey: queryKeys.home.paidTestCategories(),
     queryFn: homeAPI.getDashboardPaidCategories,
@@ -34,7 +38,9 @@ export function ExamModule() {
     <NavigationMenu value={menuOpen} onValueChange={setMenuOpen}>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="lg:text-xs 2xl:text-sm">Exams</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="lg:text-xs 2xl:text-sm">
+             {t("headerLang.exams")}
+            </NavigationMenuTrigger>
           <NavigationMenuContent>
             {isLoading ? (
               <ExamModuleSkeleton />

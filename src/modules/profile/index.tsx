@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -72,13 +72,18 @@ function ProfileModule() {
     "general",
   );
 
+    useEffect(() => {
+     
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+
   // Initialize form with proper type safety
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     mode: "onBlur",
     defaultValues: {
       name: userDetails?.name || "",
-      email: isFullUser(userDetails) ? userDetails.email : "",
+      email: userDetails?.email || "",
       mobile: userDetails?.mobile || "",
       dob: isFullUser(userDetails) ? formatDateForForm(userDetails.dob) : "",
       gender: isFullUser(userDetails) ? userDetails.gender : "",
@@ -97,7 +102,7 @@ function ProfileModule() {
         setUserDetails(response.data);
 
         toast.success("Profile updated successfully!", { duration: 3000 });
-        // Note: You may want to refresh userDetails here or update the store
+       
       }
     },
     onError: (error: AxiosError<ErrorObject>) => {
@@ -171,7 +176,7 @@ function ProfileModule() {
               {/* Contact Info */}
               <div className="space-y-3 border-t pt-4">
                 {/* Email */}
-                {isFullUser(userDetails) && userDetails.email && (
+                {userDetails?.email && (
                   <div className="flex items-center  gap-3">
                     <Mail
                       size={18}
@@ -212,10 +217,10 @@ function ProfileModule() {
             <div className="space-y-2">
               <button
                 onClick={() => setActiveTab("general")}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
+                className={`cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
                   activeTab === "general"
                     ? "bg-blue-600 text-white shadow-md"
-                    : "bg-white text-gray-700 hover:bg-gray-50"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 <UserIcon size={20} />
@@ -224,10 +229,10 @@ function ProfileModule() {
 
               <button
                 onClick={() => setActiveTab("subscription")}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
+                className={`cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
                   activeTab === "subscription"
                     ? "bg-blue-600 text-white shadow-md"
-                    : "bg-white text-gray-700 hover:bg-gray-50"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 <Bookmark size={20} />
@@ -577,7 +582,7 @@ function ProfileModule() {
                       <Button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-full"
+                        className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-full"
                       >
                         {isLoading && <Spinner className="mr-2 w-4 h-4" />}✓
                         Update Profile

@@ -11,7 +11,7 @@ import facebook from '@/assets/siteConfig/facebook.png'
 import instagram from '@/assets/siteConfig/instagram.png'
 import aboutus from '@/assets/aboutus/aboutus.jpg'
 import comingSoon from '@/assets/comingSoon/coming-soon.png'
-import registration from '@/assets/login/registration.png'
+import registration from '@/assets/login/mockshala_registration.png'
 import profileImage from '@/assets/profile/profile.jpg'
 
 export {mockShalaLogo, imgFallBack, 

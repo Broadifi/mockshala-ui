@@ -51,7 +51,7 @@ function ProfileDropdown() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-48 p-2 z-50" align="end">
           <DropdownMenuGroup>
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link
                 key="Profile"
                 to="/$lang/profile"
@@ -64,9 +64,9 @@ function ProfileDropdown() {
               >
                 Profile
               </Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem >
 
-            <DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <div key={"Logout"} onClick={() => handleLogOut()}>
                 <Button
                   variant={"default"}

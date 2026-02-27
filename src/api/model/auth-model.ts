@@ -122,6 +122,7 @@ export interface RegistrationUser {
   _id: string;
   mobile: string;
   name: string;
+  email?: string;
   emailVerificationOtp: string;
   emailVerificationOtpExpiry?: string | null
   createdAt: string;

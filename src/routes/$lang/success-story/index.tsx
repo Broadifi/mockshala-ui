@@ -1,3 +1,4 @@
+import SuccessStoryModule from '@/modules/success-story'
 import { createFileRoute,  } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/$lang/success-story/')({
@@ -6,5 +7,5 @@ export const Route = createFileRoute('/$lang/success-story/')({
 
 function RouteComponent() {
   
-  return <div>Hello "/success-story"!</div>
+  return <SuccessStoryModule />
 }

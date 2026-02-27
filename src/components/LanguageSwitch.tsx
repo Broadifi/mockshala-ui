@@ -50,7 +50,7 @@ export default function LanguageSwitch() {
             w-15 h-7 2xl:w-16 2xl:h-8
             rounded-full
             transition-colors duration-300
-            ${lang === "en" ? "bg-sky-600" : "bg-gray-400"}
+            ${lang === "en" ? "bg-linear-to-br from-blue-600 via-blue-500 to-sky-400" : "bg-gray-400"}
           `}
     >
       {/* Knob */}
