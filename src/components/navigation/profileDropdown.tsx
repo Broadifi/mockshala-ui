@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate, useParams } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -18,6 +18,8 @@ function ProfileDropdown() {
 
   const queryClient = useQueryClient();
   const { logout } = useAuthStore((state) => state.auth);
+
+  const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -54,13 +56,12 @@ function ProfileDropdown() {
                 key="Profile"
                 to="/$lang/profile"
                 params={{ lang: `${lang}` }}
-                className={`flex gap-2 px-2 xl:my-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive("/profile")
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  isActive(`/${lang}/profile`)
                     ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    : "text-title-darkblue hover:bg-accent hover:text-accent-foreground"
                 }`}
               >
-                {/* <CircleUserRound size={28} strokeWidth={2} className="text-blue-600" /> */}
                 Profile
               </Link>
             </DropdownMenuItem>
