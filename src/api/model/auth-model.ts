@@ -127,3 +127,40 @@ export interface RegistrationUser {
   createdAt: string;
   updatedAt: string;
 }
+
+
+//Update Profile
+
+
+export interface UpdateProfileResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  updated: boolean;
+  data: UpdateProfileData;
+}
+
+interface UpdateProfileData {
+  isRegistered: boolean;
+  registeredBy: string;
+  country: string;
+  status: boolean;
+  isEmailVerified: boolean;
+  isPasswordExist: boolean;
+  _id: string;
+  mobile: string;
+  name: string;
+  emailVerificationOtp: string;
+  emailVerificationOtpExpiry?: string | null
+  createdAt: string;
+  updatedAt: string;
+  city: string;
+  email: string;
+  gender: string;
+  pinCode: number;
+  state: string;
+  dob: string;
+  line1: string;
+  line2: string;
+}

@@ -1,7 +1,20 @@
 import type { AxiosResponse } from "axios";
-import type { AuthLoginData, AuthOtpData, AuthRegistrationData, LoginResponse, OtpResponse, RegistrationResponse } from "../model/auth-model";
+import type { AuthLoginData, AuthOtpData, AuthRegistrationData, LoginResponse, OtpResponse, RegistrationResponse, UpdateProfileResponse } from "../model/auth-model";
 import api from ".";
 import { apiUrl } from "../url";
+
+interface UpdateProfilePayload {
+  email?: string;
+  name: string;
+  mobile: string;
+  dob: string;
+  line1: string;
+  line2: string;
+  city: string;
+  state: string;
+  pinCode: number;
+  gender: string;
+}
 
 
 export const authApi ={
@@ -25,5 +38,12 @@ export const authApi ={
         return response.data
     },
 
+    updateProfile: async (
+        payload: UpdateProfilePayload): Promise<UpdateProfileResponse> => {
+
+        const response : AxiosResponse<UpdateProfileResponse> = await api.put(apiUrl.updateProfile, payload)
+      
+        return response.data;
+        },
 
 }
