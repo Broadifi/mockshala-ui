@@ -49,12 +49,9 @@ export const profileSchema = z.object({
     .max(100, "State must not exceed 100 characters"),
   
   pinCode: z
-    .union([z.number(), z.string()])
-    .refine(
-      (val) => /^[0-9]{5,6}$/.test(String(val)),
-      "Pincode must be 5-6 digits"
-    )
-    .transform((val) => (typeof val === "string" ? parseInt(val, 10) : val)),
+    .number()
+    .min(10000, "Pincode must be 5-6 digits")
+    .max(999999, "Pincode must be 5-6 digits"),
 });
 
 export type ProfileFormData = z.infer<typeof profileSchema>;
