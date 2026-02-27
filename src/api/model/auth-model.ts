@@ -66,6 +66,7 @@ export interface User {
   isPasswordExist: boolean;
   isEmailVerified: boolean;
 }
+
 interface SelectedExamCategories {
   _id: string;
   categoryName: string;
@@ -81,6 +82,18 @@ interface ProfilePicture {
   updatedAt: string;
 }
 
+
+//New User data
+export interface NewUser {
+  _id: string;
+  name: string;
+  mobile: string;
+  country: string;
+  isRegistered: boolean;
+  registeredBy: string;
+  isPasswordExist: boolean;
+  isEmailVerified: boolean;
+}
 
 //Registration Verification
 
