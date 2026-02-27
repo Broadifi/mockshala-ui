@@ -6,9 +6,9 @@ interface ResourceFiltersProps {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   selectedCategory: string;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
-  ExamCategory?: CategoryDaum[];
+  category?: CategoryDaum[];
   isCategoryLoading: boolean;
-  isFetching: boolean;
+  isFetching: boolean; 
 }
 
 function ResourceFilters({
@@ -16,7 +16,7 @@ function ResourceFilters({
   setSearchTerm,
   selectedCategory,
   setSelectedCategory,
-  ExamCategory,
+  category,
   isCategoryLoading,
 }: ResourceFiltersProps) {
   return (
@@ -25,7 +25,7 @@ function ResourceFilters({
       
       
       <div className="col-span-1 md:col-span-12">
-        <h1 className="text-xl sm:text-2xl font-bold tracking-wide text-blue-600">
+        <h1 className="text-xl sm:text-2xl font-bold tracking-wide bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
           RESOURCES
         </h1>
       </div>
@@ -57,8 +57,8 @@ function ResourceFilters({
         >
           <option value="">All Categories</option>
           {isCategoryLoading && <option disabled>Loading Categories...</option>}
-          
-          {ExamCategory?.map((item) => (
+
+          {category?.map((item) => (
             <option key={item._id} value={item._id}>
               {item.categoryName}
             </option>

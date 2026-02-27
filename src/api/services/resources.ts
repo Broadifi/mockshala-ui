@@ -1,25 +1,40 @@
 import type { AxiosResponse } from "axios";
-import type {ResourcesResponse} from "../model/resource"
+import type { ResourcesResponse } from "../model/resource";
 
 import api from ".";
 import { apiUrl } from "../url";
 
-
+type ParamsType = {
+  page: number;
+  limit: number;
+  search?: string;
+  examCategory?: string;
+};
 
 export const resourcesAPI = {
-  getResources: async (page: number = 1, limit: number = 5, search?: string, category?: string) => {
-    const response: AxiosResponse<ResourcesResponse> =
-      await api.get(apiUrl.resources(), {
-        params: {
-            page,
-            limit,
-            ...(search ? { search } : {}), 
-            ...(category ? { category } : {})
-        }
-      })
-    console.log(response);
-    
-    return response.data
-  }
-}
+  getResources: async (
+    page: number = 1,
+    limit: number = 5,
+    search?: string,
+    examCategory?: string,
+  ) => {
+    const params :ParamsType= {
+      page,
+      limit,
+    };
+    if (search) {
+      params.search = search;
+    }
+    if (examCategory) {
+      params.examCategory = examCategory;
+    }
+    const response: AxiosResponse<ResourcesResponse> = await api.get(
+      apiUrl.resources(),
+      {
+        params,
+      },
+    );
 
+    return response.data;
+  },
+};

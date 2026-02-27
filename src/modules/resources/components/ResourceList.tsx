@@ -5,6 +5,7 @@ import ResourceCard from "./ResourceCard";
 import type { Daum } from "@/api/model/resource";
 import illustration from "@/assets/fallback/NoResultFoundImg.jpg";
 
+
 interface ResourceListProps {
   items: Daum[] | undefined;
   isLoading: boolean;
@@ -63,13 +64,16 @@ function ResourceList({
             Loading more resources...
           </div>
         )}
+
         {/* {!hasNextPage && items.length > 0 && (
-          <div className="text-gray-400 text-sm">
+          <div className="text-gray-400 text-sm flex items-center">
             You have reached the end of the list.
           </div>
         )} */}
-      </div>
     </div>
+        
+      </div>
+      
   );
 }
 

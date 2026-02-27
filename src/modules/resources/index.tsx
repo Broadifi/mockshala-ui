@@ -71,7 +71,7 @@ function ResourcesModule() {
           setSearchTerm={setSearchInput}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
-          ExamCategory={categoryResponse?.data}
+          category={categoryResponse?.data}
           isCategoryLoading={isCategoryLoading}
           isFetching={isFetching}
           
