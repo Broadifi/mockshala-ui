@@ -12,7 +12,10 @@ export interface EditorialCornerData {
   publishedDate: string;
   slug: string;
 }
-
+// export interface EditorialCornerBlog{
+//   prevBlog:string;
+//   nextBlog:string;
+// }
 export interface EditorialCornerResponse {
   error: boolean;
   status: boolean;
@@ -21,7 +24,9 @@ export interface EditorialCornerResponse {
   totalCount: number;
   hasNext: boolean;
   page: number;
-  data: EditorialCornerData[];
+  // data: EditorialCornerData[];
+  data:EditorialCornerData[];
+  // meta:EditorialCornerBlog{};
   // currentPage: number;
   
 }

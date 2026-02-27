@@ -22,6 +22,7 @@ const EditorialCornerDetails = () => {
   });
 
   const fetchData = data?.data;
+  console.log(fetchData)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -60,10 +61,34 @@ const EditorialCornerDetails = () => {
           </p>
         </div>
       </Link> */}
-      <div className="flex flex-col justify-start gap-2">
+      <div className="flex flex-col justify-start gap-2 ">
         <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           {fetchData.title}
         </h3>
+          <div className="flex flex-row  items-center text-subtitle-gray ">
+        <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
+          Home
+        </span>{" "}
+        <IoIosArrowForward />
+        <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
+          <Link to={`/${lang}/editorials-corner/`}>Editorial Corner </Link>
+        </span>
+        <IoIosArrowForward />
+        <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800">
+          {fetchData.metaTitle}
+        </span>
+      </div>
+        <div className="flex min-[292px]:flex-row justify-start items-center min-[292px]:gap-3 flex-col gap-0">
+          <div className="flex flex-row justify-center items-center gap-0.5">
+          🕰️
+            <span className="text-blue-800 text-xs lg:text-sm">{fetchData.readTime.text}</span>
+          </div>
+          <div className="flex flex-row justify-center items-center gap-0.5">
+            
+              📜
+            <span className="text-blue-800 text-xs lg:text-sm">Words:{fetchData.readTime.words}</span>
+          </div>
+        </div>
         <div className="text-sm text-gray-600 flex flex-row justify-start items-center gap-2 mx-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -82,23 +107,21 @@ const EditorialCornerDetails = () => {
             <rect width="18" height="18" x="3" y="4" rx="2" />
             <path d="M3 10h18" />
           </svg>
-          <h3 className="lg:text-lg md:text-base text-sm">
+          <h3 className="lg:text-base md:text-base text-sm">
             Published on<span className="px-1">:</span>
             {formatDate(fetchData.publishedDate)}
           </h3>
         </div>
       </div>
-      <div className="flex flex-row  items-center text-subtitle-gray "><span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">Home</span> <IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base"><Link to={`/${lang}/editorials-corner/` }>Editorial Corner </Link></span><IoIosArrowForward/><span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800">{fetchData.metaTitle}</span></div>
+    
       <div className="flex-col sm:flex-none   items-center justify-center ">
-        
-          <div className="sm:h-[50%] sm:w-[50%]  flex flex-row justify-center items-center  rounded-2xl sm:float-left mb-2 sm:px-2 float-none h-full w-full  sm:mb-3.5 ">
-            <img
-              src={`${IMAGE_BASE_URL}${fetchData.image}`}
-              alt={fetchData.metaTitle}
-              className=" mr-7    bg-contain overflow-hidden rounded-2xl mx-auto "
-            />
-          </div>
-       
+        <div className="sm:h-[50%] sm:w-[50%]  flex flex-row justify-center items-center  rounded-2xl sm:float-left mb-2 sm:px-2 float-none h-full w-full  sm:mb-3.5 ">
+          <img
+            src={`${IMAGE_BASE_URL}${fetchData.image}`}
+            alt={fetchData.metaTitle}
+            className=" mr-7    bg-contain overflow-hidden rounded-2xl mx-auto "
+          />
+        </div>
 
         <p
           className="  text-gray-600  min-[1028px]:text-lg md:text-base text-sm text-justify  px-2"

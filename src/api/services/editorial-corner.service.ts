@@ -6,7 +6,8 @@ import { apiUrl } from "../url"
 interface FetchEditorial {
     page: number,
     limit: number,
-    date?:string,
+    startDate?:string,
+    endDate?:string,
     tags?:string[]
 }
 
@@ -25,7 +26,8 @@ interface FetchEditorial {
 export async function fetchEditorialCorners({
   page = 1,
   limit,
-  date,
+  startDate,
+  endDate,
   tags = [],
 }: FetchEditorial) {
   const response: AxiosResponse<EditorialCornerResponse> =
@@ -33,7 +35,8 @@ export async function fetchEditorialCorners({
       params: {
         page,
         limit,
-        date,
+         startDate,
+  endDate,
         tags,
       },
     });
@@ -44,7 +47,7 @@ export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialC
       const response: AxiosResponse<EditorialCornerData> = 
             await api.get(apiUrl.editorialsCornerBySlug(slug))
 
-        return response.data
+        return response.data;
 }
 // services/data.service.ts
 import axios from "axios";
