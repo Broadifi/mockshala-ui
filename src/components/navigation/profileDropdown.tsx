@@ -1,4 +1,4 @@
-import { Link, useParams } from "@tanstack/react-router";
+import { Link, useNavigate, useParams } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -14,6 +14,7 @@ import { useAuthStore } from "@/stores/authStore";
 
 function ProfileDropdown() {
   const { lang } = useParams({ strict: false });
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
   const { logout } = useAuthStore((state) => state.auth);
@@ -25,7 +26,13 @@ function ProfileDropdown() {
     queryClient.clear();
 
     toast.success("Logged out successfully !!", {
-      duration: 10000,
+      duration: 5000,
+    });
+
+    navigate({
+      to: "/$lang",
+      params: { lang: lang ?? "en" },
+      replace: true, // prevents back navigation to protected page
     });
   };
 

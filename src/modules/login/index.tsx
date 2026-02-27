@@ -25,10 +25,11 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { mockShalaLogo } from "@/assets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoginWithOtp } from "./loginWithOtp";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { NewUserRegistration } from "./newUserRegistration";
+import { useSearch } from "@tanstack/react-router";
 
 interface LoginDialogProps {
   open: boolean;
@@ -36,6 +37,8 @@ interface LoginDialogProps {
 }
 
 export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
+  const search = useSearch({ strict: false });
+
   //control OTP dialog open state
   const [isOTPDialogOpen, setOTPDialogOpen] = useState(false);
 
@@ -49,6 +52,12 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
       mobile: "",
     },
   });
+
+  useEffect(() => {
+    if (search.login === "true") {
+      onOpenChange(true);
+    }
+  }, [search.login, onOpenChange]);
 
   const loginMutation = useMutation({
     mutationFn: authApi.login,
