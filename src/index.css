@@ -297,6 +297,15 @@ body {
   );
 }
 
+.gradient-soft-blue-profile {
+  background-image: linear-gradient(
+    to left,
+    rgba(243, 244, 246, 0.7),  /* gray-100 / 70% */
+    rgba(219, 234, 254, 0.3),  /* blue-100 / 30% */
+    rgba(224, 231, 255, 0.6)   /* indigo-100 / 60% */
+  );
+}
+
 .exam-card-gradient {
  background-image: linear-gradient(120deg, #f3f8f8 0%, #eff5f8 100%);
 }

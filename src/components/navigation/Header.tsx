@@ -112,18 +112,24 @@ function Header() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-48 p-2 z-50" align="end">
                   <DropdownMenuGroup>
-                    {moreOptionDataTablet.map((item) => (
-                      <DropdownMenuItem key={item.url} asChild>
-                        <Link
-                          key={lang === "hi" ? item.titleHin : item.titleEn}
-                          to={item.url}
-                          className={`w-full cursor-pointer p-2 rounded-md text-xs
+                    {moreOptionDataTablet.map((item) => {
+                      if (!accessToken && !item.allUsersAccess) {
+                        return null; // hide restricted menu
+                      }
+
+                      return (
+                        <DropdownMenuItem key={item.url} asChild>
+                          <Link
+                            key={lang === "hi" ? item.titleHin : item.titleEn}
+                            to={item.url}
+                            className={`w-full cursor-pointer p-2 rounded-md text-xs
                           ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
-                        >
-                          {lang === "hi" ? item.titleHin : item.titleEn}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
+                          >
+                            {lang === "hi" ? item.titleHin : item.titleEn}
+                          </Link>
+                        </DropdownMenuItem>
+                      );
+                    })}
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -171,20 +177,30 @@ function Header() {
 
           {/* Quick Access  for Large View*/}
           <div className="hidden xl:flex xl:gap-1 2xl:gap-2  justify-center items-center text-muted-foreground">
-            {headerData.map((item, index) =>
-              item.isChild ? (
-                <ExamModule key={index} />
-              ) : (
+            {headerData.map((item, index) => {
+              if (item.isChild) {
+                return <ExamModule key={index} />;
+              }
+
+              if (!accessToken && !item.allUsersAccess) {
+                return null; // hide restricted menu
+              }
+
+              return (
                 <Link
                   key={lang === "hi" ? item.titleHin : item.titleEn}
                   to={item.url}
                   className={`xl:px-1 xl:py-1 2xl:px-1.5 2xl:py-1.5 xl:text-xs 2xl:text-sm font-medium rounded-md transition-colors 
-                  ${isActive(item.url) ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"}`}
+                  ${
+                    isActive(item.url)
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  }`}
                 >
                   {lang === "hi" ? item.titleHin : item.titleEn}
                 </Link>
-              ),
-            )}
+              );
+            })}
 
             {/* more Option */}
             <div>
@@ -243,21 +259,6 @@ function Header() {
             </div>
 
             {isLoggedIn ? (
-              // <Link
-              //   key="Profile"
-              //   to="/$lang/profile"
-              //   params={{ lang: `${lang}` }}
-              //   onClick={() => setMobileOpen(false)}
-              //   className={`flex gap-2 px-2 rounded-md text-sm font-medium transition-colors ${
-              //     isActive("/profile")
-              //       ? "bg-primary/10 text-primary"
-              //       : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-              //   }`}
-              // >
-              //   {/* <CircleUserRound size={28} strokeWidth={2} className="text-blue-600" /> */}
-              //   <ProfileIcon />
-              // </Link>
-
               <ProfileDropdown />
             ) : (
               <div
@@ -338,7 +339,7 @@ function Header() {
                           to="/$lang/profile"
                           params={{ lang: `${lang}` }}
                           onClick={() => setMobileOpen(false)}
-                          className={`gradient-soft-blue-current-affairs flex items-center gap-2 px-2 py-4  mb-5 rounded-md text-sm font-medium transition-colors ${
+                          className={`gradient-soft-blue-profile flex items-center gap-2 px-2 py-4  mb-5 rounded-md text-sm font-medium transition-colors ${
                             isActive("/profile")
                               ? " text-primary"
                               : "text-title-darkblue hover:text-accent-foreground"
@@ -349,20 +350,30 @@ function Header() {
                         </Link>
                       )}
 
-                      {[...headerData, ...moreOptionData].map((item, index) =>
-                        item.isChild ? (
-                          <button
-                            key={index}
-                            onClick={() => setMenuView("exam")}
-                            className="flex gap-5 items-center px-3 py-3 text-sm font-medium text-title-darkblue"
-                          >
-                            {lang === "hi" ? item.titleHin : item.titleEn}
-                            <ChevronRight
-                              size={20}
-                              className="text-text-title-darkblue"
-                            />
-                          </button>
-                        ) : (
+                      {[...headerData, ...moreOptionData].map((item, index) => {
+                        // Always show exam parent
+                        if (item.isChild) {
+                          return (
+                            <button
+                              key={index}
+                              onClick={() => setMenuView("exam")}
+                              className="flex gap-5 items-center px-3 py-3 text-sm font-medium text-title-darkblue"
+                            >
+                              {lang === "hi" ? item.titleHin : item.titleEn}
+                              <ChevronRight
+                                size={20}
+                                className="text-text-title-darkblue"
+                              />
+                            </button>
+                          );
+                        }
+
+                        // Hide protected routes when not logged in
+                        if (!accessToken && !item.allUsersAccess) {
+                          return null;
+                        }
+
+                        return (
                           <Link
                             key={index}
                             to={item.url}
@@ -375,8 +386,8 @@ function Header() {
                           >
                             {lang === "hi" ? item.titleHin : item.titleEn}
                           </Link>
-                        ),
-                      )}
+                        );
+                      })}
 
                       {isLoggedIn ? (
                         <LogoutMobile
@@ -388,12 +399,12 @@ function Header() {
                         <div
                           key={"LoginMobile"}
                           onClick={() => handleLoginMobile()}
-                          className="px-2 2xl:px-3"
+                          className="px-2"
                         >
                           <Button
                             variant={"default"}
                             size={"sm"}
-                            className="cursor-pointer px-3 py-2 my-5 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
+                            className="cursor-pointer px-3 py-2 my-3 shadow-lg  rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                               hover:scale-[1.03] hover:shadow-xl"
                           >
                             Login/Signup

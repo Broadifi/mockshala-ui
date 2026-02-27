@@ -26,11 +26,12 @@ function LogoutMobile({onClose}:NavigationProps) {
   };
 
   return (
-    <div key={"Logout"} onClick={() => handleLogOut()}>
+    <div
+     key={"Logout"} onClick={() => handleLogOut()}>
       <Button
         variant={"default"}
         size={"sm"}
-        className=" cursor-pointer p-4 my-5
+        className=" cursor-pointer p-4 my-3 mx-3
                   shadow-lg rounded-lg  bg-linear-to-r from-blue-600  to-sky-500 hover:from-sky-600 hover:to-blue-600
                    hover:scale-[1.03] hover:shadow-xl"
       >
