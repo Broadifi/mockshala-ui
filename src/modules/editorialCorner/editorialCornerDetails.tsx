@@ -22,7 +22,9 @@ const EditorialCornerDetails = () => {
   });
 
   const fetchData = data?.data;
-  console.log(fetchData)
+  const fetchBlog = data?.meta;
+
+  console.log(fetchData);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -65,28 +67,31 @@ const EditorialCornerDetails = () => {
         <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           {fetchData.title}
         </h3>
-          <div className="flex flex-row  items-center text-subtitle-gray ">
-        <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
-          Home
-        </span>{" "}
-        <IoIosArrowForward />
-        <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
-          <Link to={`/${lang}/editorials-corner/`}>Editorial Corner </Link>
-        </span>
-        <IoIosArrowForward />
-        <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800">
-          {fetchData.metaTitle}
-        </span>
-      </div>
+        <div className="flex flex-row  items-center text-subtitle-gray ">
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
+            Home
+          </span>{" "}
+          <IoIosArrowForward />
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
+            <Link to={`/${lang}/editorials-corner/`}>Editorial Corner </Link>
+          </span>
+          <IoIosArrowForward />
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800">
+            {fetchData.metaTitle}
+          </span>
+        </div>
         <div className="flex min-[292px]:flex-row justify-start items-center min-[292px]:gap-3 flex-col gap-0">
           <div className="flex flex-row justify-center items-center gap-0.5">
-          🕰️
-            <span className="text-blue-800 text-xs lg:text-sm">{fetchData.readTime.text}</span>
+            🕰️
+            <span className="text-blue-800 text-xs lg:text-sm">
+              {fetchData.readTime.text}
+            </span>
           </div>
           <div className="flex flex-row justify-center items-center gap-0.5">
-            
-              📜
-            <span className="text-blue-800 text-xs lg:text-sm">Words:{fetchData.readTime.words}</span>
+            📜
+            <span className="text-blue-800 text-xs lg:text-sm">
+              Words : {fetchData.readTime.words}
+            </span>
           </div>
         </div>
         <div className="text-sm text-gray-600 flex flex-row justify-start items-center gap-2 mx-1">
@@ -113,7 +118,7 @@ const EditorialCornerDetails = () => {
           </h3>
         </div>
       </div>
-    
+
       <div className="flex-col sm:flex-none   items-center justify-center ">
         <div className="sm:h-[50%] sm:w-[50%]  flex flex-row justify-center items-center  rounded-2xl sm:float-left mb-2 sm:px-2 float-none h-full w-full  sm:mb-3.5 ">
           <img
@@ -140,6 +145,92 @@ const EditorialCornerDetails = () => {
           Slug:{`/${fetchData.slug}`}
         </span>
       </div> */}
+      <div className="flex flex-row justify-center items-center">
+        <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#5a5858"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-left-icon lucide-chevron-left"
+            className="hover:bg-gray-300 rounded-full"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </Link>
+        <Link to={`/${lang}/editorials-corner/${fetchBlog?.nextBlog}`}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#5a5858"
+            stroke-width="1.25"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-chevron-right-icon lucide-chevron-right"
+            className="hover:bg-gray-300 rounded-full"
+          >
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </Link>
+      </div>
+      <div className="flex flex-col gap-4 items-center">
+        <h1 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">Other Picks For You</h1>
+        <div className="flex flex-row gap-3">
+          {" "}
+          {fetchBlog?.otherEditorials.map((metaItem) => {
+            return (
+              <Link
+                key={metaItem._id}
+                to={`/${lang}/editorials-corner/${metaItem.slug}`}
+              >
+                <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card">
+                  <div className="rounded-t-3xl w-full overflow-hidden h-30">
+                    <img
+                      src={`${IMAGE_BASE_URL}${metaItem.thumbnailImage}`}
+                      alt={metaItem.metaTitle}
+                      className="hover:scale-105 transition-transform duration-300 w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-row items-center justify-start px-3 ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-calendar-icon lucide-calendar"
+                    >
+                      <path d="M8 2v4" />
+                      <path d="M16 2v4" />
+                      <rect width="18" height="18" x="3" y="4" rx="2" />
+                      <path d="M3 10h18" />
+                    </svg>
+                    <span className="px-1 text-sm text-title-gradient-blue">
+                      {formatDate(metaItem.publishedDate)}
+                    </span>
+                  </div>
+
+                  <div className="text-base md:text-lg lg:text-lg font-bold line-clamp-3 px-3  text-title-darkblue ">
+                    {metaItem.title}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

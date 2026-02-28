@@ -11,11 +11,19 @@ export interface EditorialCornerData {
   approveStatus: string;
   publishedDate: string;
   slug: string;
+ 
 }
-// export interface EditorialCornerBlog{
-//   prevBlog:string;
-//   nextBlog:string;
+// export interface otherEditorials{
+//   thumbna
 // }
+export interface EditorialCornerBlog{
+  data:EditorialCornerData[];
+   meta:{
+    prevBlog:string;
+    nextBlog:string;
+    otherEditorials:EditorialCornerData[];
+  }
+}
 export interface EditorialCornerResponse {
   error: boolean;
   status: boolean;
@@ -26,6 +34,7 @@ export interface EditorialCornerResponse {
   page: number;
   // data: EditorialCornerData[];
   data:EditorialCornerData[];
+  
   // meta:EditorialCornerBlog{};
   // currentPage: number;
   
