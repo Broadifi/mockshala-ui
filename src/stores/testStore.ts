@@ -1,18 +1,31 @@
-import type { TestDetailsData } from "@/api/model/test-model";
+import type { Test } from "@/api/model/test-model";
 import { create } from "zustand";
 
 interface TestStore {
-  testData: TestDetailsData | null;
-  setTestData: (lang: TestDetailsData) => void;
-  clearTestData: () => void;
+  tests: Test[];
+  originalTests: Test[];
+  setTests: (data: Test[]) => void;
+  // setOriginalTests: (data: Test[]) => void;
+  
+  filterTests:(data: Test[]) => void;
+  // filterTests: (predicate: (test: Test) => boolean) => void;
+  resetTests: () => void;
+  clearTests: () => void;
 }
 
-
-
 export const useTestDescriptionStore = create<TestStore>((set)=>({
-    testData: null,
-    setTestData: (data)=> set({testData: data}),
-    clearTestData: () => set({testData:null})
+    tests: [],
+    originalTests: [],
+    setTests: (data) => set({ tests: data, originalTests: data }),
+    // setOriginalTests: (data) => set({ originalTests: data }),
+
+    // filterTests: (predicate) => set((state) => ({
+    //   tests: state.originalTests.filter(predicate)
+    // })),
+
+    filterTests: (data)=> set({tests:data}),
     
+    resetTests: () => set((state) => ({ tests: state.originalTests })),
+    clearTests: () => set({ tests: [], originalTests: [] })
 }))
 

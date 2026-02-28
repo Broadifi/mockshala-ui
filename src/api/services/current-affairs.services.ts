@@ -13,7 +13,7 @@ interface CurrentAffairsPaginationParams{
 export async function fetchCurrentAffairs({
     page =1, limit, date, tags = []
 }: CurrentAffairsPaginationParams): Promise<CurrentAffairsResponseAll>{
-    const response:AxiosResponse<CurrentAffairsResponseAll>= await api.get(apiUrl.currentAffairs(),{
+    const response:AxiosResponse<CurrentAffairsResponseAll> = await api.get(apiUrl.currentAffairs(),{
         params: {
             page,
             limit,

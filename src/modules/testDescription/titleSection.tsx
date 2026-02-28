@@ -1,44 +1,49 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { question, testCount, validityImg } from "@/assets";
-import { useTestDescriptionStore } from "@/stores/testStore";
 import type { TestDetailsData } from "@/api/model/test-model";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, HeartPlus, Share2 } from "lucide-react";
+import { ArrowRight, Clock, HeartPlus } from "lucide-react";
 import { formatToK } from "@/utils/formatting/formatNumber";
 import DescriptionModal from "./modal/modal";
 import FullDescriptionSection from "./fullDescriptionSection";
+import ShareOnMedia from "@/components/shareOnMedia";
+import { useTestDescriptionStore } from "@/stores/testStore";
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
+interface TitleSectionProps {
+  testData: TestDetailsData | undefined;
 }
 
-function TitleSection() {
+function TitleSection({ testData }: TitleSectionProps) {
   const [showModal, setShowModal] = useState(false);
 
-  const { testData: fetchTestData }: StoreDataProps = useTestDescriptionStore();
+  const { originalTests } = useTestDescriptionStore();
 
   // Total test count
-  const totalTests = fetchTestData?.tests.length;
+  const totalTests = originalTests.length ?? 0;
 
   // total questions no
   const totalQuestions =
-    fetchTestData?.tests.reduce((sum, test) => sum + test.totalQuestions, 0) ??
-    0;
+    originalTests.reduce((sum, test) => sum + test.totalQuestions, 0) ?? 0;
 
   let time = 0;
-  if (fetchTestData) {
-    time = fetchTestData?.durationTime / 30;
+  if (testData) {
+    time = testData?.durationTime / 30;
   }
 
   //course validity
   const validity = Math.floor(time);
 
   //fetch descriptionDetails
-  const descriptionDetails = fetchTestData?.description ?? "";
+  const descriptionDetails = testData?.description ?? "";
+
+  //Props for Social media share
+  const shareMedia = {
+    title: "Check this course 👇",
+    buttonName: "Share",
+    popupHeader: "Check this course",
+  };
 
   return (
     <div>
@@ -53,14 +58,14 @@ function TitleSection() {
           <div className="shrink-0">
             <div className="rounded-full h-16 w-16 sm:h-20 sm:w-20 p-2 relative overflow-hidden ">
               <img
-                src={IMAGE_BASE_URL + fetchTestData?.image}
-                alt={fetchTestData?.name || "Test series image"}
+                src={IMAGE_BASE_URL + testData?.image}
+                alt={testData?.name || "Test series image"}
                 className="object-contain rounded-full h-full w-full relative z-20 "
               />
 
               <img
-                src={IMAGE_BASE_URL + fetchTestData?.image}
-                alt={fetchTestData?.name || "Test series image"}
+                src={IMAGE_BASE_URL + testData?.image}
+                alt={testData?.name || "Test series image"}
                 className="object-cover rounded-full absolute inset-0 h-full w-full z-10 blur-[3px]"
               />
             </div>
@@ -68,7 +73,7 @@ function TitleSection() {
 
           <div>
             <h1 className="text-xl sm:text-2xl text-[#002966] text-shadow-xs  font-medium">
-              {fetchTestData?.name}
+              {testData?.name}
             </h1>
           </div>
         </div>
@@ -148,10 +153,7 @@ function TitleSection() {
               <p className="hidden sm:flex">Wishlist</p>
             </div>
 
-            <div className=" text-gray-500 flex items-center gap-1 text-[15px]">
-              <Share2 size={18} className="text-gray-600" />
-              <p className="hidden sm:flex">Share</p>
-            </div>
+            <ShareOnMedia data={shareMedia} />
           </div>
         </div>
       </div>
@@ -173,7 +175,7 @@ function TitleSection() {
           {/* Heading */}
           <div className="pb-4">
             <h1 className="text-4xl text-[#002966] text-shadow-xs max-w-3xl font-medium">
-              {fetchTestData?.name}
+              {testData?.name}
             </h1>
           </div>
 

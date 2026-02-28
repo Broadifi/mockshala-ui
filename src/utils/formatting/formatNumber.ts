@@ -1,5 +1,5 @@
 // utils/formatNumber.ts
-export const formatToK = (num: number): string | number =>
+export const formatToK = (num: number): string =>
   num >= 1000
     ? `${(num / 1000).toFixed(num % 1000 === 0 ? 0 : 1)}k`
-    : num;
+    : `${num}`;

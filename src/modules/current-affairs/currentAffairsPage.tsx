@@ -87,7 +87,7 @@ export default function CurrentAffairsPage() {
     queryFn: ({ pageParam = 1 }) =>
       fetchCurrentAffairs({
         page: pageParam,
-        limit: 6,
+        limit: 12,
         date: formatDateToISO(date),
         tags,
       }),
@@ -106,7 +106,7 @@ export default function CurrentAffairsPage() {
     refetchOnReconnect: false,
   });
 
-  //   console.log("affairs data", data);
+    // console.log("affairs data", data);
 
   const allItems = useMemo(() => {
     return data?.pages.flatMap((page) => page.data) ?? [];
@@ -155,7 +155,7 @@ export default function CurrentAffairsPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs">
+    <div className="min-h-[calc(100vh-4rem)] gradient-soft-blue-current-affairs pb-6 lg:pb-10">
       {/* for mobile view */}
       <div className="fixed lg:hidden top-15 left-0 right-0 z-20 gradient-soft-blue-current-affairs">
         <div className=" backdrop-blur-lg bg-white/50">
@@ -191,7 +191,7 @@ export default function CurrentAffairsPage() {
           <FilterCurrentAffairs filters={filters} />
         </div>
 
-        <section className="w-full mt-14 lg:mt-8 ">
+        <section className="w-full mt-14 lg:mt-11 ">
           <div className="pb-3 space-y-1">
             <h2
               className="inline-block text-2xl xl:text-4xl font-bold 

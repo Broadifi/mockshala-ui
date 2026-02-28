@@ -9,7 +9,6 @@ import { useParams } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 import { useTestDescriptionStore } from "@/stores/testStore";
-import type { TestDetailsData } from "@/api/model/test-model";
 
 import { TestHeaderSkeleton } from "./skeleton/testHeaderSkeleton";
 import BuyNowSection from "./buyNowSection";
@@ -30,11 +29,6 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
-}
 function DescriptionModule() {
   //Check the width to render test series conditionally
   const width = useBreakpoints("lg");
@@ -52,22 +46,26 @@ function DescriptionModule() {
   });
 
   //get the Setter function from zustand
-  const { setTestData }: StoreDataProps = useTestDescriptionStore();
+  const { setTests } = useTestDescriptionStore();
 
   const { data, isLoading } = useQuery({
     queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
     queryFn: () => testAPI.getTestDetails(testSlug),
   });
 
-  // console.log("data is",data);
-  // console.log("isLoading", isLoading);
-  // console.log("is data", data);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   useEffect(() => {
-    if (data?.data) {
-      setTestData(data.data);
+    if (data?.data?.tests) {
+      setTests(data.data.tests);
     }
-  }, [data, setTestData]);
+  }, [data, setTests]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  },[]);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -92,7 +90,7 @@ function DescriptionModule() {
 
   return (
     <>
-    {/* sticky header */}
+      {/* sticky header */}
       {/* {
         <div
           className={`bg-amber-300 p-5 z-50 shadow-2xl ${showStickyHeader ? "sticky top-13 md:top-15 lg:top-16 flex" : "hidden"}`}
@@ -101,9 +99,9 @@ function DescriptionModule() {
         </div>
       } */}
 
-      <div className="w-full bg-soft-blue-gradient h-full min-h-screen">
+      <div className="w-full bg-soft-blue-gradient h-full min-h-screen pb-6 lg:pb-10 xl:pb-12">
         <div className="w-full  h-1/2">
-          <div className="w-full container px-4 py-5 mx-auto">
+          <div className="w-full container px-4 py-5 mx-auto ">
             {/* bread crumbs   */}
 
             <Breadcrumb>
@@ -129,7 +127,7 @@ function DescriptionModule() {
               (width ? <TestHeaderSkeleton /> : <MobileTestHeaderSkeleton />)}
 
             {/* Main Header */}
-            {!isLoading && <TitleSection />}
+            {!isLoading && <TitleSection testData={data?.data} />}
 
             {/* Description section */}
 
@@ -142,7 +140,11 @@ function DescriptionModule() {
               {/* Buy Now section */}
 
               <div className=" col-span-3 lg:-mt-64 lg:mr-5 lg:z-10 ">
-                {isLoading ? <BuyNowSkeleton /> : <BuyNowSection />}
+                {isLoading ? (
+                  <BuyNowSkeleton />
+                ) : (
+                  <BuyNowSection testData={data?.data} />
+                )}
               </div>
             </div>
           </div>

@@ -58,7 +58,7 @@ export function CurrentAffairs() {
         }}
         plugins={[
           Autoplay({
-            delay: 2000,
+            delay: 3000,
           }),
         ]}
         className="w-full mt-6 sm:mt-8 "
@@ -126,8 +126,8 @@ export function CurrentAffairs() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4" />
-        <CarouselNext className="right-4" />
+        <CarouselPrevious className="left-4 cursor-pointer" />
+        <CarouselNext className="right-4 cursor-pointer" />
       </Carousel>
 
       {/* View All */}
@@ -139,7 +139,7 @@ export function CurrentAffairs() {
         >
           <Button
             variant="ghost"
-            className="px-6 py-2 rounded-full
+            className="px-6 py-2 rounded-full cursor-pointer
             border border-blue-200
             bg-blue-100/70 backdrop-blur
             text-blue-700 font-medium

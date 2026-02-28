@@ -6,8 +6,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { TestDetailsData } from "@/api/model/test-model";
-import { Badge } from "@/components/ui/badge";
 import StartButton from "@/components/customButtons/startButtom";
 import BuyNow from "@/components/customButtons/buyNow";
 import { formatName } from "@/utils/formatting/formatName";
@@ -21,13 +19,8 @@ import { testDescriptionKey } from "@/api";
 import AllTestMobile from "./allTestMobile";
 import MobileAllTestCardSkeleton from "../skeleton/mobileAllTestCardSkeleton";
 
-interface StoreDataProps {
-  testData: TestDetailsData | null;
-  setTestData: (data: TestDetailsData) => void;
-  clearTestData: () => void;
-}
 function AllTests() {
-  const { testData }: StoreDataProps = useTestDescriptionStore();
+  const { tests } = useTestDescriptionStore();
 
   const { examCategory, testSlug } = useParams({
     from: "/$lang/exams/$examCategory/$testSlug/",
@@ -40,7 +33,7 @@ function AllTests() {
 
   // console.log("isFetching", state);
 
-  // console.log("data is", testData?.tests.length);
+  // console.log("data is", tests.length);
 
   const difficultyTextColor: Record<string, string> = {
     beginner: "text-green-600",
@@ -65,21 +58,23 @@ function AllTests() {
   return (
     <div>
       {/* For mobile and tablet screen */}
-      <div className="flex lg:hidden">{
-        state?.status === "pending" ? <MobileAllTestCardSkeleton /> :
-        <AllTestMobile filteredTests={testData?.tests} />
-        }
+      <div className="flex lg:hidden">
+        {state?.status === "pending" ? (
+          <MobileAllTestCardSkeleton />
+        ) : (
+          <AllTestMobile filteredTests={tests} />
+        )}
       </div>
 
-      <div className="w-full h-[70vh] overflow-y-auto flex flex-col">
+      <div className="w-full flex flex-col">
         {/* Above large screen */}
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex h-[70vh] overflow-y-auto flex-col">
           {state?.status === "pending" ? (
             <AllTestsTableSkeleton rows={7} />
           ) : (
             <Table className="w-full border-collapse ">
               {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-              <TableHeader className="sticky top-0 z-50 bg-white">
+              <TableHeader className="sticky top-0 z-10 bg-white">
                 <TableRow>
                   <TableHead>Difficulty</TableHead>
                   <TableHead className="text-center">Test Type</TableHead>
@@ -91,7 +86,7 @@ function AllTests() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {testData?.tests.map((item) => (
+                {tests.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell
                       className={
@@ -103,10 +98,8 @@ function AllTests() {
                       {formattingWord(item.difficultyLevel)}
                     </TableCell>
 
-                    <TableCell className=" flex justify-center items-center">
-                      <Badge variant={"secondary"}>
-                        {formattingWord(item.testType)}
-                      </Badge>
+                    <TableCell className=" text-center  text-table-text-primary">
+                      <p>{formattingWord(item.testType)}</p>
                     </TableCell>
 
                     <TableCell className="font-medium max-w-xs">
@@ -133,7 +126,7 @@ function AllTests() {
                       {item.isOpen ? (
                         <StartButton title={"Start"} />
                       ) : (
-                        <BuyNow title={"Buy Now"} />
+                        <BuyNow title={"Unlock"} />
                       )}
                     </TableCell>
                   </TableRow>

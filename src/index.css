@@ -297,13 +297,24 @@ body {
   );
 }
 
+.gradient-soft-blue-profile {
+  background-image: linear-gradient(
+    to left,
+    rgba(243, 244, 246, 0.7),  /* gray-100 / 70% */
+    rgba(219, 234, 254, 0.3),  /* blue-100 / 30% */
+    rgba(224, 231, 255, 0.6)   /* indigo-100 / 60% */
+  );
+}
 
+.exam-card-gradient {
+ background-image: linear-gradient(120deg, #f3f8f8 0%, #eff5f8 100%);
+}
 /* gradient card */
 .bg-inner {
   background-image: linear-gradient(to bottom, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #97aedb 100%);
 }
 
-.bg-buyNow-card{
+.bg-buyNow-card {
  background-image: linear-gradient(to top, #ecf1f5 0%, white 100%);
  /* background-image: linear-gradient(-225deg, #FFFEFF 0%, #eef8fd 100%); */
  /* background-image: linear-gradient(to top, #dfe9f3 0%, white 100%); */
@@ -466,4 +477,232 @@ body {
   .ca-content ol {
     padding-left: 1rem;
   }
+}
+
+/* Premium shimmer animation */
+.shimmer {
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.6) 40%,
+    transparent 60%
+  );
+  animation: shimmer 2.2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+  /* STYLES */
+ 
+        /* Animated Border */
+        @keyframes borderMove {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 200% 50%; }
+        }
+
+        .animate-border {
+          background-size: 200% 200%;
+          animation: borderMove 6s linear infinite;
+        }
+
+        /* Shimmer Background */
+        .shimmerFooter {
+          background: linear-gradient(
+            110deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.15) 50%,
+            transparent 75%
+          );
+          background-size: 200% 100%;
+          animation: shimmerFooter 5s infinite linear;
+        }
+
+        @keyframes shimmerFooter {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+
+        /* Glow Button */
+        .glow-btn {
+          background: white;
+          color: #1d4ed8;
+          font-weight: 600;
+          border-radius: 10px;
+          position: relative;
+          transition: all 0.3s ease;
+          box-shadow: 0 0 0 rgba(255,255,255,0);
+        }
+
+      .glow-btn:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 0 6px rgba(255,255,255,0.4),
+          0 0 18px rgba(59,130,246,0.4),
+          0 0 32px rgba(37,99,235,0.25);
+      }
+
+        /* Floating Particles */
+        .particle {
+          position: absolute;
+          width: 5px;
+          height: 5px;
+          background: white;
+          border-radius: 50%;
+          opacity: 0.6;
+          animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+          0% { transform: translateY(0); opacity: 0.5; }
+          50% { transform: translateY(-20px); opacity: 1; }
+          100% { transform: translateY(0); opacity: 0.5; }
+        }
+    
+
+/* Animation for Login card */
+
+
+/* ── Animations ── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+@keyframes floatYDelay {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(12px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 40px 10px rgba(99, 153, 255, 0.25); }
+  50%       { box-shadow: 0 0 70px 20px rgba(99, 153, 255, 0.45); }
+}
+
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 0.8; transform: scale(1.06); }
+}
+
+/* ── Animation Utility Classes ── */
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: floatYDelay 7s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 3s ease-in-out infinite;
+}
+
+/* ── Left Panel Background ── */
+.left-panel-bg {
+  background: radial-gradient(ellipse at 30% 40%, #1a3a6e 0%, #0b1e3d 50%, #060f22 100%);
+}
+
+/* ── Big Blue Orb ── */
+.big-orb {
+  background: radial-gradient(circle at 35% 35%, #4f8ef7, #2563d4 55%, #1040a0);
+}
+
+/* ── Floating Icon Pill ── */
+.icon-pill {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(8px);
+}
+
+/* ── OTP Button ── */
+.otp-btn {
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  transition: filter 0.2s ease;
+}
+
+.otp-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* ── Phone Input Wrapper ── */
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0 14px;
+  height: 50px;
+  background: #f9fafb;
+  gap: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.phone-input-wrap:focus-within {
+  border-color: #3b82f6;
+  background: #ffffff;
+}
+
+.phone-input-wrap input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 15px;
+  color: #374151;
+  flex: 1;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.phone-input-wrap input::placeholder {
+  color: #9ca3af;
+}
+
+/* ── Social Button ── */
+.social-btn {
+  border: 1.5px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+ transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.social-btn:hover {
+  background: #f5f8ff;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.12);
+}
+
+/* ── Divider line ── */
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: #f0f0f0;
+}
+
+/* ── Sparkle dots on orb ── */
+.sparkle-lg {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.sparkle-sm {
+  width: 5px;
+  height: 5px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.5);
 }

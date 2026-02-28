@@ -1,3 +1,4 @@
+import EditorialCornerDashboard from '@/modules/editorialCorner'
 import { createFileRoute,  } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/$lang/editorials-corner/')({
@@ -6,5 +7,5 @@ export const Route = createFileRoute('/$lang/editorials-corner/')({
 
 function RouteComponent() {
   
-  return <div>Hello "/editorials-corner"!</div>
+  return <EditorialCornerDashboard/>
 }

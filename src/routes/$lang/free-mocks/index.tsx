@@ -1,3 +1,4 @@
+import ComingSoon from '@/modules/comingSoon'
 import { createFileRoute,  } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/$lang/free-mocks/')({
@@ -6,5 +7,5 @@ export const Route = createFileRoute('/$lang/free-mocks/')({
 
 function RouteComponent() {
   
-  return <div>Hello "/free-mocks"!</div>
+  return <ComingSoon />
 }

@@ -32,7 +32,31 @@
   "currentAffairsHomePage":{
     "title": "Latest Articles",
     "subtitle":"Stay informed with the latest news and insights"
+  },
+  "editorialCorner":{
+    "title": "Editorial Corner",
+    "subtitle":"Sophisticated perspectives on modern challenges, governance, and technology for the progressive learner."
+  },
+  "moreTest": {
+    "title": "More Tests"
+  },
+  "moreEditorials":{
+    "title": "More Editorials"
+  },
+  "viewAll": "View All",
 
+  "plans":{
+    "title": "Pricing & Plans",
+    "subtitle": "Unlock your potential with the right plan"
+  },
+  "studentPlan": "Best Plans For Students",
+
+  "unlimitedPlan": "Unlimited Plans",
+
+  "headerLang":
+  {
+    "exams": "Exams"
   }
+
 
 }

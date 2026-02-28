@@ -4,37 +4,11 @@ import { useParams } from '@tanstack/react-router';
 
 
 function Stats() {
-//     const stats = [
-//   {
-//     number: '5000+',
-//     label: 'Active Students',
-//     icon: Users,
-//     color: 'text-blue-600',
-//   },
-//   {
-//     number: '500+',
-//     label: 'Mock Tests',
-//     icon: BookOpen,
-//     color: 'text-green-600',
-//   },
-//   {
-//     number: '95%',
-//     label: 'Success Rate',
-//     icon: Trophy,
-//     color: 'text-yellow-600',
-//   },
-//   {
-//     number: '32',
-//     label: 'Packages',
-//     icon: Library,
-//     color: 'text-purple-600',
-//   },
-// ];
 
   const { lang } = useParams({ strict: false })
 
   return (
-    <div className="w-full px-4 py-5 container mx-auto">
+    <div className="w-full px-4 py-2 lg:py-5 container mx-auto">
         {/* Stats Section */}
         <div className='text-start'>
         

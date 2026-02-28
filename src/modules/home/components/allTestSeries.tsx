@@ -22,6 +22,8 @@ function AllTestSeries() {
     ...QUERY_CONFIG.static,
   });
 
+  // console.log(data);
+  
   const fetchFirstData = data?.data.featureCategories[0].slug;
 
   // Derive activeId from slug or use first category
@@ -42,7 +44,8 @@ function AllTestSeries() {
 
   return (
     <div className="w-full container px-4 py-5 mx-auto lg:mt-20">
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 xl:gap-40 lg:justify-between lg:items-start">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 xl:gap-40
+       lg:justify-between lg:items-start">
         {/* Heading */}
         <div className="text-center md:text-start space-y-1 lg:shrink-0">
           <h3 className="inline-block py-1 text-xl sm:text-2xl xl:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
@@ -65,7 +68,7 @@ function AllTestSeries() {
                 <button
                   onClick={() => api?.scrollPrev()}
                   className="
-                            z-20
+                            z-20 cursor-pointer
                             h-7 w-7 sm:h-8 sm:w-8 xl:h-9 xl:w-9 rounded-full
                             bg-white/70 backdrop-blur-md
                             shadow-lg border border-white/40
@@ -87,7 +90,7 @@ function AllTestSeries() {
                 <button
                   onClick={() => api?.scrollNext()}
                   className="
-                            z-20
+                            z-20 cursor-pointer
                             h-7 w-7 sm:h-8 sm:w-8 xl:h-9 xl:w-9 rounded-full
                             bg-white/70 backdrop-blur-md
                             shadow-lg border border-white/40
@@ -116,8 +119,9 @@ function AllTestSeries() {
               >
                 <CarouselContent className="-ml-2">
                   {data?.data.featureCategories.map((item) => (
-                    <CarouselItem key={item._id} className="pl-2 basis-auto">
-                      <button onClick={() => handleClick(item.slug)}>
+                    <CarouselItem key={item._id} className="pl-2 basis-auto ">
+                      <button className="cursor-pointer"
+                        onClick={() => handleClick(item.slug)}>
                         <div
                           className={`${
                             activeId === item._id

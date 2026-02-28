@@ -4,6 +4,14 @@ export const BASE_URL =
   'https://userapi.mockshala.com/api'
 
   export const apiUrl = {
+    mobileLogin: '/auth/send-login-otp-mobile',
+
+    otpVerificationLogin : '/auth/login-with-otp-mobile',
+
+    registrationUser: '/auth/verify-mobile-otp',
+
+    updateProfile : '/auth/profile/partially',
+
     banners: '/banners',
 
     popularTests: '/test-series/popular-exams',
@@ -11,9 +19,11 @@ export const BASE_URL =
     dashboardPaidCategories: '/exam-categories/dashboard?isPaid=true',
 
     allExamData: (examCategory: string) =>
-       `/test-series/?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
+       `/test-series/get-dashboard-test-series?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
 
     testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`,
+
+    //  testDetails: (testSlug: string) =>`/test-series/by-slug/v2/${testSlug}`,
 
     currentAffairs: ()=> '/current-affairs',
 
@@ -21,7 +31,13 @@ export const BASE_URL =
 
     currentAffairsAllTags: ()=> '/current-affairs/tags',
 
-    similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`
+    similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`,
+
+    siteConfig: ()=> '/site-configs',
+
+    editorialsCorner: ()=> '/editorials',
+
+    plans:() => '/plans'
 
       
   }

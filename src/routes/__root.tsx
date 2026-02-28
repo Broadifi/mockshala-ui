@@ -1,3 +1,4 @@
+import FooterCTA from "@/components/navigation/footer";
 import Header from "@/components/navigation/Header";
 import { Toaster } from "@/components/ui/sonner";
 import { createRootRoute, Outlet } from "@tanstack/react-router";
@@ -8,9 +9,10 @@ export const Route = createRootRoute({
     <>
       <Header />
       {/* Main content wrapper */}
-      <main className="pt-15  lg:pt-16">
+      <main className="pt-13">
         <Outlet />
       </main>
+      <FooterCTA />
       <Toaster
         position="top-center"
         // richColors
