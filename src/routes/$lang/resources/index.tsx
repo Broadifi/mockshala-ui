@@ -11,7 +11,7 @@ export const Route = createFileRoute("/$lang/resources/")({
       throw redirect({
         to: "/$lang",
         params: { lang: params.lang },
-        search: { login: "true" }, // 👈 IMPORTANT - Opens login dialog on home page
+        search: { login: "true" }, 
         replace: true,
       });
     }

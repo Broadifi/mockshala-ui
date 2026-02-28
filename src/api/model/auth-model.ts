@@ -130,6 +130,55 @@ export interface RegistrationUser {
 }
 
 
+//Get Profile Data
+
+export interface GetProfileResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  data: GetProfileData;
+}
+
+export interface GetProfileData {
+  _id: string;
+  email: string;
+  name: string;
+  profilePicture: ProfilePictureProfile;
+  mobile: string;
+  line1: string;
+  line2: string;
+  googleId: string;
+  city: string;
+  state: string;
+  dob: string;
+  gender: string;
+  country: string;
+  pinCode: number;
+  isRegistered: boolean;
+  registeredBy: string;
+  selectedExamCategories: SelectedExamCategoriesProfile;
+  deviceToken: string;
+  isPasswordExist: boolean;
+  isEmailVerified: boolean;
+}
+
+interface SelectedExamCategoriesProfile {
+  _id: string;
+  categoryName: string;
+}
+interface ProfilePictureProfile {
+  _id: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  path: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+
 //Update Profile
 
 
@@ -165,3 +214,6 @@ interface UpdateProfileData {
   line1: string;
   line2: string;
 }
+
+
+
