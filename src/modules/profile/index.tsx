@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import type { AxiosError } from "axios";
@@ -39,9 +39,11 @@ import { Spinner } from "@/components/ui/spinner";
 import { format } from "date-fns";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { profileImage } from "@/assets";
-import { INDIAN_STATES } from "@/utils/profile/indianStates";
+// import { INDIAN_STATES } from "@/utils/profile/indianStates";
 import { useProfileData } from "./profileData";
 import { normalizeUser } from "@/api/model/normalizeUser";
+import { GeneralKeys } from "@/api";
+import { generalApi } from "@/api/services/general-services";
 
 // Format date for display (ISO string to YYYY-MM-DD)
 const formatDateForForm = (dateString: string | undefined): string => {
@@ -92,7 +94,7 @@ function ProfileModule() {
   useEffect(() => {
     if (!profileSuccess || !profileData) return;
 
-    console.log("✓ Syncing form with fetched profile data");
+    // console.log("✓ Syncing form with fetched profile data");
 
     // Update Zustand store with fetched normalized data
     setUserDetails(normalizeUser(profileData));
@@ -122,7 +124,7 @@ function ProfileModule() {
     mutationFn: authApi.updateProfile,
     onSuccess: (response) => {
       if (response.status && response.updated) {
-        console.log("✓ Profile updated via API");
+        // console.log("✓ Profile updated via API");
 
         // Update Zustand store with update response
         const normalizedData = normalizeUser(response.data);
@@ -168,6 +170,12 @@ function ProfileModule() {
       pinCode: data.pinCode,
     });
   };
+
+  //--GET All State Data --
+  const {data: stateList, isSuccess: stateSuccess} = useQuery({
+    queryKey: GeneralKeys.stateListDetails(),
+    queryFn: generalApi.state
+  })
 
   // ─── GET PROFILE PICTURE URL ───
   const profilePicUrl = userDetails?.profilePicture?.path || profileImage;
@@ -552,9 +560,9 @@ function ProfileModule() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className="max-h-50">
-                                  {INDIAN_STATES.map((state) => (
-                                    <SelectItem key={state} value={state}>
-                                      {state}
+                                  {stateSuccess && stateList.data.map((state) => (
+                                    <SelectItem key={state.name} value={state.name}>
+                                      {state.name}
                                     </SelectItem>
                                   ))}
                                 </SelectContent>

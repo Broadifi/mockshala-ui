@@ -14,6 +14,8 @@ export const BASE_URL =
 
     updateProfile : '/auth/profile/partially',
 
+    getState: '/generals/state',
+
     banners: '/banners',
 
     popularTests: '/test-series/popular-exams',
