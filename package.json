@@ -44,6 +44,8 @@
     "react-intersection-observer": "^10.0.3",
     "react-router-dom": "^7.13.0",
     "react-share": "^5.2.2",
+    "react-slick": "^0.31.0",
+    "slick-carousel": "^1.8.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",

@@ -1,5 +1,5 @@
 "use client";
-
+import EditorialCornerAction from "./components/editorialCornerAction";
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
@@ -12,6 +12,7 @@ import { formatDate } from "@/utils/formatting/formatDate";
 
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
+import NoResultFound from "./components/no-result-found";
 import {
   Popover,
   PopoverContent,
@@ -57,7 +58,7 @@ function EditorialCornerDashboard() {
       return lastPage.hasNext ? lastPage.page + 1 : undefined;
     },
   });
-  console.log(data);
+  console.log(data?.pages[0].data);
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasNextPage) {
@@ -84,6 +85,7 @@ function EditorialCornerDashboard() {
 
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
   if (isError) return <p>Error: {(error as Error).message}</p>;
+
 
   return (
     <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
@@ -146,7 +148,8 @@ function EditorialCornerDashboard() {
           </Popover>
         </div>
       </header>
-
+      <div>{data?.pages[0].data.length===0 && isLoading===false && !hasNextPage && <NoResultFound startSelectedDate={startSelectedDate} endSelectedDate={endSelectedDate} setStartSelectedDate={setStartSelectedDate} setEndSelectedDate={setEndSelectedDate} />
+  }</div>
       <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-4">
         {data?.pages.map((page) =>
           page.data.map((item: EditorialCornerData) => (
