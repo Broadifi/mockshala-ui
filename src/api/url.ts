@@ -10,6 +10,8 @@ export const BASE_URL =
 
     registrationUser: '/auth/verify-mobile-otp',
 
+    getProfile : '/auth/profile',
+
     updateProfile : '/auth/profile/partially',
 
     banners: '/banners',

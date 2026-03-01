@@ -1,5 +1,5 @@
 import type { AxiosResponse } from "axios";
-import type { AuthLoginData, AuthOtpData, AuthRegistrationData, LoginResponse, OtpResponse, RegistrationResponse, UpdateProfileResponse } from "../model/auth-model";
+import type { AuthLoginData, AuthOtpData, AuthRegistrationData, GetProfileResponse, LoginResponse, OtpResponse, RegistrationResponse, UpdateProfileResponse } from "../model/auth-model";
 import api from ".";
 import { apiUrl } from "../url";
 
@@ -45,5 +45,11 @@ export const authApi ={
       
         return response.data;
         },
+
+    getProfile: async () => {
+        const response: AxiosResponse<GetProfileResponse> = await api.get(apiUrl.getProfile)
+
+        return response.data;
+    }
 
 }

@@ -50,6 +50,11 @@ export const plansKeys = createExtendedQueryKeys('plans',{
   plansDetails: ()=> ['plans', 'plansDetails'] as const
 })
 
+
+export const profileKeys = createExtendedQueryKeys('profile',{
+  profileDetails: (userId: string)=> ['profile', 'profileDetails', userId] as const
+})
+
 export const queryKeys ={
     auth: authQueryKeys,
     home: homeQueryKey,
@@ -57,5 +62,6 @@ export const queryKeys ={
     currentAffairsKeys ,
     siteConfigsKeys,
     editorialsCornerKeys,
-    plansKeys
+    plansKeys,
+    profileKeys
 }

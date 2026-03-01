@@ -34,6 +34,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { useAuthStore } from "@/stores/authStore";
+import { useProfileData } from "@/modules/profile/profileData";
 
 interface OtpDialogProps {
   open: boolean;
@@ -66,6 +67,9 @@ export function LoginWithOtp({
   const resendTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const {setAccessToken, setUserDetails}= useAuthStore((state)=> state.auth)
+
+  //set userId to fetch user data from API
+  const [userId, setUserId] = useState("")
 
   //Schema for form validation
   const form = useForm<OtpFormData>({
@@ -115,12 +119,24 @@ export function LoginWithOtp({
   }, [open, mobileNumber, form]);
 
 
+   /* PROFILE QUERY */
+  const {
+    data: profileData,
+    // isLoading: profileLoading,
+    isSuccess: profileSuccess,
+  } = useProfileData(userId)
+
+
   //   OTP Verification
   const verifyOtpMutation = useMutation({
     mutationFn: authApi.otpVerification,
     onSuccess: (response) => {
       if (response.status) {
-        setAccessToken(response.data.token)
+        const data =response.data
+        setAccessToken(data.token)
+        
+        setUserId(data.user._id)
+
         setUserDetails(response.data.user)
         
         toast.success("Login successful!", {
@@ -137,6 +153,16 @@ export function LoginWithOtp({
       toast.error(`${error?.response?.data?.message}`, { duration: 5000 });
     },
   });
+
+   //   /* NAVIGATE ONLY AFTER PROFILE LOADS */
+   useEffect(()=>{
+    if(profileSuccess && profileData){
+      const data = profileData.data
+
+      console.log(data);
+      
+    }
+   }, [profileSuccess,profileData])
 
   //   Resend OTP
   const resendOtpMutation = useMutation({
