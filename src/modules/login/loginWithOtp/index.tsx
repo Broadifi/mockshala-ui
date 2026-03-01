@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useAuthStore } from "@/stores/authStore";
 import { useProfileData } from "@/modules/profile/profileData";
+import { normalizeUser } from "@/api/model/normalizeUser";
 
 interface OtpDialogProps {
   open: boolean;
@@ -47,7 +48,6 @@ export function LoginWithOtp({
   onOpenChange,
   mobileNumber,
 }: OtpDialogProps) {
-
   const otpSlotClass = `
     font-medium
   border border-gray-200 bg-gray-50 rounded-lg
@@ -66,10 +66,12 @@ export function LoginWithOtp({
   const [resendTimer, setResendTimer] = useState(0);
   const resendTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const {setAccessToken, setUserDetails}= useAuthStore((state)=> state.auth)
+  const { setAccessToken, setUserDetails } = useAuthStore(
+    (state) => state.auth,
+  );
 
   //set userId to fetch user data from API
-  const [userId, setUserId] = useState("")
+  const [userId, setUserId] = useState("");
 
   //Schema for form validation
   const form = useForm<OtpFormData>({
@@ -118,32 +120,25 @@ export function LoginWithOtp({
     };
   }, [open, mobileNumber, form]);
 
-
-   /* PROFILE QUERY */
+  /* PROFILE QUERY */
   const {
     data: profileData,
     // isLoading: profileLoading,
     isSuccess: profileSuccess,
-  } = useProfileData(userId)
-
+  } = useProfileData(userId);
 
   //   OTP Verification
   const verifyOtpMutation = useMutation({
     mutationFn: authApi.otpVerification,
     onSuccess: (response) => {
       if (response.status) {
-        const data =response.data
-        setAccessToken(data.token)
-        
-        setUserId(data.user._id)
+        const data = response.data;
+        setAccessToken(data.token);
 
-        setUserDetails(response.data.user)
-        
-        toast.success("Login successful!", {
-          duration: 3000,
-        });
+        setUserDetails(normalizeUser(data.user));
+        setUserId(data.user._id);
 
-        onOpenChange(false);
+        // onOpenChange(false);
       } else {
         toast.error("Login failed. Please try again.", { duration: 5000 });
       }
@@ -154,15 +149,21 @@ export function LoginWithOtp({
     },
   });
 
-   //   /* NAVIGATE ONLY AFTER PROFILE LOADS */
-   useEffect(()=>{
-    if(profileSuccess && profileData){
-      const data = profileData.data
+  //   /* NAVIGATE ONLY AFTER PROFILE LOADS */
+  useEffect(() => {
+    if (profileSuccess && profileData) {
+      const data = profileData.data;
 
       console.log(data);
-      
+      setUserDetails(normalizeUser(data))
+
+      toast.success("Login successful!", {
+        duration: 3000,
+      });
+
+      onOpenChange(false);
     }
-   }, [profileSuccess,profileData])
+  }, [profileSuccess, profileData, setUserDetails, onOpenChange]);
 
   //   Resend OTP
   const resendOtpMutation = useMutation({

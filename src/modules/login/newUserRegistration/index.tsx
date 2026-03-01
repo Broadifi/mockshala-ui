@@ -38,6 +38,8 @@ import {
 import { useAuthStore } from "@/stores/authStore";
 import RegistrationLeftPanel from "./registrationLeftPanel";
 import { Input } from "@/components/ui/input";
+import { normalizeUser } from "@/api/model/normalizeUser";
+import { useProfileData } from "@/modules/profile/profileData";
 
 interface OtpDialogProps {
   open: boolean;
@@ -72,6 +74,9 @@ const otpSlotClass = `
   const { setAccessToken, setUserDetails } = useAuthStore(
     (state) => state.auth,
   );
+
+   //set userId to fetch user data from API
+  const [userId, setUserId] = useState("");
 
   //Schema for form validation
   const form = useForm<registrationFormData>({
@@ -120,19 +125,30 @@ const otpSlotClass = `
     };
   }, [open, mobileNumber, form]);
 
+    /* PROFILE QUERY */
+    const {
+      data: profileData,
+      // isLoading: profileLoading,
+      isSuccess: profileSuccess,
+    } = useProfileData(userId);
+
   //   Registration Verification
   const verifyRegistrationMutation = useMutation({
     mutationFn: authApi.registrationVerification,
     onSuccess: (response) => {
       if (response.status) {
-        setAccessToken(response.data.token);
-        setUserDetails(response.data.user);
+        const data = response.data;
 
-        toast.success("Login successful!", {
-          duration: 3000,
-        });
+        setAccessToken(data.token);
 
-        onOpenChange(false);
+        setUserDetails(normalizeUser(data.user));
+        setUserId(data.user._id);
+
+        // toast.success("Login successful!", {
+        //   duration: 3000,
+        // });
+
+        // onOpenChange(false);
       } else {
         toast.error("Login failed. Please try again.", { duration: 5000 });
       }
@@ -142,6 +158,22 @@ const otpSlotClass = `
       toast.error(`${error?.response?.data?.message}`, { duration: 5000 });
     },
   });
+
+   //   /* NAVIGATE ONLY AFTER PROFILE LOADS */
+  useEffect(() => {
+    if (profileSuccess && profileData) {
+      const data = profileData.data;
+
+      console.log(data);
+      setUserDetails(normalizeUser(data))
+
+      toast.success("Login successful!", {
+        duration: 3000,
+      });
+
+      onOpenChange(false);
+    }
+  }, [profileSuccess, profileData, setUserDetails, onOpenChange]);
 
   //   Resend OTP
   const resendOtpMutation = useMutation({

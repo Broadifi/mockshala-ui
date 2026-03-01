@@ -10,7 +10,6 @@ import {
   type ProfileFormData,
 } from "@/validators/profile.schema";
 import type { ErrorObject } from "@/api/model/error-model";
-import type { RegistrationUser, User } from "@/api/model/auth-model";
 import { authApi } from "@/api/services/auth-services";
 import {
   Form,
@@ -41,19 +40,8 @@ import { format } from "date-fns";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { profileImage } from "@/assets";
 import { INDIAN_STATES } from "@/utils/profile/indianStates";
-
-// Type guard to check if user is User type (not RegistrationUser)
-const isFullUser = (
-  user: User | RegistrationUser | null | undefined,
-): user is User => {
-  return (
-    user !== null &&
-    user !== undefined &&
-    "email" in user &&
-    "gender" in user &&
-    "city" in user
-  );
-};
+import { useProfileData } from "./profileData";
+import { normalizeUser } from "@/api/model/normalizeUser";
 
 // Format date for display (ISO string to YYYY-MM-DD)
 const formatDateForForm = (dateString: string | undefined): string => {
@@ -72,12 +60,16 @@ function ProfileModule() {
     "general",
   );
 
-    useEffect(() => {
-     
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }, []);
+  // ─── GET USER ID FROM ZUSTAND (NO SEPARATE STATE NEEDED) ───
+  const userId = userDetails?._id ?? "";
 
-  // Initialize form with proper type safety
+  // ─── FETCH PROFILE DATA ON PAGE LOAD/REFRESH ───
+  const { data: fetchProfileData, isSuccess: profileSuccess } =
+    useProfileData(userId);
+    
+  const profileData = fetchProfileData?.data;
+
+  // ─── INITIALIZE FORM WITH INITIAL DATA ───
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     mode: "onBlur",
@@ -85,36 +77,83 @@ function ProfileModule() {
       name: userDetails?.name || "",
       email: userDetails?.email || "",
       mobile: userDetails?.mobile || "",
-      dob: isFullUser(userDetails) ? formatDateForForm(userDetails.dob) : "",
-      gender: isFullUser(userDetails) ? userDetails.gender : "",
-      line1: isFullUser(userDetails) ? userDetails.line1 : "",
-      line2: isFullUser(userDetails) ? userDetails.line2 : "",
-      city: isFullUser(userDetails) ? userDetails.city : "",
-      state: isFullUser(userDetails) ? userDetails.state : "",
-      pinCode: isFullUser(userDetails) ? userDetails.pinCode : undefined,
+      dob: userDetails?.dob ? formatDateForForm(userDetails.dob) : "",
+      gender: userDetails?.gender || "",
+      line1: userDetails?.line1 || "",
+      line2: userDetails?.line2 || "",
+      city: userDetails?.city || "",
+      state: userDetails?.state || "",
+      pinCode: userDetails?.pinCode || undefined,
     },
   });
 
+  // ─── SYNC FORM WITH FETCHED PROFILE DATA (On Refresh/API Success) ───
+  // This runs when getProfile API returns data
+  useEffect(() => {
+    if (!profileSuccess || !profileData) return;
+
+    console.log("✓ Syncing form with fetched profile data");
+
+    // Update Zustand store with fetched normalized data
+    setUserDetails(normalizeUser(profileData));
+
+    // Reset form with fetched profile data
+    form.reset({
+      name: profileData.name || "",
+      email: profileData.email || "",
+      mobile: profileData.mobile || "",
+      dob: profileData.dob ? formatDateForForm(profileData.dob) : "",
+      gender: profileData.gender || "",
+      line1: profileData.line1 || "",
+      line2: profileData.line2 || "",
+      city: profileData.city || "",
+      state: profileData.state || "",
+      pinCode: profileData.pinCode || undefined,
+    });
+  }, [profileSuccess, profileData, form, setUserDetails]);
+
+  // ─── SCROLL TO TOP ON MOUNT ───
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // ─── HANDLE PROFILE UPDATE ───
   const updateProfileMutation = useMutation({
     mutationFn: authApi.updateProfile,
     onSuccess: (response) => {
       if (response.status && response.updated) {
-        setUserDetails(response.data);
+        console.log("✓ Profile updated via API");
+
+        // Update Zustand store with update response
+        const normalizedData = normalizeUser(response.data);
+        setUserDetails(normalizedData);
+
+        // Reset form with updated data
+        form.reset({
+          name: normalizedData.name || "",
+          email: normalizedData.email || "",
+          mobile: normalizedData.mobile || "",
+          dob: normalizedData.dob ? formatDateForForm(normalizedData.dob) : "",
+          gender: normalizedData.gender || "",
+          line1: normalizedData.line1 || "",
+          line2: normalizedData.line2 || "",
+          city: normalizedData.city || "",
+          state: normalizedData.state || "",
+          pinCode: normalizedData.pinCode || undefined,
+        });
 
         toast.success("Profile updated successfully!", { duration: 3000 });
-       
       }
     },
     onError: (error: AxiosError<ErrorObject>) => {
       toast.error(
         `${error?.response?.data?.message || "Failed to update profile"}`,
-        {
-          duration: 5000,
-        },
+        { duration: 5000 },
       );
     },
   });
 
+  // ─── HANDLE FORM SUBMIT ───
   const handleSubmit = (data: ProfileFormData) => {
     updateProfileMutation.mutate({
       email: data.email || undefined,
@@ -130,10 +169,8 @@ function ProfileModule() {
     });
   };
 
-  const profilePicUrl =
-    isFullUser(userDetails) && userDetails.profilePicture
-      ? userDetails.profilePicture.path
-      : profileImage;
+  // ─── GET PROFILE PICTURE URL ───
+  const profilePicUrl = userDetails?.profilePicture?.path || profileImage;
 
   const isLoading = updateProfileMutation.isPending;
 
@@ -150,19 +187,19 @@ function ProfileModule() {
 
   return (
     <div className="min-h-screen bg-gray-50 ">
-      <div className="w-full container px-4 py-5 lg:pt-10 lg:pb-15 mx-auto ">
+      <div className="w-full container px-4 py-5 lg:pt-10 pb-5 lg:pb-15 mx-auto ">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
           {/* ─── LEFT SIDEBAR (Fixed) ─── */}
           <div className="md:col-span-4 xl:col-span-3 md:sticky md:top-8 md:h-fit">
             {/* Profile Card */}
             <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
               {/* Profile Picture */}
-              <div className="flex justify-center mb-6">
+              <div className="flex justify-center mb-3 md:mb-4">
                 <div className="relative">
                   <img
                     src={IMAGE_BASE_URL + profilePicUrl}
                     alt={profilePicUrl || "Profile Image"}
-                    className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
+                    className="w-25 h-25  md:w-32 md:h-32 rounded-full object-cover border-4 border-blue-500"
                     onError={(e) => {
                       e.currentTarget.src = profileImage;
                     }}
@@ -173,14 +210,18 @@ function ProfileModule() {
                 </div>
               </div>
 
+              <div className="text-center font-bold text-title-darkblue mb-2 text-lg">
+                <p>{userDetails.name}</p>
+              </div>
+
               {/* Contact Info */}
-              <div className="space-y-3 border-t pt-4">
+              <div className="space-y-2 md:space-y-3 border-t pt-4 ">
                 {/* Email */}
                 {userDetails?.email && (
                   <div className="flex items-center  gap-3">
                     <Mail
                       size={18}
-                      className="text-blue-500 mt-1 flex-shrink-0"
+                      className="text-blue-500 mt-1 shrink-0"
                     />
                     <div>
                       <p className="text-[11px] font-semibold text-title-darkblue uppercase">
@@ -214,7 +255,7 @@ function ProfileModule() {
             </div>
 
             {/* Tabs */}
-            <div className="space-y-2">
+            <div className="space-y-2 text-sm lg:text-base">
               <button
                 onClick={() => setActiveTab("general")}
                 className={`cursor-pointer w-full flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all ${
@@ -246,10 +287,9 @@ function ProfileModule() {
             {activeTab === "general" ? (
               <>
                 {/* Header */}
-
                 <div className="text-center md:text-start space-y-1 lg:shrink-0 mb-8">
-                  <h3 className="inline-block py-1 text-xl sm:text-2xl xl:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
-                    Account Settings
+                  <h3 className="inline-block py-1 text-2xl xl:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
+                    My Profile
                   </h3>
 
                   <p className="max-w-xl text-xs sm:text-sm xl:text-base text-gray-600 dark:text-gray-300">
@@ -267,14 +307,13 @@ function ProfileModule() {
                   >
                     {/* Personal Details Section */}
                     <div className="mb-8">
-                      <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                      <h2 className="md:text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
                         <UserIcon size={20} className="text-blue-600" />
                         Personal Details
                       </h2>
 
-                      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-6">
+                      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 lg:gap-6 mb-6">
                         {/* Full Name */}
-
                         <FormField
                           control={form.control}
                           name="name"
@@ -287,7 +326,7 @@ function ProfileModule() {
                               <FormControl>
                                 <Input
                                   placeholder="Enter full name"
-                                  className="mt-2"
+                                  className="lg:mt-1 xl:mt-2 text-sm xl:text-base"
                                   {...field}
                                 />
                               </FormControl>
@@ -312,7 +351,7 @@ function ProfileModule() {
                                     <FormControl>
                                       <Button
                                         variant="outline"
-                                        className="w-full mt-2 justify-start text-left font-normal"
+                                        className="w-full lg:mt-1 xl:mt-2 text-sm xl:text-base justify-start text-left font-normal"
                                       >
                                         {field.value
                                           ? format(
@@ -362,10 +401,10 @@ function ProfileModule() {
                                 </FormLabel>
                                 <Select
                                   onValueChange={field.onChange}
-                                  defaultValue={field.value || ""}
+                                  value={field.value || ""}
                                 >
                                   <FormControl>
-                                    <SelectTrigger className="mt-2">
+                                    <SelectTrigger className="lg:mt-1 xl:mt-2 text-sm xl:text-base">
                                       <SelectValue placeholder="Select gender" />
                                     </SelectTrigger>
                                   </FormControl>
@@ -384,7 +423,7 @@ function ProfileModule() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
                         {/* Phone Number */}
                         <FormField
                           control={form.control}
@@ -401,7 +440,7 @@ function ProfileModule() {
                                   readOnly
                                   {...field}
                                   className="
-                                    mt-2
+                                    lg:mt-1 xl:mt-2 text-sm xl:text-base
                                     bg-gray-100
                                     text-gray-500
                                     cursor-not-allowed
@@ -430,7 +469,7 @@ function ProfileModule() {
                                 <Input
                                   type="email"
                                   placeholder="Enter email address"
-                                  className="mt-2"
+                                  className="lg:mt-1 xl:mt-2 text-sm xl:text-base"
                                   {...field}
                                 />
                               </FormControl>
@@ -442,12 +481,12 @@ function ProfileModule() {
                     </div>
 
                     {/* Communication Address Section */}
-                    <div className="mb-8 border-t pt-8">
-                      <h2 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
-                        📍 Communication Address
+                    <div className="mb-8 border-t pt-6 md:pt-8">
+                      <h2 className="md:text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+                        📍 Address Details
                       </h2>
 
-                      <div className="grid grid-cols-1 gap-6 mb-6">
+                      <div className="grid grid-cols-1 gap-5 lg:gap-6 mb-6">
                         {/* Address Line 1 */}
                         <FormField
                           control={form.control}
@@ -461,7 +500,7 @@ function ProfileModule() {
                               <FormControl>
                                 <Input
                                   placeholder="Enter address line 1"
-                                  className="mt-2"
+                                  className="lg:mt-1 xl:mt-2 text-sm xl:text-base"
                                   {...field}
                                 />
                               </FormControl>
@@ -483,7 +522,7 @@ function ProfileModule() {
                               <FormControl>
                                 <Input
                                   placeholder="Enter address line 2"
-                                  className="mt-2"
+                                  className="lg:mt-1 xl:mt-2 text-sm xl:text-base"
                                   {...field}
                                 />
                               </FormControl>
@@ -493,7 +532,7 @@ function ProfileModule() {
                         />
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
                         {/* State */}
                         <FormField
                           control={form.control}
@@ -505,14 +544,14 @@ function ProfileModule() {
                               </FormLabel>
                               <Select
                                 onValueChange={field.onChange}
-                                defaultValue={field.value || ""}
+                                value={field.value || ""}
                               >
                                 <FormControl>
-                                  <SelectTrigger className="mt-2">
+                                  <SelectTrigger className="lg:mt-1 xl:mt-2 text-sm xl:text-base">
                                     <SelectValue placeholder="Select state" />
                                   </SelectTrigger>
                                 </FormControl>
-                                <SelectContent className="max-h-[300px]">
+                                <SelectContent className="max-h-50">
                                   {INDIAN_STATES.map((state) => (
                                     <SelectItem key={state} value={state}>
                                       {state}
@@ -537,7 +576,7 @@ function ProfileModule() {
                               <FormControl>
                                 <Input
                                   placeholder="Enter city"
-                                  className="mt-2"
+                                  className="lg:mt-1 xl:mt-2 text-sm xl:text-base"
                                   {...field}
                                 />
                               </FormControl>
@@ -559,7 +598,7 @@ function ProfileModule() {
                                 <Input
                                   type="number"
                                   placeholder="Enter pincode"
-                                  className="mt-2"
+                                  className="lg:mt-1 xl:mt-2 text-sm xl:text-base"
                                   {...field}
                                   value={field.value || ""}
                                   onChange={(e) => {
@@ -582,9 +621,14 @@ function ProfileModule() {
                       <Button
                         type="submit"
                         disabled={isLoading}
-                        className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-full"
+                       className="w-full bg-linear-to-r from-sky-600
+                        to-blue-500 shadow-sm 
+                        hover:from-blue-600 hover:to-blue-600 hover:shadow-md
+                        text-white font-semibold
+                        transition-colors duration-200 hover:cursor-pointer 
+                         py-3 rounded-full"
                       >
-                        {isLoading && <Spinner className="mr-2 w-4 h-4" />}✓
+                        {isLoading && <Spinner className="mr-2 w-4 h-4" />}
                         Update Profile
                       </Button>
 

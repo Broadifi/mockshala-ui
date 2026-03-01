@@ -1,4 +1,4 @@
-import type { RegistrationUser, User } from "@/api/model/auth-model";
+import type { GetProfileData } from "@/api/model/auth-model";
 import { cookiesKeys } from "@/lib/cookies.keys";
 import { create } from "zustand";
 
@@ -6,8 +6,8 @@ interface AuthState {
   auth: {
     accessToken: string
     setAccessToken: (accessToken: string) => void
-    userDetails: User | RegistrationUser | null
-    setUserDetails: (details: User | RegistrationUser) => void
+    userDetails: GetProfileData | null
+    setUserDetails: (details: GetProfileData) => void
     logout: () => void
   }
 }
@@ -18,7 +18,8 @@ export const useAuthStore = create<AuthState>()((set)=> {
 
     const initToken:string =  window.localStorage.getItem(cookiesKeys.accessToken) ?? '';
     
-    const  initUserDetails: User | RegistrationUser | null = storageUserDetails ? (JSON.parse(storageUserDetails)) : null
+    const  initUserDetails: GetProfileData | null = 
+    storageUserDetails ? (JSON.parse(storageUserDetails)) : null
 
 
     return {
