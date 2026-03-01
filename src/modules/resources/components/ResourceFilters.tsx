@@ -8,7 +8,7 @@ interface ResourceFiltersProps {
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
   category?: CategoryDaum[];
   isCategoryLoading: boolean;
-  isFetching: boolean; 
+  isFetching: boolean;
 }
 
 function ResourceFilters({
@@ -20,14 +20,11 @@ function ResourceFilters({
   isCategoryLoading,
 }: ResourceFiltersProps) {
   return (
-    
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 mb-6 lg:mt-9 w-full">
-      
-      
       <div className="col-span-1 md:col-span-12">
-        <h1 className="text-xl sm:text-2xl font-bold tracking-wide bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
-          RESOURCES
-        </h1>
+        <span className="bg-gradient-to-r from-[#4F6BAF] to-[#608FBB] bg-clip-text text-transparent font-bold text-4xl">
+          Resources
+        </span>
       </div>
 
       <div className="col-span-1 md:col-span-6 lg:col-span-8 relative flex items-center border border-gray-200 rounded-4xl bg-white px-3 py-0.5 w-full">
@@ -48,7 +45,6 @@ function ResourceFilters({
         )}
       </div>
 
-      
       <div className="col-span-1 md:col-span-6 lg:col-span-4 relative w-full">
         <select
           value={selectedCategory}
@@ -65,7 +61,6 @@ function ResourceFilters({
           ))}
         </select>
 
-        
         {!selectedCategory && (
           <svg
             className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none"
@@ -73,11 +68,15 @@ function ResourceFilters({
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         )}
 
-       
         {selectedCategory && (
           <button
             onClick={() => setSelectedCategory("")}
@@ -87,7 +86,6 @@ function ResourceFilters({
           </button>
         )}
       </div>
-      
     </div>
   );
 }

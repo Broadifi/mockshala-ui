@@ -39,7 +39,7 @@ function ResourceCard({ item }: { item: Daum }) {
 
         
         {hasPdf ? (
-          <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white shrink-0 group-hover:bg-blue-700 transition-colors shadow-sm">
+          <div className="w-9 h-9 rounded-full bg-linear-to-r from-blue-600 to-sky-500  flex items-center justify-center text-white shrink-0 group-hover:bg-blue-700 transition-colors shadow-sm">
             <FileText size={16} />
           </div>
         ) : (

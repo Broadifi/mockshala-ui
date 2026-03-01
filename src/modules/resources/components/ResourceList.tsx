@@ -5,7 +5,6 @@ import ResourceCard from "./ResourceCard";
 import type { Daum } from "@/api/model/resource";
 import illustration from "@/assets/fallback/NoResultFoundImg.jpg";
 
-
 interface ResourceListProps {
   items: Daum[] | undefined;
   isLoading: boolean;
@@ -31,7 +30,7 @@ function ResourceList({
 
   if (isLoading) {
     return (
-      <div className=" grid grid-cols-4  mt-10">
+      <div className="grid grid-cols-4 mt-10 gap-4">
         {Array.from({ length: 12 }).map((_, index) => (
           <Skeleton key={index} className="h-45 mb-2 w-75 rounded-lg bg-gray-200" />
         ))}
@@ -41,7 +40,7 @@ function ResourceList({
 
   if (!items || items.length === 0) {
     return (
-      <div className="flex  flex-col justify-center items-center py-12 text-gray-500 text-lg font-medium">
+      <div className="flex flex-col justify-center items-center py-12 text-gray-500 text-lg font-medium">
         <img
           src={illustration}
           alt="No Data Found"
@@ -53,27 +52,29 @@ function ResourceList({
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6">
-      {items.map((item) => (
-        <ResourceCard key={item._id} item={item} />
-      ))}
+    <>
+     
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6">
+        {items.map((item) => (
+          <ResourceCard key={item._id} item={item} />
+        ))}
+      </div>
 
-      <div ref={ref} className="w-full flex justify-center py-6">
+     
+      <div ref={ref} className="w-full flex justify-center py-8">
         {isFetchingNextPage && (
           <div className="text-blue-600 font-medium animate-pulse">
             Loading more resources...
           </div>
         )}
 
-        {/* {!hasNextPage && items.length > 0 && (
+        {!hasNextPage && items.length > 0 && (
           <div className="text-gray-400 text-sm flex items-center">
             You have reached the end of the list.
           </div>
-        )} */}
-    </div>
-        
+        )}
       </div>
-      
+    </>
   );
 }
 
