@@ -37,13 +37,14 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Spinner } from "@/components/ui/spinner";
 import { format } from "date-fns";
-import { IMAGE_BASE_URL } from "@/api/url";
+
 import { profileImage } from "@/assets";
 // import { INDIAN_STATES } from "@/utils/profile/indianStates";
 import { useProfileData } from "./profileData";
 import { normalizeUser } from "@/api/model/normalizeUser";
 import { GeneralKeys } from "@/api";
 import { generalApi } from "@/api/services/general-services";
+import ProfilePic from "./profilePic";
 
 // Format date for display (ISO string to YYYY-MM-DD)
 const formatDateForForm = (dateString: string | undefined): string => {
@@ -68,7 +69,7 @@ function ProfileModule() {
   // ─── FETCH PROFILE DATA ON PAGE LOAD/REFRESH ───
   const { data: fetchProfileData, isSuccess: profileSuccess } =
     useProfileData(userId);
-    
+
   const profileData = fetchProfileData?.data;
 
   // ─── INITIALIZE FORM WITH INITIAL DATA ───
@@ -85,7 +86,7 @@ function ProfileModule() {
       line2: userDetails?.line2 || "",
       city: userDetails?.city || "",
       state: userDetails?.state || "",
-      pinCode: userDetails?.pinCode || undefined,
+      pinCode: userDetails?.pinCode || 0,
     },
   });
 
@@ -110,7 +111,7 @@ function ProfileModule() {
       line2: profileData.line2 || "",
       city: profileData.city || "",
       state: profileData.state || "",
-      pinCode: profileData.pinCode || undefined,
+      pinCode: profileData.pinCode || 0,
     });
   }, [profileSuccess, profileData, form, setUserDetails]);
 
@@ -141,7 +142,7 @@ function ProfileModule() {
           line2: normalizedData.line2 || "",
           city: normalizedData.city || "",
           state: normalizedData.state || "",
-          pinCode: normalizedData.pinCode || undefined,
+          pinCode: normalizedData.pinCode || 0,
         });
 
         toast.success("Profile updated successfully!", { duration: 3000 });
@@ -172,10 +173,10 @@ function ProfileModule() {
   };
 
   //--GET All State Data --
-  const {data: stateList, isSuccess: stateSuccess} = useQuery({
+  const { data: stateList, isSuccess: stateSuccess } = useQuery({
     queryKey: GeneralKeys.stateListDetails(),
-    queryFn: generalApi.state
-  })
+    queryFn: generalApi.state,
+  });
 
   // ─── GET PROFILE PICTURE URL ───
   const profilePicUrl = userDetails?.profilePicture?.path || profileImage;
@@ -202,21 +203,7 @@ function ProfileModule() {
             {/* Profile Card */}
             <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
               {/* Profile Picture */}
-              <div className="flex justify-center mb-3 md:mb-4">
-                <div className="relative">
-                  <img
-                    src={IMAGE_BASE_URL + profilePicUrl}
-                    alt={profilePicUrl || "Profile Image"}
-                    className="w-25 h-25  md:w-32 md:h-32 rounded-full object-cover border-4 border-blue-500"
-                    onError={(e) => {
-                      e.currentTarget.src = profileImage;
-                    }}
-                  />
-                  <div className="absolute bottom-2 right-2 w-6 h-6 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center">
-                    <span className="text-white text-xs">✓</span>
-                  </div>
-                </div>
-              </div>
+              <ProfilePic profilePicUrl={profilePicUrl}/>
 
               <div className="text-center font-bold text-title-darkblue mb-2 text-lg">
                 <p>{userDetails.name}</p>
@@ -227,10 +214,7 @@ function ProfileModule() {
                 {/* Email */}
                 {userDetails?.email && (
                   <div className="flex items-center  gap-3">
-                    <Mail
-                      size={18}
-                      className="text-blue-500 mt-1 shrink-0"
-                    />
+                    <Mail size={18} className="text-blue-500 mt-1 shrink-0" />
                     <div>
                       <p className="text-[11px] font-semibold text-title-darkblue uppercase">
                         Email Address
@@ -540,13 +524,13 @@ function ProfileModule() {
                         />
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+                      <div>
                         {/* State */}
                         <FormField
                           control={form.control}
                           name="state"
                           render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="mb-5 lg:mb-6">
                               <FormLabel className="text-sm font-semibold text-gray-700">
                                 State <span className="text-red-500">*</span>
                               </FormLabel>
@@ -560,18 +544,24 @@ function ProfileModule() {
                                   </SelectTrigger>
                                 </FormControl>
                                 <SelectContent className="max-h-50">
-                                  {stateSuccess && stateList.data.map((state) => (
-                                    <SelectItem key={state.name} value={state.name}>
-                                      {state.name}
-                                    </SelectItem>
-                                  ))}
+                                  {stateSuccess &&
+                                    stateList.data.map((state) => (
+                                      <SelectItem
+                                        key={state.name}
+                                        value={state.name}
+                                      >
+                                        {state.name}
+                                      </SelectItem>
+                                    ))}
                                 </SelectContent>
                               </Select>
                               <FormMessage />
                             </FormItem>
                           )}
                         />
-
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
                         {/* City */}
                         <FormField
                           control={form.control}
@@ -612,7 +602,7 @@ function ProfileModule() {
                                   onChange={(e) => {
                                     const value = e.target.value
                                       ? parseInt(e.target.value, 10)
-                                      : undefined;
+                                      : 0;
                                     field.onChange(value);
                                   }}
                                 />
@@ -629,7 +619,7 @@ function ProfileModule() {
                       <Button
                         type="submit"
                         disabled={isLoading}
-                       className="w-full bg-linear-to-r from-sky-600
+                        className="w-full bg-linear-to-r from-sky-600
                         to-blue-500 shadow-sm 
                         hover:from-blue-600 hover:to-blue-600 hover:shadow-md
                         text-white font-semibold

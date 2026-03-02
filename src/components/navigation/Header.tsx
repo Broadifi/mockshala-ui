@@ -53,7 +53,7 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   //control login dialog open state
-  const {loginState, setLoginState } = useLoginStore()
+  const {setLoginState } = useLoginStore()
 
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
