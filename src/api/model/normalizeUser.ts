@@ -1,10 +1,19 @@
 import type { GetProfileData } from "./auth-model";
 
-export const normalizeUser = (input: any): GetProfileData => {
-  // Handle both shapes:
-  // login/register → input.user
-  // profile/update → input directly
-  const user = input.user ?? input;
+type RawUser = Partial<GetProfileData> & {
+  _id: string;
+};
+
+type NormalizeUserInput =
+  | RawUser
+  | {
+      user: RawUser;
+    };
+
+export const normalizeUser = (
+  input: NormalizeUserInput
+): GetProfileData => {
+  const user = "user" in input ? input.user : input;
 
   return {
     _id: user._id,
@@ -18,7 +27,6 @@ export const normalizeUser = (input: any): GetProfileData => {
     isPasswordExist: user.isPasswordExist ?? false,
     isEmailVerified: user.isEmailVerified ?? false,
 
-    // optional safe fields
     profilePicture: user.profilePicture ?? undefined,
     line1: user.line1 ?? "",
     line2: user.line2 ?? "",
