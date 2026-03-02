@@ -86,7 +86,6 @@ function EditorialCornerDashboard() {
   if (isLoading) return <p className="text-center py-10">Loading...</p>;
   if (isError) return <p>Error: {(error as Error).message}</p>;
 
-
   return (
     <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
       <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
@@ -100,7 +99,7 @@ function EditorialCornerDashboard() {
           </p>
         </div>
         <div
-          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start gap-1 min-[425px]:px-8
+          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start gap-2 min-[425px]:px-8
         "
         >
           {" "}
@@ -108,9 +107,9 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[60%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[55%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
               >
-                <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
+                <CalendarIcon className="mr-1 h-4 w-4 text-gray-400" />
                 {startSelectedDate
                   ? format(startSelectedDate, "PPP")
                   : "Select Start Date"}
@@ -129,9 +128,9 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[60%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
+                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[55%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
               >
-                <CalendarIcon className="mr-2 h-4 w-4 text-gray-400" />
+                <CalendarIcon className="mr-1 h-4 w-4 text-gray-400" />
                 {endSelectedDate
                   ? format(endSelectedDate, "PPP")
                   : "Select End Date"}
@@ -148,9 +147,19 @@ function EditorialCornerDashboard() {
           </Popover>
         </div>
       </header>
-      <div>{data?.pages[0].data.length===0 && isLoading===false && !hasNextPage && <NoResultFound startSelectedDate={startSelectedDate} endSelectedDate={endSelectedDate} setStartSelectedDate={setStartSelectedDate} setEndSelectedDate={setEndSelectedDate} />
-  }</div>
-      <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-4">
+      <div>
+        {data?.pages[0].data.length === 0 &&
+          isLoading === false &&
+          !hasNextPage && (
+            <NoResultFound
+              startSelectedDate={startSelectedDate}
+              endSelectedDate={endSelectedDate}
+              setStartSelectedDate={setStartSelectedDate}
+              setEndSelectedDate={setEndSelectedDate}
+            />
+          )}
+      </div>
+      <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-7">
         {data?.pages.map((page) =>
           page.data.map((item: EditorialCornerData) => (
             <Link key={item._id} to={`/${lang}/editorials-corner/${item.slug}`}>
@@ -165,12 +174,29 @@ function EditorialCornerDashboard() {
 
                 <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 px-5 pt-2 text-title-darkblue">
                   {item.title}
-                </div >
-                <div className="flex flex-row justify-start items-center text-xs  gap-1 px-5">               
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock-icon lucide-clock"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                <span className="text-title-gradient-blue">{item?.readTime.text}</span></div>
+                </div>
+                <div className="flex flex-row justify-start items-center text-xs  gap-1 px-5">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.25"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-clock-icon lucide-clock"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                  <span className="text-title-gradient-blue">
+                    {item?.readTime.text}
+                  </span>
+                </div>
                 <div
-                  className="text-sm text-gray-600 line-clamp-3 px-5"
+                  className="text-sm text-gray-600 line-clamp-2 px-5"
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(decodeHTML(item.description)),
                   }}

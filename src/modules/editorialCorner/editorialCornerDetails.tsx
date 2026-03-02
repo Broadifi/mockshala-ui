@@ -8,7 +8,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import DOMPurify from "dompurify";
+import Autoplay from "embla-carousel-autoplay";
 import React from "react";
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -22,6 +24,9 @@ import { Copy } from "@/assets";
 const EditorialCornerDetails = () => {
   const { slug } = useParams({ from: "/$lang/editorials-corner/$slug/" });
   const lang = "en";
+   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   const { data, isLoading } = useQuery({
     queryKey: ["editorial-corner", { slug }],
     queryFn: () => fetchEdtiorialCornerBySlug(slug),
@@ -121,10 +126,7 @@ const EditorialCornerDetails = () => {
           <div className="flex md:hidden flex-row justify-end">
               <EditorialCornerAction />
             </div>
-        <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
-          {fetchData.title}
-        </h3>
-        <div className="flex flex-row  items-center text-subtitle-gray px-1 ">
+             <div className="flex flex-row  items-center text-subtitle-gray px-0.5 ">
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
             Home
           </span>{" "}
@@ -137,6 +139,10 @@ const EditorialCornerDetails = () => {
             {fetchData.metaTitle}
           </span>
         </div>
+        <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
+          {fetchData?.title}
+        </h3>
+       
         <div className="flex flex-row justify-between px-1">
         <div className="flex min-[292px]:flex-row justify-start items-center min-[292px]:gap-3 flex-col gap-0">
           <div className="flex flex-row justify-center items-center gap-0.5">
@@ -145,12 +151,12 @@ const EditorialCornerDetails = () => {
               {fetchData.readTime.text}
             </span>
           </div>
-          <div className="flex flex-row justify-center items-center gap-0.5">
+          {/* <div className="flex flex-row justify-center items-center gap-0.5">
             📜
             <span className="text-blue-800 text-xs lg:text-sm">
               Words : {fetchData.readTime.words}
             </span>
-          </div>
+          </div> */}
           </div>
           <div className="flex gap-2 md:gap-4">
             {/* Copy */}
@@ -223,7 +229,7 @@ const EditorialCornerDetails = () => {
           Slug:{`/${fetchData.slug}`}
         </span>
       </div> */}
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row justify-center items-center gap-3">
         <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -236,7 +242,7 @@ const EditorialCornerDetails = () => {
             stroke-linecap="round"
             stroke-linejoin="round"
             class="lucide lucide-chevron-left-icon lucide-chevron-left"
-            className="hover:bg-gray-300 rounded-full"
+            className="hover:bg-title-darkblue rounded-full"
           >
             <path d="m15 18-6-6 6-6" />
           </svg>
@@ -253,7 +259,7 @@ const EditorialCornerDetails = () => {
             stroke-linecap="round"
             stroke-linejoin="round"
             class="lucide lucide-chevron-right-icon lucide-chevron-right"
-            className="hover:bg-gray-300 rounded-full"
+            className="hover:bg-title-darkblue rounded-full hover:text-white"
           >
             <path d="m9 18 6-6-6-6" />
           </svg>
@@ -263,16 +269,26 @@ const EditorialCornerDetails = () => {
         <h1 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           Other Picks For You
         </h1>
-        <div className=" container mx-auto gap-3 px-6 py-4">
-          {" "}
-          <Slider {...settings} className="custom-slider">
+         <Carousel
+           opts={{
+             align: "start",
+             loop: true,
+           }}
+           plugins={[
+             Autoplay({
+               delay: 2000,
+             }),
+           ]}
+           className="w-full mt-2 sm:mt-4 "
+         >
+           <CarouselContent className="px-3">
             {fetchBlog?.otherEditorials?.map((metaItem) => {
               return (
                 <Link
                   key={metaItem._id}
                   to={`/${lang}/editorials-corner/${metaItem.slug}`}
                 >
-                  <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card w-[90%] ">
+                  <CarouselItem className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card w-[90%] ">
                     <div className="rounded-t-3xl w-full overflow-hidden h-30">
                       <img
                         src={`${IMAGE_BASE_URL}${metaItem.thumbnailImage}`}
@@ -303,15 +319,18 @@ const EditorialCornerDetails = () => {
                       </span>
                     </div>
 
-                    <div className="text-base md:text-lg lg:text-lg font-bold line-clamp-2 px-3  text-title-darkblue  ">
+                    <div className="text-base md:text-lg lg:text-lg font-bold line-clamp-2   text-title-darkblue  ">
                       {metaItem.title}
                     </div>
-                  </div>
+                  </CarouselItem>
                 </Link>
               );
-            })}
-          </Slider>
-        </div>
+      
+})}
+        </CarouselContent>
+        <CarouselPrevious className="left-4 text-subtitle-gray hover:text-title-gradient-blue" />
+        <CarouselNext className="right-4 text-subtitle-gray" />
+      </Carousel>
       </div>
     </div>
   );
