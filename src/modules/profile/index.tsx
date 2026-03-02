@@ -38,7 +38,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { Spinner } from "@/components/ui/spinner";
 import { format } from "date-fns";
 
-import { profileImage } from "@/assets";
 // import { INDIAN_STATES } from "@/utils/profile/indianStates";
 import { useProfileData } from "./profileData";
 import { normalizeUser } from "@/api/model/normalizeUser";
@@ -94,8 +93,6 @@ function ProfileModule() {
   // This runs when getProfile API returns data
   useEffect(() => {
     if (!profileSuccess || !profileData) return;
-
-    // console.log("✓ Syncing form with fetched profile data");
 
     // Update Zustand store with fetched normalized data
     setUserDetails(normalizeUser(profileData));
@@ -178,8 +175,9 @@ function ProfileModule() {
     queryFn: generalApi.state,
   });
 
-  // ─── GET PROFILE PICTURE URL ───
-  const profilePicUrl = userDetails?.profilePicture?.path || profileImage;
+
+//Get Profile pic from the store
+const profilePath = userDetails?.profilePicture?.path 
 
   const isLoading = updateProfileMutation.isPending;
 
@@ -203,7 +201,7 @@ function ProfileModule() {
             {/* Profile Card */}
             <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
               {/* Profile Picture */}
-              <ProfilePic profilePicUrl={profilePicUrl}/>
+              <ProfilePic profilePath={profilePath}/>
 
               <div className="text-center font-bold text-title-darkblue mb-2 text-lg">
                 <p>{userDetails.name}</p>
