@@ -16,6 +16,8 @@ export const BASE_URL =
 
     uploadProfileImage: '/media',
 
+    deleteProfileImage: (imageId: string) => `media/${imageId}`,
+
     getState: '/generals/state',
 
     banners: '/banners',

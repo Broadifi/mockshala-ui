@@ -2,7 +2,7 @@ import type { AxiosResponse } from "axios";
 import type { AuthLoginData, AuthOtpData, AuthRegistrationData, GetProfileResponse, LoginResponse, OtpResponse, RegistrationResponse, UpdateProfileResponse } from "../model/auth-model";
 import api from ".";
 import { apiUrl } from "../url";
-import type { uploadProfilePicIdRes, UploadProfilePicResponse } from "../model/profilePic-model";
+import type { DeleteImageResponse, uploadProfilePicIdRes, UploadProfilePicResponse } from "../model/profilePic-model";
 
 interface UpdateProfilePayload {
   email?: string;
@@ -80,5 +80,11 @@ export const authApi ={
       
         return response.data;
         },
+
+    deleteProfileImage: async(imageId: string) => {
+        const response: AxiosResponse<DeleteImageResponse> = await api.delete(apiUrl.deleteProfileImage(imageId))
+    
+        return response.data
+    }
 
 }

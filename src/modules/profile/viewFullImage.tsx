@@ -27,12 +27,12 @@ const profilePic = userDetails?.profilePicture
     <Dialog open={open} onOpenChange={onOpenChange}>   
       <DialogContent showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle className="pb-4">{profilePic?.originalname}</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="pb-4 text-center">{profilePic?.originalname}</DialogTitle>
+          <DialogDescription className="mx-auto ">
            <img
               src={IMAGE_BASE_URL + profilePic?.path}
               alt="Profile"
-              className="w-full h-full rounded-full object-cover shadow-sm"
+              className="w-60 lg:w-100 h-auto object-cover shadow-sm"
               onError={(e) => {
                 e.currentTarget.src = profileImage;
               }}

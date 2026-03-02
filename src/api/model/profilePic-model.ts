@@ -74,3 +74,25 @@ interface SelectedExamCategories {
   _id: string;
   categoryName: string;
 }
+
+
+//Delete Profile photo
+
+export interface DeleteImageResponse {
+  error: boolean;
+  status: boolean;
+  statusCode: number;
+  responseTimestamp: string;
+  deleted: boolean;
+  data: DeleteImageData;
+}
+interface DeleteImageData {
+  _id: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  path: string;
+  createdAt: string;
+  updatedAt: string;
+}

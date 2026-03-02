@@ -12,6 +12,7 @@ import type { ErrorObject } from "@/api/model/error-model";
 import { toast } from "sonner";
 import { queryKeys } from "@/api";
 import { ViewFullImage } from "./viewFullImage";
+import { DeleteImageDialog } from "./deleteImage";
 
 function ProfilePic() {
   //Get profile pic data from the store
@@ -20,6 +21,11 @@ function ProfilePic() {
 
   //control view image dialog
 const [isViewDialogOpen, setViewDialogOpen] = useState(false);
+
+const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
+
+
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadedPath, setUploadedPath] = useState<string | undefined>(
@@ -118,13 +124,11 @@ const [isViewDialogOpen, setViewDialogOpen] = useState(false);
   // DELETE IMAGE
   const handleDelete = () => {
     console.log("Delete clicked");
-
+    setDeleteDialogOpen(true)
    
     // Example UI reset
     // setUploadedPath(undefined);
-
-    // Optional:
-    // call API here to remove imageId from profile
+   
   };
 
   return (
@@ -205,6 +209,12 @@ const [isViewDialogOpen, setViewDialogOpen] = useState(false);
         open={isViewDialogOpen}
         onOpenChange={setViewDialogOpen}
       />
+
+      <DeleteImageDialog 
+       open={isDeleteDialogOpen}
+        onOpenChange={setDeleteDialogOpen}
+        profilePath= {setUploadedPath}
+        />
     </div>
   );
 }
