@@ -1,4 +1,5 @@
-import type { UploadProfilePicResponse } from "@/api/model/auth-model";
+
+import type { UploadProfilePicResponse } from "@/api/model/profilePic-model";
 import api from "@/api/services";
 import { apiUrl } from "@/api/url";
 import { useMutation } from "@tanstack/react-query";
@@ -14,6 +15,11 @@ export const useUploadMedia = () => {
       const response: AxiosResponse<UploadProfilePicResponse> = await api.post(
         apiUrl.uploadProfileImage,
         formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
 
       return response.data;

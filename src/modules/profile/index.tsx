@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import type { AxiosError } from "axios";
@@ -41,7 +41,7 @@ import { format } from "date-fns";
 // import { INDIAN_STATES } from "@/utils/profile/indianStates";
 import { useProfileData } from "./profileData";
 import { normalizeUser } from "@/api/model/normalizeUser";
-import { GeneralKeys } from "@/api";
+import { GeneralKeys, queryKeys } from "@/api";
 import { generalApi } from "@/api/services/general-services";
 import ProfilePic from "./profilePic";
 
@@ -61,6 +61,8 @@ function ProfileModule() {
   const [activeTab, setActiveTab] = useState<"general" | "subscription">(
     "general",
   );
+
+  const queryClient = useQueryClient();
 
   // ─── GET USER ID FROM ZUSTAND (NO SEPARATE STATE NEEDED) ───
   const userId = userDetails?._id ?? "";
@@ -142,6 +144,12 @@ function ProfileModule() {
           pinCode: normalizedData.pinCode || 0,
         });
 
+      // ⭐ THIS IS THE KEY FIX
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.profileKeys.profileDetails(userId),
+      });
+
+
         toast.success("Profile updated successfully!", { duration: 3000 });
       }
     },
@@ -175,10 +183,6 @@ function ProfileModule() {
     queryFn: generalApi.state,
   });
 
-
-//Get Profile pic from the store
-const profilePath = userDetails?.profilePicture?.path 
-
   const isLoading = updateProfileMutation.isPending;
 
   if (!userDetails) {
@@ -201,7 +205,7 @@ const profilePath = userDetails?.profilePicture?.path
             {/* Profile Card */}
             <div className="bg-white rounded-lg p-6 shadow-sm mb-6">
               {/* Profile Picture */}
-              <ProfilePic profilePath={profilePath}/>
+              <ProfilePic />
 
               <div className="text-center font-bold text-title-darkblue mb-2 text-lg">
                 <p>{userDetails.name}</p>
@@ -558,7 +562,7 @@ const profilePath = userDetails?.profilePicture?.path
                           )}
                         />
                       </div>
-                      
+
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
                         {/* City */}
                         <FormField

@@ -12,3 +12,14 @@ export function useProfileData(userId: string) {
     ...QUERY_CONFIG.realtime
   })
 }
+
+
+export function useProfileImageData(imaId:string) {
+  
+  return useQuery({
+    queryKey: queryKeys.profileKeys.profileDetails(imaId),
+    queryFn: authApi.getProfile,
+    enabled: !!imaId , 
+    ...QUERY_CONFIG.realtime
+  })
+}

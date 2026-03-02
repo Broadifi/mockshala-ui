@@ -217,22 +217,3 @@ interface UpdateProfileData {
 
 
 
-//Upload profile photo response
-
-export interface UploadProfilePicResponse {
-  error: boolean;
-  status: boolean;
-  statusCode: number;
-  responseTimestamp: string;
-  data: UploadProfilePicData;
-}
-interface UploadProfilePicData {
-  _id: string;
-  originalname: string;
-  encoding: string;
-  mimetype: string;
-  size: number;
-  path: string;
-  createdAt: string;
-  updatedAt: string;
-}

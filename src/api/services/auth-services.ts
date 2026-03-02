@@ -2,6 +2,7 @@ import type { AxiosResponse } from "axios";
 import type { AuthLoginData, AuthOtpData, AuthRegistrationData, GetProfileResponse, LoginResponse, OtpResponse, RegistrationResponse, UpdateProfileResponse } from "../model/auth-model";
 import api from ".";
 import { apiUrl } from "../url";
+import type { uploadProfilePicIdRes, UploadProfilePicResponse } from "../model/profilePic-model";
 
 interface UpdateProfilePayload {
   email?: string;
@@ -16,6 +17,9 @@ interface UpdateProfilePayload {
   gender: string;
 }
 
+interface UpdateProfilePic{
+    profilePicture: string
+}
 
 export const authApi ={
     login: async(data:AuthLoginData) => {
@@ -50,6 +54,31 @@ export const authApi ={
         const response: AxiosResponse<GetProfileResponse> = await api.get(apiUrl.getProfile)
 
         return response.data;
-    }
+    },
+
+    uploadProfileImage: async (file: File) => {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response: AxiosResponse<UploadProfilePicResponse> = await api.post(
+        apiUrl.uploadProfileImage,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data;
+    },
+
+    updateProfileImageId: async (
+        payload: UpdateProfilePic) => {
+
+        const response : AxiosResponse<uploadProfilePicIdRes> = await api.put(apiUrl.updateProfile, payload)
+      
+        return response.data;
+        },
 
 }
