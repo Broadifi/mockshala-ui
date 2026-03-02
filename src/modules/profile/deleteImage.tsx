@@ -63,7 +63,7 @@ export function DeleteImageDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <DialogTitle>Delete Profile Picture?</DialogTitle>
+          <DialogTitle className="text-title-darkblue">Delete Profile Picture?</DialogTitle>
           <DialogDescription>
             Are you sure you want to remove your profile picture? This action
             cannot be undone, and your profile will revert to the default image.
@@ -72,12 +72,15 @@ export function DeleteImageDialog({
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline"
+                className="cursor-pointer"
+            >Cancel</Button>
           </DialogClose>
 
           <Button
             onClick={handleDelete}
             disabled={deleteImageMutation.isPending}
+            className="bg-red-600 font-medium cursor-pointer hover:bg-linear-to-r  hover:from-blue-600 hover:to-sky-600"
           >
             {deleteImageMutation.isPending ? "Deleting..." : "Confirm"}
           </Button>
