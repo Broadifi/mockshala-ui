@@ -8,7 +8,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import DOMPurify from "dompurify";
 import Autoplay from "embla-carousel-autoplay";
 import React from "react";
@@ -20,11 +26,12 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { IoIosArrowForward } from "react-icons/io";
 import { Copy } from "@/assets";
+import { id } from "date-fns/locale";
 
 const EditorialCornerDetails = () => {
   const { slug } = useParams({ from: "/$lang/editorials-corner/$slug/" });
   const lang = "en";
-   useEffect(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   const { data, isLoading } = useQuery({
@@ -37,10 +44,10 @@ const EditorialCornerDetails = () => {
   const fetchBlog = data?.meta;
 
   console.log(fetchData);
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-  console.log(fetchData);
+  // useEffect(() => {
+  //   window.scrollTo({ top: 0, behavior: "smooth" });
+  // }, []);
+  console.log(fetchData?.tags);
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -97,7 +104,7 @@ const EditorialCornerDetails = () => {
         toast.error("Failed to copy");
       });
   }
-  const cleanHTML = DOMPurify.sanitize(decodeHTML(fetchData.description));
+  const cleanHTML = DOMPurify.sanitize(decodeHTML(fetchData?.description));
   return (
     <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
       {/* <Link to={`/${lang}/editorials-corner/`}>
@@ -123,10 +130,12 @@ const EditorialCornerDetails = () => {
         </div>
       </Link> */}
       <div className="flex flex-col justify-start gap-2 px-1">
-          <div className="flex md:hidden flex-row justify-end">
-              <EditorialCornerAction />
-            </div>
-             <div className="flex flex-row  items-center text-subtitle-gray px-0.5 ">
+       
+        <div className="flex md:hidden flex-row justify-end">
+          <EditorialCornerAction />
+        </div>
+        
+        <div className="flex flex-row  items-center text-subtitle-gray px-0.5 ">
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
             Home
           </span>{" "}
@@ -139,19 +148,24 @@ const EditorialCornerDetails = () => {
             {fetchData.metaTitle}
           </span>
         </div>
+        <div className="flex flex-row  gap-3  ">
+          {fetchData?.tags.map((tagItem)=>{
+            return <p key={tagItem} className="text-amber-50 bg-button-blue text-xs rounded-2xl p-1 uppercase px-2">{tagItem}</p>
+          })}
+        </div>
         <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           {fetchData?.title}
         </h3>
-       
+
         <div className="flex flex-row justify-between px-1">
-        <div className="flex min-[292px]:flex-row justify-start items-center min-[292px]:gap-3 flex-col gap-0">
-          <div className="flex flex-row justify-center items-center gap-0.5">
-            🕰️
-            <span className="text-blue-800 text-xs lg:text-sm">
-              {fetchData.readTime.text}
-            </span>
-          </div>
-          {/* <div className="flex flex-row justify-center items-center gap-0.5">
+          <div className="flex min-[292px]:flex-row justify-start items-center min-[292px]:gap-3 flex-col gap-0">
+            <div className="flex flex-row justify-center items-center gap-0.5">
+              🕰️
+              <span className="text-blue-800 text-xs lg:text-sm">
+                {fetchData.readTime.text}
+              </span>
+            </div>
+            {/* <div className="flex flex-row justify-center items-center gap-0.5">
             📜
             <span className="text-blue-800 text-xs lg:text-sm">
               Words : {fetchData.readTime.words}
@@ -198,7 +212,7 @@ const EditorialCornerDetails = () => {
           </svg>
           <h3 className="lg:text-base md:text-base text-xs">
             Published on<span className="px-1">:</span>
-            {formatDate(fetchData.publishedDate)}
+            {formatDate(fetchData?.publishedDate)}
           </h3>
         </div>
       </div>
@@ -269,34 +283,40 @@ const EditorialCornerDetails = () => {
         <h1 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           Other Picks For You
         </h1>
-         <Carousel
-           opts={{
-             align: "start",
-             loop: true,
-           }}
-           plugins={[
-             Autoplay({
-               delay: 2000,
-             }),
-           ]}
-           className="w-full mt-2 sm:mt-4 "
-         >
-           <CarouselContent className="px-3">
-            {fetchBlog?.otherEditorials?.map((metaItem) => {
-              return (
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 2000,
+            }),
+          ]}
+          className="w-full mt-2 sm:mt-4"
+        >
+          <CarouselContent>
+            {fetchBlog?.otherEditorials?.map((metaItem) => (
+              <CarouselItem
+                key={metaItem._id}
+                className="basis-[85%] sm:basis-1/2 lg:basis-[25%]"
+              >
                 <Link
-                  key={metaItem._id}
                   to={`/${lang}/editorials-corner/${metaItem.slug}`}
+                  className="block"
                 >
-                  <CarouselItem className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card w-[90%] ">
-                    <div className="rounded-t-3xl w-full overflow-hidden h-30">
+                  <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden">
+                    {/* Image */}
+                    <div className="w-full h-40 sm:h-48 overflow-hidden">
                       <img
                         src={`${IMAGE_BASE_URL}${metaItem.thumbnailImage}`}
                         alt={metaItem.metaTitle}
-                        className="hover:scale-105 transition-transform duration-300 w-full h-full object-cover"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                       />
                     </div>
-                    <div className="flex flex-row items-center justify-start px-3 ">
+
+                    {/* Date */}
+                    <div className="flex items-center px-3 text-sm text-title-gradient-blue">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="15"
@@ -304,33 +324,33 @@ const EditorialCornerDetails = () => {
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-calendar-icon lucide-calendar"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="mr-1"
                       >
                         <path d="M8 2v4" />
                         <path d="M16 2v4" />
                         <rect width="18" height="18" x="3" y="4" rx="2" />
                         <path d="M3 10h18" />
                       </svg>
-                      <span className="px-1 text-sm text-title-gradient-blue">
-                        {formatDate(metaItem.publishedDate)}
-                      </span>
+
+                      <span>{formatDate(metaItem.publishedDate)}</span>
                     </div>
 
-                    <div className="text-base md:text-lg lg:text-lg font-bold line-clamp-2   text-title-darkblue  ">
+                    {/* Title */}
+                    <div className="px-3 text-base md:text-lg font-bold  text-title-darkblue line-clamp-1">
                       {metaItem.title}
                     </div>
-                  </CarouselItem>
+                  </div>
                 </Link>
-              );
-      
-})}
-        </CarouselContent>
-        <CarouselPrevious className="left-4 text-subtitle-gray hover:text-title-gradient-blue" />
-        <CarouselNext className="right-4 text-subtitle-gray" />
-      </Carousel>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          <CarouselPrevious className="left-4 text-subtitle-gray hover:text-title-gradient-blue" />
+          <CarouselNext className="right-4 text-subtitle-gray hover:text-title-gradient-blue" />
+        </Carousel>
       </div>
     </div>
   );
