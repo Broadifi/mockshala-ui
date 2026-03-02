@@ -148,9 +148,9 @@ const EditorialCornerDetails = () => {
             {fetchData.metaTitle}
           </span>
         </div>
-        <div className="flex flex-row  gap-3  ">
+        <div className="flex  gap-3 min-[270px]:flex-row flex-col ">
           {fetchData?.tags.map((tagItem)=>{
-            return <p key={tagItem} className="text-amber-50 bg-button-blue text-xs rounded-2xl p-1 uppercase px-2">{tagItem}</p>
+            return <p key={tagItem} className="text-amber-50 bg-button-blue text-xs rounded-2xl p-1 uppercase px-2 ">{tagItem}</p>
           })}
         </div>
         <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
