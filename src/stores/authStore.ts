@@ -45,7 +45,8 @@ export const useAuthStore = create<AuthState>()((set)=> {
                  window.localStorage.removeItem(cookiesKeys.userDetails);
                  
                  return {...state, auth:{...state.auth, accessToken: '', userDetails: null}}
-            })
+            }),
+
         }
     }
 })

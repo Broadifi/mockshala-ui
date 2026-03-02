@@ -50,8 +50,8 @@ export const profileSchema = z.object({
   
   pinCode: z
     .number()
-    .min(10000, "Pincode must be 5-6 digits")
-    .max(999999, "Pincode must be 5-6 digits"),
+    .min(10000, "Pin code must be 5-6 digits")
+    .max(999999, "Pin code must be 5-6 digits"),
 });
 
 export type ProfileFormData = z.infer<typeof profileSchema>;

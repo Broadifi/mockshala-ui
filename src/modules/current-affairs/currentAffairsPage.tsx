@@ -259,14 +259,14 @@ export default function CurrentAffairsPage() {
                         ></p>
                         <div className="space-y-2">
                           <div className="flex items-center gap-2 text-zinc-500 text-sm">
-                            <Calendar size={14} />
+                            <Calendar size={14}/>
                             <p>{formatDate(item.publishedDate)}</p>
                           </div>
                           <div className="flex gap-2 flex-wrap py-1">
                             {item.tags.slice(0, 3).map((tag, index) => (
                               <Badge variant={"secondary"} key={index}>
                                 <Tag size={10} />
-                                <span className="uppercase">{tag}</span>
+                                <span className="uppercase text-title-gradient-blue">{tag}</span>
                               </Badge>
                             ))}
                             {item.tags.length > 3 && (

@@ -31,6 +31,7 @@ import { LoginModule } from "@/modules/login";
 import { useAuthStore } from "@/stores/authStore";
 import ProfileDropdown from "./profileDropdown";
 import LogoutMobile from "./logoutMobile";
+import { useLoginStore } from "@/stores/loginStore";
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";
@@ -52,7 +53,7 @@ function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   //control login dialog open state
-  const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
+  const {loginState, setLoginState } = useLoginStore()
 
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
@@ -64,7 +65,7 @@ function Header() {
   const [menuView, setMenuView] = useState<"main" | "exam">("main");
 
   const handleLoginMobile = () => {
-    setIsLoginDialogOpen(true);
+    setLoginState(true);
     setMobileOpen(false);
   };
 
@@ -160,7 +161,7 @@ function Header() {
             ) : (
               <div
                 key={"LoginTablet"}
-                onClick={() => setIsLoginDialogOpen(true)}
+                onClick={() => setLoginState(true)}
                 className="px-2 2xl:px-3"
               >
                 <Button
@@ -263,7 +264,7 @@ function Header() {
             ) : (
               <div
                 key={"Login"}
-                onClick={() => setIsLoginDialogOpen(true)}
+                onClick={() => setLoginState(true)}
                 className="px-2 2xl:px-3"
               >
                 <Button
@@ -433,8 +434,6 @@ function Header() {
       </div>
 
       <LoginModule
-        open={isLoginDialogOpen}
-        onOpenChange={setIsLoginDialogOpen}
       />
     </header>
   );

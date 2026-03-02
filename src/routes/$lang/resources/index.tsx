@@ -1,5 +1,6 @@
 import ResourcesModule from "@/modules/resources";
 import { useAuthStore } from "@/stores/authStore";
+import { useLoginStore } from "@/stores/loginStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/$lang/resources/")({
@@ -7,13 +8,22 @@ export const Route = createFileRoute("/$lang/resources/")({
   beforeLoad: ({ params }) => {
     const { accessToken } = useAuthStore.getState().auth;
 
+    //update login modal state
+    const {loginState, setLoginState } = useLoginStore.getState()
+
     if (!accessToken) {
+      if(!loginState){
+
+        setLoginState(true)
+      }
+
       throw redirect({
         to: "/$lang",
         params: { lang: params.lang },
-        search: { login: "true" }, 
         replace: true,
       });
+
+      
     }
   },
 

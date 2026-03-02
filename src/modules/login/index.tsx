@@ -29,15 +29,12 @@ import { useEffect, useState } from "react";
 import { LoginWithOtp } from "./loginWithOtp";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { NewUserRegistration } from "./newUserRegistration";
-import { useSearch } from "@tanstack/react-router";
+import { useLoginStore } from "@/stores/loginStore";
 
-interface LoginDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
 
-export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
-  const search = useSearch({ strict: false });
+
+export function LoginModule() {
+
 
   //control OTP dialog open state
   const [isOTPDialogOpen, setOTPDialogOpen] = useState(false);
@@ -45,6 +42,10 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
   const [isRegistrationOpen, setRegistrationOpen] = useState(false);
 
   const [mobileNo, setMobileNo] = useState("");
+
+  //get the login state to show the login-modal on visit resource and profile page
+  //without login
+  const {loginState, setLoginState } = useLoginStore()
 
   const form = useForm<createUserLoginFormData>({
     resolver: zodResolver(createUserLoginSchema),
@@ -54,10 +55,10 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
   });
 
   useEffect(() => {
-    if (search.login === "true") {
-      onOpenChange(true);
+    if (loginState) {
+      setLoginState(true);
     }
-  }, [search.login, onOpenChange]);
+  }, [loginState, setLoginState]);
 
   const loginMutation = useMutation({
     mutationFn: authApi.login,
@@ -69,7 +70,8 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
         toast.success("Otp has been sent in your register mobile number", {
           duration: 3000,
         });
-        onOpenChange(false);
+        // onOpenChange(false);
+        setLoginState(false)
 
         if (response.data.newUser) {
           setRegistrationOpen(true);
@@ -94,7 +96,7 @@ export function LoginModule({ open, onOpenChange }: LoginDialogProps) {
 
   return (
     <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
+      <Dialog open={loginState} onOpenChange={setLoginState}>
         <DialogContent
           className=" p-0 overflow-hidden border-0 shadow-2xl rounded-2xl sm:rounded-3xl w-[95vw] sm:w-full"
           style={{ maxWidth: "720px", fontFamily: "'DM Sans', sans-serif" }}
