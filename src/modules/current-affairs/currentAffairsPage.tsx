@@ -106,7 +106,7 @@ export default function CurrentAffairsPage() {
     refetchOnReconnect: false,
   });
 
-    // console.log("affairs data", data);
+  // console.log("affairs data", data);
 
   const allItems = useMemo(() => {
     return data?.pages.flatMap((page) => page.data) ?? [];
@@ -132,7 +132,6 @@ export default function CurrentAffairsPage() {
 
   //Scroll to top window
   useEffect(() => {
-   
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [date, tags, refetch]);
 
@@ -185,23 +184,20 @@ export default function CurrentAffairsPage() {
         </div>
       </div>
 
-      {/* left side sheet */}
       <div className="flex gap-8 px-4  container mx-auto pb-8">
         <div className="hidden lg:block">
           <FilterCurrentAffairs filters={filters} />
         </div>
 
-        <section className="w-full mt-14 lg:mt-11 ">
+        <section className="w-full mt-16 lg:mt-11 min-h-[calc(100vh-10rem)]">
           <div className="pb-3 space-y-1">
             <h2
               className="inline-block text-2xl xl:text-4xl font-bold 
            bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent"
             >
-             
               {getLocalTranslation("currentAffairsHomePage.title")}
             </h2>
             <p className="text-subtitle-gray mb-4">
-            
               {getLocalTranslation("currentAffairsHomePage.subtitle")}
             </p>
           </div>
@@ -297,7 +293,7 @@ export default function CurrentAffairsPage() {
 
           {/* No Results */}
           {allItems.length === 0 && !isLoading && (
-            <div className="mt-20 mx-auto w-fit">
+            <div className="min-h-[calc(100vh-10rem)] flex items-center justify-center">
               <NoResultFound />
             </div>
           )}

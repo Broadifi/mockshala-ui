@@ -80,7 +80,8 @@ export default function FilterCurrentAffairs({ filters }: FilterProps) {
   /* -------------------- UI -------------------- */
 
   return (
-    <Card className="w-[18rem] p-3 flex-col gap-4 sticky top-24 hidden lg:flex h-[calc(100vh-8rem)]">
+    // stale class for filter height className="w-[18rem] p-3 flex-col gap-4 sticky top-24 hidden lg:flex h-[calc(100vh-8rem)]"
+    <Card className="w-[18rem] p-3 flex-col gap-4 sticky top-24 hidden lg:flex h-[calc(100vh-10rem)]">
       <h2 className="text-lg font-bold text-title-darkblue tracking-wider">
         Filters
       </h2>
