@@ -1,39 +1,49 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState, useMemo } from "react";
+import {
+  useInfiniteQuery,
+  useQuery,
+  keepPreviousData,
+} from "@tanstack/react-query";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { resourcesAPI } from "@/api/services/resources";
 import { examCategoriesAPI } from "@/api/services/exam-categories";
 import ResourceFilters from "./components/ResourceFilters";
-import ResourceList from "./components/ResourceList"; 
-// import { SmartPagination } from "./components/Pagination";
-import { keepPreviousData } from "@tanstack/react-query";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import ResourceList from "./components/ResourceList";
 
+export default function ResourcesModule() {
+  const navigate = useNavigate({ from: "/$lang/resources" });
+  const search = useSearch({ from: "/$lang/resources/" });
 
-function ResourcesModule() {
-  // const [page, setPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const initialCategory = search.category || "";
+
   const [searchInput, setSearchInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
   const LIMIT = 7;
 
-  useEffect (() => {
-    const Timer = 
-    setTimeout(()=> {
+  useEffect(() => {
+    navigate({
+      search: {
+        ...search,
+        category: selectedCategory ? selectedCategory : undefined,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    setSelectedCategory(search.category ?? "");
+  }, [search.category]);
+
+  useEffect(() => {
+    const Timer = setTimeout(() => {
       setSearchTerm(searchInput);
-      // setPage(1);
-      console.log("Api Hit: ", searchInput)
+      console.log("Api Hit: ", searchInput);
     }, 500);
-    
 
-    return () => clearTimeout(Timer)
-
-  
-  },[searchInput, selectedCategory])
-  
-
-
-
+    return () => clearTimeout(Timer);
+  }, [searchInput]);
 
   const { data: categoryResponse, isLoading: isCategoryLoading } = useQuery({
     queryKey: ["examCategories"],
@@ -42,30 +52,44 @@ function ResourcesModule() {
 
 
   
-  const { data, isFetching, isLoading,fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ["resources", searchTerm, selectedCategory],
+  const activeCategoryId = useMemo(() => {
+    if (!selectedCategory || !categoryResponse?.data) return "";
+
+    const matchedCategory = categoryResponse.data.find(
+      (add) =>
+        add.slug === selectedCategory || add.categoryName === selectedCategory,
+    );
+
+    return matchedCategory ? matchedCategory._id : selectedCategory;
+  }, [selectedCategory, categoryResponse?.data]);
+
+
+  const {
+    data,
+    isFetching,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    queryKey: ["resources", searchTerm, activeCategoryId],
     queryFn: ({ pageParam = 1 }) =>
-      resourcesAPI.getResources(pageParam, LIMIT, searchTerm, selectedCategory),
-      initialPageParam: 1,
-       placeholderData: keepPreviousData,
-       getNextPageParam: (lastPage, allPages) => {
-        if (lastPage.data.length < LIMIT) {
-          return undefined
-        }
-        return allPages.length + 1
-      },
+      resourcesAPI.getResources(pageParam, LIMIT, searchTerm, activeCategoryId),
+    initialPageParam: 1,
+    placeholderData: keepPreviousData,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.data.length < LIMIT) {
+        return undefined;
+      }
+      return allPages.length + 1;
+    },
   });
-
-
-  // const totalPages = data ? Math.ceil(data.totalCount / LIMIT) : 0;
 
   const allResources = data?.pages.flatMap((page) => page.data) || [];
 
   return (
     <div className="gradient-soft-blue-current-affairs w-full">
       <div className="w-full container mx-auto px-4 sm:px-6 py-6">
-        
-        {/* 1. Header & Filters */}
         <ResourceFilters
           searchTerm={searchInput}
           setSearchTerm={setSearchInput}
@@ -74,27 +98,15 @@ function ResourcesModule() {
           category={categoryResponse?.data}
           isCategoryLoading={isCategoryLoading}
           isFetching={isFetching}
-          
-        />        
-        <ResourceList items={allResources}  isLoading={isLoading} fetchNextPage={fetchNextPage} 
-          hasNextPage={hasNextPage} 
-          isFetchingNextPage={isFetchingNextPage}/>
-
-{/*       
-       {data && (
-        <div className="flex font-small   justify-center lg:justify-end mt-9 ">
-         <SmartPagination
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={setPage}
-            className='w-fit mx-0'
-          />
-        </div>
-       )} */}
-
+        />
+        <ResourceList
+          items={allResources}
+          isLoading={isLoading}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+        />
       </div>
     </div>
   );
 }
-
-export default ResourcesModule;

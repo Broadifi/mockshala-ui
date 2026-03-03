@@ -22,7 +22,7 @@ function ResourceFilters({
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 mb-6 lg:mt-9 w-full">
       <div className="col-span-1 md:col-span-12">
-        <span className="bg-gradient-to-r from-[#4F6BAF] to-[#608FBB] bg-clip-text text-transparent font-bold text-4xl">
+        <span className="bg-linear-to-r from-[#4F6BAF] to-[#608FBB] bg-clip-text text-transparent font-bold text-4xl">
           Resources
         </span>
       </div>
@@ -55,7 +55,7 @@ function ResourceFilters({
           {isCategoryLoading && <option disabled>Loading Categories...</option>}
 
           {category?.map((item) => (
-            <option key={item._id} value={item._id}>
+            <option key={item._id} value={item.categoryName}>
               {item.categoryName}
             </option>
           ))}
