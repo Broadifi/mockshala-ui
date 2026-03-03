@@ -30,9 +30,12 @@ function ResourceList({
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-4 mt-10 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-10 gap-4">
         {Array.from({ length: 12 }).map((_, index) => (
-          <Skeleton key={index} className="h-45 mb-2 w-75 rounded-lg bg-gray-200" />
+          <Skeleton
+            key={index}
+            className="h-45 mb-2 w-full rounded-lg bg-gray-200"
+          />
         ))}
       </div>
     );
@@ -53,14 +56,12 @@ function ResourceList({
 
   return (
     <>
-     
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-6">
         {items.map((item) => (
           <ResourceCard key={item._id} item={item} />
         ))}
       </div>
 
-     
       <div ref={ref} className="w-full flex justify-center py-8">
         {isFetchingNextPage && (
           <div className="text-blue-600 font-medium animate-pulse">

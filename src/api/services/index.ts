@@ -10,15 +10,19 @@ const api: AxiosInstance = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTk4MGMxYjJhMGU4ZTg3YWFhMzBlNWIiLCJlbWFpbCI6Imdob3Noc3VtYW4xNDM1QGdtYWlsLmNvbSIsIm5hbWUiOiJERUJBU0lTSCBHSE9TSCIsImlhdCI6MTc3MTU3MjI1MSwiZXhwIjoxNzcyODY4MjUxfQ.jbnPeFXthszzDkl_A0UdForbwPWWlmiVvjVq01H-a08"
+    const token = window.localStorage.getItem('authToken');
+    
+    console.log("Interceptor checking token:", token);
+
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+     
+      config.headers.set('Authorization', `Bearer ${token}`);
     }
 
-    return config
+    return config;
   },
   (error) => {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 export default api
