@@ -39,8 +39,6 @@ function ProfilePic() {
   // 👉 Close overlay when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      console.log(containerRef.current?.contains(e.target as Node));
-      
       if (
         containerRef.current &&
         !containerRef.current.contains(e.target as Node)
@@ -205,7 +203,7 @@ function ProfilePic() {
         ) : (
           <div
             className="flex justify-center items-center 
-              w-25 h-25 md:w-34 md:h-34 rounded-full border-2 border-solid 
+              w-26 h-26 md:w-34 md:h-34 lg:w-38 lg:h-38 rounded-full border-2 border-solid 
               hover:border-dotted border-blue-500 cursor-pointer 
               bg-gray-100 hover:bg-blue-100 shadow-sm hover:shadow-md 
               transition-all duration-300"
@@ -223,10 +221,7 @@ function ProfilePic() {
         )}
       </div>
 
-      <ViewFullImage
-        open={isViewDialogOpen}
-        onOpenChange={setViewDialogOpen}
-      />
+      <ViewFullImage open={isViewDialogOpen} onOpenChange={setViewDialogOpen} />
 
       <DeleteImageDialog
         open={isDeleteDialogOpen}

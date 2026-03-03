@@ -19,7 +19,7 @@ import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
 import { useForm } from "react-hook-form";
 import {
   registrationSchema,
-  type registrationFormData,
+  type RegistrationFormData,
 } from "@/validators/login-user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -52,8 +52,7 @@ export function NewUserRegistration({
   onOpenChange,
   mobileNumber,
 }: OtpDialogProps) {
-
-const otpSlotClass = `
+  const otpSlotClass = `
     font-medium
   border border-gray-200 bg-gray-50 rounded-lg
 
@@ -75,11 +74,11 @@ const otpSlotClass = `
     (state) => state.auth,
   );
 
-   //set userId to fetch user data from API
+  //set userId to fetch user data from API
   const [userId, setUserId] = useState("");
 
   //Schema for form validation
-  const form = useForm<registrationFormData>({
+  const form = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
     defaultValues: { mobile: mobileNumber || "", otp: "", name: "", email: "" },
   });
@@ -125,12 +124,12 @@ const otpSlotClass = `
     };
   }, [open, mobileNumber, form]);
 
-    /* PROFILE QUERY */
-    const {
-      data: profileData,
-      // isLoading: profileLoading,
-      isSuccess: profileSuccess,
-    } = useProfileData(userId);
+  /* PROFILE QUERY */
+  const {
+    data: profileData,
+    // isLoading: profileLoading,
+    isSuccess: profileSuccess,
+  } = useProfileData(userId);
 
   //   Registration Verification
   const verifyRegistrationMutation = useMutation({
@@ -144,11 +143,9 @@ const otpSlotClass = `
         setUserDetails(normalizeUser(data.user));
         setUserId(data.user._id);
 
-        // toast.success("Login successful!", {
-        //   duration: 3000,
-        // });
-
-        // onOpenChange(false);
+        toast.success("Login successful!", {
+          duration: 5000,
+        });
       } else {
         toast.error("Login failed. Please try again.", { duration: 5000 });
       }
@@ -159,17 +156,12 @@ const otpSlotClass = `
     },
   });
 
-   //   /* NAVIGATE ONLY AFTER PROFILE LOADS */
+  //   /* NAVIGATE ONLY AFTER PROFILE LOADS */
   useEffect(() => {
     if (profileSuccess && profileData) {
       const data = profileData.data;
 
-      console.log(data);
-      setUserDetails(normalizeUser(data))
-
-      toast.success("Login successful!", {
-        duration: 5000,
-      });
+      setUserDetails(normalizeUser(data));
 
       onOpenChange(false);
     }
@@ -214,7 +206,7 @@ const otpSlotClass = `
     },
   });
 
-  const handleSubmit = (data: registrationFormData) => {
+  const handleSubmit = (data: RegistrationFormData) => {
     if (data.otp.length === 4) {
       // Include mobile number in the mutation call
       verifyRegistrationMutation.mutate(data);
@@ -244,7 +236,8 @@ const otpSlotClass = `
         <DialogHeader className="sr-only">
           <DialogTitle>OTP Verification</DialogTitle>
           <DialogDescription>
-             Enter the OTP sent to your mobile number to verify and create your account.
+            Enter the OTP sent to your mobile number to verify and create your
+            account.
           </DialogDescription>
         </DialogHeader>
 
@@ -269,7 +262,8 @@ const otpSlotClass = `
             </h2>
 
             <p className="text-xs sm:text-sm text-muted-foreground mb-6 sm:mb-8">
-                Enter the 4 digit OTP sent to your mobile number to verify and create your account.
+              Enter the 4 digit OTP sent to your mobile number to verify and
+              create your account.
             </p>
 
             {/* Mobile Number Display */}

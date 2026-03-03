@@ -134,6 +134,10 @@ export function LoginWithOtp({
       if (response.status) {
         const data = response.data;
         setAccessToken(data.token);
+        
+        toast.success("Login successful!", {
+        duration: 5000,
+      });
 
         setUserDetails(normalizeUser(data.user));
         setUserId(data.user._id);
@@ -156,9 +160,7 @@ export function LoginWithOtp({
 
       setUserDetails(normalizeUser(data))
 
-      toast.success("Login successful!", {
-        duration: 5000,
-      });
+      
 
       onOpenChange(false);
     }

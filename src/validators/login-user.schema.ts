@@ -9,7 +9,7 @@ export const createUserLoginSchema = z.object({
     .regex(/^[6-9]\d{9}$/, "Enter a valid mobile number"),
 })
 
-export type createUserLoginFormData = z.infer<typeof createUserLoginSchema>
+export type CreateUserLoginFormData = z.infer<typeof createUserLoginSchema>
 
 
 // OTP DATA
@@ -46,4 +46,4 @@ export const registrationSchema = z.object({
 });
 
 
-export type registrationFormData = z.infer<typeof registrationSchema>
+export type RegistrationFormData = z.infer<typeof registrationSchema>

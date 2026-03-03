@@ -21,8 +21,17 @@ export const useAuthStore = create<AuthState>()((set)=> {
     const storageUserDetails = window.localStorage.getItem(cookiesKeys.userDetails)
 
     
-    const  initUserDetails: GetProfileData | null = 
-    storageUserDetails ? (JSON.parse(storageUserDetails)) : null
+   let initUserDetails: GetProfileData | null = null;
+
+    if (storageUserDetails) {
+    try {
+        initUserDetails = JSON.parse(storageUserDetails);
+    } catch {
+     
+        window.localStorage.removeItem(cookiesKeys.userDetails);
+        initUserDetails = null;
+    }
+    }   
 
 
     return {

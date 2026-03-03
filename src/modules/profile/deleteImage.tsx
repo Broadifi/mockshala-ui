@@ -10,9 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { queryClient } from "@/main";
+
 import { useAuthStore } from "@/stores/authStore";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import React from "react";
 
@@ -28,6 +28,7 @@ export function DeleteImageDialog({
   onOpenChange,
   profilePath,
 }: ViewDialogProps) {
+  const queryClient = useQueryClient();
   const { userDetails } = useAuthStore((state) => state.auth);
 
   const deleteImageMutation = useMutation({

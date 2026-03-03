@@ -14,6 +14,8 @@ import { useAuthStore } from "@/stores/authStore";
 
 function ProfileDropdown() {
   const { lang } = useParams({ strict: false });
+const safeLang = lang ?? "en";
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
@@ -33,7 +35,7 @@ function ProfileDropdown() {
 
     navigate({
       to: "/$lang",
-      params: { lang: lang ?? "en" },
+      params: { lang: safeLang },
       replace: true, // prevents back navigation to protected page
     });
   };
@@ -55,9 +57,9 @@ function ProfileDropdown() {
               <Link
                 key="Profile"
                 to="/$lang/profile"
-                params={{ lang: `${lang}` }}
+                params={{ lang: safeLang }}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  isActive(`/${lang}/profile`)
+                  isActive(`/${safeLang}/profile`)
                     ? "bg-primary/10 text-primary"
                     : "text-title-darkblue hover:bg-accent hover:text-accent-foreground"
                 }`}

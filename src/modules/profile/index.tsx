@@ -38,7 +38,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { Spinner } from "@/components/ui/spinner";
 import { format } from "date-fns";
 
-// import { INDIAN_STATES } from "@/utils/profile/indianStates";
 import { useProfileData } from "./profileData";
 import { normalizeUser } from "@/api/model/normalizeUser";
 import { GeneralKeys, queryKeys } from "@/api";
@@ -57,7 +56,7 @@ const formatDateForForm = (dateString: string | undefined): string => {
 };
 
 function ProfileModule() {
-  const { userDetails, setUserDetails } = useAuthStore((state) => state.auth);
+  const { accessToken, userDetails, setUserDetails } = useAuthStore((state) => state.auth);
   const [activeTab, setActiveTab] = useState<"general" | "subscription">(
     "general",
   );
@@ -181,6 +180,7 @@ function ProfileModule() {
   const { data: stateList, isSuccess: stateSuccess } = useQuery({
     queryKey: GeneralKeys.stateListDetails(),
     queryFn: generalApi.state,
+    enabled: !!accessToken
   });
 
   const isLoading = updateProfileMutation.isPending;

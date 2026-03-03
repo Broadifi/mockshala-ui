@@ -12,7 +12,7 @@ import LoginLeftPanel from "./loginLeftPanel";
 import { useForm } from "react-hook-form";
 import {
   createUserLoginSchema,
-  type createUserLoginFormData,
+  type CreateUserLoginFormData,
 } from "@/validators/login-user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -25,17 +25,13 @@ import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { mockShalaLogo } from "@/assets";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LoginWithOtp } from "./loginWithOtp";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { NewUserRegistration } from "./newUserRegistration";
 import { useLoginStore } from "@/stores/loginStore";
 
-
-
 export function LoginModule() {
-
-
   //control OTP dialog open state
   const [isOTPDialogOpen, setOTPDialogOpen] = useState(false);
 
@@ -45,20 +41,20 @@ export function LoginModule() {
 
   //get the login state to show the login-modal on visit resource and profile page
   //without login
-  const {loginState, setLoginState } = useLoginStore()
+  const { loginState, setLoginState } = useLoginStore();
 
-  const form = useForm<createUserLoginFormData>({
+  const form = useForm<CreateUserLoginFormData>({
     resolver: zodResolver(createUserLoginSchema),
     defaultValues: {
       mobile: "",
     },
   });
 
-  useEffect(() => {
-    if (loginState) {
-      setLoginState(true);
-    }
-  }, [loginState, setLoginState]);
+  // useEffect(() => {
+  //   if (loginState) {
+  //     setLoginState(true);
+  //   }
+  // }, [loginState, setLoginState]);
 
   const loginMutation = useMutation({
     mutationFn: authApi.login,
@@ -71,7 +67,7 @@ export function LoginModule() {
           duration: 5000,
         });
         // onOpenChange(false);
-        setLoginState(false)
+        setLoginState(false);
 
         if (response.data.newUser) {
           setRegistrationOpen(true);
@@ -86,7 +82,7 @@ export function LoginModule() {
     },
   });
 
-  const handleSubmit = (data: createUserLoginFormData) => {
+  const handleSubmit = (data: CreateUserLoginFormData) => {
     // console.log("coming data", data);
 
     loginMutation.mutate(data);

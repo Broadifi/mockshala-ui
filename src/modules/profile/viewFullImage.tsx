@@ -32,7 +32,7 @@ const profilePic = userDetails?.profilePicture
            <img
               src={IMAGE_BASE_URL + profilePic?.path}
               alt="Profile"
-              className="w-60 lg:w-100 h-auto object-cover shadow-sm"
+              className="w-60 lg:w-96 h-auto object-cover shadow-sm"
               onError={(e) => {
                 e.currentTarget.src = profileImage;
               }}
