@@ -67,7 +67,7 @@ function EditorialCornerDashboard() {
     }
   });
 
-  const currentElement = observerRef.current; // ✅ copy it
+  const currentElement = observerRef.current;
 
   if (currentElement) {
     observer.observe(currentElement);
