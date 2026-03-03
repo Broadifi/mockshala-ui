@@ -1,9 +1,9 @@
 "use client";
-import EditorialCornerAction from "./components/editorialCornerAction";
+// import EditorialCornerAction from "./components/editorialCornerAction";
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
-import type { EditorialCornerData } from "@/api/model/editorial-corner";
+import type { EditorialCornerData, EditorialCornerResponse } from "@/api/model/editorial-corner";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Link } from "@tanstack/react-router";
 import DOMPurify from "dompurify";
@@ -42,6 +42,7 @@ function EditorialCornerDashboard() {
     error,
   } = useInfiniteQuery({
     queryKey: ["editorials", startSelectedDate, endSelectedDate],
+      initialPageParam: 1,  
     queryFn: ({ pageParam = 1 }) =>
       fetchEditorialCorners({
         page: pageParam,
@@ -58,24 +59,26 @@ function EditorialCornerDashboard() {
       return lastPage.hasNext ? lastPage.page + 1 : undefined;
     },
   });
-  console.log(data?.pages[0].data);
-  React.useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasNextPage) {
-        fetchNextPage();
-      }
-    });
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+  console.log(data?.pages?.[0]?.data);
+ React.useEffect(() => {
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && hasNextPage) {
+      fetchNextPage();
     }
+  });
 
-    return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
-    };
-  }, [hasNextPage, fetchNextPage]);
+  const currentElement = observerRef.current; // ✅ copy it
+
+  if (currentElement) {
+    observer.observe(currentElement);
+  }
+
+  return () => {
+    if (currentElement) {
+      observer.unobserve(currentElement);
+    }
+  };
+}, [hasNextPage, fetchNextPage]);
 
   const decodeHTML = (html: string) => {
     const txt = document.createElement("textarea");
@@ -148,21 +151,24 @@ function EditorialCornerDashboard() {
         </div>
       </header>
       <div>
-        {data?.pages[0].data.length === 0 &&
+        {data?.pages?.[0]?.data?.length === 0 &&
           isLoading === false &&
           !hasNextPage && (
             <NoResultFound
-              startSelectedDate={startSelectedDate}
-              endSelectedDate={endSelectedDate}
+              // startSelectedDate={startSelectedDate}
+              // endSelectedDate={endSelectedDate}
               setStartSelectedDate={setStartSelectedDate}
               setEndSelectedDate={setEndSelectedDate}
             />
           )}
       </div>
       <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-7">
-        {data?.pages.map((page) =>
+        {data?.pages?.map((page:EditorialCornerResponse) =>
           page.data.map((item: EditorialCornerData) => (
-            <Link key={item._id} to={`/${lang}/editorials-corner/${item.slug}`}>
+            <Link key={item._id} to="/$lang/editorials-corner/$slug"   params={{
+    lang,
+    slug: item.slug,
+  }} >
               <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card">
                 <div className="rounded-t-3xl w-full overflow-hidden h-52">
                   <img
@@ -183,10 +189,10 @@ function EditorialCornerDashboard() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="1.25"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-clock-icon lucide-clock"
+                   strokeWidth="1.25"
+strokeLinecap="round"
+strokeLinejoin="round"
+                    className="lucide lucide-clock-icon lucide-clock"
                   >
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 6v6l4 2" />
@@ -210,10 +216,10 @@ function EditorialCornerDashboard() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-calendar-icon lucide-calendar"
+                 strokeWidth="2"
+strokeLinecap="round"
+strokeLinejoin="round"
+                    className="lucide lucide-calendar-icon lucide-calendar"
                   >
                     <path d="M8 2v4" />
                     <path d="M16 2v4" />

@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import DOMPurify from "dompurify";
 import Autoplay from "embla-carousel-autoplay";
-import React from "react";
+// import React from "react";
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -95,36 +95,44 @@ const EditorialCornerDetails = () => {
       <div className="flex flex-col justify-start gap-2 px-1">
         <div className="flex flex-row gap-1 md:hidden  justify-between">
           <div className="flex flex-row justify-center items-center gap-2">
-            <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
+            <Link to="/$lang/editorials-corner/$slug"
+params={{
+  lang,
+  slug: fetchBlog?.prevBlog ?? "",
+}}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
+                width="30"
+                height="30"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#5a5858"
-                stroke-width="1.25"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-chevron-left-icon lucide-chevron-left"
-                className="hover:bg-title-darkblue rounded-full"
+                strokeWidth="1.25"
+strokeLinecap="round"
+strokeLinejoin="round"
+                // class="lucide lucide-chevron-left-icon lucide-chevron-left"
+                className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full"
               >
                 <path d="m15 18-6-6 6-6" />
               </svg>
             </Link>
-            <Link to={`/${lang}/editorials-corner/${fetchBlog?.nextBlog}`}>
+            <Link to="/$lang/editorials-corner/$slug"
+params={{
+  lang,
+  slug: fetchBlog?.nextBlog ?? "",
+}}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
+                width="30"
+                height="30"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#5a5858"
-                stroke-width="1.25"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-chevron-right-icon lucide-chevron-right"
-                className="hover:bg-title-darkblue rounded-full hover:text-white"
+            strokeWidth="1.25"
+strokeLinecap="round"
+strokeLinejoin="round"
+                // class="lucide lucide-chevron-right-icon lucide-chevron-right"
+                className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white"
               >
                 <path d="m9 18 6-6-6-6" />
               </svg>
@@ -157,7 +165,8 @@ const EditorialCornerDetails = () => {
           </span>{" "}
           <IoIosArrowForward />
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base line-clamp-1">
-            <Link to={`/${lang}/editorials-corner/`}>Editorial Corner </Link>
+            <Link  to="/$lang/editorials-corner"
+params={{ lang: lang }}>Editorial Corner </Link>
           </span>
           <IoIosArrowForward />
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800 line-clamp-1">
@@ -174,7 +183,7 @@ const EditorialCornerDetails = () => {
             <div className="flex flex-row justify-center items-center gap-0.5">
               🕰️
               <span className="text-blue-800 text-xs lg:text-sm">
-                {fetchData.readTime.text}
+                {fetchData?.readTime.text}
               </span>
             </div>
             {/* <div className="flex flex-row justify-center items-center gap-0.5">
@@ -199,36 +208,44 @@ const EditorialCornerDetails = () => {
           </div>
           <div className="hidden md:flex flex-row gap-1">
             <div className="flex flex-row justify-center items-center gap-2">
-              <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
+              <Link to="/$lang/editorials-corner/$slug"
+params={{
+  lang,
+  slug: fetchBlog?.prevBlog ?? "",
+}}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
+                  width="35"
+                  height="35"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#5a5858"
-                  stroke-width="1.25"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-chevron-left-icon lucide-chevron-left"
-                  className="hover:bg-title-darkblue rounded-full"
+                  strokeWidth="1.25"
+strokeLinecap="round"
+strokeLinejoin="round"
+     
+                  className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full"
                 >
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </Link>
-              <Link to={`/${lang}/editorials-corner/${fetchBlog?.nextBlog}`}>
+              <Link to="/$lang/editorials-corner/$slug"
+params={{
+  lang,
+  slug: fetchBlog?.nextBlog ?? "",
+}}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
+                  width="35"
+                  height="35"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#5a5858"
-                  stroke-width="1.25"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-chevron-right-icon lucide-chevron-right"
-                  className="hover:bg-title-darkblue rounded-full hover:text-white"
+                 strokeWidth="1.25"
+strokeLinecap="round"
+strokeLinejoin="round"
+                  // class=""
+                  className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white"
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
@@ -263,9 +280,9 @@ const EditorialCornerDetails = () => {
             viewBox="0 0 26 26"
             fill="none"
             stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+strokeLinecap="round"
+strokeLinejoin="round"
             className="lucide lucide-calendar-icon lucide-calendar text-gray-600 "
           >
             <path d="M8 2v4" />
@@ -283,8 +300,8 @@ const EditorialCornerDetails = () => {
       <div className="  flex-col sm:flex-none   items-center justify-center ">
         <div className="sm:h-[50%] sm:w-[50%]  flex flex-row justify-center items-center  rounded-2xl sm:float-left mb-2 sm:px-2 float-none h-full w-full  sm:mb-3.5 ">
           <img
-            src={`${IMAGE_BASE_URL}${fetchData.image}`}
-            alt={fetchData.metaTitle}
+            src={`${IMAGE_BASE_URL}${fetchData?.image}`}
+            alt={fetchData?.metaTitle}
             className=" mx-2    bg-contain overflow-hidden rounded-2xl  sm:mx-auto sm:mr-7"
           />
         </div>
@@ -330,7 +347,11 @@ const EditorialCornerDetails = () => {
                 className="basis-[85%] sm:basis-1/2 lg:basis-[25%]"
               >
                 <Link
-                  to={`/${lang}/editorials-corner/${metaItem.slug}`}
+                    to="/$lang/editorials-corner/$slug"
+  params={{
+    lang,
+    slug: metaItem.slug,
+  }}
                   className="block"
                 >
                   <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden">

@@ -11,6 +11,9 @@ export interface EditorialCornerData {
   approveStatus: string;
   publishedDate: string;
   slug: string;
+  readTime:{
+    text:string
+  };
  
 }
 // export interface otherEditorials{

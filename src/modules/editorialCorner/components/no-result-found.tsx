@@ -3,13 +3,16 @@ import { Link, useParams } from "@tanstack/react-router";
 import { NoResultFoundImg } from "@/assets";
 
 import DefaultButton from "@/components/customButtons/defaultButton";
-
-export default function NoResultFound({setStartSelectedDate,setEndSelectedDate}) {
+type NoResultFoundProps = {
+  setStartSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  setEndSelectedDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+};
+export default function NoResultFound({setStartSelectedDate,setEndSelectedDate}:NoResultFoundProps) {
   //Fetch the language params
   const { lang } = useParams({ strict: false });
   function handleRemoveFilter(){
-    setStartSelectedDate("");
-    setEndSelectedDate("");
+    setStartSelectedDate(undefined);
+    setEndSelectedDate(undefined);
   }
   const homepageLink = lang ?? "en";
 
@@ -20,7 +23,7 @@ export default function NoResultFound({setStartSelectedDate,setEndSelectedDate})
 
       <h3 className="uppercase font-semibold">No results found</h3>
       <Link
-        to="/$lang/editorials-corner/"
+        to="/$lang/editorials-corner"
         params={{ lang: homepageLink }}
         className="mt-2"
       >
