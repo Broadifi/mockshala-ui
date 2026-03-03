@@ -25,8 +25,9 @@ import { createHeaderData } from "../data/headerData";
 import LangSwitch from "../langSwitch";
 import LanguageSwitch from "../LanguageSwitch";
 import { useTranslation } from "react-i18next";
-import { ExamModule } from "@/modules/exams";
 import { ExamNavigation } from "@/modules/examNavigationMobile";
+import { ExamModule } from "@/modules/exams";
+
 
 // import LangSwitch from "../langSwitch";
 // import LanguageToggle from "../toggleSwitch";

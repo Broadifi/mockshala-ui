@@ -17,7 +17,7 @@ import { IMAGE_BASE_URL } from "@/api/url";
 import FilterExamByCategory from "./filterExamByCategory";
 import { ExamModuleSkeleton } from "./skeleton/ExamModuleSkeleton";
 
-export function ExamModule() {
+export  function ExamModule() {
   const { data, isLoading } = useQuery({
     queryKey: queryKeys.home.paidTestCategories(),
     queryFn: homeAPI.getDashboardPaidCategories,
