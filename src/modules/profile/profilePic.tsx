@@ -15,17 +15,13 @@ import { ViewFullImage } from "./viewFullImage";
 import { DeleteImageDialog } from "./deleteImage";
 
 function ProfilePic() {
-  //Get profile pic data from the store
-
   const { userDetails, setUserDetails } = useAuthStore((state) => state.auth);
 
-  //control view image dialog
-const [isViewDialogOpen, setViewDialogOpen] = useState(false);
+  const [isViewDialogOpen, setViewDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
-
-
-
+  const [showOverlay, setShowOverlay] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [uploadedPath, setUploadedPath] = useState<string | undefined>(
@@ -33,7 +29,6 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   );
 
   const profilePicUrl = uploadedPath;
-
   const [userId, setUserId] = useState("");
 
   const queryClient = useQueryClient();
@@ -41,24 +36,43 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { data: fetchProfileData, isSuccess: profileSuccess } =
     useProfileData(userId);
 
+  // 👉 Close overlay when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      console.log(containerRef.current?.contains(e.target as Node));
+      
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setShowOverlay(false);
+      }
+    }
+
+    if (showOverlay) {
+      document.addEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [showOverlay]);
+
   // 👉 Open file explorer
-  const handleClick = () => {
+  const handleUploadClick = () => {
     fileInputRef.current?.click();
   };
 
-  //Upload photo ID to user profile and sync
-
-  const updatePhotoIdMUtation = useMutation({
+  // Upload photo ID to profile
+  const updatePhotoIdMutation = useMutation({
     mutationFn: authApi.updateProfileImageId,
     onSuccess: (response) => {
       if (response.status) {
         const data = response.data;
-        //set the image id to update on profile
         setUserId(data._id);
 
-        toast.success("Image upload successfully", { duration: 5000 });
+        toast.success("Image uploaded successfully", { duration: 5000 });
 
-        // ⭐ THIS IS THE KEY FIX
         queryClient.invalidateQueries({
           queryKey: queryKeys.profileKeys.profileDetails(
             userDetails?._id ?? "",
@@ -69,25 +83,23 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   });
 
   const handleProfileImageUpdate = (imageId: string) => {
-    updatePhotoIdMUtation.mutate({ profilePicture: imageId });
+    updatePhotoIdMutation.mutate({ profilePicture: imageId });
   };
 
-  //Upload photo to API
+  // Upload image API
   const profilePhotoMutation = useMutation({
     mutationFn: authApi.uploadProfileImage,
-
     onSuccess: (res) => {
-      if (res.status) {
-        if (res?.data?.path) {
-          const imageId = res.data._id;
-          if (imageId) {
-            handleProfileImageUpdate(imageId);
-          } else {
-            toast.error("Image upload failed!! Try again", { duration: 5000 });
-          }
+      if (res.status && res?.data?.path) {
+        const imageId = res.data._id;
 
-          setUploadedPath(res.data.path); // update UI instantly
+        if (imageId) {
+          handleProfileImageUpdate(imageId);
+        } else {
+          toast.error("Image upload failed! Try again", { duration: 5000 });
         }
+
+        setUploadedPath(res.data.path);
       }
     },
     onError: (error: AxiosError<ErrorObject>) => {
@@ -98,15 +110,12 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
   useEffect(() => {
     if (profileSuccess && fetchProfileData) {
       const data = fetchProfileData.data;
-
-      // Update Zustand store with fetched normalized data
       setUserDetails(normalizeUser(data));
     }
   }, [profileSuccess, fetchProfileData, setUserDetails]);
 
   const uploadState = profilePhotoMutation.isPending;
 
-  // 👉 When user selects image
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -114,21 +123,13 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
     profilePhotoMutation.mutate(file);
   };
 
-  // VIEW IMAGE
   const handleView = () => {
     if (!profilePicUrl) return;
-
     setViewDialogOpen(true);
   };
 
-  // DELETE IMAGE
   const handleDelete = () => {
-    console.log("Delete clicked");
-    setDeleteDialogOpen(true)
-   
-    // Example UI reset
-    // setUploadedPath(undefined);
-   
+    setDeleteDialogOpen(true);
   };
 
   return (
@@ -144,7 +145,14 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
       <div className="flex justify-center mb-3 md:mb-4">
         {profilePicUrl ? (
-          <div className="relative group w-25 h-25 md:w-34 md:h-34">
+          <div
+            ref={containerRef}
+            className="relative group w-26 h-26 md:w-34 md:h-34 lg:w-38 lg:h-38 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowOverlay((prev) => !prev);
+            }}
+          >
             {/* Profile Image */}
             <img
               src={IMAGE_BASE_URL + profilePicUrl}
@@ -155,28 +163,39 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
               }}
             />
 
-            {/* Hover Overlay */}
+            {/* Overlay */}
             <div
-              className="
+              className={`
                 absolute inset-0 rounded-full
-                bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100
+                bg-white/30 backdrop-blur-sm
                 flex items-center justify-center gap-4
-                transition-all duration-300
-                "
+                transition-all duration-300 ease-in-out
+                ${
+                  showOverlay
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100"
+                }
+              `}
             >
-              {/* View Button */}
+              {/* View */}
               <button
                 title="View"
-                onClick={() => handleView()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleView();
+                }}
                 className="text-blue-500 hover:scale-110 transition"
               >
                 <Eye />
               </button>
 
-              {/* Delete Button */}
+              {/* Delete */}
               <button
                 title="Delete"
-                onClick={() => handleDelete()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDelete();
+                }}
                 className="text-red-600 hover:scale-110 transition"
               >
                 <Trash />
@@ -186,11 +205,11 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
         ) : (
           <div
             className="flex justify-center items-center 
-            w-25 h-25 md:w-34 md:h-34 rounded-full border-2 border-solid 
-            hover:border-dotted border-blue-500 cursor-pointer 
-            bg-gray-100 hover:bg-blue-100 shadow-sm hover:shadow-md 
-            transition-all duration-300"
-            onClick={handleClick}
+              w-25 h-25 md:w-34 md:h-34 rounded-full border-2 border-solid 
+              hover:border-dotted border-blue-500 cursor-pointer 
+              bg-gray-100 hover:bg-blue-100 shadow-sm hover:shadow-md 
+              transition-all duration-300"
+            onClick={handleUploadClick}
           >
             <button
               className="cursor-pointer flex flex-col items-center 
@@ -204,17 +223,16 @@ const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
         )}
       </div>
 
-
       <ViewFullImage
         open={isViewDialogOpen}
         onOpenChange={setViewDialogOpen}
       />
 
-      <DeleteImageDialog 
-       open={isDeleteDialogOpen}
+      <DeleteImageDialog
+        open={isDeleteDialogOpen}
         onOpenChange={setDeleteDialogOpen}
-        profilePath= {setUploadedPath}
-        />
+        profilePath={setUploadedPath}
+      />
     </div>
   );
 }
