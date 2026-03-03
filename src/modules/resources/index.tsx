@@ -51,7 +51,7 @@ export default function ResourcesModule() {
   });
 
 
-  
+
   const activeCategoryId = useMemo(() => {
     if (!selectedCategory || !categoryResponse?.data) return "";
 

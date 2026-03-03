@@ -7,6 +7,6 @@ export const Route = createFileRoute('/$lang/free-mocks/')({
 
 function RouteComponent() {
   
-  return <div><ComingSoon/></div>
+  return <ComingSoon />
 }
 

@@ -7,5 +7,5 @@ export const Route = createFileRoute('/$lang/our-plans/')({
 
 function RouteComponent() {
   
-  return <div><ComingSoon/></div>
+  return <ComingSoon />
 }

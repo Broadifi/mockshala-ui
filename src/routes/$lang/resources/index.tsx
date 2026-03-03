@@ -1,20 +1,42 @@
-import ResourcesModule from '@/modules/resources'
-import { createFileRoute } from '@tanstack/react-router'
+import ResourcesModule from "@/modules/resources";
+import { useAuthStore } from "@/stores/authStore";
+import { useLoginStore } from "@/stores/loginStore";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 type ResourcesSearch = {
-  category?: string
-}
+  category?: string;
+};
 
-export const Route = createFileRoute('/$lang/resources/')({
-  
+export const Route = createFileRoute("/$lang/resources/")({
   validateSearch: (search: Record<string, unknown>): ResourcesSearch => {
     return {
       category: search.category as string | undefined,
+    };
+  },
+  //check token before goto this URL
+
+  beforeLoad: ({ params }) => {
+    const { accessToken } = useAuthStore.getState().auth;
+
+    //update login modal state
+    const { loginState, setLoginState } = useLoginStore.getState();
+
+    if (!accessToken) {
+      if (!loginState) {
+        setLoginState(true);
+      }
+
+      throw redirect({
+        to: "/$lang",
+        params: { lang: params.lang },
+        replace: true,
+      });
     }
   },
+
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <ResourcesModule />
+  return <ResourcesModule />;
 }

@@ -22,10 +22,10 @@ export const createHeaderData = (lang: string) => ({
       isChild: false,
     },
     {
-      titleEn: "Editorials Corner",
-      titleHin: "संपादकीय अनुभाग",
+      titleEn: "Current Affairs",
+      titleHin: "समसामयिक घटनाएँ",
       allUsersAccess: true,
-      url: `/${lang}/editorials-corner`,
+      url: `/${lang}/current-affairs`,
       isChild: false,
     },
       {
@@ -38,20 +38,21 @@ export const createHeaderData = (lang: string) => ({
   ],
 
   moreOptionData: [
-    {
-      titleEn: "Success Story",
-      titleHin: "सफलता की कहानी",
-      allUsersAccess: false,
-      url: `/${lang}/success-story`,
+     {
+      titleEn: "Editorials Corner",
+      titleHin: "संपादकीय अनुभाग",
+      allUsersAccess: true,
+      url: `/${lang}/editorials-corner`,
       isChild: false,
     },
     {
-      titleEn: "Current Affairs",
-      titleHin: "समसामयिक घटनाएँ",
-      allUsersAccess: false,
-      url: `/${lang}/current-affairs`,
+      titleEn: "Success Story",
+      titleHin: "सफलता की कहानी",
+      allUsersAccess: true,
+      url: `/${lang}/success-story`,
       isChild: false,
-    }
+    },
+   
   
   ],
 
@@ -81,25 +82,27 @@ export const createHeaderData = (lang: string) => ({
   ],
 
   moreOptionDataTablet: [
-  
+    {
+      titleEn: "Current Affairs",
+      titleHin: "समसामयिक घटनाएँ",
+      allUsersAccess: true,
+      url: `/${lang}/current-affairs`,
+    },
+
     {
       titleEn: "Editorials Corner",
       titleHin: "संपादकीय अनुभाग",
       allUsersAccess: true,
       url: `/${lang}/editorials-corner`,
     },
+    
     {
       titleEn: "Success Story",
       titleHin: "सफलता की कहानी",
-      allUsersAccess: false,
+      allUsersAccess: true,
       url: `/${lang}/success-story`,
     },
-    {
-      titleEn: "Current Affairs",
-      titleHin: "समसामयिक घटनाएँ",
-      allUsersAccess: false,
-      url: `/${lang}/current-affairs`,
-    },
+  
     {
       titleEn: "Resources",
       titleHin: "संसाधन",
