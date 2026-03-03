@@ -1,10 +1,35 @@
-import { createFileRoute,  } from '@tanstack/react-router'
+import ResourcesModule from "@/modules/resources";
+import { useAuthStore } from "@/stores/authStore";
+import { useLoginStore } from "@/stores/loginStore";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/$lang/resources/')({
+export const Route = createFileRoute("/$lang/resources/")({
+  //check token before goto this URL
+  beforeLoad: ({ params }) => {
+    const { accessToken } = useAuthStore.getState().auth;
+
+    //update login modal state
+    const {loginState, setLoginState } = useLoginStore.getState()
+
+    if (!accessToken) {
+      if(!loginState){
+
+        setLoginState(true)
+      }
+
+      throw redirect({
+        to: "/$lang",
+        params: { lang: params.lang },
+        replace: true,
+      });
+
+      
+    }
+  },
+
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  
-  return <div>Hello "/resources"!</div>
+  return <ResourcesModule />;
 }

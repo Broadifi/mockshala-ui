@@ -6,11 +6,9 @@ export const Route = createFileRoute("/$lang/")({
 });
 
 function RouteComponent() {
-   
-   
   return (
     <main>
-      <HomeModule />    
+      <HomeModule />
     </main>
   );
 }
