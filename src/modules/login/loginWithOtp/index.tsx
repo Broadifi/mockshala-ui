@@ -154,11 +154,10 @@ export function LoginWithOtp({
     if (profileSuccess && profileData) {
       const data = profileData.data;
 
-      console.log(data);
       setUserDetails(normalizeUser(data))
 
       toast.success("Login successful!", {
-        duration: 3000,
+        duration: 5000,
       });
 
       onOpenChange(false);
@@ -173,7 +172,7 @@ export function LoginWithOtp({
     onSuccess: (response) => {
       if (response.status) {
         toast.success("OTP resent to your mobile number", {
-          duration: 2000,
+          duration: 5000,
         });
 
         // Clear any existing timer before starting a new one
@@ -209,7 +208,7 @@ export function LoginWithOtp({
       // Include mobile number in the mutation call
       verifyOtpMutation.mutate(data);
     } else {
-      toast.error("Please enter a valid 4-digit OTP", { duration: 3000 });
+      toast.error("Please enter a valid 4-digit OTP", { duration: 5000 });
     }
   };
 

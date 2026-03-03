@@ -168,7 +168,7 @@ const otpSlotClass = `
       setUserDetails(normalizeUser(data))
 
       toast.success("Login successful!", {
-        duration: 3000,
+        duration: 5000,
       });
 
       onOpenChange(false);
@@ -183,7 +183,7 @@ const otpSlotClass = `
     onSuccess: (response) => {
       if (response.status) {
         toast.success("OTP resent to your mobile number", {
-          duration: 2000,
+          duration: 5000,
         });
 
         // Clear any existing timer before starting a new one
@@ -219,7 +219,7 @@ const otpSlotClass = `
       // Include mobile number in the mutation call
       verifyRegistrationMutation.mutate(data);
     } else {
-      toast.error("Please enter a valid 4-digit OTP", { duration: 3000 });
+      toast.error("Please enter a valid 4-digit OTP", { duration: 5000 });
     }
   };
 

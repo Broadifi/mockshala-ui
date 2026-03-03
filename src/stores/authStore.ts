@@ -1,5 +1,6 @@
 import type { GetProfileData } from "@/api/model/auth-model";
 import { cookiesKeys } from "@/lib/cookies.keys";
+import Cookies from "js-cookie";
 import { create } from "zustand";
 
 interface AuthState {
@@ -14,9 +15,11 @@ interface AuthState {
 
 export const useAuthStore = create<AuthState>()((set)=> {
 
+    const initToken:string =  Cookies.get(cookiesKeys.accessToken) ?? '';
+
+
     const storageUserDetails = window.localStorage.getItem(cookiesKeys.userDetails)
 
-    const initToken:string =  window.localStorage.getItem(cookiesKeys.accessToken) ?? '';
     
     const  initUserDetails: GetProfileData | null = 
     storageUserDetails ? (JSON.parse(storageUserDetails)) : null
@@ -28,7 +31,9 @@ export const useAuthStore = create<AuthState>()((set)=> {
 
             setAccessToken: (accessToken) => set((state)=>
             {
-                window.localStorage.setItem(cookiesKeys.accessToken, accessToken);
+                // window.localStorage.setItem(cookiesKeys.accessToken, accessToken);
+                Cookies.set(cookiesKeys.accessToken, accessToken);
+
                 return {...state, auth:{...state.auth, accessToken}}
             }),
 
@@ -41,7 +46,8 @@ export const useAuthStore = create<AuthState>()((set)=> {
             }),
 
             logout: () => set((state)=> {
-                 window.localStorage.removeItem(cookiesKeys.accessToken);
+                Cookies.remove(cookiesKeys.accessToken)
+                
                  window.localStorage.removeItem(cookiesKeys.userDetails);
                  
                  return {...state, auth:{...state.auth, accessToken: '', userDetails: null}}

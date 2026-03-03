@@ -150,7 +150,7 @@ function ProfileModule() {
       });
 
 
-        toast.success("Profile updated successfully!", { duration: 3000 });
+        toast.success("Profile updated successfully!", { duration: 5000 });
       }
     },
     onError: (error: AxiosError<ErrorObject>) => {

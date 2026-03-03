@@ -67,8 +67,8 @@ export function LoginModule() {
         // console.log(response);
 
         setMobileNo(form.getValues("mobile"));
-        toast.success("Otp has been sent in your register mobile number", {
-          duration: 3000,
+        toast.success("OTP has been sent to your registered mobile number", {
+          duration: 5000,
         });
         // onOpenChange(false);
         setLoginState(false)
