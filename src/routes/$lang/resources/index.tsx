@@ -3,18 +3,27 @@ import { useAuthStore } from "@/stores/authStore";
 import { useLoginStore } from "@/stores/loginStore";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
+type ResourcesSearch = {
+  category?: string;
+};
+
 export const Route = createFileRoute("/$lang/resources/")({
+  validateSearch: (search: Record<string, unknown>): ResourcesSearch => {
+    return {
+      category: search.category as string | undefined,
+    };
+  },
   //check token before goto this URL
+
   beforeLoad: ({ params }) => {
     const { accessToken } = useAuthStore.getState().auth;
 
     //update login modal state
-    const {loginState, setLoginState } = useLoginStore.getState()
+    const { loginState, setLoginState } = useLoginStore.getState();
 
     if (!accessToken) {
-      if(!loginState){
-
-        setLoginState(true)
+      if (!loginState) {
+        setLoginState(true);
       }
 
       throw redirect({
@@ -22,8 +31,6 @@ export const Route = createFileRoute("/$lang/resources/")({
         params: { lang: params.lang },
         replace: true,
       });
-
-      
     }
   },
 
