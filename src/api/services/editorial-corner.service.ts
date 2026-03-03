@@ -50,7 +50,7 @@ export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialC
         return response.data;
 }
 // services/data.service.ts
-import axios from "axios";
+// import axios from "axios";
 
 //  interface DataItem {
 //   id: number;

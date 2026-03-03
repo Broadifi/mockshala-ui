@@ -1,10 +1,10 @@
-import type {
-  EditorialCornerData,
-  EditorialCornerResponse,
-} from "@/api/model/editorial-corner";
+// import type {
+//   EditorialCornerData,
+//   EditorialCornerResponse,
+// } from "@/api/model/editorial-corner";
 import EditorialCornerAction from "./components/editorialCornerAction";
 import { fetchEdtiorialCornerBySlug } from "@/api/services/editorial-corner.service";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
@@ -26,7 +26,6 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { IoIosArrowForward } from "react-icons/io";
 import { Copy } from "@/assets";
-import { id } from "date-fns/locale";
 
 const EditorialCornerDetails = () => {
   const { slug } = useParams({ from: "/$lang/editorials-corner/$slug/" });
@@ -42,12 +41,6 @@ const EditorialCornerDetails = () => {
   const fetchData = data?.data;
   console.log(fetchData);
   const fetchBlog = data?.meta;
-
-  console.log(fetchData);
-  // useEffect(() => {
-  //   window.scrollTo({ top: 0, behavior: "smooth" });
-  // }, []);
-  console.log(fetchData?.tags);
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -57,39 +50,7 @@ const EditorialCornerDetails = () => {
 
     return txt.value;
   };
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+
   function handleCopyButton() {
     const fullUrl = window.location.href;
 
@@ -104,7 +65,9 @@ const EditorialCornerDetails = () => {
         toast.error("Failed to copy");
       });
   }
-  const cleanHTML = DOMPurify.sanitize(decodeHTML(fetchData?.description));
+  const cleanHTML = DOMPurify.sanitize(
+    decodeHTML(fetchData?.description || ""),
+  );
   return (
     <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
       {/* <Link to={`/${lang}/editorials-corner/`}>
@@ -130,49 +93,44 @@ const EditorialCornerDetails = () => {
         </div>
       </Link> */}
       <div className="flex flex-col justify-start gap-2 px-1">
-       
-        <div className="flex md:hidden flex-row justify-end">
-          <EditorialCornerAction />
-        </div>
-        
-        <div className="flex flex-row  items-center text-subtitle-gray px-0.5 ">
-          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
-            Home
-          </span>{" "}
-          <IoIosArrowForward />
-          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base line-clamp-1">
-            <Link to={`/${lang}/editorials-corner/`}>Editorial Corner </Link>
-          </span>
-          <IoIosArrowForward />
-          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800 line-clamp-1">
-            {fetchData.metaTitle}
-          </span>
-        </div>
-        <div className="flex  gap-3 min-[270px]:flex-row flex-col ">
-          {fetchData?.tags.map((tagItem)=>{
-            return <p key={tagItem} className="text-amber-50 bg-button-blue text-xs rounded-2xl p-1 uppercase px-2 ">{tagItem}</p>
-          })}
-        </div>
-        <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
-          {fetchData?.title}
-        </h3>
-
-        <div className="flex flex-row justify-between px-1">
-          <div className="flex min-[292px]:flex-row justify-start items-center min-[292px]:gap-3 flex-col gap-0">
-            <div className="flex flex-row justify-center items-center gap-0.5">
-              🕰️
-              <span className="text-blue-800 text-xs lg:text-sm">
-                {fetchData.readTime.text}
-              </span>
-            </div>
-            {/* <div className="flex flex-row justify-center items-center gap-0.5">
-            📜
-            <span className="text-blue-800 text-xs lg:text-sm">
-              Words : {fetchData.readTime.words}
-            </span>
-          </div> */}
+        <div className="flex flex-row gap-1 md:hidden  justify-between">
+          <div className="flex flex-row justify-center items-center gap-2">
+            <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#5a5858"
+                stroke-width="1.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-chevron-left-icon lucide-chevron-left"
+                className="hover:bg-title-darkblue rounded-full"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+            </Link>
+            <Link to={`/${lang}/editorials-corner/${fetchBlog?.nextBlog}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#5a5858"
+                stroke-width="1.25"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-chevron-right-icon lucide-chevron-right"
+                className="hover:bg-title-darkblue rounded-full hover:text-white"
+              >
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </Link>
           </div>
-          <div className="flex gap-2 md:gap-4">
+          <div className="flex gap-2 md:gap-4  md:hidden">
             {/* Copy */}
             <div className="hidden md:flex gap-2 items-center">
               <button
@@ -187,8 +145,113 @@ const EditorialCornerDetails = () => {
               </button>
             </div>
 
-            <div className="hidden md:flex items-center">
+            <div className="flex md:hidden items-center">
               <EditorialCornerAction />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-row  items-center text-subtitle-gray px-0.5 my-2 ">
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
+            Home
+          </span>{" "}
+          <IoIosArrowForward />
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base line-clamp-1">
+            <Link to={`/${lang}/editorials-corner/`}>Editorial Corner </Link>
+          </span>
+          <IoIosArrowForward />
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800 line-clamp-1">
+            {fetchData?.metaTitle}
+          </span>
+        </div>
+
+        <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
+          {fetchData?.title}
+        </h3>
+
+        <div className="flex min-[423px]:flex-row justify-between px-1 flex-col items-start">
+          <div className="flex min-[292px]:flex-row justify-start items-start min-[292px]:gap-3 flex-col gap-0">
+            <div className="flex flex-row justify-center items-center gap-0.5">
+              🕰️
+              <span className="text-blue-800 text-xs lg:text-sm">
+                {fetchData.readTime.text}
+              </span>
+            </div>
+            {/* <div className="flex flex-row justify-center items-center gap-0.5">
+            📜
+            <span className="text-blue-800 text-xs lg:text-sm">
+              Words : {fetchData.readTime.words}
+            </span>
+          </div> */}
+
+            <div className="flex  gap-3 min-[270px]:flex-row flex-col ">
+              {fetchData?.tags?.map((tagItem) => {
+                return (
+                  <p
+                    key={tagItem}
+                    className="text-amber-50 bg-button-blue min-[411px]:text-xs rounded-2xl p-1 uppercase px-2 line-clamp-1 min-[411px]:line-clamp-0 text-sm"
+                  >
+                    {tagItem}
+                  </p>
+                );
+              })}{" "}
+            </div>
+          </div>
+          <div className="hidden md:flex flex-row gap-1">
+            <div className="flex flex-row justify-center items-center gap-2">
+              <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#5a5858"
+                  stroke-width="1.25"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-chevron-left-icon lucide-chevron-left"
+                  className="hover:bg-title-darkblue rounded-full"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </Link>
+              <Link to={`/${lang}/editorials-corner/${fetchBlog?.nextBlog}`}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#5a5858"
+                  stroke-width="1.25"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-chevron-right-icon lucide-chevron-right"
+                  className="hover:bg-title-darkblue rounded-full hover:text-white"
+                >
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </Link>
+            </div>
+            <div className="flex gap-2 md:gap-4">
+              {/* Copy */}
+              <div className="hidden md:flex gap-2 items-center">
+                <button
+                  className="cursor-pointer"
+                  onClick={() => handleCopyButton()}
+                >
+                  <img
+                    src={Copy}
+                    alt="questions"
+                    className="h-5 md:h-6 shadow-2xl"
+                  />
+                </button>
+              </div>
+
+              <div className="hidden md:flex items-center">
+                <EditorialCornerAction />
+              </div>
             </div>
           </div>
         </div>
@@ -212,7 +275,7 @@ const EditorialCornerDetails = () => {
           </svg>
           <h3 className="lg:text-base md:text-base text-xs">
             Published on<span className="px-1">:</span>
-            {formatDate(fetchData?.publishedDate)}
+            {formatDate(fetchData?.publishedDate || "")}
           </h3>
         </div>
       </div>
@@ -243,42 +306,7 @@ const EditorialCornerDetails = () => {
           Slug:{`/${fetchData.slug}`}
         </span>
       </div> */}
-      <div className="flex flex-row justify-center items-center gap-3">
-        <Link to={`/${lang}/editorials-corner/${fetchBlog?.prevBlog}`}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#5a5858"
-            stroke-width="1.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-left-icon lucide-chevron-left"
-            className="hover:bg-title-darkblue rounded-full"
-          >
-            <path d="m15 18-6-6 6-6" />
-          </svg>
-        </Link>
-        <Link to={`/${lang}/editorials-corner/${fetchBlog?.nextBlog}`}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#5a5858"
-            stroke-width="1.25"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-chevron-right-icon lucide-chevron-right"
-            className="hover:bg-title-darkblue rounded-full hover:text-white"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </Link>
-      </div>
+
       <div className="flex flex-col gap-4 items-center">
         <h1 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           Other Picks For You

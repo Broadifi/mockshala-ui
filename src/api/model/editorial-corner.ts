@@ -17,7 +17,7 @@ export interface EditorialCornerData {
 //   thumbna
 // }
 export interface EditorialCornerBlog{
-  data:EditorialCornerData[];
+  data:EditorialCornerData;
    meta:{
     prevBlog:string;
     nextBlog:string;
