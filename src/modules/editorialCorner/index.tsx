@@ -1,5 +1,4 @@
 "use client";
-// import EditorialCornerAction from "./components/editorialCornerAction";
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
@@ -63,7 +62,6 @@ function EditorialCornerDashboard() {
     },
   });
   console.log(data);
-  // console.log(data?.pages?.[0]?.data);
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasNextPage) {
@@ -222,8 +220,6 @@ function EditorialCornerDashboard() {
           isLoading === false &&
           !hasNextPage && (
             <NoResultFound
-              // startSelectedDate={startSelectedDate}
-              // endSelectedDate={endSelectedDate}
               setStartSelectedDate={setStartSelectedDate}
               setEndSelectedDate={setEndSelectedDate}
             />

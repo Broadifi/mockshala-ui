@@ -555,36 +555,3 @@ body {
           50% { transform: translateY(-20px); opacity: 1; }
           100% { transform: translateY(0); opacity: 0.5; }
         }
-/* @layer components {
-
-
-  .custom-slider .slick-slide > div {
-    @apply px-3;
-  }
-
-
-  .custom-slider .slick-dots {
-    @apply bottom-[-25px];
-  }
-
-
-  .custom-slider .slick-dots li {
-    @apply mx-2;
-  }
-
-  
-  .custom-slider .slick-dots li button:before {
-    @apply text-gray-400 text-xs;
-  }
-
-
-  .custom-slider .slick-dots li.slick-active button:before {
-    @apply text-blue-600;
-  }
-
-  
-  .custom-slider .slick-prev,
-  .custom-slider .slick-next {
-    @apply hidden md:block ;
-  }
-} */

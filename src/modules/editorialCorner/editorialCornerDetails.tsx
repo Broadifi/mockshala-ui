@@ -1,10 +1,6 @@
-// import type {
-//   EditorialCornerData,
-//   EditorialCornerResponse,
-// } from "@/api/model/editorial-corner";
+
 import EditorialCornerAction from "./components/editorialCornerAction";
 import { fetchEditorialCornerBySlug } from "@/api/services/editorial-corner.service";
-// import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
@@ -17,7 +13,6 @@ import {
 } from "@/components/ui/carousel";
 import DOMPurify from "dompurify";
 import Autoplay from "embla-carousel-autoplay";
-// import React from "react";
 import { useParams } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
@@ -56,8 +51,6 @@ const EditorialCornerDetails = () => {
     navigator.clipboard
       .writeText(fullUrl)
       .then(() => {
-        // console.log("Copied:", fullUrl);
-        // optional toast
         toast.success("Link copied to clipboard!");
       })
       .catch(() => {
@@ -90,7 +83,6 @@ const EditorialCornerDetails = () => {
                 strokeWidth="1.25"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                // class="lucide lucide-chevron-left-icon lucide-chevron-left"
                 className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full"
               >
                 <path d="m15 18-6-6 6-6" />
@@ -113,7 +105,7 @@ const EditorialCornerDetails = () => {
                 strokeWidth="1.25"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                // class="lucide lucide-chevron-right-icon lucide-chevron-right"
+          
                 className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white"
               >
                 <path d="m9 18 6-6-6-6" />
@@ -169,12 +161,7 @@ const EditorialCornerDetails = () => {
                 {fetchData?.readTime.text}
               </span>
             </div>
-            {/* <div className="flex flex-row justify-center items-center gap-0.5">
-            📜
-            <span className="text-blue-800 text-xs lg:text-sm">
-              Words : {fetchData.readTime.words}
-            </span>
-          </div> */}
+      
 
             <div className="flex  gap-3 min-[270px]:flex-row flex-col ">
               {fetchData?.tags?.map((tagItem) => {
@@ -301,14 +288,6 @@ const EditorialCornerDetails = () => {
         <div className="clear-both" />
       </div>
 
-      {/* <div className="flex flex-col justify-start  text-gray-600  ">
-        <span className="lg:text-base md:text-sm text-xs text-justify">
-          Article ID:{fetchData._id}
-        </span>
-        <span className="lg:text-base md:text-sm text-xs text-justify">
-          Slug:{`/${fetchData.slug}`}
-        </span>
-      </div> */}
 
       <div className="flex flex-col gap-4 items-center">
         <h1 className="text-xl min-[785px]:text-xl min-[880px]:text-2xl min-[1285px]:text-3xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent ">
