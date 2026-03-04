@@ -3,7 +3,7 @@
 //   EditorialCornerResponse,
 // } from "@/api/model/editorial-corner";
 import EditorialCornerAction from "./components/editorialCornerAction";
-import { fetchEdtiorialCornerBySlug } from "@/api/services/editorial-corner.service";
+import { fetchEditorialCornerBySlug } from "@/api/services/editorial-corner.service";
 // import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -28,18 +28,17 @@ import { IoIosArrowForward } from "react-icons/io";
 import { Copy } from "@/assets";
 
 const EditorialCornerDetails = () => {
-  const { slug } = useParams({ from: "/$lang/editorials-corner/$slug/" });
-  const lang = "en";
+  const { slug, lang } = useParams({ from: "/$lang/editorials-corner/$slug/" });
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
   const { data, isLoading } = useQuery({
     queryKey: ["editorial-corner", { slug }],
-    queryFn: () => fetchEdtiorialCornerBySlug(slug),
+    queryFn: () => fetchEditorialCornerBySlug(slug),
   });
 
   const fetchData = data?.data;
-  console.log(fetchData);
+
   const fetchBlog = data?.meta;
   if (isLoading) {
     return <p>Loading...</p>;
@@ -70,36 +69,17 @@ const EditorialCornerDetails = () => {
   );
   return (
     <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
-      {/* <Link to={`/${lang}/editorials-corner/`}>
-        <div className="flex flex-row justify-start items-center gap-2 bg-card gradient-soft-blue-current-affairs group">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="text-title-gradient-blue font-bold hover:text-title-darkblue "
-          >
-            <path d="m12 19-7-7 7-7" />
-            <path d="M19 12H5" />
-          </svg>
-          <p className="inline-block text-sm min-[785px]:text-base min-[880px]:text-lg min-[1285px]:text-xl  hover:text-title-darkblue text-title-gradient-blue ">
-            Back to Editorial Corner
-          </p>
-        </div>
-      </Link> */}
+      
       <div className="flex flex-col justify-start gap-2 px-1">
         <div className="flex flex-row gap-1 md:hidden  justify-between">
           <div className="flex flex-row justify-center items-center gap-2">
-            <Link to="/$lang/editorials-corner/$slug"
-params={{
-  lang,
-  slug: fetchBlog?.prevBlog ?? "",
-}}>
+            <Link
+              to="/$lang/editorials-corner/$slug"
+              params={{
+                lang,
+                slug: fetchBlog?.prevBlog ?? "",
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -108,19 +88,21 @@ params={{
                 fill="none"
                 stroke="#5a5858"
                 strokeWidth="1.25"
-strokeLinecap="round"
-strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 // class="lucide lucide-chevron-left-icon lucide-chevron-left"
                 className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full"
               >
                 <path d="m15 18-6-6 6-6" />
               </svg>
             </Link>
-            <Link to="/$lang/editorials-corner/$slug"
-params={{
-  lang,
-  slug: fetchBlog?.nextBlog ?? "",
-}}>
+            <Link
+              to="/$lang/editorials-corner/$slug"
+              params={{
+                lang,
+                slug: fetchBlog?.nextBlog ?? "",
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"
@@ -128,9 +110,9 @@ params={{
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#5a5858"
-            strokeWidth="1.25"
-strokeLinecap="round"
-strokeLinejoin="round"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 // class="lucide lucide-chevron-right-icon lucide-chevron-right"
                 className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white"
               >
@@ -165,8 +147,9 @@ strokeLinejoin="round"
           </span>{" "}
           <IoIosArrowForward />
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base line-clamp-1">
-            <Link  to="/$lang/editorials-corner"
-params={{ lang: lang }}>Editorial Corner </Link>
+            <Link to="/$lang/editorials-corner" params={{ lang: lang }}>
+              Editorial Corner{" "}
+            </Link>
           </span>
           <IoIosArrowForward />
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800 line-clamp-1">
@@ -206,46 +189,49 @@ params={{ lang: lang }}>Editorial Corner </Link>
               })}{" "}
             </div>
           </div>
-          <div className="hidden md:flex flex-row gap-1">
-            <div className="flex flex-row justify-center items-center gap-2">
-              <Link to="/$lang/editorials-corner/$slug"
-params={{
-  lang,
-  slug: fetchBlog?.prevBlog ?? "",
-}}>
+          <div className="hidden md:flex flex-row gap-4">
+            <div className="flex flex-row justify-center items-center gap-3">
+              <Link
+                to="/$lang/editorials-corner/$slug"
+                params={{
+                  lang,
+                  slug: fetchBlog?.prevBlog ?? "",
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="35"
-                  height="35"
+                  width="27"
+                  height="27"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#5a5858"
                   strokeWidth="1.25"
-strokeLinecap="round"
-strokeLinejoin="round"
-     
-                  className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full bg-white"
                 >
                   <path d="m15 18-6-6 6-6" />
                 </svg>
               </Link>
-              <Link to="/$lang/editorials-corner/$slug"
-params={{
-  lang,
-  slug: fetchBlog?.nextBlog ?? "",
-}}>
+              <Link
+                to="/$lang/editorials-corner/$slug"
+                params={{
+                  lang,
+                  slug: fetchBlog?.nextBlog ?? "",
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="35"
-                  height="35"
+                  width="27"
+                  height="27"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="#5a5858"
-                 strokeWidth="1.25"
-strokeLinecap="round"
-strokeLinejoin="round"
+                  strokeWidth="1.25"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   // class=""
-                  className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white"
+                  className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white bg-white "
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
@@ -281,8 +267,8 @@ strokeLinejoin="round"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
-strokeLinecap="round"
-strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             className="lucide lucide-calendar-icon lucide-calendar text-gray-600 "
           >
             <path d="M8 2v4" />
@@ -325,7 +311,7 @@ strokeLinejoin="round"
       </div> */}
 
       <div className="flex flex-col gap-4 items-center">
-        <h1 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
+        <h1 className="text-xl min-[785px]:text-xl min-[880px]:text-2xl min-[1285px]:text-3xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent ">
           Other Picks For You
         </h1>
         <Carousel
@@ -344,14 +330,14 @@ strokeLinejoin="round"
             {fetchBlog?.otherEditorials?.map((metaItem) => (
               <CarouselItem
                 key={metaItem._id}
-                className="basis-[85%] sm:basis-1/2 lg:basis-[25%]"
+                className="basis-[85%] sm:basis-1/2 lg:basis-[25%] pb-5"
               >
                 <Link
-                    to="/$lang/editorials-corner/$slug"
-  params={{
-    lang,
-    slug: metaItem.slug,
-  }}
+                  to="/$lang/editorials-corner/$slug"
+                  params={{
+                    lang,
+                    slug: metaItem.slug,
+                  }}
                   className="block"
                 >
                   <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden">
@@ -388,7 +374,7 @@ strokeLinejoin="round"
                     </div>
 
                     {/* Title */}
-                    <div className="px-3 text-base md:text-lg font-bold  text-title-darkblue line-clamp-1">
+                    <div className="px-3 text-base md:text-md font-bold  text-title-darkblue line-clamp-1">
                       {metaItem.title}
                     </div>
                   </div>

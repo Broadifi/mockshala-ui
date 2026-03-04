@@ -1,5 +1,5 @@
 import { Link, useParams } from "@tanstack/react-router";
-
+import type React from "react";
 import { NoResultFoundImg } from "@/assets";
 
 import DefaultButton from "@/components/customButtons/defaultButton";
@@ -26,8 +26,9 @@ export default function NoResultFound({setStartSelectedDate,setEndSelectedDate}:
         to="/$lang/editorials-corner"
         params={{ lang: homepageLink }}
         className="mt-2"
+          onClick={handleRemoveFilter}
       >
-        <DefaultButton> <p onClick={handleRemoveFilter}>Remove filters</p></DefaultButton>
+        Remove filters
       </Link>
       </div>
     </div>

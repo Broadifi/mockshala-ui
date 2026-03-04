@@ -43,7 +43,7 @@ export async function fetchEditorialCorners({
 
   return response.data;
 }
-export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialCornerBlog> {
+export async function fetchEditorialCornerBySlug(slug:string):Promise<EditorialCornerBlog> {
       const response: AxiosResponse<EditorialCornerBlog> = 
             await api.get(apiUrl.editorialsCornerBySlug(slug))
 
@@ -58,16 +58,16 @@ export async function fetchEdtiorialCornerBySlug(slug:string):Promise<EditorialC
 //   date: string;
 // }
 
-export const fetchEdtiorialCornerByDate = async (
-  startDate: string,
-  endDate: string
-): Promise<EditorialCornerData> => {
-  const response: AxiosResponse<EditorialCornerData>= await api.get(apiUrl.editorialsCorner(), {
-    params: {
-      startDate,
-      endDate,
-    },
-  });
+// export const fetchEdtiorialCornerByDate = async (
+//   startDate: string,
+//   endDate: string
+// ): Promise<EditorialCornerData> => {
+//   const response: AxiosResponse<EditorialCornerData>= await api.get(apiUrl.editorialsCorner(), {
+//     params: {
+//       startDate,
+//       endDate,
+//     },
+//   });
 
-  return response.data;
-};
+//   return response.data;
+// };

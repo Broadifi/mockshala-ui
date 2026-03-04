@@ -3,13 +3,16 @@
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
-import type { EditorialCornerData, EditorialCornerResponse } from "@/api/model/editorial-corner";
+import type {
+  EditorialCornerData,
+  EditorialCornerResponse,
+} from "@/api/model/editorial-corner";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Link } from "@tanstack/react-router";
 import DOMPurify from "dompurify";
 import { format } from "date-fns";
 import { formatDate } from "@/utils/formatting/formatDate";
-
+import { EditorialCardSkeleton } from "../home/components/skeleton/EditorialCardSkeleton";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import NoResultFound from "./components/no-result-found";
@@ -42,7 +45,7 @@ function EditorialCornerDashboard() {
     error,
   } = useInfiniteQuery({
     queryKey: ["editorials", startSelectedDate, endSelectedDate],
-      initialPageParam: 1,  
+    initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) =>
       fetchEditorialCorners({
         page: pageParam,
@@ -59,26 +62,28 @@ function EditorialCornerDashboard() {
       return lastPage.hasNext ? lastPage.page + 1 : undefined;
     },
   });
-  console.log(data?.pages?.[0]?.data);
- React.useEffect(() => {
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && hasNextPage) {
-      fetchNextPage();
-    }
-  });
+  console.log(data);
+  // console.log(data?.pages?.[0]?.data);
+  React.useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage) {
+        fetchNextPage();
+      }
+    });
 
-  const currentElement = observerRef.current;
+    const currentElement = observerRef.current;
 
-  if (currentElement) {
-    observer.observe(currentElement);
-  }
-
-  return () => {
     if (currentElement) {
-      observer.unobserve(currentElement);
+      observer.observe(currentElement);
     }
-  };
-}, [hasNextPage, fetchNextPage]);
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement);
+      }
+      observer.disconnect();
+    };
+  }, [hasNextPage, fetchNextPage]);
 
   const decodeHTML = (html: string) => {
     const txt = document.createElement("textarea");
@@ -86,11 +91,7 @@ function EditorialCornerDashboard() {
     return txt.value;
   };
 
-  if (isLoading) return <p className="text-center py-10">Loading...</p>;
-  if (isError) return <p>Error: {(error as Error).message}</p>;
-
-  return (
-    <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
+  if (isLoading) return <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
       <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
         <div>
           <h2 className="text-lg md:text-2xl lg:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
@@ -102,17 +103,15 @@ function EditorialCornerDashboard() {
           </p>
         </div>
         <div
-          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start gap-2 min-[425px]:px-8
-        "
-        >
+          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-1 sm:gap-0.5 gap-0.5 min-[425px]:px-8 ">
           {" "}
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[55%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
               >
-                <CalendarIcon className="mr-1 h-4 w-4 text-gray-400" />
+                <CalendarIcon className=" h-4 w-4 text-gray-400" />
                 {startSelectedDate
                   ? format(startSelectedDate, "PPP")
                   : "Select Start Date"}
@@ -131,9 +130,77 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[55%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
+                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[50%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
               >
-                <CalendarIcon className="mr-1 h-4 w-4 text-gray-400" />
+                <CalendarIcon className=" h-4 w-4 text-gray-400" />
+                {endSelectedDate
+                  ? format(endSelectedDate, "PPP")
+                  : "Select End Date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={endSelectedDate}
+                onSelect={setEndSelectedDate}
+                // initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+      </header>
+       <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-7">
+        {Array.from({ length: limit }).map((_, index) => (
+          <EditorialCardSkeleton key={index} />
+        ))}
+      </div></div>
+  if (isError) return <p>Error: {(error as Error).message}</p>;
+
+  return (
+    <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4 pt-5">
+        <div>
+          <h2 className="text-lg md:text-2xl lg:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
+            Editorial Corner
+          </h2>
+          <p className="text-subtitle-gray pb-2 md:text-base sm:text-sm text-xs">
+            Expert insights, study tips, and guidance for your exam preparation
+            journey
+          </p>
+        </div>
+        <div
+          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-1 sm:gap-0.5 gap-0.5 min-[425px]:px-8  min-[425px]:pb-14 pb-0
+        "
+        >
+          {" "}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+              >
+                <CalendarIcon className=" h-4 w-4 text-gray-400" />
+                {startSelectedDate
+                  ? format(startSelectedDate, "PPP")
+                  : "Select Start Date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={startSelectedDate}
+                onSelect={setStartSelectedDate}
+                // initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[50%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
+              >
+                <CalendarIcon className=" h-4 w-4 text-gray-400" />
                 {endSelectedDate
                   ? format(endSelectedDate, "PPP")
                   : "Select End Date"}
@@ -163,13 +230,17 @@ function EditorialCornerDashboard() {
           )}
       </div>
       <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-7">
-        {data?.pages?.map((page:EditorialCornerResponse) =>
+        {data?.pages?.map((page: EditorialCornerResponse) =>
           page.data.map((item: EditorialCornerData) => (
-            <Link key={item._id} to="/$lang/editorials-corner/$slug"   params={{
-    lang,
-    slug: item.slug,
-  }} >
-              <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card">
+            <Link
+              key={item._id}
+              to="/$lang/editorials-corner/$slug"
+              params={{
+                lang,
+                slug: item.slug,
+              }}
+            >
+              <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card h-full">
                 <div className="rounded-t-3xl w-full overflow-hidden h-52">
                   <img
                     src={`${IMAGE_BASE_URL}${item.thumbnailImage}`}
@@ -189,9 +260,9 @@ function EditorialCornerDashboard() {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                   strokeWidth="1.25"
-strokeLinecap="round"
-strokeLinejoin="round"
+                    strokeWidth="1.25"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-clock-icon lucide-clock"
                   >
                     <circle cx="12" cy="12" r="10" />
@@ -216,9 +287,9 @@ strokeLinejoin="round"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                 strokeWidth="2"
-strokeLinecap="round"
-strokeLinejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-calendar-icon lucide-calendar"
                   >
                     <path d="M8 2v4" />

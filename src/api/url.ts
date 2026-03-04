@@ -36,5 +36,4 @@ export const BASE_URL =
       
   }
 
-  export const IMAGE_BASE_URL = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL ?? "https://mockshala.s3.ap-south-1.amazonaws.com/";
-  console.log( IMAGE_BASE_URL=== import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL);
+   export const IMAGE_BASE_URL = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL ?? "https://mockshala.s3.ap-south-1.amazonaws.com/";
