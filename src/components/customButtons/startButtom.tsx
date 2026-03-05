@@ -2,11 +2,15 @@ import { Play } from "lucide-react";
 
 interface ButtonProps {
   title: string;
+  onClick?: () => void;
 }
-function StartButton({ title }: ButtonProps) {
+function StartButton({ title, onClick }: ButtonProps) {
+  
+  
   return (
     <div className="flex justify-end">
       <button
+       onClick={onClick}
         className="flex w-25 justify-center
          items-center gap-2 rounded-lg bg-linear-to-r from-button-sky
          to-button-blue 

@@ -1,5 +1,5 @@
 function TestInstructionModule() {
-  return <div>TestInstructionModule</div>;
+  return <div className="bg-amber-500">TestInstructionModule</div>;
 }
 
 export default TestInstructionModule;
