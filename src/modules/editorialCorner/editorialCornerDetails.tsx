@@ -154,7 +154,7 @@ const EditorialCornerDetails = () => {
         </h3>
 
         <div className="flex min-[423px]:flex-row justify-between px-1 flex-col items-start">
-          <div className="flex min-[292px]:flex-row justify-start items-start min-[292px]:gap-3 flex-col gap-0">
+          <div className="flex  justify-start items-start min-[384px]:gap-3 min-[384px]:flex-row flex-col gap-0">
             <div className="flex flex-row justify-center items-center gap-0.5">
               🕰️
               <span className="text-blue-800 text-xs lg:text-sm">
@@ -163,12 +163,12 @@ const EditorialCornerDetails = () => {
             </div>
       
 
-            <div className="flex  gap-3 min-[270px]:flex-row flex-col ">
+            <div className="flex  min-[266px]:gap-3 gap-1.5 flex-col min-[260px]:flex-row  ">
               {fetchData?.tags?.map((tagItem) => {
                 return (
                   <p
                     key={tagItem}
-                    className="text-amber-50 bg-button-blue min-[411px]:text-xs rounded-2xl p-1 uppercase px-2 line-clamp-1 min-[411px]:line-clamp-0 text-sm"
+                    className="text-amber-50 bg-button-blue  rounded-2xl p-1 uppercase   text-xs"
                   >
                     {tagItem}
                   </p>
