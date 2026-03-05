@@ -17,7 +17,7 @@ export default function NoResultFound({setStartSelectedDate,setEndSelectedDate}:
   const homepageLink = lang ?? "en";
 
   return (
-    <div className="w-full bg-white rounded-2xl flex p-4 flex-col items-center">
+    <div className="w-full bg-white rounded-2xl flex p-4 flex-col items-center justify-center">
       <img src={NoResultFoundImg} alt="no result found" className="w-sm" />
       <div className="space-y-2">
 
@@ -25,7 +25,7 @@ export default function NoResultFound({setStartSelectedDate,setEndSelectedDate}:
       <Link
         to="/$lang/editorials-corner"
         params={{ lang: homepageLink }}
-        className="mt-2"
+        className="mt-2 bg-button-blue rounded-full p-1.5 text-amber-50"
           onClick={handleRemoveFilter}
       >
         Remove filters

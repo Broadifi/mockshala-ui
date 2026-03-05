@@ -1,4 +1,4 @@
-
+import { Badge } from "@/components/ui/badge";
 import EditorialCornerAction from "./components/editorialCornerAction";
 import { fetchEditorialCornerBySlug } from "@/api/services/editorial-corner.service";
 import "slick-carousel/slick/slick.css";
@@ -166,12 +166,7 @@ const EditorialCornerDetails = () => {
             <div className="flex  min-[266px]:gap-3 gap-1.5 flex-col min-[260px]:flex-row  ">
               {fetchData?.tags?.map((tagItem) => {
                 return (
-                  <p
-                    key={tagItem}
-                    className="text-amber-50 bg-button-blue  rounded-2xl p-1 uppercase   text-xs"
-                  >
-                    {tagItem}
-                  </p>
+                 <Badge key={tagItem} variant="outline" className="text-amber-50 bg-button-blue uppercase">{tagItem}</Badge>
                 );
               })}{" "}
             </div>
@@ -348,7 +343,7 @@ const EditorialCornerDetails = () => {
                         <path d="M3 10h18" />
                       </svg>
 
-                      <span>{formatDate(metaItem.publishedDate)}</span>
+                      <span className="lg:text-base md:text-sm text-xs">{formatDate(metaItem.publishedDate)}</span>
                     </div>
 
             
