@@ -319,8 +319,7 @@ const EditorialCornerDetails = () => {
                   }}
                   className="block"
                 >
-                  <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden">
-                    {/* Image */}
+                  <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden h-75">
                     <div className="w-full h-40 sm:h-48 overflow-hidden">
                       <img
                         src={`${IMAGE_BASE_URL}${metaItem.thumbnailImage}`}
@@ -329,7 +328,7 @@ const EditorialCornerDetails = () => {
                       />
                     </div>
 
-                    {/* Date */}
+              
                     <div className="flex items-center px-3 text-sm text-title-gradient-blue">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -352,8 +351,8 @@ const EditorialCornerDetails = () => {
                       <span>{formatDate(metaItem.publishedDate)}</span>
                     </div>
 
-                    {/* Title */}
-                    <div className="px-3 text-base md:text-md font-bold  text-title-darkblue line-clamp-1">
+            
+                    <div className="px-3 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 ">
                       {metaItem.title}
                     </div>
                   </div>

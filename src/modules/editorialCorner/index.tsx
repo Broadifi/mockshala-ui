@@ -155,8 +155,8 @@ function EditorialCornerDashboard() {
   if (isError) return <p>Error: {(error as Error).message}</p>;
 
   return (
-    <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4 pt-5">
+    <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-4 gradient-soft-blue-current-affairs">
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mt-4 ">
         <div>
           <h2 className="text-lg md:text-2xl lg:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
             Editorial Corner
@@ -167,7 +167,7 @@ function EditorialCornerDashboard() {
           </p>
         </div>
         <div
-          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-1 sm:gap-0.5 gap-0.5 min-[425px]:px-8  min-[425px]:pb-14 pb-0
+          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-2 sm:gap-1.5 gap-1.5 min-[425px]:px-8  min-[425px]:pb-14 pb-0
         "
         >
           {" "}
@@ -175,12 +175,13 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="w-full min-[250px]:w-[80%] min-[298px]:w-[58%] min-[338px]:w-[50%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
               >
-                <CalendarIcon className=" h-4 w-4 text-gray-400" />
-                {startSelectedDate
+                <CalendarIcon />
+                <span className=" text-xs  min-[576px]:font-normal font-normal min-[726px]:font-medium min-[726px]:text-sm">{startSelectedDate
                   ? format(startSelectedDate, "PPP")
-                  : "Select Start Date"}
+                  : "Select Start Date"}</span>
+                
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -196,12 +197,13 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[50%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
+                className="w-full min-[250px]:w-[80%] min-[298px]:w-[58%] min-[338px]:w-[50%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
               >
-                <CalendarIcon className=" h-4 w-4 text-gray-400" />
-                {endSelectedDate
+                <CalendarIcon  />
+                <span className=" text-xs  min-[576px]:font-normal font-normal min-[726px]:font-medium min-[726px]:text-sm">{endSelectedDate
                   ? format(endSelectedDate, "PPP")
-                  : "Select End Date"}
+                  : "Select End Date"}</span>
+                
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
@@ -245,7 +247,7 @@ function EditorialCornerDashboard() {
                   />
                 </div>
 
-                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 px-5 pt-2 text-title-darkblue">
+                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 px-5 pt-2 text-title-darkblue h-20 ">
                   {item.title}
                 </div>
                 <div className="flex flex-row justify-start items-center text-xs  gap-1 px-5">
