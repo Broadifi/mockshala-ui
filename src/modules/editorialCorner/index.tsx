@@ -8,7 +8,7 @@ import type {
 } from "@/api/model/editorial-corner";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Link } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 import { format } from "date-fns";
 import { formatDate } from "@/utils/formatting/formatDate";
 import { EditorialCardSkeleton } from "../home/components/skeleton/EditorialCardSkeleton";
@@ -83,11 +83,11 @@ function EditorialCornerDashboard() {
     };
   }, [hasNextPage, fetchNextPage]);
 
-  const decodeHTML = (html: string) => {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    return txt.value;
-  };
+  // const decodeHTML = (html: string) => {
+  //   const txt = document.createElement("textarea");
+  //   txt.innerHTML = html;
+  //   return txt.value;
+  // };
   console.log(startSelectedDate, endSelectedDate);
   if (isLoading)
     return (
@@ -254,7 +254,7 @@ function EditorialCornerDashboard() {
                   />
                 </div>
 
-                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 min-[260px]:px-5 px-3 pt-2 text-title-darkblue min-[328px]:h-18 h-20">
+                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 min-[260px]:px-5 px-3 pt-2 text-title-darkblue min-[328px]:h-18 h-auto">
                   {item.title}
                 </div>
                 <div className="flex  min-[276px]:justify-start min-[276px]:items-center pb-3 min-[276px]:flex-row flex-col justify-center items-start min-[260px]:px-5 px-3 min-[276px]:gap-5 gap-2">
