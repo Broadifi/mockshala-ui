@@ -61,7 +61,7 @@ export const generalKeys = createExtendedQueryKeys('general',{
 
 
 export const examKeys = createExtendedQueryKeys('exam',{
- examInstruction: ()=> ['exam', 'examInstruction'] as const
+ examInstruction: (examID: string)=> ['exam', 'examInstruction', examID] as const
 })
 
 export const queryKeys ={
@@ -73,5 +73,6 @@ export const queryKeys ={
     editorialsCornerKeys,
     plansKeys,
     profileKeys,
-    generalKeys
+    generalKeys,
+    examKeys
 }

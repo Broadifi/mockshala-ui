@@ -22,7 +22,7 @@ import MobileAllTestCardSkeleton from "../skeleton/mobileAllTestCardSkeleton";
 function AllTests() {
   const { tests } = useTestDescriptionStore();
 
-  const {  lang,examCategory, testSlug } = useParams({
+  const { lang, examCategory, testSlug } = useParams({
     from: "/$lang/exams/$examCategory/$testSlug/",
   });
 
@@ -125,14 +125,8 @@ function AllTests() {
                     <TableCell>
                       {item.isOpen ? (
                         <StartButton
-                          title={"Start"}
-                          onClick={() =>
-                            window.open(
-                              `/${lang}/instructions/${testSlug}/${item._id}`,
-                              "examWindow",
-                              "width=1400,height=900,toolbar=no,menubar=no",
-                            )
-                          }
+                          title="Start"
+                          url={`/${lang}/instructions/${testSlug}/${item._id}`}
                         />
                       ) : (
                         <BuyNow title={"Unlock"} />

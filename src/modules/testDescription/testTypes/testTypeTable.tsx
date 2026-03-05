@@ -101,14 +101,8 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
               <TableCell>
                 {item.isOpen ? (
                   <StartButton
-                    title={"Start"}
-                    onClick={() =>
-                            window.open(
-                              `/${lang}/instructions/${testSlug}/${item._id}`,
-                              "examWindow",
-                              "width=1400,height=900,toolbar=no,menubar=no",
-                            )
-                          }
+                    title="Start"
+                    url={`/${lang}/instructions/${testSlug}/${item._id}`}
                   />
                 ) : (
                   <BuyNow title={"Unlock"} />
