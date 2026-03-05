@@ -40,7 +40,7 @@ import { format } from "date-fns";
 
 import { useProfileData } from "./profileData";
 import { normalizeUser } from "@/api/model/normalizeUser";
-import { GeneralKeys, queryKeys } from "@/api";
+import { generalKeys, queryKeys } from "@/api";
 import { generalApi } from "@/api/services/general-services";
 import ProfilePic from "./profilePic";
 
@@ -56,7 +56,9 @@ const formatDateForForm = (dateString: string | undefined): string => {
 };
 
 function ProfileModule() {
-  const { accessToken, userDetails, setUserDetails } = useAuthStore((state) => state.auth);
+  const { accessToken, userDetails, setUserDetails } = useAuthStore(
+    (state) => state.auth,
+  );
   const [activeTab, setActiveTab] = useState<"general" | "subscription">(
     "general",
   );
@@ -143,11 +145,10 @@ function ProfileModule() {
           pinCode: normalizedData.pinCode || 0,
         });
 
-      // ⭐ THIS IS THE KEY FIX
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.profileKeys.profileDetails(userId),
-      });
-
+        // ⭐ THIS IS THE KEY FIX
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.profileKeys.profileDetails(userId),
+        });
 
         toast.success("Profile updated successfully!", { duration: 5000 });
       }
@@ -178,9 +179,9 @@ function ProfileModule() {
 
   //--GET All State Data --
   const { data: stateList, isSuccess: stateSuccess } = useQuery({
-    queryKey: GeneralKeys.stateListDetails(),
+    queryKey: generalKeys.stateListDetails(),
     queryFn: generalApi.state,
-    enabled: !!accessToken
+    enabled: !!accessToken,
   });
 
   const isLoading = updateProfileMutation.isPending;

@@ -45,7 +45,9 @@ export const BASE_URL =
 
     editorialsCorner: ()=> '/editorials',
 
-    plans:() => '/plans'
+    plans:() => '/plans',
+
+    examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`
 
       
   }
