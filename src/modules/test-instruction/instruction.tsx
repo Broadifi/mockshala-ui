@@ -2,9 +2,17 @@ import { examKeys } from "@/api";
 import { QUERY_CONFIG } from "@/api/config";
 import { examApi } from "@/api/services/exam-services";
 import HtmlSetter from "@/components/htmlSetter";
+import { formatName } from "@/utils/formatting/formatName";
 import { normalizeDuration } from "@/utils/formatting/normalizeDuration";
+import { normalizeTestTypeText } from "@/utils/formatting/normalizeTestTypeText";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
+import {
+  BookOpenCheck,
+  ChartNoAxesCombined,
+  CircleGauge,
+  Timer,
+} from "lucide-react";
 
 function Instruction() {
   const { examId } = useParams({
@@ -28,30 +36,95 @@ function Instruction() {
   // console.log(data);
 
   return (
-    <div className="space-y-4">
-      <div className="w-full py-2 px-4 bg-linear-to-r from-blue-600 to-purple-600">
-        <h1 className="uppercase text-lg text-white font-semibold tracking-wider">
-          instruction
-        </h1>
+    <div className="space-y-4 md:space-y-5 xl:space-y-6">
+
+      <div
+        className="bg-blue-500 w-full rounded-lg px-3 lg:px-4 py-3 lg:py-4 
+        flex flex-col lg:flex-row justify-between lg:items-center gap-5"
+      >
+        <div className="xl:space-y-1">
+          <h1 className="text-2xl xl:text-3xl  text-white font-semibold">
+            {formatName(sectionData?.name)}
+          </h1>
+          <p className="text-gray-200 xl:text-lg font-medium">
+            {normalizeTestTypeText(sectionData?.testType)}
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 2xl:gap-6">
+          {/* Exam Type */}
+          <div className="flex items-center gap-1">
+            <div className="text-white bg-blue-400 py-2 px-1 rounded-md">
+              <BookOpenCheck className="h-4 xl:h-5" />
+            </div>
+            <div>
+              <p className="text-gray-100 text-[11px] md:text-xs uppercase">
+                Exam Type
+              </p>
+              <p className="text-white font-semibold text-sm xl:text-base">
+                {formatName(sectionData?.examType)}
+              </p>
+            </div>
+          </div>
+
+          {/* Difficulty */}
+          <div className="flex items-center gap-1">
+            <div className="text-white bg-blue-400 py-2 px-1 rounded-md">
+              <CircleGauge className="h-4 xl:h-5" />
+            </div>
+            <div>
+              <p className="text-gray-100 text-[11px] md:text-xs uppercase">
+                Difficulty
+              </p>
+              <p className="text-white font-semibold text-sm xl:text-base">
+                {formatName(sectionData?.difficultyLevel)}
+              </p>
+            </div>
+          </div>
+
+          {/* Duration */}
+          <div className="flex items-center gap-1">
+            <div className="text-white bg-blue-400 py-2 px-1 rounded-md">
+              <Timer className="h-4 lg:h-5" />
+            </div>
+            <div>
+              <p className="text-gray-100 text-[11px] xl:text-xs uppercase">
+                Duration
+              </p>
+              <p className="text-white font-semibold text-sm xl:text-base">
+                {normalizeDuration(sectionData?.time ?? 0)}
+              </p>
+            </div>
+          </div>
+
+          {/* Total Questions */}
+          <div className="flex items-center gap-1">
+            <div className="text-white bg-blue-400 py-2 px-1 rounded-md">
+              <ChartNoAxesCombined className="h-4 lg:h-5" />
+            </div>
+            <div>
+              <p className="text-gray-100 text-[11px] xl:text-xs uppercase">
+                Total Questions
+              </p>
+              <p className="text-white font-semibold text-sm xl:text-base">
+                {totalQuestions}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="bg-linear-to-r from-sky-100/30 to-blue-100/30 p-4 mb-4 border border-gray-400 rounded-lg space-y-4">
-        <div className="space-y-4 py-3">
-          <h4 className="text-gray-800 font-bold text-lg">
-            Please follow the instructions
-          </h4>
-          <div className="bg-white p-3 rounded-2xl text-blue-700 font-semibold border border-gray-200 shadow-xs ">
-            <p>
-              Total Number of Question:{" "}
-              <span className="text-black">{totalQuestions}</span>
-            </p>
-            <p className="text-green-800">
-              Total Available Time:{" "}
-              <span className="text-black ">
-                {normalizeDuration(sectionData?.time ?? 0)}
-              </span>
-            </p>
+        <div className="md:py-1 flex flex-col lg:flex-row justify-between">
+          <div className="flex gap-1">
+            <div className="w-1.5 rounded-2xl bg-blue-400 hidden lg:flex"></div>
+            <h2 className="text-gray-800 font-bold text-lg">
+              General Instructions
+            </h2>
           </div>
+          <h4 className="text-gray-400 text-sm lg:text-base">
+            Please read carefully before proceeding
+          </h4>
         </div>
 
         <div className="overflow-x-auto overflow-y-auto border border-gray-200 shadow-sm rounded-2xl">
@@ -177,7 +250,7 @@ function Instruction() {
 
         {/* Instruction form API */}
         <div>
-           <HtmlSetter html={sectionData?.instruction} />
+          <HtmlSetter html={sectionData?.instruction} />
         </div>
       </div>
     </div>
