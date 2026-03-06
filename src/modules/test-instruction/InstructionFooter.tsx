@@ -1,13 +1,6 @@
 import { useState } from 'react';
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { ExamLanguageSelector } from './examInsLangSelector';
 
 function InstructionFooter() {
   const [checked, setChecked] = useState(false);
@@ -17,17 +10,7 @@ function InstructionFooter() {
       <div className='flex items-center gap-4 justify-end'>
         <h4 className='text-blue-900'>Choose your language</h4>
 
-        <Select>
-          <SelectTrigger className='border border-blue-300 text-gray-800 font-medium tracking-wide  text-xs sm:text-sm xl:text-base'>
-            <SelectValue placeholder='English' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value='apple' >Hindi</SelectItem>
-              <SelectItem value='banana'>English</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <ExamLanguageSelector/>
       </div>
 
       <div className='flex gap-4 justify-center items-center'>
@@ -45,8 +28,8 @@ function InstructionFooter() {
       </div>
 
       <div className='flex justify-center items-center pb-10 md:pb-6'>
-        <div className='flex flex-col md:flex-row gap-4 '>
-          <button className=' border rounded-md py-1 px-5 hover:text-red-600 hover:border-red-600 cursor-pointer text-gray-800'>
+        <div className='flex flex-row gap-4 '>
+          <button className=' border rounded-md py-1 px-3 sm:px-5 hover:text-red-600 hover:border-red-600 cursor-pointer text-gray-800'>
             CANCEL
           </button>
           <button

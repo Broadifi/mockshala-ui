@@ -1,16 +1,24 @@
 import { examKeys } from "@/api";
 import { QUERY_CONFIG } from "@/api/config";
 import { examApi } from "@/api/services/exam-services";
-import HtmlSetter from "@/components/htmlSetter";
+import HtmlSetterExam from "@/components/htmlsetterforExam";
+import { useExamLanguage } from "@/stores/examLanguageStore";
 import { formatName } from "@/utils/formatting/formatName";
 import { normalizeDuration } from "@/utils/formatting/normalizeDuration";
 import { normalizeTestTypeText } from "@/utils/formatting/normalizeTestTypeText";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
   BookOpenCheck,
   ChartNoAxesCombined,
+  CircleAlert,
   CircleGauge,
+  Eraser,
+  Eye,
+  Star,
   Timer,
 } from "lucide-react";
 
@@ -33,11 +41,12 @@ function Instruction() {
     0,
   );
 
+  const { examCurrentLang } = useExamLanguage();
+
   // console.log(data);
 
   return (
     <div className="space-y-4 md:space-y-5 xl:space-y-6">
-
       <div
         className="bg-blue-500 w-full rounded-lg px-3 lg:px-4 py-3 lg:py-4 
         flex flex-col lg:flex-row justify-between lg:items-center gap-5"
@@ -114,143 +123,191 @@ function Instruction() {
         </div>
       </div>
 
-      <div className="bg-linear-to-r from-sky-100/30 to-blue-100/30 p-4 mb-4 border border-gray-400 rounded-lg space-y-4">
+      <div className="bg-linear-to-r from-sky-100/30 to-blue-100/30 p-4 mb-4 border border-gray-200 rounded-lg space-y-4">
         <div className="md:py-1 flex flex-col lg:flex-row justify-between">
           <div className="flex gap-1">
             <div className="w-1.5 rounded-2xl bg-blue-400 hidden lg:flex"></div>
-            <h2 className="text-gray-800 font-bold text-lg">
-              General Instructions
-            </h2>
+            <h2 className="text-gray-800 font-bold text-lg">Instructions</h2>
           </div>
-          <h4 className="text-gray-400 text-sm lg:text-base">
+          <h4 className="text-gray-500 text-sm lg:text-base">
             Please read carefully before proceeding
           </h4>
         </div>
 
         <div className="overflow-x-auto overflow-y-auto border border-gray-200 shadow-sm rounded-2xl">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className=" sticky top-0 z-20 bg-blue-500">
+            <thead className=" sticky top-0 z-20 bg-blue-200">
               <tr>
-                <th className="px-4 py-3 text-center font-medium text-white">
+                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   Section Number
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-white">
+                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   Section Name
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-white">
-                  Total Number of Questions
+                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                  Total Questions
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-white">
-                  Max Score
+                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                  Max Marks
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-white">
-                  Marks for Correct Answer
+                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                  Positive Marks
                 </th>
-                <th className="px-4 py-3 text-center font-medium text-white">
-                  Negative Marking for Wrong Answer
+                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                  Negative Marks
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              <tr className="hover:bg-gray-50 border-b border-gray-100">
-                <td className="px-4 py-3 text-center text-gray-800">1</td>
-                <td className="px-4 py-3 text-center text-gray-800">
-                  Section 1
-                </td>
-                <td className="px-4 py-3 text-center text-gray-800">6</td>
-                <td className="px-4 py-3 text-center text-gray-800">19.2</td>
-                <td className="px-4 py-3 text-center text-gray-800">3.2</td>
-                <td className="px-4 py-3 text-center text-gray-800">0</td>
-              </tr>
-
-              <tr className="hover:bg-gray-50 border-b border-gray-100">
-                <td className="px-4 py-3 text-center text-gray-800">2</td>
-                <td className="px-4 py-3 text-center text-gray-800">
-                  Section 2
-                </td>
-                <td className="px-4 py-3 text-center text-gray-800">5</td>
-                <td className="px-4 py-3 text-center text-gray-800">30.2</td>
-                <td className="px-4 py-3 text-center text-gray-800">5.4</td>
-                <td className="px-4 py-3 text-center text-gray-800">0</td>
-              </tr>
+              {sectionData?.section.map((item, index) => (
+                <tr className="hover:bg-gray-50 border-b border-gray-200">
+                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                    {index}
+                  </td>
+                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                    {item.sectionName}
+                  </td>
+                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                    {item.totalQuestion}
+                  </td>
+                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                    {item.totalScore}
+                  </td>
+                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-green-800">
+                    + {item.marks}
+                  </td>
+                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-red-600">
+                    - {item.negativeMarks}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
 
-        <div className="space-x-5 py-2 px-1">
-          <div className="inline-block">
-            <div className="flex gap-1 items-center">
-              <div className="h-4 w-4 bg-green-700 rounded-xs"></div>
-              <span>answered</span>
+        <div className="py-3 space-y-3">
+          <div className="flex gap-1 items-center">
+            <CircleAlert className="h-4 sm:h-5 text-blue-500" />
+            <p className="text-title-darkblue font-medium ">
+              Questions Palette Legend & Navigation
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* Color Palette */}
+            <div className="flex flex-wrap gap-4 lg:gap-6">
+              <div>
+                <div className="flex gap-1 items-center">
+                  <div className="h-4 w-4 bg-answered rounded-sm"></div>
+                  <span className="text-responsive-muted">Answered</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex gap-1 items-center">
+                  <div className="h-4 w-4 bg-notAnswered rounded-sm"></div>
+                  <span className="text-responsive-muted">Not Answered</span>
+                </div>
+              </div>
+              <div>
+                <div className="flex gap-1 items-center">
+                  <div className="h-4 w-4 bg-marked rounded-sm"></div>
+                  <span className="text-responsive-muted">Marked</span>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex gap-1 items-center">
+                  <div className="h-4 w-4 bg-markedAnswered rounded-sm"></div>
+                  <span className="text-responsive-muted">
+                    Marked & Answered
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex gap-1 items-center">
+                  <div className="h-4 w-4 bg-notVisited border border-gray-300 rounded-sm"></div>
+                  <span className="text-responsive-muted">Not Visited</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="inline-block">
-            <div className="flex gap-1 items-center">
-              <div className="h-4 w-4 bg-red-700 rounded-xs"></div>
-              <span>answered</span>
+
+            {/* Buttons */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="flex  items-center gap-2 ">
+                <div className="bg-answered save-exam-button">
+                  <span>Save & Next</span>
+                  <ArrowRight className="h-4 lg:h-5" />
+                </div>
+                <span className="text-responsive-muted">
+                  Save the answer and move to the next question.
+                </span>
+              </div>
+
+              <div className="flex  items-center gap-2 ">
+                <div className="previous-exam-button">
+                  <ArrowLeft className="h-4 lg:h-5" />
+                  <span>Previous</span>
+                </div>
+                <span className="text-responsive-muted">
+                  Go back to the previous question.
+                </span>
+              </div>
+
+              <div className="flex  items-center gap-2">
+                <div className="mark-review-button">
+                  <Star className="h-4 lg:h-5" />
+                  <span> Mark for Review</span>
+                </div>
+
+                <span className="text-responsive-muted">
+                  Mark this question for review later
+                </span>
+              </div>
+
+              <div className="flex  items-center gap-2">
+                <div className="save-exam-button bg-notAnswered">
+                  <Eraser className="h-4 lg:h-5" />
+
+                  <span>Clear Response</span>
+                </div>
+                <span className="text-responsive-muted">
+                  Clear the selected answer
+                </span>
+              </div>
+
+              <div className="flex  items-center gap-2">
+                <div className="gap-1 questions-exam-button text-button-blue font-semibold border border-button-blue">
+                  <BookOpen className="h-4 lg:h-5" />
+                  <span>Question</span>
+                </div>
+                <span className="text-responsive-muted">
+                  Display all questions .
+                </span>
+              </div>
+
+              <div className="flex  items-center gap-2">
+                <div className="gap-1 questions-exam-button text-button-blue font-semibold border border-button-blue">
+                  <Eye className="h-4 lg:h-5" />
+                  <span>Instruction</span>
+                </div>
+                <span className="text-responsive-muted">
+                  View the instructions for the exam.
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="inline-block">
-            <div className="flex gap-1 items-center">
-              <div className="h-4 w-4 bg-purple-700 rounded-xs"></div>
-              <span>answered</span>
-            </div>
-          </div>
-          <div className="inline-block">
-            <div className="flex gap-1 items-center">
-              <div className="h-4 w-4 bg-white border border-gray-500 rounded-xs"></div>
-              <span>answered</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-4 mt-10">
-          <div className="flex  items-center gap-2">
-            <span className="bg-red-400 min-h-10 min-w-38 py-2 text-center rounded-md text-white font-semibold">
-              Clear Response
-            </span>
-            <span>Clear the selected answer.</span>
-          </div>
-
-          <div className="flex  items-center gap-2">
-            <span className="bg-blue-100 min-h-10 min-w-38 py-2 text-center rounded-md text-blue-700 font-semibold">
-              Mark for Review
-            </span>
-            <span>Mark this question for review later.</span>
-          </div>
-
-          <div className="flex  items-center gap-2">
-            <span className="bg-emerald-500 min-h-10 min-w-[9.5rem] py-2 text-center rounded-md text-white font-semibold">
-              Save and Next
-            </span>
-            <span>Save the answer and move to the next question.</span>
-          </div>
-
-          <div className="flex  items-center gap-2">
-            <span className="bg-purple-300  min-h-10 min-w-38 py-2 text-center rounded-md text-white font-semibold">
-              Previous Question
-            </span>
-            <span>Go back to the previous question.</span>
-          </div>
-
-          <div className="flex  items-center gap-2">
-            <span className="bg-white min-h-10 min-w-38 py-2 text-center rounded-md text-blue-600 font-semibold border border-blue-500">
-              Question
-            </span>
-            <span>Display all questions .</span>
-          </div>
-
-          <div className="flex  items-center gap-2">
-            <span className="bg-blue-400 min-h-10 min-w-38 py-2 text-center rounded-md text-white font-semibold">
-              Instruction
-            </span>
-            <span>View the instructions for the exam.</span>
           </div>
         </div>
 
         {/* Instruction form API */}
-        <div>
-          <HtmlSetter html={sectionData?.instruction} />
+        <div className="pt-4 mt-5 lg:mt-8 border-t">
+          <HtmlSetterExam
+            html={
+              examCurrentLang === "en"
+                ? sectionData?.instruction
+                : sectionData?.instructionInHindi
+            }
+          />
         </div>
       </div>
     </div>

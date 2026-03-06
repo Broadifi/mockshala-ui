@@ -6,7 +6,7 @@ export interface ExamInstructionResponse {
   data: ExamInstructionData;
 }
 interface ExamInstructionData {
-  _id: string;
+   _id: string;
   name: string;
   exam: string;
   testType: string;
@@ -16,9 +16,11 @@ interface ExamInstructionData {
   section: Section[];
   status: boolean;
   instruction: string;
+  instructionInHindi: string;
   image?: string | unknown;
   testSeriesId: string;
   testSeriesName: string;
+  highScore: number;
   createdBy: string;
   updatedBy: string;
   createdAt: string;
@@ -34,3 +36,6 @@ interface Section {
   totalScore: number;
   totalQuestion: number;
 }
+
+
+///
