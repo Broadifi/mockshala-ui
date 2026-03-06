@@ -21,6 +21,7 @@ import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { IoIosArrowForward } from "react-icons/io";
 import { Copy } from "@/assets";
+import type { EditorialCornerData } from "@/api/model/editorial-corner";
 
 const EditorialCornerDetails = () => {
   const { slug, lang } = useParams({ from: "/$lang/editorials-corner/$slug/" });
@@ -35,6 +36,8 @@ const EditorialCornerDetails = () => {
   const fetchData = data?.data;
 
   const fetchBlog = data?.meta;
+  console.log(fetchBlog?.otherEditorials);
+  console.log(fetchData);
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -61,9 +64,24 @@ const EditorialCornerDetails = () => {
     decodeHTML(fetchData?.description || ""),
   );
   return (
-    <div className="w-full container mx-auto px-4 py-4 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
+    <div className="w-full container mx-auto px-4 py-2 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
       
       <div className="flex flex-col justify-start gap-2 px-1">
+            <div className="flex flex-row  items-center text-subtitle-gray px-0.5 my-2 ">
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
+            Home
+          </span>{" "}
+          <IoIosArrowForward />
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base line-clamp-1">
+            <Link to="/$lang/editorials-corner" params={{ lang: lang }}>
+              Editorial Corner{" "}
+            </Link>
+          </span>
+          <IoIosArrowForward />
+          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800 line-clamp-1">
+            {fetchData?.metaTitle}
+          </span>
+        </div>
         <div className="flex flex-row gap-1 md:hidden  justify-between">
           <div className="flex flex-row justify-center items-center gap-2">
             <Link
@@ -83,7 +101,7 @@ const EditorialCornerDetails = () => {
                 strokeWidth="1.25"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full"
+                className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-gradient-sky rounded-full bg-white"
               >
                 <path d="m15 18-6-6 6-6" />
               </svg>
@@ -106,7 +124,7 @@ const EditorialCornerDetails = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
           
-                className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white"
+                className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-gradient-sky rounded-full bg-white"
               >
                 <path d="m9 18 6-6-6-6" />
               </svg>
@@ -133,21 +151,7 @@ const EditorialCornerDetails = () => {
           </div>
         </div>
 
-        <div className="flex flex-row  items-center text-subtitle-gray px-0.5 my-2 ">
-          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base">
-            Home
-          </span>{" "}
-          <IoIosArrowForward />
-          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base line-clamp-1">
-            <Link to="/$lang/editorials-corner" params={{ lang: lang }}>
-              Editorial Corner{" "}
-            </Link>
-          </span>
-          <IoIosArrowForward />
-          <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-sm md:text-base text-blue-800 line-clamp-1">
-            {fetchData?.metaTitle}
-          </span>
-        </div>
+    
 
         <h3 className="text-xl min-[785px]:text-2xl min-[880px]:text-3xl min-[1285px]:text-4xl font-bold text-title-darkblue ">
           {fetchData?.title}
@@ -190,7 +194,7 @@ const EditorialCornerDetails = () => {
                   strokeWidth="1.25"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-darkblue rounded-full bg-white"
+                  className="lucide lucide-chevron-left-icon lucide-chevron-left hover:bg-title-gradient-sky rounded-full bg-white"
                 >
                   <path d="m15 18-6-6 6-6" />
                 </svg>
@@ -213,7 +217,7 @@ const EditorialCornerDetails = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   // class=""
-                  className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-darkblue rounded-full hover:text-white bg-white "
+                  className="lucide lucide-chevron-right-icon lucide-chevron-right hover:bg-title-gradient-sky rounded-full hover:text-white bg-white "
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
@@ -301,7 +305,7 @@ const EditorialCornerDetails = () => {
           className="w-full mt-2 sm:mt-4"
         >
           <CarouselContent>
-            {fetchBlog?.otherEditorials?.map((metaItem) => (
+            {fetchBlog?.otherEditorials?.map((metaItem:EditorialCornerData) => (
               <CarouselItem
                 key={metaItem._id}
                 className="basis-[85%] sm:basis-1/2 lg:basis-[25%] pb-5"
@@ -314,8 +318,8 @@ const EditorialCornerDetails = () => {
                   }}
                   className="block"
                 >
-                  <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden h-75">
-                    <div className="w-full h-40 sm:h-48 overflow-hidden">
+                  <div className="flex flex-col gap-2 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden h-90">
+                    <div className="w-full h-52 overflow-hidden">
                       <img
                         src={`${IMAGE_BASE_URL}${metaItem.thumbnailImage}`}
                         alt={metaItem.metaTitle}
@@ -324,32 +328,74 @@ const EditorialCornerDetails = () => {
                     </div>
 
               
-                    <div className="flex items-center px-3 text-sm text-title-gradient-blue">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mr-1"
-                      >
-                        <path d="M8 2v4" />
-                        <path d="M16 2v4" />
-                        <rect width="18" height="18" x="3" y="4" rx="2" />
-                        <path d="M3 10h18" />
-                      </svg>
-
-                      <span className="lg:text-base md:text-sm text-xs">{formatDate(metaItem.publishedDate)}</span>
-                    </div>
-
+                   
             
-                    <div className="px-3 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 ">
+                    <div className="px-3 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 min-[328px]:h-13 h-auto ">
                       {metaItem.title}
                     </div>
+                              
+                                        <div className="flex  min-[336px]:gap-3 gap-1.5 flex-col  min-[336px]:flex-row items-start px-3 md:px-5 lg:px-5 ">
+                                    {metaItem?.tags?.map((tagItem) => {
+                                      return (
+                                        <div className="flex flex-row  justify-center items-center  rounded-2xl bg-gray-100">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                                          <Badge key={tagItem} variant="link" className="text-black  uppercase">{tagItem}</Badge>
+                                        </div>
+                                       
+                                      );
+                                    })}{" "}
+                                  </div>
+                    <div className="flex  min-[276px]:justify-start min-[276px]:items-center py-3 min-[276px]:flex-row flex-col justify-center items-start px-3 md:px-5 lg:px-5 min-[276px]:gap-5 gap-2">
+                                      {" "}
+                                      <div className="flex flex-row justify-start items-center text-xs  min-[312px]:gap-1 gap-0.5 ">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="15"
+                                          height="15"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          strokeWidth="1.25"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          className="lucide lucide-clock-icon lucide-clock"
+                                        >
+                                          <circle cx="12" cy="12" r="10" />
+                                          <path d="M12 6v6l4 2" />
+                                        </svg>
+                                        <span className="text-xs text-title-gradient-blue">
+                                          {metaItem?.readTime.text}
+                                        </span>
+                                      </div>
+                                      {/* <div
+                                      className="text-sm text-gray-600 line-clamp-2 px-5"
+                                      dangerouslySetInnerHTML={{
+                                        __html: DOMPurify.sanitize(decodeHTML(item.description)),
+                                      }}
+                                    /> */}
+                                      <div className="text-gray-600 flex flex-row items-center  min-[312px]:gap-1 gap-0.1">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="15"
+                                          height="15"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          strokeWidth="2"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          className="lucide lucide-calendar-icon lucide-calendar"
+                                        >
+                                          <path d="M8 2v4" />
+                                          <path d="M16 2v4" />
+                                          <rect width="18" height="18" x="3" y="4" rx="2" />
+                                          <path d="M3 10h18" />
+                                        </svg>
+                                        <span className=" text-xs text-title-gradient-blue">
+                                          {formatDate(metaItem.publishedDate)}
+                                        </span>
+                                      </div>
+                                    </div>
                   </div>
                 </Link>
               </CarouselItem>

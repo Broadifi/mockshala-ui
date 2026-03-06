@@ -2,6 +2,8 @@
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
+import { ImageWithFallback } from "../fallback/ImageWithFallback";
+import { Badge } from "@/components/ui/badge";
 import type {
   EditorialCornerData,
   EditorialCornerResponse,
@@ -88,6 +90,7 @@ function EditorialCornerDashboard() {
   //   txt.innerHTML = html;
   //   return txt.value;
   // };
+  console.log(data);
   console.log(startSelectedDate, endSelectedDate);
   if (isLoading)
     return (
@@ -170,7 +173,7 @@ function EditorialCornerDashboard() {
           </p>
         </div>
         <div
-          className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-2 sm:gap-1.5 gap-1.5 min-[425px]:px-8  min-[425px]:pb-14 pb-0
+          className="flex min-[365px]:flex-row flex-col justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-2 sm:gap-1.5 min-[345px]:gap-1.5 min-[425px]:px-8  min-[425px]:pb-14 pb-0 gap-0.5
         "
         >
           {" "}
@@ -178,7 +181,7 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[250px]:w-[80%] min-[298px]:w-[58%] min-[338px]:w-[50%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="w-full min-[250px]:w-[80%] min-[298px]:w-[70%] min-[338px]:w-[45%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
               >
                 <CalendarIcon />
                 <span className=" text-xs  min-[576px]:font-normal font-normal min-[726px]:font-medium min-[726px]:text-sm">
@@ -201,7 +204,7 @@ function EditorialCornerDashboard() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[250px]:w-[80%] min-[298px]:w-[58%] min-[338px]:w-[50%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="w-full min-[250px]:w-[80%] min-[298px]:w-[70%] min-[338px]:w-[45%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
               >
                 <CalendarIcon />
                 <span className=" text-xs  min-[576px]:font-normal font-normal min-[726px]:font-medium min-[726px]:text-sm">
@@ -254,10 +257,21 @@ function EditorialCornerDashboard() {
                   />
                 </div>
 
-                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 min-[260px]:px-5 px-3 pt-2 text-title-darkblue min-[328px]:h-18 h-auto">
+                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 px-3 md:px-5 lg:px-5  pt-2 text-title-darkblue min-[328px]:h-18 h-auto ">
                   {item.title}
                 </div>
-                <div className="flex  min-[276px]:justify-start min-[276px]:items-center pb-3 min-[276px]:flex-row flex-col justify-center items-start min-[260px]:px-5 px-3 min-[276px]:gap-5 gap-2">
+                  <div className="flex  min-[336px]:gap-3 gap-1.5 flex-col  min-[336px]:flex-row items-start px-3 md:px-5 lg:px-5 ">
+              {item?.tags?.map((tagItem) => {
+                return (
+                  <div className="flex flex-row  justify-center items-center  rounded-2xl bg-gray-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                    <Badge key={tagItem} variant="link" className="text-black  uppercase">{tagItem}</Badge>
+                  </div>
+                 
+                );
+              })}{" "}
+            </div>
+                <div className="flex  min-[276px]:justify-start min-[276px]:items-center py-3 min-[276px]:flex-row flex-col justify-center items-start px-3 md:px-5 lg:px-5 min-[276px]:gap-5 gap-2">
                   {" "}
                   <div className="flex flex-row justify-start items-center text-xs  min-[312px]:gap-1 gap-0.5 ">
                     <svg
