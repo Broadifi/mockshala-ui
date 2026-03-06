@@ -6,7 +6,7 @@ function InstructionFooter() {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className='w-full mx-auto space-y-5 text-xs sm:text-sm xl:text-base'>
+    <div className='w-full mx-auto space-y-4 text-xs sm:text-sm xl:text-base'>
       <div className='flex items-center gap-2 md:gap-4 justify-end'>
         <h4 className='text-blue-900'>Choose your language</h4>
 
@@ -29,7 +29,9 @@ function InstructionFooter() {
 
       <div className='flex justify-center items-center pb-6'>
         <div className='flex flex-row gap-4 '>
-          <button className=' border rounded-md py-1 px-3 sm:px-5 hover:text-red-600 hover:border-red-600 cursor-pointer text-gray-800'>
+          <button 
+             onClick={() => window.close()}
+            className=' border rounded-md py-1 px-3 sm:px-5 hover:text-red-600 hover:border-red-600 cursor-pointer text-gray-800'>
             CANCEL
           </button>
           <button
