@@ -22,6 +22,7 @@ import {
   Star,
   Timer,
 } from "lucide-react";
+import ExamInstructionsSkeleton from "./ExamInstructionsSkeleton";
 
 function Instruction() {
   const { examId } = useParams({
@@ -46,7 +47,7 @@ function Instruction() {
     );
   };
 
-  const { data: sectionData } = useQuery({
+  const { data: sectionData, isLoading } = useQuery({
     queryKey: examKeys.examInstruction(examId),
     queryFn: () => examApi.testInstruction(examId),
     ...QUERY_CONFIG.default,
@@ -58,17 +59,19 @@ function Instruction() {
     0,
   );
 
-  return (
+  return isLoading ? (
+    <ExamInstructionsSkeleton />
+  ) : (
     <div className="space-y-4 md:space-y-5 xl:space-y-6">
       <div
         className="bg-blue-500 w-full rounded-lg px-3 lg:px-4 py-3 lg:py-4 
         flex flex-col lg:flex-row justify-between lg:items-center gap-5"
       >
         <div className="xl:space-y-1">
-          <h1 className="text-2xl xl:text-3xl  text-white font-semibold">
+          <h1 className="text-xl sm:text-2xl xl:text-3xl  text-white font-semibold">
             {formatName(sectionData?.name)}
           </h1>
-          <p className="text-gray-200 xl:text-lg font-medium">
+          <p className="text-gray-200 text-base xl:text-lg font-medium">
             {normalizeTestTypeText(sectionData?.testType)}
           </p>
         </div>
@@ -140,7 +143,7 @@ function Instruction() {
         <div className="md:py-1 flex flex-col lg:flex-row justify-between">
           <div className="flex gap-1">
             <div className="w-1.5 rounded-2xl bg-blue-400 hidden lg:flex"></div>
-            <h2 className="text-gray-800 font-bold text-lg">
+            <h2 className="text-gray-800 font-bold text-base sm:text-lg">
               {getLocalTranslation("examInstructions.instructions")}
             </h2>
           </div>
@@ -153,25 +156,25 @@ function Instruction() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className=" sticky top-0 z-20 bg-blue-200">
               <tr>
-                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                <th className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   {getLocalTranslation("examInstructions.sectionNumber")}
                 </th>
-                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                <th className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   {getLocalTranslation("examInstructions.sectionName")}
                 </th>
-                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                <th className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   {getLocalTranslation("examInstructions.totalQuestions")}
                 </th>
 
-                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                <th className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   {getLocalTranslation("examInstructions.maxMarks")}
                 </th>
 
-                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                <th className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   {getLocalTranslation("examInstructions.positiveMarks")}
                 </th>
 
-                <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
+                <th className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
                   {getLocalTranslation("examInstructions.negativeMarks")}
                 </th>
               </tr>
@@ -179,22 +182,22 @@ function Instruction() {
             <tbody className="bg-white divide-y divide-gray-200">
               {sectionData?.section.map((item, index) => (
                 <tr className="hover:bg-gray-50 border-b border-gray-200">
-                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                  <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
                     {index}
                   </td>
-                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                  <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
                     {item.sectionName}
                   </td>
-                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                  <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
                     {item.totalQuestion}
                   </td>
-                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
+                  <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
                     {item.totalScore}
                   </td>
-                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-green-800">
+                  <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-green-800">
                     + {item.marks}
                   </td>
-                  <td className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-red-600">
+                  <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-red-600">
                     - {item.negativeMarks}
                   </td>
                 </tr>
@@ -218,7 +221,6 @@ function Instruction() {
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-answered rounded-sm"></div>
                   <span className="text-responsive-muted">
-                    {" "}
                     {getLocalTranslation("examInstructions.answered")}
                   </span>
                 </div>
@@ -227,7 +229,6 @@ function Instruction() {
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-notAnswered rounded-sm"></div>
                   <span className="text-responsive-muted">
-                    {" "}
                     {getLocalTranslation("examInstructions.notAnswered")}
                   </span>
                 </div>
@@ -236,7 +237,6 @@ function Instruction() {
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-marked rounded-sm"></div>
                   <span className="text-responsive-muted">
-                    {" "}
                     {getLocalTranslation("examInstructions.marked")}
                   </span>
                 </div>

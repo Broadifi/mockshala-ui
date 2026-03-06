@@ -30,7 +30,7 @@ export function ExamLanguageSelector({
 
   useEffect(() => {
     setExamLanguage(examPageLang);
-  }, [examPageLang]);
+  }, [examPageLang,setExamLanguage]);
 
   return (
     <div>

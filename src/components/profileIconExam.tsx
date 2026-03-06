@@ -3,7 +3,7 @@ import { profileImage } from "@/assets";
 import { useAuthStore } from "@/stores/authStore";
 import { User } from "lucide-react";
 
-function ProfileIcon() {
+function ProfileIconExam() {
   const { userDetails } = useAuthStore((state) => state.auth);
 
   const profileUrl = userDetails?.profilePicture?.path;
@@ -11,7 +11,7 @@ function ProfileIcon() {
   return (
     <div>
       {profileUrl ? (
-        <div className="w-13 h-13 lg:w-9 lg:h-9 xl:w-10 xl:h-10">
+        <div className="w-10 h-10 md:w-11 md:h-11">
           <img
             src={IMAGE_BASE_URL + profileUrl}
             alt="Profile"
@@ -25,7 +25,7 @@ function ProfileIcon() {
         <div
           className="
         flex items-center justify-center
-        w-10 h-10 lg:w-8 lg:h-8 rounded-full
+        w-7 h-7 lg:w-8 lg:h-8 rounded-full
         bg-linear-to-br from-blue-600 via-blue-500 to-sky-400
         shadow-md
         hover:shadow-lg
@@ -39,4 +39,4 @@ function ProfileIcon() {
   );
 }
 
-export default ProfileIcon;
+export default ProfileIconExam;

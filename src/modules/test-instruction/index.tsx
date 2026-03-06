@@ -4,6 +4,7 @@ import InstructionFooter from "./InstructionFooter";
 import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { mockShalaLogo } from "@/assets";
 import { useAuthStore } from "@/stores/authStore";
+import ProfileIconExam from "@/components/profileIconExam";
 
 function TestInstruction() {
   useEffect(() => {
@@ -12,7 +13,7 @@ function TestInstruction() {
 
   const { userDetails } = useAuthStore((state) => state.auth);
 
-  const candidateName = userDetails?.name
+  const candidateName = userDetails?.name;
 
   return (
     <div className="w-full  flex flex-col gap-3 lg:gap-6">
@@ -25,9 +26,19 @@ function TestInstruction() {
               className="h-6 md:h-7 xl:h-8 w-auto"
             />
           </div>
-          <div>
-            <p className="text-xs md:text-sm text-gray-500">Candidate</p>
-            <p className="text-sm sm:text-base font-medium sm:font-semibold text-title-darkblue">{candidateName}</p>
+
+          {/* Profile */}
+          <div className="flex gap-2">
+            <div>
+              <p className="text-xs md:text-sm text-gray-500">Candidate</p>
+              <p className="text-sm sm:text-base font-medium sm:font-semibold text-title-darkblue">
+                {candidateName}
+              </p>
+            </div>
+
+            <div>
+              <ProfileIconExam/>
+            </div>
           </div>
         </header>
       </div>

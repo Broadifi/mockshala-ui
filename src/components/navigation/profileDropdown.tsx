@@ -41,7 +41,7 @@ const safeLang = lang ?? "en";
   };
 
   return (
-    <div>
+    <div className="flex items-end">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
