@@ -55,6 +55,44 @@
     "headerLang":
   {
     "exams": "परीक्षाएँ"
+  },
+  "examInstructions": {
+    "examType": "परीक्षा का प्रकार",
+    "difficulty": "कठिनाई स्तर",
+    "duration": "समय अवधि",
+    "totalQuestions": "कुल प्रश्न",
+    "instructions": "निर्देश",
+    "instructionsWarn": "कृपया आगे बढ़ने से पहले ध्यान से पढ़ें",
+    "sectionNumber": "खंड संख्या",
+    "sectionName": "खंड का नाम",
+    "maxMarks": "अधिकतम अंक",
+    "positiveMarks": "सकारात्मक अंक",
+    "negativeMarks": "नकारात्मक अंक",
+    "PaletteHeader": "प्रश्न पैलेट संकेतक और नेविगेशन",
+    "answered": "उत्तर दिया गया",
+    "notAnswered": "उत्तर नहीं दिया",
+    "marked": "चिह्नित",
+    "markedAnswered": "चिह्नित और उत्तर दिया",
+    "notVisited": "नहीं देखा गया",
+
+    "saveNext": "सहेजें और अगला",
+    "saveNextDesc": "उत्तर सहेजें और अगले प्रश्न पर जाएँ।",
+
+    "previous": "पिछला",
+    "previousDesc": "पिछले प्रश्न पर वापस जाएँ।",
+
+    "markReview": "समीक्षा हेतु चिह्नित करें",
+    "markReviewDesc": "इस प्रश्न को बाद में समीक्षा के लिए चिह्नित करें।",
+
+    "clearResponse": "उत्तर साफ करें",
+    "clearResponseDesc": "चयनित उत्तर हटाएँ।",
+
+    "question": "प्रश्न",
+    "questionDesc": "सभी प्रश्न दिखाएँ।",
+
+    "instructionButton": "निर्देश",
+    "instructionDesc": "परीक्षा के निर्देश देखें।"
   }
+
 
 }

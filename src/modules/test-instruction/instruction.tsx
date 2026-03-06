@@ -2,6 +2,7 @@ import { examKeys } from "@/api";
 import { QUERY_CONFIG } from "@/api/config";
 import { examApi } from "@/api/services/exam-services";
 import HtmlSetterExam from "@/components/htmlsetterforExam";
+import i18n from "@/i18n";
 import { useExamLanguage } from "@/stores/examLanguageStore";
 import { formatName } from "@/utils/formatting/formatName";
 import { normalizeDuration } from "@/utils/formatting/normalizeDuration";
@@ -27,7 +28,23 @@ function Instruction() {
     from: "/$lang/instructions/$testSlug/$examId/",
   });
 
-  console.log(examId);
+  const { examCurrentLang } = useExamLanguage();
+
+  const getLocalTranslation = (key: string): string => {
+    const bundle = i18n.getResourceBundle(
+      examCurrentLang,
+      "translation",
+    ) as Record<string, unknown>;
+
+    return (
+      (key.split(".").reduce<unknown>((acc, k) => {
+        if (typeof acc === "object" && acc !== null && k in acc) {
+          return (acc as Record<string, unknown>)[k];
+        }
+        return undefined;
+      }, bundle) as string) || key
+    );
+  };
 
   const { data: sectionData } = useQuery({
     queryKey: examKeys.examInstruction(examId),
@@ -40,10 +57,6 @@ function Instruction() {
     (sum, item) => sum + item.totalQuestion,
     0,
   );
-
-  const { examCurrentLang } = useExamLanguage();
-
-  // console.log(data);
 
   return (
     <div className="space-y-4 md:space-y-5 xl:space-y-6">
@@ -68,7 +81,7 @@ function Instruction() {
             </div>
             <div>
               <p className="text-gray-100 text-[11px] md:text-xs uppercase">
-                Exam Type
+                {getLocalTranslation("examInstructions.examType")}
               </p>
               <p className="text-white font-semibold text-sm xl:text-base">
                 {formatName(sectionData?.examType)}
@@ -83,7 +96,7 @@ function Instruction() {
             </div>
             <div>
               <p className="text-gray-100 text-[11px] md:text-xs uppercase">
-                Difficulty
+                {getLocalTranslation("examInstructions.difficulty")}
               </p>
               <p className="text-white font-semibold text-sm xl:text-base">
                 {formatName(sectionData?.difficultyLevel)}
@@ -98,7 +111,7 @@ function Instruction() {
             </div>
             <div>
               <p className="text-gray-100 text-[11px] xl:text-xs uppercase">
-                Duration
+                {getLocalTranslation("examInstructions.duration")}
               </p>
               <p className="text-white font-semibold text-sm xl:text-base">
                 {normalizeDuration(sectionData?.time ?? 0)}
@@ -113,7 +126,7 @@ function Instruction() {
             </div>
             <div>
               <p className="text-gray-100 text-[11px] xl:text-xs uppercase">
-                Total Questions
+                {getLocalTranslation("examInstructions.totalQuestions")}
               </p>
               <p className="text-white font-semibold text-sm xl:text-base">
                 {totalQuestions}
@@ -127,10 +140,12 @@ function Instruction() {
         <div className="md:py-1 flex flex-col lg:flex-row justify-between">
           <div className="flex gap-1">
             <div className="w-1.5 rounded-2xl bg-blue-400 hidden lg:flex"></div>
-            <h2 className="text-gray-800 font-bold text-lg">Instructions</h2>
+            <h2 className="text-gray-800 font-bold text-lg">
+              {getLocalTranslation("examInstructions.instructions")}
+            </h2>
           </div>
           <h4 className="text-gray-500 text-sm lg:text-base">
-            Please read carefully before proceeding
+            {getLocalTranslation("examInstructions.instructionsWarn")}
           </h4>
         </div>
 
@@ -139,22 +154,25 @@ function Instruction() {
             <thead className=" sticky top-0 z-20 bg-blue-200">
               <tr>
                 <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
-                  Section Number
+                  {getLocalTranslation("examInstructions.sectionNumber")}
                 </th>
                 <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
-                  Section Name
+                  {getLocalTranslation("examInstructions.sectionName")}
                 </th>
                 <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
-                  Total Questions
+                  {getLocalTranslation("examInstructions.totalQuestions")}
                 </th>
+
                 <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
-                  Max Marks
+                  {getLocalTranslation("examInstructions.maxMarks")}
                 </th>
+
                 <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
-                  Positive Marks
+                  {getLocalTranslation("examInstructions.positiveMarks")}
                 </th>
+
                 <th className="text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center font-medium text-title-darkblue">
-                  Negative Marks
+                  {getLocalTranslation("examInstructions.negativeMarks")}
                 </th>
               </tr>
             </thead>
@@ -189,7 +207,7 @@ function Instruction() {
           <div className="flex gap-1 items-center">
             <CircleAlert className="h-4 sm:h-5 text-blue-500" />
             <p className="text-title-darkblue font-medium ">
-              Questions Palette Legend & Navigation
+              {getLocalTranslation("examInstructions.PaletteHeader")}
             </p>
           </div>
 
@@ -199,19 +217,28 @@ function Instruction() {
               <div>
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-answered rounded-sm"></div>
-                  <span className="text-responsive-muted">Answered</span>
+                  <span className="text-responsive-muted">
+                    {" "}
+                    {getLocalTranslation("examInstructions.answered")}
+                  </span>
                 </div>
               </div>
               <div>
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-notAnswered rounded-sm"></div>
-                  <span className="text-responsive-muted">Not Answered</span>
+                  <span className="text-responsive-muted">
+                    {" "}
+                    {getLocalTranslation("examInstructions.notAnswered")}
+                  </span>
                 </div>
               </div>
               <div>
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-marked rounded-sm"></div>
-                  <span className="text-responsive-muted">Marked</span>
+                  <span className="text-responsive-muted">
+                    {" "}
+                    {getLocalTranslation("examInstructions.marked")}
+                  </span>
                 </div>
               </div>
 
@@ -219,7 +246,7 @@ function Instruction() {
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-markedAnswered rounded-sm"></div>
                   <span className="text-responsive-muted">
-                    Marked & Answered
+                    {getLocalTranslation("examInstructions.markedAnswered")}
                   </span>
                 </div>
               </div>
@@ -227,7 +254,9 @@ function Instruction() {
               <div>
                 <div className="flex gap-1 items-center">
                   <div className="h-4 w-4 bg-notVisited border border-gray-300 rounded-sm"></div>
-                  <span className="text-responsive-muted">Not Visited</span>
+                  <span className="text-responsive-muted">
+                    {getLocalTranslation("examInstructions.notVisited")}
+                  </span>
                 </div>
               </div>
             </div>
@@ -236,63 +265,75 @@ function Instruction() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div className="flex  items-center gap-2 ">
                 <div className="bg-answered save-exam-button">
-                  <span>Save & Next</span>
-                  <ArrowRight className="h-4 lg:h-5" />
+                  <span>
+                    {getLocalTranslation("examInstructions.saveNext")}
+                  </span>
+                  <ArrowRight className="h-4" />
                 </div>
                 <span className="text-responsive-muted">
-                  Save the answer and move to the next question.
+                  {getLocalTranslation("examInstructions.saveNextDesc")}
                 </span>
               </div>
 
               <div className="flex  items-center gap-2 ">
                 <div className="previous-exam-button">
-                  <ArrowLeft className="h-4 lg:h-5" />
-                  <span>Previous</span>
+                  <ArrowLeft className="h-4" />
+                  <span>
+                    {getLocalTranslation("examInstructions.previous")}
+                  </span>
                 </div>
                 <span className="text-responsive-muted">
-                  Go back to the previous question.
+                  {getLocalTranslation("examInstructions.previousDesc")}
                 </span>
               </div>
 
               <div className="flex  items-center gap-2">
-                <div className="mark-review-button">
-                  <Star className="h-4 lg:h-5" />
-                  <span> Mark for Review</span>
+                <div className="mark-review-button px-1">
+                  <Star className="h-4" />
+                  <span>
+                    {getLocalTranslation("examInstructions.markReview")}
+                  </span>
                 </div>
 
                 <span className="text-responsive-muted">
-                  Mark this question for review later
+                  {getLocalTranslation("examInstructions.markReviewDesc")}
                 </span>
               </div>
 
               <div className="flex  items-center gap-2">
                 <div className="save-exam-button bg-notAnswered">
-                  <Eraser className="h-4 lg:h-5" />
+                  <Eraser className="h-4" />
 
-                  <span>Clear Response</span>
+                  <span>
+                    {getLocalTranslation("examInstructions.clearResponse")}
+                  </span>
                 </div>
                 <span className="text-responsive-muted">
-                  Clear the selected answer
+                  {getLocalTranslation("examInstructions.clearResponseDesc")}
                 </span>
               </div>
 
               <div className="flex  items-center gap-2">
                 <div className="gap-1 questions-exam-button text-button-blue font-semibold border border-button-blue">
-                  <BookOpen className="h-4 lg:h-5" />
-                  <span>Question</span>
+                  <BookOpen className="h-4" />
+                  <span>
+                    {getLocalTranslation("examInstructions.question")}
+                  </span>
                 </div>
                 <span className="text-responsive-muted">
-                  Display all questions .
+                  {getLocalTranslation("examInstructions.questionDesc")}
                 </span>
               </div>
 
               <div className="flex  items-center gap-2">
                 <div className="gap-1 questions-exam-button text-button-blue font-semibold border border-button-blue">
-                  <Eye className="h-4 lg:h-5" />
-                  <span>Instruction</span>
+                  <Eye className="h-4" />
+                  <span>
+                    {getLocalTranslation("examInstructions.instructionButton")}
+                  </span>
                 </div>
                 <span className="text-responsive-muted">
-                  View the instructions for the exam.
+                  {getLocalTranslation("examInstructions.instructionDesc")}
                 </span>
               </div>
             </div>

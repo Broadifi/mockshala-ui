@@ -359,7 +359,7 @@ body {
 
   .mark-review-button{
     @apply bg-blue-100 text-blue-700 flex flex-row items-center justify-center  
-                  min-w-32 lg:min-w-35 py-2 text-center rounded-md 
+                  min-w-32 lg:min-w-35 py-2  text-center rounded-md 
                   text-xs lg:text-sm gap-1 font-medium ;
   }
 
