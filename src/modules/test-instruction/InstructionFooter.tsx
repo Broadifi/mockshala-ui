@@ -13,7 +13,7 @@ function InstructionFooter() {
         <ExamLanguageSelector/>
       </div>
 
-      <div className='flex gap-4 justify-center items-center'>
+      <div className='flex gap-2 lg:gap-4 justify-center items-center'>
         <input
           type='checkbox'
           id='instructions'

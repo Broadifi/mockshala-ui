@@ -1,6 +1,9 @@
+import { useAuthStore } from "@/stores/authStore";
 import { User } from "lucide-react";
 
 function ProfileIcon() {
+
+   const { userDetails} = useAuthStore((state) => state.auth);
   return (
     <div className="
       flex items-center justify-center

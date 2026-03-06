@@ -211,7 +211,7 @@ function Instruction() {
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-10">
             {/* Color Palette */}
             <div className="flex flex-wrap gap-4 lg:gap-6">
               <div>
