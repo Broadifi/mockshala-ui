@@ -91,7 +91,12 @@
     "questionDesc": "सभी प्रश्न दिखाएँ।",
 
     "instructionButton": "निर्देश",
-    "instructionDesc": "परीक्षा के निर्देश देखें।"
+    "instructionDesc": "परीक्षा के निर्देश देखें।",
+
+    "chooseLanguage": "अपनी भाषा चुनें",
+    "confirmInstructions": "मैंने सभी निर्देश ध्यानपूर्वक पढ़ लिए हैं और उनका पालन करूँगा।",
+    "cancel": "रद्द करें",
+    "readyToBegin": "मैं परीक्षा शुरू करने के लिए तैयार हूँ"
   }
 
 

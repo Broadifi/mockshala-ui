@@ -94,7 +94,12 @@
     "questionDesc": "Display all questions.",
 
     "instructionButton": "Instruction",
-    "instructionDesc": "View the instructions for the exam."
+    "instructionDesc": "View the instructions for the exam.",
+
+    "chooseLanguage": "Choose your language",
+    "confirmInstructions": "I have read all the instructions carefully and abide by them",
+    "cancel": "Cancel",
+    "readyToBegin": "I AM READY TO BEGIN"
 
   }
 
