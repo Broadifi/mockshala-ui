@@ -1,4 +1,6 @@
+
 "use client";
+
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
@@ -10,7 +12,6 @@ import type {
 } from "@/api/model/editorial-corner";
 import { IMAGE_BASE_URL } from "@/api/url";
 import { Link } from "@tanstack/react-router";
-// import DOMPurify from "dompurify";
 import { format } from "date-fns";
 import { formatDate } from "@/utils/formatting/formatDate";
 import { EditorialCardSkeleton } from "../home/components/skeleton/EditorialCardSkeleton";
@@ -31,9 +32,11 @@ function EditorialCornerDashboard() {
   const [startSelectedDate, setStartSelectedDate] = React.useState<
     Date | undefined
   >();
+
   const [endSelectedDate, setEndSelectedDate] = React.useState<
     Date | undefined
   >();
+
   const observerRef = React.useRef<HTMLDivElement | null>(null);
 
   const {
@@ -58,12 +61,11 @@ function EditorialCornerDashboard() {
           ? format(endSelectedDate, "yyyy-MM-dd")
           : undefined,
       }),
-
     getNextPageParam: (lastPage) => {
       return lastPage.hasNext ? lastPage.page + 1 : undefined;
     },
   });
-  console.log(data);
+
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasNextPage) {
@@ -71,173 +73,120 @@ function EditorialCornerDashboard() {
       }
     });
 
-    const currentElement = observerRef.current;
+    const current = observerRef.current;
 
-    if (currentElement) {
-      observer.observe(currentElement);
-    }
+    if (current) observer.observe(current);
 
     return () => {
-      if (currentElement) {
-        observer.unobserve(currentElement);
-      }
+      if (current) observer.unobserve(current);
       observer.disconnect();
     };
   }, [hasNextPage, fetchNextPage]);
 
-  // const decodeHTML = (html: string) => {
-  //   const txt = document.createElement("textarea");
-  //   txt.innerHTML = html;
-  //   return txt.value;
-  // };
-  console.log(data);
-  console.log(startSelectedDate, endSelectedDate);
   if (isLoading)
     return (
-      <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-6 gradient-soft-blue-current-affairs">
-        <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
+      <div className="container mx-auto px-4 py-6 flex flex-col gap-6 gradient-soft-blue-current-affairs">
+        <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b pb-4">
           <div>
             <h2 className="text-lg md:text-2xl lg:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
               Editorial Corner
             </h2>
-            <p className="text-subtitle-gray pb-2 md:text-base sm:text-sm text-xs">
-              Expert insights, study tips, and guidance for your exam
-              preparation journey
+            <p className="text-subtitle-gray text-sm">
+              Expert insights, study tips, and guidance for exam preparation
             </p>
           </div>
-          <div className="flex flex-col min-[425px]:flex-row justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-1 sm:gap-0.5 gap-0.5 min-[425px]:px-8 ">
-            {" "}
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
-                >
-                  <CalendarIcon className=" h-4 w-4 text-gray-400" />
-                  {startSelectedDate
-                    ? format(startSelectedDate, "PPP")
-                    : "Select Start Date"}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={startSelectedDate}
-                  onSelect={setStartSelectedDate}
-                  // initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full min-[298px]:w-[95%] min-[338px]:w-[80%] min-[425px]:w-[60%] min-[493px]:w-[50%] min-[576px]:w-[40%] min-[768px]:w-[50%] justify-start text-left  text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white "
-                >
-                  <CalendarIcon className=" h-4 w-4 text-gray-400" />
-                  {endSelectedDate
-                    ? format(endSelectedDate, "PPP")
-                    : "Select End Date"}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={endSelectedDate}
-                  onSelect={setEndSelectedDate}
-                  // initialFocus
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
         </header>
-        <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-7">
-          {Array.from({ length: limit }).map((_, index) => (
-            <EditorialCardSkeleton key={index} />
+
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-7">
+          {Array.from({ length: limit }).map((_, i) => (
+            <EditorialCardSkeleton key={i} />
           ))}
         </div>
       </div>
     );
+
   if (isError) return <p>Error: {(error as Error).message}</p>;
 
   return (
-    <div className="w-full container mx-auto px-4 py-4 flex flex-col gap-4 gradient-soft-blue-current-affairs">
-      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mt-4 ">
+    <div className="container mx-auto px-4 py-6 flex flex-col gap-6 gradient-soft-blue-current-affairs">
+   
+
+      <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4  pb-4">
         <div>
-          <h2 className="text-lg md:text-2xl lg:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
+          <h2 className="text-2xl lg:text-4xl font-bold bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent">
             Editorial Corner
           </h2>
-          <p className="text-subtitle-gray pb-2 md:text-base sm:text-sm text-xs">
+
+          <p className="text-subtitle-gray text-sm">
             Expert insights, study tips, and guidance for your exam preparation
-            journey
           </p>
         </div>
-        <div
-          className="flex min-[365px]:flex-row flex-col justify-center min-[298px]:items-center items-start lg:gap-2 md:gap-2 sm:gap-1.5 min-[345px]:gap-1.5 min-[425px]:px-8  min-[425px]:pb-14 pb-0 gap-0.5
-        "
-        >
-          {" "}
+
+
+        <div className="flex gap-2">
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[250px]:w-[80%] min-[298px]:w-[70%] min-[338px]:w-[45%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="justify-start text-left text-gray-400 hover:border-blue-700"
               >
-                <CalendarIcon />
-                <span className=" text-xs  min-[576px]:font-normal font-normal min-[726px]:font-medium min-[726px]:text-sm">
-                  {startSelectedDate
-                    ? format(startSelectedDate, "PPP")
-                    : "Select Start Date"}
-                </span>
+                <CalendarIcon className="mr-2 h-4 w-4" />
+
+                {startSelectedDate
+                  ? format(startSelectedDate, "PPP")
+                  : "Start Date"}
               </Button>
             </PopoverTrigger>
+
             <PopoverContent className="w-auto p-0">
               <Calendar
                 mode="single"
                 selected={startSelectedDate}
                 onSelect={setStartSelectedDate}
-                // initialFocus
               />
             </PopoverContent>
           </Popover>
+
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full min-[250px]:w-[80%] min-[298px]:w-[70%] min-[338px]:w-[45%] min-[425px]:w-[50%] min-[535px]:w-[36%] min-[522px]:w-[36%] min-[576px]:w-[32%] min-[768px]:w-[51%] justify-start text-left text-gray-400 hover:border-blue-700 hover:text-subtitle-gray hover:bg-white"
+                className="justify-start text-left text-gray-400 hover:border-blue-700"
               >
-                <CalendarIcon />
-                <span className=" text-xs  min-[576px]:font-normal font-normal min-[726px]:font-medium min-[726px]:text-sm">
-                  {endSelectedDate
-                    ? format(endSelectedDate, "PPP")
-                    : "Select End Date"}
-                </span>
+                <CalendarIcon className="mr-2 h-4 w-4" />
+
+                {endSelectedDate
+                  ? format(endSelectedDate, "PPP")
+                  : "End Date"}
               </Button>
             </PopoverTrigger>
+
             <PopoverContent className="w-auto p-0">
               <Calendar
                 mode="single"
                 selected={endSelectedDate}
                 onSelect={setEndSelectedDate}
-                // initialFocus
               />
             </PopoverContent>
           </Popover>
         </div>
       </header>
-      <div>
-        {data?.pages?.[0]?.data?.length === 0 &&
-          isLoading === false &&
-          !hasNextPage &&
-          startSelectedDate !== undefined &&
-          endSelectedDate !== undefined && (
-            <NoResultFound
-              setStartSelectedDate={setStartSelectedDate}
-              setEndSelectedDate={setEndSelectedDate}
-            />
-          )}
-      </div>
-      <div className="grid min-[1025px]:grid-cols-3 min-[1290px]:grid-cols-4 min-[765px]:grid-cols-2 grid-cols-1 gap-7">
+
+
+
+      {data?.pages?.[0]?.data?.length === 0 &&
+        !hasNextPage &&
+        startSelectedDate &&
+        endSelectedDate && (
+          <NoResultFound
+            setStartSelectedDate={setStartSelectedDate}
+            setEndSelectedDate={setEndSelectedDate}
+          />
+        )}
+
+
+
+      <div className="grid min-[560px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
         {data?.pages?.map((page: EditorialCornerResponse) =>
           page.data.map((item: EditorialCornerData) => (
             <Link
@@ -248,32 +197,49 @@ function EditorialCornerDashboard() {
                 slug: item.slug,
               }}
             >
-              <div className="flex flex-col gap-1 rounded-3xl cursor-pointer pb-5 shadow-sm hover:shadow-2xl bg-card h-full">
-                <div className="rounded-t-3xl w-full overflow-hidden h-52">
-                  <img
+        
+
+              <div className="group flex flex-col rounded-3xl cursor-pointer shadow-sm hover:shadow-2xl bg-card overflow-hidden transition-all duration-300 hover:-translate-y-2 h-full pb-3">
+
+      
+
+                <div className="relative w-full h-52 overflow-hidden">
+                  <ImageWithFallback
                     src={`${IMAGE_BASE_URL}${item.thumbnailImage}`}
                     alt={item.metaTitle}
-                    className="hover:scale-105 transition-transform duration-300 w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+
+                  <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
-                <div className="text-base md:text-lg lg:text-xl font-bold line-clamp-2 px-3 md:px-5 lg:px-5  pt-2 text-title-darkblue min-[328px]:h-18 h-auto ">
+              
+
+                <div className="px-4 pt-3 text-base md:text-lg font-semibold text-title-darkblue line-clamp-2 leading-snug group-hover:text-title-gradient-sky sm:h-15 h-auto ">
                   {item.title}
                 </div>
-                  <div className="flex  min-[336px]:gap-3 gap-1.5 flex-col  min-[336px]:flex-row items-start px-3 md:px-5 lg:px-5 ">
-              {item?.tags?.map((tagItem) => {
-                return (
-                  <div className="flex flex-row  justify-center items-center  rounded-2xl bg-gray-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
-                    <Badge key={tagItem} variant="link" className="text-black  uppercase">{tagItem}</Badge>
-                  </div>
-                 
-                );
-              })}{" "}
-            </div>
-                <div className="flex  min-[276px]:justify-start min-[276px]:items-center py-3 min-[276px]:flex-row flex-col justify-center items-start px-3 md:px-5 lg:px-5 min-[276px]:gap-5 gap-2">
-                  {" "}
-                  <div className="flex flex-row justify-start items-center text-xs  min-[312px]:gap-1 gap-0.5 ">
+
+ 
+
+                <div className="flex flex-wrap gap-2 px-4 pt-2">
+                  {item?.tags?.map((tagItem) => (
+                    <div
+                      key={tagItem}
+                      className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform bg-blue-200 pl-1.5"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                      <Badge variant="link" className="text-black  uppercase text-xs">
+                        {tagItem}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+
+              
+
+                <div className="flex justify-between items-center px-4 py-3 text-xs text-gray-600">
+
+                  <div className="flex items-center gap-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="15"
@@ -281,25 +247,20 @@ function EditorialCornerDashboard() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="1.25"
+                      strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="lucide lucide-clock-icon lucide-clock"
                     >
                       <circle cx="12" cy="12" r="10" />
                       <path d="M12 6v6l4 2" />
                     </svg>
-                    <span className="text-xs text-title-gradient-blue">
+
+                    <span className="text-title-gradient-blue">
                       {item?.readTime.text}
                     </span>
                   </div>
-                  {/* <div
-                  className="text-sm text-gray-600 line-clamp-2 px-5"
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(decodeHTML(item.description)),
-                  }}
-                /> */}
-                  <div className="text-gray-600 flex flex-row items-center  min-[312px]:gap-1 gap-0.1">
+
+                  <div className="flex items-center gap-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="15"
@@ -310,33 +271,35 @@ function EditorialCornerDashboard() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="lucide lucide-calendar-icon lucide-calendar"
                     >
-                      <path d="M8 2v4" />
-                      <path d="M16 2v4" />
                       <rect width="18" height="18" x="3" y="4" rx="2" />
                       <path d="M3 10h18" />
                     </svg>
-                    <span className=" text-xs text-title-gradient-blue">
+
+                    <span className="text-title-gradient-blue">
                       {formatDate(item.publishedDate)}
                     </span>
                   </div>
+
                 </div>
               </div>
             </Link>
-          )),
+          ))
         )}
       </div>
-      <div className="flex flex-row justify-center items-center">
-        {" "}
-        {data?.pages?.[0]?.data?.length !== 0 &&
-          isLoading === false &&
-          !hasNextPage &&
-          startSelectedDate === undefined &&
-          endSelectedDate === undefined && (
-            <p className="text-subtitle-gray">🎉You've seen all articles!</p>
-          )}
-      </div>
+
+  
+
+      {data?.pages?.[0]?.data?.length !== 0 &&
+        !hasNextPage &&
+        !startSelectedDate &&
+        !endSelectedDate && (
+          <p className="text-center text-subtitle-gray">
+            🎉 You've seen all articles!
+          </p>
+        )}
+
+  
 
       <div ref={observerRef} className="h-10" />
 

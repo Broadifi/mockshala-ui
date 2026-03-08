@@ -1,5 +1,5 @@
 import type { AxiosResponse } from "axios"
-import type { EditorialCornerResponse ,EditorialCornerData,EditorialCornerBlog} from "../model/editorial-corner"
+import type { EditorialCornerResponse ,EditorialCornerBlog} from "../model/editorial-corner"
 import api from "."
 import { apiUrl } from "../url"
 
