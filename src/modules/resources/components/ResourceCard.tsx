@@ -1,7 +1,7 @@
 import { formatDate } from "@/utils/formatting/formatDate";
 import { IMAGE_BASE_URL } from "@/api/url";
 import type { Daum } from "@/api/model/resource";
-import { FileText } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 
 function ResourceCard({ item }: { item: Daum }) {
   const hasPdf = Boolean(item.file?.path);
@@ -11,20 +11,29 @@ function ResourceCard({ item }: { item: Daum }) {
   const categoryName = item.examCategory?.categoryName || "RESOURCE";
 
   
-  const containerClasses = `flex flex-col bg-white border border-gray-200 rounded-2xl p-5 h-full transition-all duration-300 w-full ${
+  const containerClasses = `flex flex-col bg-white border border-gray-200 rounded-2xl p-3 min-h-[16vh] sm:min-h-[18vh] xl:min-h-[20vh] transition-all duration-300 w-full ${
     hasPdf ? "cursor-pointer hover:bg-gray-50 hover:shadow-md hover:-translate-y-1 group" : "cursor-default"
   }`;
 
   const CardContent = (
     <>
+
+    <div className="flex flex-row items-center mb-4 gap-1">  
+      <div className="w-6 h-6 rounded-full border border-blue-700 text-blue-700 flex items-center justify-center  shrink-0   transition-colors shadow-sm">
+            <FileText size={16}  />
+          </div>
       
-      <div className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase w-fit tracking-wider mb-4 shrink-0">
+      <div className="bg-blue-50 text-blue-600  px-3 sm:px-3 xl:px-3 py-1  rounded-full text-[10px] sm:text-xs font-bold uppercase w-fit tracking-wider shrink-0 flex flex-row justify-center items-center gap-2">
+        
         {categoryName}
       </div>
+      </div> 
 
       
       <div className="flex-1 w-full mb-4">
-        <h3 className="font-bold text-gray-800 text-sm sm:text-[15px] line-clamp-3 leading-snug uppercase">
+         
+        <h3 title={item.title} className="font-semibold text-gray-800 text-xs  sm:text-sm xl:text-base 
+        line-clamp-3 uppercase">
           {item.title}
         </h3>
       </div>
@@ -39,8 +48,8 @@ function ResourceCard({ item }: { item: Daum }) {
 
         
         {hasPdf ? (
-          <div className="w-9 h-9 rounded-full bg-linear-to-r from-blue-600 to-sky-500  flex items-center justify-center text-white shrink-0 group-hover:bg-blue-700 transition-colors shadow-sm">
-            <FileText size={16} />
+          <div className="w-7 h-7 xl:w-9 xl:h-9 rounded-full border border-blue-700 text-blue-700 flex items-center justify-center  shrink-0 group-hover:bg-blue-700  group-hover:text-white transition-colors shadow-sm">
+            <Download size={16} className=" " />
           </div>
         ) : (
           <span className="text-gray-400 text-xs">
