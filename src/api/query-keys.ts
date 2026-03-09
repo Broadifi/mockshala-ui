@@ -55,10 +55,14 @@ export const profileKeys = createExtendedQueryKeys('profile',{
   profileDetails: (userId: string)=> ['profile', 'profileDetails', userId] as const
 })
 
-export const GeneralKeys = createExtendedQueryKeys('general',{
+export const generalKeys = createExtendedQueryKeys('general',{
   stateListDetails: ()=> ['general', 'stateListDetails'] as const
 })
 
+
+export const examKeys = createExtendedQueryKeys('exam',{
+ examInstruction: (examID: string)=> ['exam', 'examInstruction', examID] as const
+})
 
 export const queryKeys ={
     auth: authQueryKeys,
@@ -69,5 +73,6 @@ export const queryKeys ={
     editorialsCornerKeys,
     plansKeys,
     profileKeys,
-    GeneralKeys
+    generalKeys,
+    examKeys
 }

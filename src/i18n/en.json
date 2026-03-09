@@ -56,6 +56,51 @@
   "headerLang":
   {
     "exams": "Exams"
+  },
+
+  "examInstructions": {
+    "examType": "Exam Type",
+    "difficulty": "Difficulty",
+    "duration": "Duration",
+    "totalQuestions": "Total Questions",
+    "instructions": "Instructions",
+    "instructionsWarn": "Please read carefully before proceeding",
+    "sectionNumber": "Section Number",
+    "sectionName": "Section Name",
+    "maxMarks": "Max Marks",
+    "positiveMarks": "Positive Marks",
+    "negativeMarks": "Negative Marks",
+    "PaletteHeader": "Questions Palette Legend & Navigation",
+    "answered": "Answered",
+    "notAnswered": "Not Answered",
+    "marked": "Marked",
+    "markedAnswered": "Marked & Answered",
+    "notVisited": "Not Visited",
+
+
+    "saveNext": "Save & Next",
+    "saveNextDesc": "Save the answer and move to the next question.",
+
+    "previous": "Previous",
+    "previousDesc": "Go back to the previous question.",
+
+    "markReview": "Mark for Review",
+    "markReviewDesc": "Mark this question for review later.",
+
+    "clearResponse": "Clear Response",
+    "clearResponseDesc": "Clear the selected answer.",
+
+    "question": "Question",
+    "questionDesc": "Display all questions.",
+
+    "instructionButton": "Instruction",
+    "instructionDesc": "View the instructions for the exam.",
+
+    "chooseLanguage": "Choose your language",
+    "confirmInstructions": "I have read all the instructions carefully and abide by them",
+    "cancel": "Cancel",
+    "readyToBegin": "I AM READY TO BEGIN"
+
   }
 
 

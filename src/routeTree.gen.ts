@@ -30,6 +30,7 @@ import { Route as LangAboutIndexRouteImport } from './routes/$lang/about/index'
 import { Route as LangExamsExamCategoryIndexRouteImport } from './routes/$lang/exams/$examCategory/index'
 import { Route as LangEditorialsCornerSlugIndexRouteImport } from './routes/$lang/editorials-corner/$slug/index'
 import { Route as LangCurrentAffairsSlugIndexRouteImport } from './routes/$lang/current-affairs/$slug/index'
+import { Route as LangInstructionsTestSlugExamIdIndexRouteImport } from './routes/$lang/instructions/$testSlug/$examId/index'
 import { Route as LangExamsExamCategoryTestSlugIndexRouteImport } from './routes/$lang/exams/$examCategory/$testSlug/index'
 
 const LangRoute = LangRouteImport.update({
@@ -143,6 +144,12 @@ const LangCurrentAffairsSlugIndexRoute =
     path: '/current-affairs/$slug/',
     getParentRoute: () => LangRoute,
   } as any)
+const LangInstructionsTestSlugExamIdIndexRoute =
+  LangInstructionsTestSlugExamIdIndexRouteImport.update({
+    id: '/instructions/$testSlug/$examId/',
+    path: '/instructions/$testSlug/$examId/',
+    getParentRoute: () => LangRoute,
+  } as any)
 const LangExamsExamCategoryTestSlugIndexRoute =
   LangExamsExamCategoryTestSlugIndexRouteImport.update({
     id: '/exams/$examCategory/$testSlug/',
@@ -173,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/$lang/editorials-corner/$slug': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
+  '/$lang/instructions/$testSlug/$examId': typeof LangInstructionsTestSlugExamIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -196,6 +204,7 @@ export interface FileRoutesByTo {
   '/$lang/editorials-corner/$slug': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
+  '/$lang/instructions/$testSlug/$examId': typeof LangInstructionsTestSlugExamIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -221,6 +230,7 @@ export interface FileRoutesById {
   '/$lang/editorials-corner/$slug/': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory/': typeof LangExamsExamCategoryIndexRoute
   '/$lang/exams/$examCategory/$testSlug/': typeof LangExamsExamCategoryTestSlugIndexRoute
+  '/$lang/instructions/$testSlug/$examId/': typeof LangInstructionsTestSlugExamIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -247,6 +257,7 @@ export interface FileRouteTypes {
     | '/$lang/editorials-corner/$slug'
     | '/$lang/exams/$examCategory'
     | '/$lang/exams/$examCategory/$testSlug'
+    | '/$lang/instructions/$testSlug/$examId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -270,6 +281,7 @@ export interface FileRouteTypes {
     | '/$lang/editorials-corner/$slug'
     | '/$lang/exams/$examCategory'
     | '/$lang/exams/$examCategory/$testSlug'
+    | '/$lang/instructions/$testSlug/$examId'
   id:
     | '__root__'
     | '/'
@@ -294,6 +306,7 @@ export interface FileRouteTypes {
     | '/$lang/editorials-corner/$slug/'
     | '/$lang/exams/$examCategory/'
     | '/$lang/exams/$examCategory/$testSlug/'
+    | '/$lang/instructions/$testSlug/$examId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -450,6 +463,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangCurrentAffairsSlugIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/instructions/$testSlug/$examId/': {
+      id: '/$lang/instructions/$testSlug/$examId/'
+      path: '/instructions/$testSlug/$examId'
+      fullPath: '/$lang/instructions/$testSlug/$examId'
+      preLoaderRoute: typeof LangInstructionsTestSlugExamIdIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/exams/$examCategory/$testSlug/': {
       id: '/$lang/exams/$examCategory/$testSlug/'
       path: '/exams/$examCategory/$testSlug'
@@ -481,6 +501,7 @@ interface LangRouteChildren {
   LangEditorialsCornerSlugIndexRoute: typeof LangEditorialsCornerSlugIndexRoute
   LangExamsExamCategoryIndexRoute: typeof LangExamsExamCategoryIndexRoute
   LangExamsExamCategoryTestSlugIndexRoute: typeof LangExamsExamCategoryTestSlugIndexRoute
+  LangInstructionsTestSlugExamIdIndexRoute: typeof LangInstructionsTestSlugExamIdIndexRoute
 }
 
 const LangRouteChildren: LangRouteChildren = {
@@ -505,6 +526,8 @@ const LangRouteChildren: LangRouteChildren = {
   LangExamsExamCategoryIndexRoute: LangExamsExamCategoryIndexRoute,
   LangExamsExamCategoryTestSlugIndexRoute:
     LangExamsExamCategoryTestSlugIndexRoute,
+  LangInstructionsTestSlugExamIdIndexRoute:
+    LangInstructionsTestSlugExamIdIndexRoute,
 }
 
 const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
