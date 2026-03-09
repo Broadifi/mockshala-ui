@@ -289,7 +289,7 @@ const EditorialCornerDetails = () => {
         </div>
 
         <div
-          className="text-gray-600 min-[1028px]:text-lg md:text-base text-sm text-justify px-2     md:first-letter:float-left md:first-letter:text-5xl md:first-letter:font-bold md:first-letter:mr-2 md:first-letter:leading-none md:first-letter:uppercase"
+          className="text-gray-600 min-[1028px]:text-lg md:text-base text-sm text-justify px-2     md:first-letter:float-left md:first-letter:text-5xl md:first-letter:font-bold md:first-letter:mr-1 md:first-letter:leading-none md:first-letter:uppercase"
           dangerouslySetInnerHTML={{
             __html: cleanHTML,
           }}
