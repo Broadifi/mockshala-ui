@@ -18,6 +18,7 @@ import { Link, useParams } from "@tanstack/react-router";
 import { formatDate } from "@/utils/formatting/formatDate";
 import { Button } from "@/components/ui/button";
 import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
+import CurrentAffairSkeleton from "./skeleton/currentAffairSkeleton";
 
 export function CurrentAffairs() {
   //for translation
@@ -28,7 +29,7 @@ export function CurrentAffairs() {
 
   const baseLanguage = lang ?? "en";
 
-  const { data: currentAffairsData } = useQuery({
+  const { data: currentAffairsData, isLoading } = useQuery({
     queryKey: homeQueryKey.currentAffairs(),
     queryFn: homeAPI.getCurrentAffairsData,
     ...QUERY_CONFIG.static,
@@ -52,84 +53,88 @@ export function CurrentAffairs() {
         </p>
       </div>
 
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        plugins={[
-          Autoplay({
-            delay: 3000,
-          }),
-        ]}
-        className="w-full mt-6 sm:mt-8 "
-      >
-        <CarouselContent>
-          {currentAffairsData?.data.map((item) => (
-            <CarouselItem
-              key={item._id}
-              className="basis-1/1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 md:p-4 group"
-            >
-              <Link
-                to={"/$lang/current-affairs/$slug"}
-                params={{ lang: baseLanguage, slug: item.slug }}
+      {isLoading ? (
+        <CurrentAffairSkeleton />
+      ) : (
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 3000,
+            }),
+          ]}
+          className="w-full mt-6 sm:mt-8 "
+        >
+          <CarouselContent>
+            {currentAffairsData?.data.map((item) => (
+              <CarouselItem
                 key={item._id}
+                className="basis-1/1 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4 md:p-4 group"
               >
-              <div className=" transition-transform duration-300 ease-in-out group-hover:scale-[1.02] group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
-                {/* image section */}
-                <div className="overflow-hidden relative">
-                  <ImageWithFallback
-                    src={IMAGE_BASE_URL + item?.image}
-                    alt={item?.title || "Test series image"}
-                    className="object-contain  h-full w-full rounded-t-xl "
-                  />
+                <Link
+                  to={"/$lang/current-affairs/$slug"}
+                  params={{ lang: baseLanguage, slug: item.slug }}
+                  key={item._id}
+                >
+                <div className=" transition-transform duration-300 ease-in-out group-hover:scale-[1.02] group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
+                  {/* image section */}
+                  <div className="overflow-hidden relative">
+                    <ImageWithFallback
+                      src={IMAGE_BASE_URL + item?.image}
+                      alt={item?.title || "Test series image"}
+                      className="object-contain  h-full w-full rounded-t-xl "
+                    />
 
-                  <div className="absolute top-2 left-2">
-                  {item.tags.length >0 && <Badge className="bg-button-blue">{item.tags[0]}</Badge>}
+                    <div className="absolute top-2 left-2">
+                    {item.tags.length >0 && <Badge className="bg-button-blue">{item.tags[0]}</Badge>}
+                    </div>
+                  </div>
+
+                  {/* description section */}
+                  <div className="px-4 space-y-3 py-1">
+                    {/* date and time */}
+                    <div className="flex gap-5 font-medium">
+                      <div className="flex items-center gap-1 text-xs  text-gray-500">
+                        <Calendar size={14} />
+                        <p>{formatDate(item.publishedDate)}</p>
+                      </div>
+
+                      <div className="flex items-center gap-1 text-xs  text-gray-500">
+                        <Clock4 size={14} />
+                        <p>5 mins read</p>
+                      </div>
+                    </div>
+
+                    {/* tag section */}
+                    {item.tags.length > 1 && (
+                      <div className="flex flex-wrap gap-2 pt-1  items-center">
+                        {item.tags.slice(1).map((tag) => (
+                          <Badge key={tag} variant="outline">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* title section */}
+                    <div className="pb-4 xl:pb-5">
+                      <h2 className="line-clamp-2 font-semibold text-title-darkblue">
+                        {item.title}
+                      </h2>
+                    </div>
                   </div>
                 </div>
-
-                {/* description section */}
-                <div className="px-4 space-y-3 py-1">
-                  {/* date and time */}
-                  <div className="flex gap-5 font-medium">
-                    <div className="flex items-center gap-1 text-xs  text-gray-500">
-                      <Calendar size={14} />
-                      <p>{formatDate(item.publishedDate)}</p>
-                    </div>
-
-                    <div className="flex items-center gap-1 text-xs  text-gray-500">
-                      <Clock4 size={14} />
-                      <p>5 mins read</p>
-                    </div>
-                  </div>
-
-                  {/* tag section */}
-                  {item.tags.length > 1 && (
-                    <div className="flex flex-wrap gap-2 pt-1  items-center">
-                      {item.tags.slice(1).map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* title section */}
-                  <div className="pb-4 xl:pb-5">
-                    <h2 className="line-clamp-2 font-semibold text-title-darkblue">
-                      {item.title}
-                    </h2>
-                  </div>
-                </div>
-              </div>
-              </Link>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="left-4 cursor-pointer" />
-        <CarouselNext className="right-4 cursor-pointer" />
-      </Carousel>
+                </Link>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4 cursor-pointer" />
+          <CarouselNext className="right-4 cursor-pointer" />
+        </Carousel>
+      )}
 
       {/* View All */}
       <div className=" flex justify-center pt-6">
