@@ -1,8 +1,10 @@
 
 
+type EditorialTagsLengthProps = {
+  length: number;
+};
 
-
-const EditorialTagsLength = ({length}) => {
+const EditorialTagsLength = ({length}:EditorialTagsLengthProps) => {
   return (
     <div className="text-title-gradient-blue">
       +{length-2}
