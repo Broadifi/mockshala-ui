@@ -17,11 +17,7 @@ function StartButton({ title, url }: ButtonProps) {
     const height = screen.height;
 
     if (!accessToken) {
-      console.log("token is not avail");
-
       if (!loginState) {
-        console.log("login state is", loginState);
-
         setLoginState(true);
       }
     } else {

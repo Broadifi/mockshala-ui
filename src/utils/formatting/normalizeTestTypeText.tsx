@@ -1,3 +1,21 @@
+/**
+ * Normalizes test type text into readable format.
+ *
+ * Examples:
+ * normalizeTestTypeText("MEMORY_BASED_MOCK") → "Memory Based Mock"
+ * normalizeTestTypeText("memoryBasedMock") → "Memory Based Mock"
+ * normalizeTestTypeText("memory_based_mock") → "Memory Based Mock"
+ * normalizeTestTypeText("Memory Based Mock") → "Memory Based Mock"
+ * normalizeTestTypeText("memory-based-mock") → "Memory Based Mock"
+ *
+ * Input → Output
+ * MEMORY_BASED_MOCK  → Memory Based Mock
+ * memory_based_mock  → Memory Based Mock
+ * memoryBasedMock    → Memory Based Mock
+ * Memory Based Mock  → Memory Based Mock
+ * memory-based-mock  → Memory Based Mock
+ */
+
 export function normalizeTestTypeText(text?: string) {
   if (!text) return "";
 
@@ -11,15 +29,3 @@ export function normalizeTestTypeText(text?: string) {
     .join(" ");
 }
 
-
-// normalizeText("MEMORY_BASED_MOCK")
-// normalizeText("memoryBasedMock")
-// normalizeText("memory_based_mock")
-// normalizeText("Memory Based Mock")
-
-// Input	            Output
-// MEMORY_BASED_MOCK	Memory Based Mock
-// memory_based_mock	Memory Based Mock
-// memoryBasedMock	    Memory Based Mock
-// Memory Based Mock	Memory Based Mock
-// memory-based-mock	Memory Based Mock

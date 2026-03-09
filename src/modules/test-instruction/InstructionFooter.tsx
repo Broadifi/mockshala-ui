@@ -31,7 +31,7 @@ function InstructionFooter() {
       <div className='flex items-center gap-2 md:gap-4 justify-end'>
         <h4 className='text-blue-900'> {getLocalTranslation("examInstructions.chooseLanguage")}</h4>
 
-        <ExamLanguageSelector/>
+        <ExamLanguageSelector showLabel={false}/>
       </div>
 
       <div className='flex gap-2 lg:gap-4 justify-center items-center'>

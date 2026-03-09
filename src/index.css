@@ -342,30 +342,26 @@ body {
 
 /* for color palette text */
 @layer utilities {
-  .text-responsive-muted {
-    @apply text-xs sm:text-sm  text-gray-600;
-  }
-
   .save-exam-button{
-      @apply  text-xs lg:text-sm text-white font-medium flex flex-row items-center justify-center  
-                  min-w-33 lg:min-w-35 py-2 text-center rounded-md ;
+    @apply text-xs lg:text-sm text-white font-medium flex flex-row items-center justify-center  
+           min-w-[8.25rem] lg:min-w-[8.75rem] py-2 text-center rounded-md;
   }
 
   .previous-exam-button{
     @apply bg-gray-100 border border-gray-400 text-gray-500 flex flex-row items-center justify-center  
-                  min-w-33 lg:min-w-35 py-2 text-center rounded-md 
-                  text-xs lg:text-sm gap-1 font-medium;
+           min-w-[8.25rem] lg:min-w-[8.75rem] py-2 text-center rounded-md 
+           text-xs lg:text-sm gap-1 font-medium;
   }
 
   .mark-review-button{
     @apply bg-blue-100 text-blue-700 flex flex-row items-center justify-center  
-                  min-w-33 lg:min-w-35 py-2  text-center rounded-md 
-                  text-xs lg:text-sm gap-1 font-medium ;
+           min-w-[8.25rem] lg:min-w-[8.75rem] py-2 text-center rounded-md 
+           text-xs lg:text-sm gap-1 font-medium;
   }
 
   .questions-exam-button{
     @apply text-xs lg:text-sm font-medium flex flex-row items-center justify-center  
-                  min-w-33 lg:min-w-35 py-2 text-center rounded-md;
+           min-w-[8.25rem] lg:min-w-[8.75rem] py-2 text-center rounded-md;
   }
 }
 

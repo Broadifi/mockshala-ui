@@ -181,9 +181,12 @@ function Instruction() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {sectionData?.section.map((item, index) => (
-                <tr className="hover:bg-gray-50 border-b border-gray-200">
+                <tr
+                  key={item._id ?? item.sectionName ?? index}
+                  className="hover:bg-gray-50 border-b border-gray-200"
+                >
                   <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
-                    {index}
+                    {index+1}
                   </td>
                   <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
                     {item.sectionName}

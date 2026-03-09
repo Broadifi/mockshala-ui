@@ -13,11 +13,11 @@ import { useParams } from "@tanstack/react-router";
 import { useEffect } from "react";
 
 interface LanguageSelectorProps {
-  labelHidden?: boolean;
+  showLabel?: boolean;
 }
 
 export function ExamLanguageSelector({
-  labelHidden = false,
+  showLabel = false,
 }: LanguageSelectorProps) {
   //fetch the current news language form local state just update the lang on news store,
   // do not update the Global store data
@@ -34,7 +34,7 @@ export function ExamLanguageSelector({
 
   return (
     <div>
-      {labelHidden && (
+      {showLabel && (
         <Label className="px-1 mb-2 text-title-gradient-blue">
           Select Language
         </Label>

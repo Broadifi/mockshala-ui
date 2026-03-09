@@ -29,9 +29,7 @@ export const BASE_URL =
     allExamData: (examCategory: string) =>
        `/test-series/get-dashboard-test-series?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
 
-    //testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`,
-
-      testDetails: (testSlug: string) =>`/test-series/by-slug/v2/${testSlug}`,
+    testDetails: (testSlug: string) =>`/test-series/by-slug/v2/${testSlug}`,
 
     currentAffairs: ()=> '/current-affairs',
 

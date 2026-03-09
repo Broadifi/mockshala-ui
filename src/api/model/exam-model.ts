@@ -36,6 +36,3 @@ interface Section {
   totalScore: number;
   totalQuestion: number;
 }
-
-
-///

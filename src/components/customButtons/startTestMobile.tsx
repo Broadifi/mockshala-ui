@@ -17,11 +17,7 @@ function StartTestMobile({ title, url }: ButtonProps) {
     const height = screen.height;
 
     if (!accessToken) {
-      console.log("token is not avail");
-
       if (!loginState) {
-        console.log("login state is", loginState);
-
         setLoginState(true);
       }
     } else {
@@ -41,7 +37,7 @@ function StartTestMobile({ title, url }: ButtonProps) {
         w-full bg-linear-to-r from-button-sky to-button-blue 
                  text-white font-semibold rounded-lg h-9"
       >
-        <Play size={16}/>
+        <Play size={16} />
         {title}
       </button>
     </div>
