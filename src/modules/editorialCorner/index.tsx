@@ -1,6 +1,6 @@
 
 "use client";
-
+import EditorialTagsLength from "./components/editorialTagsLength";
 import * as React from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchEditorialCorners } from "@/api/services/editorial-corner.service";
@@ -65,6 +65,7 @@ function EditorialCornerDashboard() {
       return lastPage.hasNext ? lastPage.page + 1 : undefined;
     },
   });
+  console.log(data?.pages[0].data);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -130,7 +131,7 @@ function EditorialCornerDashboard() {
                 variant="outline"
                 className="justify-start text-left text-gray-400 hover:border-blue-700"
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
+                <CalendarIcon className="mr-1 h-4 w-4" />
 
                 {startSelectedDate
                   ? format(startSelectedDate, "PPP")
@@ -153,7 +154,7 @@ function EditorialCornerDashboard() {
                 variant="outline"
                 className="justify-start text-left text-gray-400 hover:border-blue-700"
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
+                <CalendarIcon className="mr-1 h-4 w-4" />
 
                 {endSelectedDate
                   ? format(endSelectedDate, "PPP")
@@ -199,7 +200,7 @@ function EditorialCornerDashboard() {
             >
         
 
-              <div className="group flex flex-col rounded-3xl cursor-pointer shadow-sm hover:shadow-2xl bg-card overflow-hidden transition-all duration-300 hover:-translate-y-2 h-full pb-3">
+              <div className="group flex flex-col rounded-3xl cursor-pointer shadow-sm hover:shadow-lg bg-card overflow-hidden   h-full pb-3">
 
       
 
@@ -221,8 +222,8 @@ function EditorialCornerDashboard() {
 
  
 
-                <div className="flex flex-wrap gap-2 px-4 pt-2">
-                  {item?.tags?.map((tagItem) => (
+                <div className="flex flex-wrap gap-2 px-4 pt-3">
+                  {item?.tags?.slice(0,2).map((tagItem) => (
                     <div
                       key={tagItem}
                       className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform bg-blue-200 pl-1.5"
@@ -233,11 +234,12 @@ function EditorialCornerDashboard() {
                       </Badge>
                     </div>
                   ))}
+                  <div>{item?.tags?.length>2 && <EditorialTagsLength length={item?.tags?.length}/>}</div>
                 </div>
 
               
 
-                <div className="flex justify-between items-center px-4 py-3 text-xs text-gray-600">
+                <div className="flex justify-between items-center px-4 py-4 text-xs text-gray-600">
 
                   <div className="flex items-center gap-1">
                     <Clock size={15} />

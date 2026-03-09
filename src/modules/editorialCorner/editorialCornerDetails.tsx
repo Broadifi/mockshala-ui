@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
 import EditorialCornerDetailsSkeleton from "./components/editorialCornerDetails";
+import EditorialTagsLength from "./components/editorialTagsLength";
 import {
   Carousel,
   CarouselContent,
@@ -24,7 +25,13 @@ import { toast } from "sonner";
 import { IoIosArrowForward } from "react-icons/io";
 import { Copy } from "@/assets";
 import type { EditorialCornerData } from "@/api/model/editorial-corner";
-import { CalendarDays, ChevronLeft, ChevronRight, Clock, Tag } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  Tag,
+} from "lucide-react";
 
 const EditorialCornerDetails = () => {
   const { slug, lang } = useParams({ from: "/$lang/editorials-corner/$slug/" });
@@ -95,7 +102,7 @@ const EditorialCornerDetails = () => {
               className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
             >
-              <ChevronLeft size={18}/>
+              <ChevronLeft size={18} />
             </Link>
 
             <Link
@@ -107,7 +114,7 @@ const EditorialCornerDetails = () => {
               className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
             >
-              <ChevronRight size={18}/>
+              <ChevronRight size={18} />
             </Link>
           </div>
           <div className="flex gap-2 md:gap-4  md:hidden">
@@ -130,7 +137,7 @@ const EditorialCornerDetails = () => {
           </div>
         </div>
 
-        <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-title-darkblue pb-2">
+        <h1 className="text-xl md:text-2xl lg:text-4xl font-bold text-title-darkblue pb-2 md:pt-0 pt-1.5">
           {fetchData?.title}
         </h1>
 
@@ -143,7 +150,7 @@ const EditorialCornerDetails = () => {
               </span>
             </div>
 
-            <div className="flex  3xs:gap-3 gap-1.5 flex-col sm:flex-row flex-wrap sm:pt-0 pt-2.5 ">
+            {/* <div className="flex  3xs:gap-3 gap-1.5 flex-col sm:flex-row flex-wrap sm:pt-0 pt-2.5 ">
               {fetchData?.tags?.map((tagItem) => {
                 return (
                   <Badge
@@ -155,7 +162,7 @@ const EditorialCornerDetails = () => {
                   </Badge>
                 );
               })}{" "}
-            </div>
+            </div> */}
           </div>
           <div className="hidden md:flex flex-row gap-4">
             <div className="flex items-center gap-3">
@@ -168,7 +175,7 @@ const EditorialCornerDetails = () => {
                 className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
               >
-                   <ChevronLeft size={18} />
+                <ChevronLeft size={18} />
               </Link>
 
               <Link
@@ -180,7 +187,7 @@ const EditorialCornerDetails = () => {
                 className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
               >
-                <ChevronRight size={18}/>
+                <ChevronRight size={18} />
               </Link>
             </div>
             <div className="flex gap-2 md:gap-4">
@@ -203,8 +210,21 @@ const EditorialCornerDetails = () => {
             </div>
           </div>
         </div>
+        <div className="flex  3xs:gap-3 gap-1.5 flex-row  sm:pt-0 py-2.5 w-[95%] flex-wrap">
+          {fetchData?.tags?.map((tagItem) => {
+            return (
+              <Badge
+                key={tagItem}
+                variant="outline"
+                className="text-amber-50 bg-button-blue uppercase"
+              >
+                {tagItem}
+              </Badge>
+            );
+          })}{" "}
+        </div>
         <div className="text-sm text-gray-600 flex flex-row justify-start items-center gap-2 mx-1 pt-2.5 sm:pt-0">
-          <CalendarDays size={15}/>
+          <CalendarDays size={15} />
           <h3 className="lg:text-base md:text-base text-xs  ">
             Published on<span className="px-1">:</span>
             {formatDate(fetchData?.publishedDate || "")}
@@ -214,7 +234,7 @@ const EditorialCornerDetails = () => {
 
       <div className="  flex-col sm:flex-none   items-center justify-center ">
         <div className="sm:h-[50%] sm:w-[50%]  flex flex-row justify-center items-center  rounded-2xl sm:float-left mb-2 sm:px-2 float-none h-full w-full  sm:mb-3.5 ">
-          <ImageWithFallback
+          <img
             src={`${IMAGE_BASE_URL}${fetchData?.image}`}
             alt={fetchData?.metaTitle}
             className=" mx-2    bg-contain overflow-hidden rounded-2xl  sm:mx-auto sm:mr-7"
@@ -222,7 +242,7 @@ const EditorialCornerDetails = () => {
         </div>
 
         <div
-          className="text-gray-600 min-[1028px]:text-lg md:text-base text-sm text-justify px-2     md:first-letter:float-left md:first-letter:text-5xl md:first-letter:font-bold md:first-letter:mr-1 md:first-letter:leading-none md:first-letter:uppercase"
+          className="text-gray-600 min-[1028px]:text-lg md:text-base text-sm text-justify px-2     "
           dangerouslySetInnerHTML={{
             __html: cleanHTML,
           }}
@@ -261,7 +281,7 @@ const EditorialCornerDetails = () => {
                     }}
                     className="block"
                   >
-                    <div className="flex flex-col gap-1.5 rounded-3xl cursor-pointer pb-0.5 shadow-sm hover:shadow-xl transition-all duration-300 bg-card overflow-hidden h-88">
+                    <div className="group flex flex-col gap-1.5 rounded-3xl cursor-pointer pb-0.5 shadow-sm hover:shadow-lg transition-all duration-300 bg-card overflow-hidden h-88">
                       <div className="w-full h-52 overflow-hidden">
                         <ImageWithFallback
                           src={`${IMAGE_BASE_URL}${metaItem.thumbnailImage}`}
@@ -270,18 +290,18 @@ const EditorialCornerDetails = () => {
                         />
                       </div>
 
-                      <div className="px-3 md:px-5 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 lg:line-clamp-2 sm:h-13 h-13 hover:text-title-gradient-sky">
+                      <div className="px-3 md:px-5 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 lg:line-clamp-2 sm:h-13 h-12 leading-snug group-hover:text-title-gradient-sky">
                         {metaItem.title}
                       </div>
 
-                      <div className="flex  xs:gap-3 gap-1.5 flex-col  sm:flex-row items-start px-3 md:px-5 lg:px-5 flex-wrap">
-                        {metaItem?.tags?.map((tagItem) => {
+                      <div className="flex  xs:gap-3 gap-1.5 flex-row items-start px-3 md:px-5 lg:px-5 flex-wrap">
+                        {metaItem?.tags?.slice(0,2).map((tagItem) => {
                           return (
                             <div
                               className="flex flex-row  justify-center items-center  rounded-2xl bg-blue-200 pl-1.5"
                               key={tagItem}
                             >
-                               <Tag size={15}/>
+                              <Tag size={15} />
                               <Badge
                                 key={tagItem}
                                 variant="link"
@@ -292,17 +312,18 @@ const EditorialCornerDetails = () => {
                             </div>
                           );
                         })}{" "}
+                        <div>{metaItem?.tags?.length>2 && <EditorialTagsLength length={metaItem?.tags?.length}/>}</div>
                       </div>
                       <div className="flex  sm:justify-start 3xs:items-center py-3 min-[280px]:flex-row flex-col justify-between items-start px-3 md:pl-5 lg:pl-5  gap-3 sm:gap-3 md:gap-5 lg:gap-8 ">
                         {" "}
                         <div className="flex flex-row justify-start items-center text-xs xs:gap-1 gap-0.5 ">
-                          <Clock size={15}/>
+                          <Clock size={15} />
                           <span className="text-xs text-title-gradient-blue">
                             {metaItem?.readTime.text}
                           </span>
                         </div>
                         <div className="text-gray-600 flex flex-row items-center justify-center min-[312px]:gap-1 gap-0.1">
-                          <CalendarDays size={15}/>
+                          <CalendarDays size={15} />
                           <span className=" text-xs text-title-gradient-blue">
                             {formatDate(metaItem.publishedDate)}
                           </span>
