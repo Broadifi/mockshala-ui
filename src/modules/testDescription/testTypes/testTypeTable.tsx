@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Table,
   TableBody,
@@ -14,6 +13,7 @@ import StartButton from "@/components/customButtons/startButtom";
 import BuyNow from "@/components/customButtons/buyNow";
 import { formatName } from "@/utils/formatting/formatName";
 import { formattingWord } from "@/utils/formatting/formattingWord";
+import { useParams } from "@tanstack/react-router";
 
 interface FilterDataProps {
   filterData: TestDetailsData["tests"] | undefined;
@@ -24,6 +24,10 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
 
   //  console.log(testData?.name);
   //Convert the time
+
+  const { lang, testSlug } = useParams({
+    from: "/$lang/exams/$examCategory/$testSlug/",
+  });
 
   const formatDuration = (minutes: number): string => {
     if (!minutes || minutes <= 0) return "0 min";
@@ -96,7 +100,10 @@ export function TestTypeTable({ filterData }: FilterDataProps) {
 
               <TableCell>
                 {item.isOpen ? (
-                  <StartButton title={"Start"} />
+                  <StartButton
+                    title="Start"
+                    url={`/${lang}/instructions/${testSlug}/${item._id}`}
+                  />
                 ) : (
                   <BuyNow title={"Unlock"} />
                 )}

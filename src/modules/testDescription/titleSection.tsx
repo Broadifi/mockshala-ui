@@ -72,7 +72,7 @@ function TitleSection({ testData }: TitleSectionProps) {
           </div>
 
           <div>
-            <h1 className="text-xl sm:text-2xl text-[#002966] text-shadow-xs  font-medium">
+            <h1 className="text-xl sm:text-2xl text-[#002966] text-shadow-xs  font-medium ">
               {testData?.name}
             </h1>
           </div>
@@ -165,7 +165,7 @@ function TitleSection({ testData }: TitleSectionProps) {
       {/* Above large screen */}
       <div className="hidden lg:flex flex-col">
         <div
-          className="  rounded-2xl
+          className=" rounded-2xl
             bg-white/50
             backdrop-blur-2xl
             border border-white/60
@@ -173,15 +173,15 @@ function TitleSection({ testData }: TitleSectionProps) {
             shadow-lg px-6 py-8 mb-6"
         >
           {/* Heading */}
-          <div className="pb-4">
-            <h1 className="text-4xl text-[#002966] text-shadow-xs max-w-3xl font-medium">
+          <div className="pb-4 max-w-[65%] xl:max-w-[60%]">
+            <h1 className="text-3xl 2xl:text-4xl text-[#002966] text-shadow-xs  font-medium">
               {testData?.name}
             </h1>
           </div>
 
           {/* Small description */}
-          <div className="pb-8">
-            <p className="text-sm text-[#1e4064] max-w-2xl  xl:max-w-3xl">
+          <div className="pb-8  max-w-[65%] xl:max-w-[60%]">
+            <p className="text-sm text-[#1e4064]  ">
               CUET UG 2026 is a national-level entrance exam conducted by the
               National Testing Agency (NTA) for admission to undergraduate
               programs in 200+ top Indian universities such as DU, BHU, JNU, and

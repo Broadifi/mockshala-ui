@@ -17,6 +17,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { Link, useParams } from "@tanstack/react-router";
 import { formatDate } from "@/utils/formatting/formatDate";
 import { Button } from "@/components/ui/button";
+import { ImageWithFallback } from "@/modules/fallback/ImageWithFallback";
 
 export function CurrentAffairs() {
   //for translation
@@ -77,14 +78,14 @@ export function CurrentAffairs() {
               <div className=" transition-transform duration-300 ease-in-out group-hover:scale-[1.02] group-hover:-translate-y-2 bg-white rounded-xl shadow-md border border-sky-100/60 space-y-3">
                 {/* image section */}
                 <div className="overflow-hidden relative">
-                  <img
+                  <ImageWithFallback
                     src={IMAGE_BASE_URL + item?.image}
                     alt={item?.title || "Test series image"}
-                    className="object-contain  h-full w-full rounded-t-xl"
+                    className="object-contain  h-full w-full rounded-t-xl "
                   />
 
                   <div className="absolute top-2 left-2">
-                    <Badge className="bg-button-blue">{item.tags[0]}</Badge>
+                  {item.tags.length >0 && <Badge className="bg-button-blue">{item.tags[0]}</Badge>}
                   </div>
                 </div>
 
@@ -105,7 +106,7 @@ export function CurrentAffairs() {
 
                   {/* tag section */}
                   {item.tags.length > 1 && (
-                    <div className="flex flex-wrap gap-2 pt-1">
+                    <div className="flex flex-wrap gap-2 pt-1  items-center">
                       {item.tags.slice(1).map((tag) => (
                         <Badge key={tag} variant="outline">
                           {tag}
@@ -116,7 +117,7 @@ export function CurrentAffairs() {
 
                   {/* title section */}
                   <div className="pb-4 xl:pb-5">
-                    <h2 className="line-clamp-3 font-semibold text-title-darkblue">
+                    <h2 className="line-clamp-2 font-semibold text-title-darkblue">
                       {item.title}
                     </h2>
                   </div>
