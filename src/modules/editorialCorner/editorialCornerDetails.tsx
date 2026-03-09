@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { IoIosArrowForward } from "react-icons/io";
 import { Copy } from "@/assets";
 import type { EditorialCornerData } from "@/api/model/editorial-corner";
+import { CalendarDays, ChevronLeft, ChevronRight, Clock, Tag } from "lucide-react";
 
 const EditorialCornerDetails = () => {
   const { slug, lang } = useParams({ from: "/$lang/editorials-corner/$slug/" });
@@ -72,13 +73,13 @@ const EditorialCornerDetails = () => {
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-xs md:text-sm">
             Home
           </span>{" "}
-          <IoIosArrowForward />
+          <IoIosArrowForward size={12} />
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-xs md:text-sm ">
             <Link to="/$lang/editorials-corner" params={{ lang: lang }}>
               Editorial Corner{" "}
             </Link>
           </span>
-          <IoIosArrowForward />
+          <IoIosArrowForward size={12} />
           <span className="cursor-pointer hover:hover:text-blue-800 text-xs sm:text-xs md:text-sm text-blue-800 ">
             {fetchData?.metaTitle}
           </span>
@@ -94,20 +95,7 @@ const EditorialCornerDetails = () => {
               className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-chevron-left"
-              >
-                <path d="m15 18-6-6 6-6" />
-              </svg>
+              <ChevronLeft size={18}/>
             </Link>
 
             <Link
@@ -119,20 +107,7 @@ const EditorialCornerDetails = () => {
               className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-chevron-right"
-              >
-                <path d="m9 18 6-6-6-6" />
-              </svg>
+              <ChevronRight size={18}/>
             </Link>
           </div>
           <div className="flex gap-2 md:gap-4  md:hidden">
@@ -193,20 +168,7 @@ const EditorialCornerDetails = () => {
                 className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-left"
-                >
-                  <path d="m15 18-6-6 6-6" />
-                </svg>
+                   <ChevronLeft size={18} />
               </Link>
 
               <Link
@@ -218,20 +180,7 @@ const EditorialCornerDetails = () => {
                 className="flex items-center justify-center w-9 h-9 rounded-full bg-white shadow-sm border border-gray-200 
     hover:bg-blue-500 hover:border-blue-500 hover:text-white transition-all duration-200"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-chevron-right"
-                >
-                  <path d="m9 18 6-6-6-6" />
-                </svg>
+                <ChevronRight size={18}/>
               </Link>
             </div>
             <div className="flex gap-2 md:gap-4">
@@ -255,23 +204,7 @@ const EditorialCornerDetails = () => {
           </div>
         </div>
         <div className="text-sm text-gray-600 flex flex-row justify-start items-center gap-2 mx-1 pt-2.5 sm:pt-0">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
-            viewBox="0 0 26 26"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="lucide lucide-calendar-icon lucide-calendar text-gray-600 "
-          >
-            <path d="M8 2v4" />
-            <path d="M16 2v4" />
-            <rect width="18" height="18" x="3" y="4" rx="2" />
-            <path d="M3 10h18" />
-          </svg>
+          <CalendarDays size={15}/>
           <h3 className="lg:text-base md:text-base text-xs  ">
             Published on<span className="px-1">:</span>
             {formatDate(fetchData?.publishedDate || "")}
@@ -348,26 +281,7 @@ const EditorialCornerDetails = () => {
                               className="flex flex-row  justify-center items-center  rounded-2xl bg-blue-200 pl-1.5"
                               key={tagItem}
                             >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="15"
-                                height="15"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-tag-icon lucide-tag"
-                              >
-                                <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" />
-                                <circle
-                                  cx="7.5"
-                                  cy="7.5"
-                                  r=".5"
-                                  fill="currentColor"
-                                />
-                              </svg>
+                               <Tag size={15}/>
                               <Badge
                                 key={tagItem}
                                 variant="link"
@@ -382,43 +296,13 @@ const EditorialCornerDetails = () => {
                       <div className="flex  sm:justify-start 3xs:items-center py-3 min-[280px]:flex-row flex-col justify-between items-start px-3 md:pl-5 lg:pl-5  gap-3 sm:gap-3 md:gap-5 lg:gap-8 ">
                         {" "}
                         <div className="flex flex-row justify-start items-center text-xs xs:gap-1 gap-0.5 ">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="15"
-                            height="15"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.25"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-clock-icon lucide-clock"
-                          >
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M12 6v6l4 2" />
-                          </svg>
+                          <Clock size={15}/>
                           <span className="text-xs text-title-gradient-blue">
                             {metaItem?.readTime.text}
                           </span>
                         </div>
                         <div className="text-gray-600 flex flex-row items-center justify-center min-[312px]:gap-1 gap-0.1">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="15"
-                            height="15"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-calendar-icon lucide-calendar"
-                          >
-                            <path d="M8 2v4" />
-                            <path d="M16 2v4" />
-                            <rect width="18" height="18" x="3" y="4" rx="2" />
-                            <path d="M3 10h18" />
-                          </svg>
+                          <CalendarDays size={15}/>
                           <span className=" text-xs text-title-gradient-blue">
                             {formatDate(metaItem.publishedDate)}
                           </span>

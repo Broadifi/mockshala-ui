@@ -23,7 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Tag,Clock,CalendarDays} from "lucide-react";
 
 function EditorialCornerDashboard() {
   const limit = 8;
@@ -227,7 +227,7 @@ function EditorialCornerDashboard() {
                       key={tagItem}
                       className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform bg-blue-200 pl-1.5"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                        <Tag size={15} />
                       <Badge variant="link" className="text-black  uppercase text-xs">
                         {tagItem}
                       </Badge>
@@ -240,20 +240,7 @@ function EditorialCornerDashboard() {
                 <div className="flex justify-between items-center px-4 py-3 text-xs text-gray-600">
 
                   <div className="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
+                    <Clock size={15} />
 
                     <span className="text-title-gradient-blue">
                       {item?.readTime.text}
@@ -261,21 +248,7 @@ function EditorialCornerDashboard() {
                   </div>
 
                   <div className="flex items-center gap-1">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect width="18" height="18" x="3" y="4" rx="2" />
-                      <path d="M3 10h18" />
-                    </svg>
-
+                    <CalendarDays size={15}/>
                     <span className="text-title-gradient-blue">
                       {formatDate(item.publishedDate)}
                     </span>
