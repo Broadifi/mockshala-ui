@@ -6,9 +6,9 @@ type EditorialTagsLengthProps = {
 
 const EditorialTagsLength = ({length}:EditorialTagsLengthProps) => {
   return (
-    <div className="text-title-darkblue font-medium lg:text-sm text-sm ">
+    <p className="text-title-darkblue font-medium lg:text-sm text-sm ">
       +{length-2}
-    </div>
+    </p>
   )
 }
 
