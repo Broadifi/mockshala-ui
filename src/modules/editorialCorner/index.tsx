@@ -211,12 +211,12 @@ function EditorialCornerDashboard() {
                   {item?.tags?.slice(0, 2).map((tagItem) => (
                     <div
                       key={tagItem}
-                      className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform bg-blue-200 pl-1.5"
+                      className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform bg-gray-100 pl-1.5"
                     >
                       <Tag size={15} />
                       <Badge
                         variant="link"
-                        className="text-black  uppercase lg:text-xs text-[10px]"
+                        className="text-title-gradient-blue  uppercase lg:text-xs text-[10px]"
                       >
                         {tagItem}
                       </Badge>

@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import EditorialCornerAction from "./components/editorialCornerAction";
 import { fetchEditorialCornerBySlug } from "@/api/services/editorial-corner.service";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
 import EditorialCornerDetailsSkeleton from "./components/editorialCornerDetails";
 import EditorialTagsLength from "./components/editorialTagsLength";
@@ -287,14 +287,14 @@ const EditorialCornerDetails = () => {
                         {metaItem?.tags?.slice(0, 2).map((tagItem) => {
                           return (
                             <div
-                              className="flex flex-row  justify-center items-center  rounded-2xl bg-blue-200 md:pl-1.5 pl-0.5"
+                              className="flex flex-row  justify-center items-center  rounded-2xl bg-gray-100 md:pl-1.5 pl-0.5"
                               key={tagItem}
                             >
                               <Tag size={15} />
                               <Badge
                                 key={tagItem}
                                 variant="link"
-                                className="text-black  uppercase md:text-xs text-[10px]"
+                                className="text-title-gradient-blue  uppercase md:text-xs text-[10px]"
                               >
                                 {tagItem}
                               </Badge>
