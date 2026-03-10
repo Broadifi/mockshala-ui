@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 export function SkeletonCurrentAffairCard() {
   return (
-    <div className='p-0 h-[27rem] overflow-hidden border rounded-lg animate-pulse'>
+    <div className='p-0 h-108 overflow-hidden border rounded-lg animate-pulse'>
       {/* Image */}
       <div className='w-full h-40 bg-zinc-200' />
 
