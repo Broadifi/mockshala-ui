@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { createFileRoute,  } from '@tanstack/react-router'
-import ProfileModule from '@/modules/profile'
-export const Route = createFileRoute('/$lang/profile/')({
-=======
 import ProfileModule from "@/modules/profile";
 import { useAuthStore } from "@/stores/authStore";
 import { useLoginStore } from "@/stores/loginStore";
@@ -29,15 +24,9 @@ export const Route = createFileRoute("/$lang/profile/")({
     }
   },
 
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
   component: RouteComponent,
 });
 
 function RouteComponent() {
-<<<<<<< HEAD
-  
-  return <ProfileModule/>
-=======
   return <ProfileModule />;
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
 }

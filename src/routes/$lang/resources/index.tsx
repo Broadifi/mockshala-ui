@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { createFileRoute,  } from '@tanstack/react-router'
-import ResourcesModule from '@/modules/resources'
-export const Route = createFileRoute('/$lang/resources/')({
-=======
 import ResourcesModule from "@/modules/resources";
 import { useAuthStore } from "@/stores/authStore";
 import { useLoginStore } from "@/stores/loginStore";
@@ -32,15 +27,9 @@ export const Route = createFileRoute("/$lang/resources/")({
     }
   },
 
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
   component: RouteComponent,
 });
 
 function RouteComponent() {
-<<<<<<< HEAD
-  
-  return <ResourcesModule/>
-=======
   return <ResourcesModule />;
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
 }

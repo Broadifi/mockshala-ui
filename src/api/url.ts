@@ -45,12 +45,10 @@ export const BASE_URL =
     editorialsCorner: ()=> '/editorials',
 
     plans:() => '/plans',
-<<<<<<< HEAD
+    
     editorialsCornerBySlug: (slug: string)=> `/editorials/by-slug/${slug}`,
-=======
 
     examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
 
       
   }

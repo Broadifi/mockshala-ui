@@ -18,14 +18,10 @@ import FilterExamByCategory from "./filterExamByCategory";
 import { ExamModuleSkeleton } from "./skeleton/ExamModuleSkeleton";
 import { useTranslation } from "react-i18next";
 
-<<<<<<< HEAD
-export  function ExamModule() {
-=======
 export function ExamModule() {
 
   const { t } = useTranslation();
 
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
   const { data, isLoading } = useQuery({
     queryKey: queryKeys.home.paidTestCategories(),
     queryFn: homeAPI.getDashboardPaidCategories,

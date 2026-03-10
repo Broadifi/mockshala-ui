@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import ComingSoon from "../comingSoon";
-function ProfileModule() {
-  return(
-    <ComingSoon/>
-  )
-=======
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -665,7 +658,6 @@ function ProfileModule() {
       </div>
     </div>
   );
->>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
 }
 
 export default ProfileModule;
