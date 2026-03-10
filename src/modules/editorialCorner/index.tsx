@@ -64,7 +64,7 @@ function EditorialCornerDashboard() {
       return lastPage.hasNext ? lastPage.page + 1 : undefined;
     },
   });
-  console.log(data?.pages[0].data);
+
 
   React.useEffect(() => {
     const observer = new IntersectionObserver((entries) => {

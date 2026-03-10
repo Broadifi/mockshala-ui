@@ -46,8 +46,7 @@ const EditorialCornerDetails = () => {
   const fetchData = data?.data;
 
   const fetchBlog = data?.meta;
-  console.log(fetchBlog?.otherEditorials);
-  console.log(fetchData);
+  
   if (isLoading) {
     return <EditorialCornerDetailsSkeleton />;
   }
