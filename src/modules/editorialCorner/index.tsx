@@ -40,7 +40,7 @@ function EditorialCornerDashboard() {
   const observerRef = React.useRef<HTMLDivElement | null>(null);
     useEffect(() => {
      
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }, [startSelectedDate, endSelectedDate]);
   const {
     data,
@@ -200,21 +200,7 @@ function EditorialCornerDashboard() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
 
-                  <div className="flex flex-wrap gap-2 px-4 pt-3 lg:h-7 h-5 absolute top-0.5 left-0.5">
-                    {item?.tags?.slice(0, 1).map((tagItem) => (
-                      <div
-                        key={tagItem}
-                        className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform  pl-1.5"
-                      >
-                        
-                       <Badge className="bg-button-blue/90 backdrop-blur-sm text-white shadow-md border-none text-[10px] lg:text-xs font-medium px-2.5 py-0.5 rounded-full  uppercase">
-                          {tagItem}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" /> */}
+                 
                 </div>
 
                 <div className="px-4 pt-3 text-base md:text-lg font-semibold text-title-darkblue line-clamp-2 leading-snug group-hover:text-title-gradient-sky sm:h-15 h-auto ">
@@ -222,7 +208,7 @@ function EditorialCornerDashboard() {
                 </div>
 
                 <div className="flex flex-wrap gap-2 px-4 py-3 lg:h-7 h-5 lg:pb-0 pb-5">
-                  {item?.tags?.slice(1, 2).map((tagItem) => (
+                  {item?.tags?.slice(0, 2).map((tagItem) => (
                     <div
                       key={tagItem}
                       className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform bg-blue-200 pl-1.5"
