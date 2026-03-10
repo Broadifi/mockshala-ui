@@ -1,8 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import EditorialCornerAction from "./components/editorialCornerAction";
 import { fetchEditorialCornerBySlug } from "@/api/services/editorial-corner.service";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import { formatDate } from "@/utils/formatting/formatDate";
 import EditorialCornerDetailsSkeleton from "./components/editorialCornerDetails";
 import EditorialTagsLength from "./components/editorialTagsLength";
