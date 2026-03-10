@@ -17,6 +17,7 @@ import { EditorialCardSkeleton } from "../home/components/skeleton/EditorialCard
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import NoResultFound from "./components/no-result-found";
+import { useEffect } from "react";
 import {
   Popover,
   PopoverContent,
@@ -37,7 +38,10 @@ function EditorialCornerDashboard() {
   >();
 
   const observerRef = React.useRef<HTMLDivElement | null>(null);
-
+    useEffect(() => {
+     
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, [startSelectedDate, endSelectedDate]);
   const {
     data,
     fetchNextPage,
