@@ -47,7 +47,9 @@ export const BASE_URL =
 
     plans:() => '/plans',
 
-    examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`
+    examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`,
+
+    startExam: () => `/answer-sheets/start-exam`,
 
       
   }

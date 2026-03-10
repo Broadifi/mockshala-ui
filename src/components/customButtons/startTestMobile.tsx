@@ -27,7 +27,7 @@ function StartTestMobile({ title, url }: ButtonProps) {
     } else {
       window.open(
         url,
-        "examWindow",
+         "examInstructionWindow",
         `width=${width},height=${height},toolbar=no,menubar=no,noopener,noreferrer`,
       );
     }

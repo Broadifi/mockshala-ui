@@ -25,6 +25,11 @@ function InstructionFooter() {
     );
   };
 
+  const handleSubmit = ()=>{
+    console.log("sjndfs");
+    
+  }
+
 
   return (
     <div className='w-full mx-auto space-y-4 text-xs sm:text-sm xl:text-base'>
@@ -56,6 +61,7 @@ function InstructionFooter() {
             {getLocalTranslation("examInstructions.cancel")}
           </button>
           <button
+            onClick={handleSubmit}
             disabled={!checked}
             className={` ${checked ? 'cursor-pointer bg-linear-to-r from-button-sky to-button-blue text-white' : 'cursor-not-allowed bg-gray-200 text-gray-600'} border rounded-md py-1 px-4`}
           >
