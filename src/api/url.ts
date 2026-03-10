@@ -4,6 +4,22 @@ export const BASE_URL =
   'https://userapi.mockshala.com/api'
 
   export const apiUrl = {
+    mobileLogin: '/auth/send-login-otp-mobile',
+
+    otpVerificationLogin : '/auth/login-with-otp-mobile',
+
+    registrationUser: '/auth/verify-mobile-otp',
+
+    getProfile : '/auth/profile',
+
+    updateProfile : '/auth/profile/partially',
+
+    uploadProfileImage: '/media',
+
+    deleteProfileImage: (imageId: string) => `/media/${imageId}`,
+
+    getState: '/generals/state',
+
     banners: '/banners',
 
     popularTests: '/test-series/popular-exams',
@@ -13,9 +29,7 @@ export const BASE_URL =
     allExamData: (examCategory: string) =>
        `/test-series/get-dashboard-test-series?examCategory=${examCategory}&isPaid=true&page=1&limit=12`,
 
-    testDetails: (testSlug: string) =>`/test-series/by-slug/${testSlug}`,
-
-    //  testDetails: (testSlug: string) =>`/test-series/by-slug/v2/${testSlug}`,
+    testDetails: (testSlug: string) =>`/test-series/by-slug/v2/${testSlug}`,
 
     currentAffairs: ()=> '/current-affairs',
 
@@ -31,7 +45,12 @@ export const BASE_URL =
     editorialsCorner: ()=> '/editorials',
 
     plans:() => '/plans',
+<<<<<<< HEAD
     editorialsCornerBySlug: (slug: string)=> `/editorials/by-slug/${slug}`,
+=======
+
+    examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`
+>>>>>>> efa357faf9b3f1a0e6e037bf6d948b922aa24982
 
       
   }

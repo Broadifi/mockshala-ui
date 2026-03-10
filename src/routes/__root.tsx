@@ -1,22 +1,25 @@
 import FooterCTA from "@/components/navigation/footer";
 import Header from "@/components/navigation/Header";
 import { Toaster } from "@/components/ui/sonner";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
-export const Route = createRootRoute({
-  component: () => (
+function RootComponent() {
+  const { pathname } = useLocation();
+  const isInstructionsRoute = pathname.includes("/instructions/");
+
+  return (
     <>
-      <Header />
-      {/* Main content wrapper */}
-      <main className="pt-15  lg:pt-13">
+      {!isInstructionsRoute && <Header />}
+
+      <main className={!isInstructionsRoute ? "pt-[3.25rem]" : ""}>
         <Outlet />
       </main>
-      <FooterCTA />
+
+      {!isInstructionsRoute && <FooterCTA />}
+
       <Toaster
         position="top-center"
-        // richColors
-        // closeButton
         duration={4000}
         toastOptions={{
           className: "rounded-xl shadow-lg px-5 py-4 text-sm",
@@ -26,7 +29,12 @@ export const Route = createRootRoute({
           },
         }}
       />
+
       <TanStackRouterDevtools />
     </>
-  ),
+  );
+}
+
+export const Route = createRootRoute({
+  component: RootComponent,
 });

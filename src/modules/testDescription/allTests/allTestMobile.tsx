@@ -8,19 +8,24 @@ import {
   Award,
   Lock,
   LockKeyholeOpen,
-  Play,
 } from "lucide-react";
 
 import { formatName } from "@/utils/formatting/formatName";
 import { formattingWord } from "@/utils/formatting/formattingWord";
 import type { TestDetailsData } from "@/api/model/test-model";
+import StartTestMobile from "@/components/customButtons/startTestMobile";
+import { useParams } from "@tanstack/react-router";
 
 interface FilterDataProps {
-  filteredTests: TestDetailsData["tests"] | undefined ;
+  filteredTests: TestDetailsData["tests"] | undefined;
 }
 
 function AllTestMobile({ filteredTests }: FilterDataProps) {
   // const { testData } = useTestDescriptionStore();
+
+    const { lang, testSlug } = useParams({
+      from: "/$lang/exams/$examCategory/$testSlug/",
+    });
 
   const difficultyColors: Record<string, string> = {
     beginner: "text-green-600 bg-green-50",
@@ -47,10 +52,7 @@ function AllTestMobile({ filteredTests }: FilterDataProps) {
       {/* Test Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {filteredTests?.map((test) => (
-          <Card
-            key={test._id}
-            className="overflow-hidden "
-          >
+          <Card key={test._id} className="overflow-hidden ">
             <CardContent className="px-4">
               {/* Badges */}
               <div className="flex items-center gap-2 mb-3">
@@ -58,14 +60,14 @@ function AllTestMobile({ filteredTests }: FilterDataProps) {
                   className={`${
                     difficultyColors[test.difficultyLevel.toLowerCase()] ??
                     "text-gray-600 bg-gray-50"
-                  } uppercase`}
+                  } uppercase text-[11px] sm:text-[12px]`}
                   variant="secondary"
                 >
                   {test.difficultyLevel}
                 </Badge>
                 <Badge
                   variant="secondary"
-                  className="bg-blue-50 text-button-sky uppercase"
+                  className="bg-blue-50 text-button-sky uppercase text-[11px] sm:text-[12px]"
                 >
                   {formattingWord(test.testType)}
                 </Badge>
@@ -108,10 +110,10 @@ function AllTestMobile({ filteredTests }: FilterDataProps) {
 
               {/* Action Button */}
               {test.isOpen ? (
-                <Button className="w-full bg-linear-to-r from-button-sky to-button-blue  text-white font-semibold rounded-lg h-10">
-                  <Play size={18} className="mr-1" />
-                  Start Test
-                </Button>
+                <StartTestMobile
+                  title="Start"
+                  url={`/${lang}/instructions/${testSlug}/${test._id}`}
+                />
               ) : (
                 <Button
                   variant="outline"

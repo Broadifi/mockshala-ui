@@ -11,10 +11,10 @@ export default function NoResultFound() {
   const homepageLink = lang ?? "en";
 
   return (
-    <div className="w-full bg-white rounded-2xl flex p-4 flex-col items-center">
-      <img src={NoResultFoundImg} alt="no result found" className="w-sm" />
-      <div className="space-y-2">
-
+    <div className="w-full rounded-2xl flex  flex-col items-center">
+      <img src={NoResultFoundImg} alt="no result found" className="w-sm pb-5" />
+      <div className="space-y-3">
+      
       <h3 className="uppercase font-semibold">No results found</h3>
       <Link
         to="/$lang/current-affairs"

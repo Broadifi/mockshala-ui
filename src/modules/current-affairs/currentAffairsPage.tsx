@@ -106,7 +106,7 @@ export default function CurrentAffairsPage() {
     refetchOnReconnect: false,
   });
 
-    // console.log("affairs data", data);
+  // console.log("affairs data", data);
 
   const allItems = useMemo(() => {
     return data?.pages.flatMap((page) => page.data) ?? [];
@@ -132,7 +132,6 @@ export default function CurrentAffairsPage() {
 
   //Scroll to top window
   useEffect(() => {
-   
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [date, tags, refetch]);
 
@@ -185,23 +184,20 @@ export default function CurrentAffairsPage() {
         </div>
       </div>
 
-      {/* left side sheet */}
       <div className="flex gap-8 px-4  container mx-auto pb-8">
         <div className="hidden lg:block">
           <FilterCurrentAffairs filters={filters} />
         </div>
 
-        <section className="w-full mt-14 lg:mt-8 ">
+        <section className="w-full mt-16 lg:mt-11 min-h-[calc(100vh-10rem)]">
           <div className="pb-3 space-y-1">
             <h2
               className="inline-block text-2xl xl:text-4xl font-bold 
            bg-linear-to-r from-title-gradient-blue to-title-gradient-sky bg-clip-text text-transparent"
             >
-             
               {getLocalTranslation("currentAffairsHomePage.title")}
             </h2>
             <p className="text-subtitle-gray mb-4">
-            
               {getLocalTranslation("currentAffairsHomePage.subtitle")}
             </p>
           </div>
@@ -230,7 +226,7 @@ export default function CurrentAffairsPage() {
               style={{ overflow: "visible" }}
               scrollThreshold={0.3}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {allItems.map((item) => (
                   <Link
                     to={"/$lang/current-affairs/$slug"}
@@ -238,7 +234,7 @@ export default function CurrentAffairsPage() {
                     key={item._id}
                     onClick={saveScrollPosition}
                   >
-                    <Card className="p-0 h-[25rem] overflow-hidden group hover:shadow-lg cursor-pointer transition-shadow duration-300">
+                    <Card className="gap-2 p-0 h-[22rem] md:h-[23rem] overflow-hidden group hover:shadow-lg cursor-pointer transition-shadow duration-300">
                       <div className="w-full h-40 overflow-hidden">
                         <img
                           src={IMAGE_BASE_URL + item.image}
@@ -246,14 +242,14 @@ export default function CurrentAffairsPage() {
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />
                       </div>
-                      <div className="px-4 space-y-5">
-                        <h2 className="text-title-darkblue text-xl font-semibold group-hover:text-blue-500 line-clamp-2">
+                      <div className="px-4 space-y-2 sm:space-y-3 2xl:space-y-4">
+                        <h2 className="text-title-darkblue text-lg lg:text-xl font-semibold group-hover:text-blue-500 line-clamp-2">
                           {newsCurrentLang === "en"
                             ? item.title
                             : item.titleInHindi}
                         </h2>
                         <p
-                          className="text-zinc-600 text-sm line-clamp-2"
+                          className="text-zinc-600 text-xs md:text-sm line-clamp-2"
                           dangerouslySetInnerHTML={{
                             __html:
                               newsCurrentLang === "en"
@@ -261,16 +257,16 @@ export default function CurrentAffairsPage() {
                                 : cleanHTML(item.descriptionInHindi),
                           }}
                         ></p>
-                        <div className="space-y-2">
-                          <div className="flex items-center gap-2 text-zinc-500 text-sm">
-                            <Calendar size={14} />
+                        <div className="space-y-2 pb-2 pt-1 xl:pt-0">
+                          <div className="flex items-center gap-2 text-zinc-500 text-xs md:text-sm">
+                            <Calendar size={14}/>
                             <p>{formatDate(item.publishedDate)}</p>
                           </div>
-                          <div className="flex gap-2 flex-wrap py-1">
+                          <div className="flex gap-2 flex-wrap pt-1">
                             {item.tags.slice(0, 3).map((tag, index) => (
-                              <Badge variant={"secondary"} key={index}>
+                              <Badge variant={"secondary"} key={index} >
                                 <Tag size={10} />
-                                <span className="uppercase">{tag}</span>
+                                <span className="uppercase text-title-gradient-blue">{tag}</span>
                               </Badge>
                             ))}
                             {item.tags.length > 3 && (
@@ -297,7 +293,7 @@ export default function CurrentAffairsPage() {
 
           {/* No Results */}
           {allItems.length === 0 && !isLoading && (
-            <div className="mt-20 mx-auto w-fit">
+            <div className="min-h-[calc(100vh-10rem)] flex items-center justify-center">
               <NoResultFound />
             </div>
           )}
