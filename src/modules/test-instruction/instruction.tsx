@@ -1,14 +1,9 @@
-import { examKeys } from "@/api";
-import { QUERY_CONFIG } from "@/api/config";
-import { examApi } from "@/api/services/exam-services";
 import HtmlSetterExam from "@/components/htmlsetterforExam";
 import i18n from "@/i18n";
 import { useExamLanguage } from "@/stores/examLanguageStore";
 import { formatName } from "@/utils/formatting/formatName";
 import { normalizeDuration } from "@/utils/formatting/normalizeDuration";
 import { normalizeTestTypeText } from "@/utils/formatting/normalizeTestTypeText";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "@tanstack/react-router";
 import {
   ArrowLeft,
   ArrowRight,
@@ -23,12 +18,14 @@ import {
   Timer,
 } from "lucide-react";
 import ExamInstructionsSkeleton from "./ExamInstructionsSkeleton";
+import type { ExamInstructionData } from "@/api/model/exam-model";
 
-function Instruction() {
-  const { examId } = useParams({
-    from: "/$lang/instructions/$testSlug/$examId/",
-  });
+interface InstructionProps {
+  sectionData?: ExamInstructionData;
+  isLoading: boolean;
+}
 
+function Instruction({ sectionData, isLoading }: InstructionProps) {
   const { examCurrentLang } = useExamLanguage();
 
   const getLocalTranslation = (key: string): string => {
@@ -46,13 +43,6 @@ function Instruction() {
       }, bundle) as string) || key
     );
   };
-
-  const { data: sectionData, isLoading } = useQuery({
-    queryKey: examKeys.examInstruction(examId),
-    queryFn: () => examApi.testInstruction(examId),
-    ...QUERY_CONFIG.default,
-    enabled: !!examId,
-  });
 
   const totalQuestions = sectionData?.section?.reduce(
     (sum, item) => sum + item.totalQuestion,
@@ -181,7 +171,7 @@ function Instruction() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {sectionData?.section.map((item, index) => (
-                <tr className="hover:bg-gray-50 border-b border-gray-200">
+                <tr key={index} className="hover:bg-gray-50 border-b border-gray-200">
                   <td className="text-xs sm:text-sm md:text-base px-3 sm:px-4 py-2 sm:py-3 text-center text-gray-800">
                     {index}
                   </td>

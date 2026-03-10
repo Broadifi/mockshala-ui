@@ -5,15 +5,30 @@ import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { mockShalaLogo } from "@/assets";
 import { useAuthStore } from "@/stores/authStore";
 import ProfileIconExam from "@/components/profileIconExam";
+import { useQuery } from "@tanstack/react-query";
+import { examKeys } from "@/api";
+import { QUERY_CONFIG } from "@/api/config";
+import { examApi } from "@/api/services/exam-services";
+import { useParams } from "@tanstack/react-router";
 
 function TestInstruction() {
+  const { examId } = useParams({
+    from: "/$lang/instructions/$testSlug/$examId/",
+  });
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   const { userDetails } = useAuthStore((state) => state.auth);
-
   const candidateName = userDetails?.name;
+
+  const { data: sectionData, isLoading } = useQuery({
+    queryKey: examKeys.examInstruction(examId),
+    queryFn: () => examApi.testInstruction(examId),
+    ...QUERY_CONFIG.default,
+    enabled: !!examId,
+  });
 
   return (
     <div className="w-full  flex flex-col gap-3 lg:gap-6">
@@ -37,16 +52,19 @@ function TestInstruction() {
             </div>
 
             <div>
-              <ProfileIconExam/>
+              <ProfileIconExam />
             </div>
           </div>
         </header>
       </div>
       <div className=" container px-4 py-2 mx-auto">
-        <Instruction></Instruction>
+        <Instruction sectionData={sectionData} isLoading={isLoading} />
       </div>
       <div className="container px-4 py-2 mx-auto sticky bottom-0 bg-white">
-        <InstructionFooter></InstructionFooter>
+        <InstructionFooter
+          testSeriesId={sectionData?.testSeriesId}
+          testId={sectionData?._id}
+        />
       </div>
     </div>
   );

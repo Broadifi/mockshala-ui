@@ -49,7 +49,7 @@ export const BASE_URL =
 
     examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`,
 
-    startExam: () => `/answer-sheets/start-exam`,
+    startExam: '/answer-sheets/start-exam',
 
       
   }

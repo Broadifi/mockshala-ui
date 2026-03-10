@@ -7,16 +7,18 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 function RootComponent() {
   const { pathname } = useLocation();
   const isInstructionsRoute = pathname.includes("/instructions/");
+  const isMockTestRoute = pathname.includes("/mock-test/");
 
+  const isExam = isInstructionsRoute || isMockTestRoute;
   return (
     <>
-      {!isInstructionsRoute && <Header />}
+      {!isExam && <Header />}
 
-      <main className={!isInstructionsRoute ? "pt-[3.25rem]" : ""}>
+      <main className={!isExam ? "pt-[3.25rem]" : ""}>
         <Outlet />
       </main>
 
-      {!isInstructionsRoute && <FooterCTA />}
+      {!isExam && <FooterCTA />}
 
       <Toaster
         position="top-center"
