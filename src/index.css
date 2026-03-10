@@ -343,7 +343,7 @@ body {
 /* for color palette text */
 @layer utilities {
   .text-responsive-muted {
-    @apply text-xs sm:text-sm  text-gray-600;
+    @apply text-xs lg:text-sm text-gray-600;
   }
 
   .save-exam-button{
@@ -367,6 +367,27 @@ body {
     @apply text-xs lg:text-sm font-medium flex flex-row items-center justify-center  
                   min-w-33 lg:min-w-35 py-2 text-center rounded-md;
   }
+}
+
+
+.text-answered{
+  color: #05c050;
+}
+
+.text-notAnswered{
+  color: #F84A4A;
+}
+
+.text-notVisited{
+  color: #E2E8F0;
+}
+
+.text-marked{
+  color: #B977EE;
+}
+
+.text-markedAnswered{
+  color: #FFA503;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
