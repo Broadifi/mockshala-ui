@@ -1,6 +1,11 @@
+import { useExamStore } from "@/stores/examStore";
 import { Timer } from "lucide-react";
 
 function QuestionNumbers() {
+  const { examData } = useExamStore();
+
+  const questions = examData?.section.flatMap((section) => section.questions) ?? [];
+
   return (
     <div className="p-4">
       {/* Timer */}
@@ -14,13 +19,21 @@ function QuestionNumbers() {
         </div>
       </div>
 
-      {/* Questions Number */}
+      {/* Question Palette */}
       <div className="border-t mt-3 py-3 flex flex-col gap-2">
-        <p className="text-title-darkblue font-medium pb-4">Questions Palette</p>
-        <div>
-          <button className="bg-gray-200 px-4 py-2 rounded-md">
-            <span>1</span>
-          </button>
+        <p className="text-title-darkblue font-medium pb-4">
+          Questions Palette
+        </p>
+
+        <div className="flex flex-wrap gap-2">
+          {questions.map((q, index) => (
+            <button
+              key={q._id}
+              className="bg-gray-200 w-10 h-10 rounded-md flex items-center justify-center"
+            >
+              {index + 1}
+            </button>
+          ))}
         </div>
       </div>
     </div>
