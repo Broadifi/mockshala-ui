@@ -6,6 +6,7 @@ import i18n from "@/i18n";
 import { useMutation } from "@tanstack/react-query";
 import { examApi, type ExamProps } from "@/api/services/exam-services";
 import { toast } from "sonner";
+import { useExamStore } from "@/stores/examStore";
 
 interface InstructionFooterProps {
   testSeriesId?: string;
@@ -14,6 +15,7 @@ interface InstructionFooterProps {
 
 function InstructionFooter({ testSeriesId, testId }: InstructionFooterProps) {
   const [checked, setChecked] = useState(false);
+  const { setExamData } = useExamStore();
 
   const { examCurrentLang } = useExamLanguage();
 
@@ -44,14 +46,20 @@ function InstructionFooter({ testSeriesId, testId }: InstructionFooterProps) {
       if (response.status) {
         console.log("Exam started successfully");
         console.log(response.data);
-        
+
         toast.success("Exam started successfully", { duration: 5000 });
+
+        setExamData(response.data);
 
         window.open(
           url,
           "startExamWindow",
           `width=${width},height=${height},toolbar=no,menubar=no,noopener,noreferrer`,
         );
+
+        if (window.name === "examInstructionWindow") {
+          window.close();
+        }
       }
     },
     onError: (error) => {
