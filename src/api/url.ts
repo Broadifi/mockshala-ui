@@ -45,7 +45,7 @@ export const BASE_URL =
     editorialsCorner: ()=> '/editorials',
 
     plans:() => '/plans',
-    
+
     editorialsCornerBySlug: (slug: string)=> `/editorials/by-slug/${slug}`,
 
     examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`,
@@ -58,9 +58,5 @@ export const BASE_URL =
       
   }
 
-<<<<<<< HEAD
-   export const IMAGE_BASE_URL = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL ?? "https://mockshala.s3.ap-south-1.amazonaws.com/";
-=======
   export const IMAGE_BASE_URL = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL ?? "https://mockshala.s3.ap-south-1.amazonaws.com/";
 
->>>>>>> ea303635d1841d36949a38d917108359a2cc8267

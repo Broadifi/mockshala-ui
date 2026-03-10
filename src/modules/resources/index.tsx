@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-
-
-
-import ComingSoon from "../comingSoon"
-
-function ResourcesModule() {
-  return (
-    <div>
-      <ComingSoon/>
-    </div>
-  )
-}
-
-export default ResourcesModule
-=======
 import { useEffect, useState, useMemo } from "react";
 import {
   useInfiniteQuery,
@@ -126,4 +110,3 @@ export default function ResourcesModule() {
     </div>
   );
 }
->>>>>>> ea303635d1841d36949a38d917108359a2cc8267
