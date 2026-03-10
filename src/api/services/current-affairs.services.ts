@@ -47,3 +47,4 @@ export async function fetchSimilarNews(id:string) {
 
     return response.data
 }
+// /$lang/current-affairs/$slug/

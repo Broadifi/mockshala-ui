@@ -1,7 +1,12 @@
-import ComingSoon from "../comingSoon";
+
+import ComingSoon from "../comingSoon"
 
 function SuccessStoryModule() {
-  return <ComingSoon />;
+  return (
+    <div>
+      <ComingSoon/>
+    </div>
+  )
 }
 
-export default SuccessStoryModule;
+export default SuccessStoryModule

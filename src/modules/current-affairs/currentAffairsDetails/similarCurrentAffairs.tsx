@@ -96,7 +96,7 @@ function SimilarCurrentAffairs({id}:IdProps) {
                     <Badge className="bg-button-blue">{item.tags[0]}</Badge>
                   </div>
                 </div>
-
+B
                 {/* description section */}
                 <div className="px-4 space-y-3 py-1">
                   {/* date and time */}

@@ -36,6 +36,7 @@ export const BASE_URL =
     currentAffairsBySlug: (slug: string)=> `/current-affairs/by-slug/${slug}`,
 
     currentAffairsAllTags: ()=> '/current-affairs/tags',
+    
 
     similarCurrentAffairs: (id: string) => `/current-affairs/get-similar-affairs/${id}`,
 
@@ -44,6 +45,8 @@ export const BASE_URL =
     editorialsCorner: ()=> '/editorials',
 
     plans:() => '/plans',
+
+    editorialsCornerBySlug: (slug: string)=> `/editorials/by-slug/${slug}`,
 
     examInstruction: (examId: string)=> `/tests/get-instruction/${examId}`,
 
