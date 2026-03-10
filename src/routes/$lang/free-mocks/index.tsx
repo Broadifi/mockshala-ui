@@ -8,3 +8,4 @@ function RouteComponent() {
   
   return <FreeMocksModule/>
 }
+

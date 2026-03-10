@@ -112,6 +112,7 @@ function EditorialCornerDashboard() {
   if (isError) return <p>Error: {(error as Error).message}</p>;
 
   return (
+<<<<<<< HEAD
     <div className="container mx-auto px-4 py-6 flex flex-col gap-6 gradient-soft-blue-current-affairs">
       <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pb-0  sm:pb-0 md:pb-1">
         <div className="space-y-1 ">
@@ -265,6 +266,11 @@ function EditorialCornerDashboard() {
       {isFetchingNextPage && (
         <p className="text-center py-4">Loading more editorials...</p>
       )}
+=======
+    <div> 
+    
+      <ComingSoon/>
+>>>>>>> ea303635d1841d36949a38d917108359a2cc8267
     </div>
   );
 }
