@@ -67,30 +67,30 @@ function MockTest() {
       <div className=" px-4 py-2 mx-auto">
 
         {/* Exam Name and color code */}
-        <div className="flex flex-col min-[1050px]:flex-row justify-between gap-3 lg:gap-4 border-b border-gray-200 py-2 items-center w-full" >
+        <div className="flex flex-col min-[1050px]:flex-row justify-between gap-3 lg:gap-4 border-b border-gray-200 py-2  w-full" >
           {/* Name */}
           <div className="w-full min-[1050px]:max-w-[40%]">
-            <h1 className="text-base md:text-lg min-[1050px]:text-xl  text-title-darkblue font-semibold">
+            <h1 className="text-base md:text-lg min-[1050px]:text-xl text-title-darkblue font-semibold">
               {/* {examData.testName} */}
               CUET UG 2026 is a national-level entrance exam conducted by the National
             </h1>
           </div>
 
           {/* Color Palette  and counts */}
-          <div className="flex flex-wrap gap-3 lg:gap-4 w-full min-[1050px]:max-w-[40%] justify-start min-[1050px]:justify-end">
+          <div className="flex flex-wrap gap-3 lg:gap-4 w-full min-[1050px]:max-w-[50%] justify-start min-[1050px]:justify-end">
             <div>
               <div className="flex gap-1 items-center">
                 <div className="h-3 w-3 lg:h-4 lg:w-4 bg-answered rounded-sm"></div>
-                <span className="text-responsive-muted uppercase">
+                <span className="text-responsive-sm uppercase">
                   {getLocalTranslation("examInstructions.answered")}{":"}
                 </span>
-                <p className="0 text-xs sm:text-sm text-answered font-medium">10</p>
+                <p className=" text-xs sm:text-sm text-answered font-medium">10</p>
               </div>
             </div>
             <div>
               <div className="flex gap-1 items-center">
                 <div className="h-3 w-3 lg:h-4 lg:w-4 bg-notAnswered rounded-sm"></div>
-                <span className="text-responsive-muted uppercase">
+                <span className="text-responsive-sm uppercase">
                   {getLocalTranslation("examInstructions.notAnswered")}{":"}
                 </span>
                  <p className=" text-xs sm:text-sm text-notAnswered font-medium">56</p>
@@ -99,7 +99,7 @@ function MockTest() {
             <div>
               <div className="flex gap-1 items-center">
                 <div className="h-3 w-3 lg:h-4 lg:w-4 bg-marked rounded-sm"></div>
-                <span className="text-responsive-muted uppercase">
+                <span className="text-responsive-sm uppercase">
                   {getLocalTranslation("examInstructions.marked")}{":"}
                 </span>
                  <p className=" text-xs sm:text-sm text-marked font-medium">3</p>
@@ -109,7 +109,7 @@ function MockTest() {
             <div>
               <div className="flex gap-1 items-center">
                 <div className="h-3 w-3 lg:h-4 lg:w-4 bg-markedAnswered rounded-sm"></div>
-                <span className="text-responsive-muted uppercase">
+                <span className="text-responsive-sm uppercase">
                   {getLocalTranslation("examInstructions.markedAnswered")}{":"}
                 </span>
                  <p className=" text-xs sm:text-sm text-markedAnswered font-medium">8</p>
@@ -119,7 +119,7 @@ function MockTest() {
             <div>
               <div className="flex gap-1 items-center">
                 <div className="h-3 w-3 lg:h-4 lg:w-4 bg-notVisited border border-gray-300 rounded-sm"></div>
-                <span className="text-responsive-muted uppercase">
+                <span className="text-responsive-sm uppercase">
                   {getLocalTranslation("examInstructions.notVisited")}{":"}
                 </span>
                  <p className="text-gray-600 text-xs sm:text-sm font-medium">45</p>

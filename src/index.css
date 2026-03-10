@@ -346,6 +346,10 @@ body {
     @apply text-xs lg:text-sm text-gray-600;
   }
 
+  .text-responsive-sm {
+    @apply text-xs lg:text-[12px];
+  }
+
   .save-exam-button{
       @apply  text-xs lg:text-sm text-white font-medium flex flex-row items-center justify-center  
                   min-w-33 lg:min-w-35 py-2 text-center rounded-md ;
