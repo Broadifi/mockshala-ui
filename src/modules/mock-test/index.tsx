@@ -5,20 +5,22 @@ import { useAuthStore } from "@/stores/authStore";
 import ProfileIconExam from "@/components/profileIconExam";
 import { useExamLanguage } from "@/stores/examLanguageStore";
 import i18n from "@/i18n";
+import QuestionPanel from "./questionPanel";
+import QuestionNumbers from "./questionNumbers";
+
 
 function MockTest() {
   const { examData } = useExamStore();
+  const { userDetails } = useAuthStore((state) => state.auth);
+  const { examCurrentLang } = useExamLanguage();
 
   if (!examData) {
     return <div>Loading exam data...</div>;
   }
 
-  const { userDetails } = useAuthStore((state) => state.auth);
   const candidateName = userDetails?.name;
 
   //fetch current language and 118n data
-
-  const { examCurrentLang } = useExamLanguage();
 
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
@@ -37,7 +39,7 @@ function MockTest() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div className="w-full bg-white shadow-md sticky top-0 z-50">
         <header className="px-4 py-2 mx-auto flex justify-between items-center">
           <div>
@@ -64,66 +66,102 @@ function MockTest() {
         </header>
       </div>
 
-      <div className=" px-4 py-2 mx-auto">
-
+      <div className="  mx-auto ">
         {/* Exam Name and color code */}
-        <div className="flex flex-col min-[1050px]:flex-row justify-between gap-3 lg:gap-4 border-b border-gray-200 py-2  w-full" >
+        <div className="flex max-xl:flex-col justify-between gap-3 xl:gap-8 px-4 py-4 border-b border-gray-200 w-full">
           {/* Name */}
-          <div className="w-full min-[1050px]:max-w-[40%]">
+          <div className="w-full xl:max-w-[40%]">
             <h1 className="text-base md:text-lg min-[1050px]:text-xl text-title-darkblue font-semibold">
               {/* {examData.testName} */}
-              CUET UG 2026 is a national-level entrance exam conducted by the National
+              CUET UG 2026 is a national-level entrance exam conducted by the
+              National
             </h1>
           </div>
 
           {/* Color Palette  and counts */}
-          <div className="flex flex-wrap gap-3 lg:gap-4 w-full min-[1050px]:max-w-[50%] justify-start min-[1050px]:justify-end">
+          <div
+            className="flex max-lg:flex-wrap gap-3 xl:gap-2.5 
+            xl:border xl:border-gray-200 rounded-xl xl:px-2 xl:py-1 h-max xl:w-max xl:shrink-0"
+          >
             <div>
               <div className="flex gap-1 items-center">
-                <div className="h-3 w-3 lg:h-4 lg:w-4 bg-answered rounded-sm"></div>
+                <div className="h-3 w-3  bg-answered rounded-sm"></div>
                 <span className="text-responsive-sm uppercase">
-                  {getLocalTranslation("examInstructions.answered")}{":"}
+                  {getLocalTranslation("examInstructions.answered")}
+                  {":"}
                 </span>
-                <p className=" text-xs sm:text-sm text-answered font-medium">10</p>
-              </div>
-            </div>
-            <div>
-              <div className="flex gap-1 items-center">
-                <div className="h-3 w-3 lg:h-4 lg:w-4 bg-notAnswered rounded-sm"></div>
-                <span className="text-responsive-sm uppercase">
-                  {getLocalTranslation("examInstructions.notAnswered")}{":"}
-                </span>
-                 <p className=" text-xs sm:text-sm text-notAnswered font-medium">56</p>
-              </div>
-            </div>
-            <div>
-              <div className="flex gap-1 items-center">
-                <div className="h-3 w-3 lg:h-4 lg:w-4 bg-marked rounded-sm"></div>
-                <span className="text-responsive-sm uppercase">
-                  {getLocalTranslation("examInstructions.marked")}{":"}
-                </span>
-                 <p className=" text-xs sm:text-sm text-marked font-medium">3</p>
+                <p className=" text-xs sm:text-sm text-answered font-medium">
+                  10
+                </p>
               </div>
             </div>
 
+            <div className="w-px bg-gray-300 max-xl:hidden" />
             <div>
               <div className="flex gap-1 items-center">
-                <div className="h-3 w-3 lg:h-4 lg:w-4 bg-markedAnswered rounded-sm"></div>
+                <div className="h-3 w-3 bg-notAnswered rounded-sm"></div>
                 <span className="text-responsive-sm uppercase">
-                  {getLocalTranslation("examInstructions.markedAnswered")}{":"}
+                  {getLocalTranslation("examInstructions.notAnswered")}
+                  {":"}
                 </span>
-                 <p className=" text-xs sm:text-sm text-markedAnswered font-medium">8</p>
+                <p className=" text-xs sm:text-sm text-notAnswered font-medium">
+                  56
+                </p>
               </div>
             </div>
+            <div className="w-px bg-gray-300 max-xl:hidden" />
 
             <div>
               <div className="flex gap-1 items-center">
-                <div className="h-3 w-3 lg:h-4 lg:w-4 bg-notVisited border border-gray-300 rounded-sm"></div>
+                <div className="h-3 w-3  bg-marked rounded-sm"></div>
                 <span className="text-responsive-sm uppercase">
-                  {getLocalTranslation("examInstructions.notVisited")}{":"}
+                  {getLocalTranslation("examInstructions.marked")}
+                  {":"}
                 </span>
-                 <p className="text-gray-600 text-xs sm:text-sm font-medium">45</p>
+                <p className=" text-xs sm:text-sm text-marked font-medium">3</p>
               </div>
+            </div>
+
+            <div className="w-px bg-gray-300 max-xl:hidden" />
+
+            <div>
+              <div className="flex gap-1 items-center">
+                <div className="h-3 w-3 bg-markedAnswered rounded-sm"></div>
+                <span className="text-responsive-sm uppercase">
+                  {getLocalTranslation("examInstructions.markedAnswered")}
+                  {":"}
+                </span>
+                <p className=" text-xs sm:text-sm text-markedAnswered font-medium">
+                  8
+                </p>
+              </div>
+            </div>
+
+            <div className="w-px bg-gray-300 max-xl:hidden" />
+
+            <div>
+              <div className="flex gap-1 items-center">
+                <div className="h-3 w-3 bg-notVisited border border-gray-300 rounded-sm"></div>
+                <span className="text-responsive-sm uppercase">
+                  {getLocalTranslation("examInstructions.notVisited")}
+                  {":"}
+                </span>
+                <p className="text-gray-600 text-xs sm:text-sm font-medium">
+                  45
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gray-50">
+          <div className="grid grid-cols-12 px-4 py-4 mx-auto gap-4">
+            <div className="col-span-9  border border-gray-100 bg-white rounded-lg py-3 px-4">
+              <QuestionPanel />
+            </div>
+
+            <div className="col-span-3 border border-gray-100 bg-white rounded-lg">
+              <QuestionNumbers />
             </div>
           </div>
         </div>
