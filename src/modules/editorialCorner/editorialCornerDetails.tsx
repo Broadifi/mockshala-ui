@@ -276,18 +276,7 @@ const EditorialCornerDetails = () => {
                           alt={metaItem.metaTitle}
                           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         />
-                        {/* <div className="flex flex-wrap gap-2 px-4 pt-3 lg:h-7 h-5 absolute top-0.5 left-0.5">
-                          {metaItem?.tags?.slice(0, 1).map((tagItem) => (
-                            <div
-                              key={tagItem}
-                              className="flex items-center gap p-0 rounded-full  text-xs font-medium hover:scale-105 transition-transform  pl-1.5"
-                            >
-                              <Badge className="bg-button-blue/90 backdrop-blur-sm text-white shadow-md border-none text-[10px] lg:text-xs font-medium px-2.5 py-0.5 rounded-full  uppercase">
-                                {tagItem}
-                              </Badge>
-                            </div>
-                          ))}
-                        </div> */}
+                       
                       </div>
 
                       <div className="px-3 md:px-5 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 lg:line-clamp-2 sm:h-13 h-12 leading-snug group-hover:text-title-gradient-sky">
