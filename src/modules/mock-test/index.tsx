@@ -7,7 +7,8 @@ import { useExamLanguage } from "@/stores/examLanguageStore";
 import i18n from "@/i18n";
 import QuestionPanel from "./questionPanel";
 import QuestionNumbers from "./questionNumbers";
-
+import TestNavigation from "./testNavigation";
+import SubmitSection from "./submitSection";
 
 function MockTest() {
   const { examData } = useExamStore();
@@ -39,7 +40,7 @@ function MockTest() {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full min-h-screen relative">
       <div className="w-full bg-white shadow-md sticky top-0 z-50">
         <header className="px-4 py-2 mx-auto flex justify-between items-center">
           <div>
@@ -66,9 +67,9 @@ function MockTest() {
         </header>
       </div>
 
-      <div className="  mx-auto ">
+      <div className="mx-auto ">
         {/* Exam Name and color code */}
-        <div className="flex max-xl:flex-col justify-between gap-3 xl:gap-8 px-4 py-4 border-b border-gray-200 w-full">
+        <div className="flex max-xl:flex-col justify-between gap-3 xl:gap-8 px-4 py-4  w-full">
           {/* Name */}
           <div className="w-full xl:max-w-[40%]">
             <h1 className="text-base md:text-lg min-[1050px]:text-xl text-title-darkblue font-semibold">
@@ -154,14 +155,32 @@ function MockTest() {
           </div>
         </div>
 
-        <div className="bg-gray-50">
-          <div className="grid grid-cols-12 px-4 py-4 mx-auto gap-4">
-            <div className="col-span-9  border border-gray-100 bg-white rounded-lg py-3 px-4">
-              <QuestionPanel />
+        <div className="bg-blue-50">
+          <div className="grid grid-cols-12 px-4 py-4 mx-auto gap-4 h-full min-h-[calc(100vh-125px)]">
+            {/* LEFT PANEL */}
+            <div className="col-span-9 border border-gray-100 bg-white rounded-lg p-4 flex flex-col justify-between">
+              {/* Question Area */}
+              <div className="flex-1">
+                <QuestionPanel />
+              </div>
+
+              {/* Bottom Navigation */}
+              <div className="pt-6">
+                <TestNavigation />
+              </div>
             </div>
 
-            <div className="col-span-3 border border-gray-100 bg-white rounded-lg">
-              <QuestionNumbers />
+            {/* RIGHT PANEL */}
+            <div className="col-span-3 border border-gray-100 bg-white rounded-lg flex flex-col justify-between">
+              {/* Question Palette */}
+              <div className="p-4 overflow-y-auto">
+                <QuestionNumbers />
+              </div>
+
+              {/* Submit Section */}
+              <div className="border-t p-4">
+                <SubmitSection />
+              </div>
             </div>
           </div>
         </div>

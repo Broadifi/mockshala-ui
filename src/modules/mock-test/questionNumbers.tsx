@@ -6,11 +6,14 @@ function QuestionNumbers() {
 
   const questions = examData?.section.flatMap((section) => section.questions) ?? [];
 
+  console.log(questions);
+  
+
   return (
-    <div className="p-4">
+    <div className="px-4 py-2">
       {/* Timer */}
       <div className="flex justify-end">
-        <div className="border border-blue-500 rounded-lg p-2 w-fit bg-blue-50">
+        <div className="border border-blue-200 rounded-lg p-2 w-fit bg-blue-50">
           <p className="uppercase text-gray-500 font-medium">Time Left</p>
           <div className="flex gap-2">
             <Timer className="text-blue-800" />
@@ -20,7 +23,7 @@ function QuestionNumbers() {
       </div>
 
       {/* Question Palette */}
-      <div className="border-t mt-3 py-3 flex flex-col gap-2">
+      <div className="border-t mt-3 py-3 flex flex-col gap-2 h-[56vh] overflow-y-auto">
         <p className="text-title-darkblue font-medium pb-4">
           Questions Palette
         </p>
@@ -29,7 +32,7 @@ function QuestionNumbers() {
           {questions.map((q, index) => (
             <button
               key={q._id}
-              className="bg-gray-200 w-10 h-10 rounded-md flex items-center justify-center"
+              className="bg-gray-200 w-10 h-10 rounded-md flex items-center justify-center hover:cursor-pointer"
             >
               {index + 1}
             </button>

@@ -7,7 +7,7 @@ export default function HtmlSetterExam({ html }: { html?: string }) {
 
   return (
     <div
-      className="text-slate-700 text-[12px] sm:text-[14px] lg:text-[15px]"
+      className="text-slate-700 text-[12px] sm:text-[14px] lg:text-[15px font-medium"
       dangerouslySetInnerHTML={{ __html: cleanHTML }}
     />
   );

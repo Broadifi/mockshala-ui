@@ -2,7 +2,7 @@ import FooterCTA from "@/components/navigation/footer";
 import Header from "@/components/navigation/Header";
 import { Toaster } from "@/components/ui/sonner";
 import { createRootRoute, Outlet, useLocation } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+// import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 function RootComponent() {
   const { pathname } = useLocation();
@@ -32,7 +32,7 @@ function RootComponent() {
         }}
       />
 
-      <TanStackRouterDevtools />
+      {/* <TanStackRouterDevtools /> */}
     </>
   );
 }
