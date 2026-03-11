@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { examApi, type ExamProps } from "@/api/services/exam-services";
 import { toast } from "sonner";
 import { useExamStore } from "@/stores/examStore";
+import { useQuestionStore } from "@/stores/questionStore";
 
 interface InstructionFooterProps {
   testSeriesId?: string;
@@ -16,6 +17,7 @@ interface InstructionFooterProps {
 function InstructionFooter({ testSeriesId, testId }: InstructionFooterProps) {
   const [checked, setChecked] = useState(false);
   const { setExamData } = useExamStore();
+  const { setQuestionsFromExam } = useQuestionStore();
 
   const { examCurrentLang } = useExamLanguage();
 
@@ -44,12 +46,19 @@ function InstructionFooter({ testSeriesId, testId }: InstructionFooterProps) {
     mutationFn: examApi.startExam,
     onSuccess: (response) => {
       if (response.status) {
-        console.log("Exam started successfully");
-        console.log(response.data);
+        // console.log("Exam started successfully");
+        // console.log(response.data);
+
+        const examData = response.data;
 
         toast.success("Exam started successfully", { duration: 5000 });
 
-        setExamData(response.data);
+
+        setExamData(examData);
+        setQuestionsFromExam(examData);
+
+       
+        
 
         window.open(
           url,

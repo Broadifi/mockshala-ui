@@ -13,7 +13,7 @@ export interface ExamInstructionData {
   examType: string;
   difficultyLevel: string;
   time: number;
-  section: Section[];
+  section: InstructionSection[];
   status: boolean;
   instruction: string;
   instructionInHindi: string;
@@ -26,7 +26,7 @@ export interface ExamInstructionData {
   createdAt: string;
   updatedAt: string;
 }
-interface Section {
+interface InstructionSection {
   time: number;
   isFixedNegativeMark: boolean;
   marks: number;
@@ -71,7 +71,8 @@ export interface StartExamData {
   createdAt: string;
   updatedAt: string;
 }
-interface Section {
+
+export interface Section {
   time: number;
   completedTime: number;
   totalMarksObtained: number;
@@ -82,10 +83,11 @@ interface Section {
   sectionName: string;
   questions: Question[];
 }
-interface Question {
+
+export interface Question {
   questionType: string;
-  answerText?: any;
-  answerId?: any;
+  answerText?: string | unknown;
+  answerId?: string | unknown;
   marks: number;
   negativeMarks: number;
   marksObtained: number;

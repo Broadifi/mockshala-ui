@@ -13,6 +13,9 @@ function QuestionPanel() {
 
   const sections = examData?.section;
 
+  console.log("Section data", sections);
+  
+
   const [activeTab, setActiveTab] = useState(sectionName);
 
   const handleTabSwitch = (currentTab: string) => {

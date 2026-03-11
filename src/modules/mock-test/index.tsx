@@ -10,6 +10,7 @@ import QuestionNumbers from "./questionNumbers";
 import TestNavigation from "./testNavigation";
 import SubmitSection from "./submitSection";
 
+
 function MockTest() {
   const { examData } = useExamStore();
   const { userDetails } = useAuthStore((state) => state.auth);
@@ -18,8 +19,10 @@ function MockTest() {
   if (!examData) {
     return <div>Loading exam data...</div>;
   }
-
+ 
   const candidateName = userDetails?.name;
+
+
 
   //fetch current language and 118n data
 

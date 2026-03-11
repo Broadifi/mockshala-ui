@@ -1,10 +1,13 @@
-import { useExamStore } from "@/stores/examStore";
+// import { useExamStore } from "@/stores/examStore";
+import { useQuestionStore } from "@/stores/questionStore";
 import { Timer } from "lucide-react";
 
 function QuestionNumbers() {
-  const { examData } = useExamStore();
+  // const { examData } = useExamStore();
 
-  const questions = examData?.section.flatMap((section) => section.questions) ?? [];
+   const {questions} = useQuestionStore()
+
+  // const questions = examData?.section.flatMap((section) => section.questions) ?? [];
 
   console.log(questions);
   
