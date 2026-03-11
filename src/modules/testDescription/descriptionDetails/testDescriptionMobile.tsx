@@ -87,7 +87,8 @@ function TestDescriptionMobile() {
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
-          <div className="overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
+          <div className="overflow-x-auto scrollbar-hide 
+          lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
             <TabsList className="bg-soft-blue-gradient inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2 ">
               <TabsTrigger
                 value="All Tests"

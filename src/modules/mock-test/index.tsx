@@ -10,7 +10,6 @@ import QuestionNumbers from "./questionNumbers";
 import TestNavigation from "./testNavigation";
 import SubmitSection from "./submitSection";
 
-
 function MockTest() {
   const { examData } = useExamStore();
   const { userDetails } = useAuthStore((state) => state.auth);
@@ -19,10 +18,8 @@ function MockTest() {
   if (!examData) {
     return <div>Loading exam data...</div>;
   }
- 
+
   const candidateName = userDetails?.name;
-
-
 
   //fetch current language and 118n data
 
@@ -43,8 +40,8 @@ function MockTest() {
   };
 
   return (
-    <div className="w-full min-h-screen relative">
-      <div className="w-full bg-white shadow-md sticky top-0 z-50">
+    <div className="w-full h-screen flex flex-col overflow-hidden">
+      <div className="w-full bg-white shadow-md z-50">
         <header className="px-4 py-2 mx-auto flex justify-between items-center">
           <div>
             <ImageWithFallback
@@ -70,9 +67,9 @@ function MockTest() {
         </header>
       </div>
 
-      <div className="mx-auto ">
+      <div className="mx-auto flex-1 flex flex-col w-full overflow-hidden">
         {/* Exam Name and color code */}
-        <div className="flex max-xl:flex-col justify-between gap-3 xl:gap-8 px-4 py-4  w-full">
+        <div className="flex max-xl:flex-col justify-between gap-3 xl:gap-8 px-4 pt-2 sm:pb-2 md:py-2 w-full shrink-0 ">
           {/* Name */}
           <div className="w-full xl:max-w-[40%]">
             <h1 className="text-base md:text-lg min-[1050px]:text-xl text-title-darkblue font-semibold">
@@ -158,30 +155,30 @@ function MockTest() {
           </div>
         </div>
 
-        <div className="bg-blue-50">
-          <div className="grid grid-cols-12 px-4 py-4 mx-auto gap-4 h-full min-h-[calc(100vh-125px)]">
+        <div className="bg-white sm:bg-blue-50 flex-1 overflow-hidden">
+          <div className="grid grid-cols-12 px-4 sm:py-4 mx-auto gap-4 h-full ">
             {/* LEFT PANEL */}
-            <div className="col-span-9 border border-gray-100 bg-white rounded-lg p-4 flex flex-col justify-between">
+            <div className="col-span-12 lg:col-span-9 sm:border border-gray-100 bg-white rounded-lg  sm:px-4 py-2 flex flex-col overflow-hidden">
               {/* Question Area */}
-              <div className="flex-1">
+              <div className="flex-1 overflow-hidden">
                 <QuestionPanel />
               </div>
 
               {/* Bottom Navigation */}
-              <div className="pt-6">
+              <div className="pt-4 sm:pt-6 shrink-0">
                 <TestNavigation />
               </div>
             </div>
 
             {/* RIGHT PANEL */}
-            <div className="col-span-3 border border-gray-100 bg-white rounded-lg flex flex-col justify-between">
+            <div className="max-lg:hidden col-span-12 lg:col-span-3 border border-gray-100 bg-white rounded-lg flex flex-col overflow-hidden">
               {/* Question Palette */}
-              <div className="p-4 overflow-y-auto">
+              <div className="flex-1 overflow-hidden">
                 <QuestionNumbers />
               </div>
 
               {/* Submit Section */}
-              <div className="border-t p-4">
+              <div className="border-t p-4 shrink-0">
                 <SubmitSection />
               </div>
             </div>

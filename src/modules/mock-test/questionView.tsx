@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import HtmlSetterExam from "@/components/htmlsetterforExam";
 import QuestionOptions from "./QuestionOptions";
-import { Card, CardContent } from "@/components/ui/card";
 import Marks from "./marks";
 import { useQuestionStore } from "@/stores/questionStore";
 
@@ -23,10 +22,10 @@ function QuestionView() {
   if (!question) return null;
 
   return (
-    <Card className="border border-gray-150 shadow-none">
-      <div className="px-0 lg:px-6 py-0">
+    <div className=" border border-gray-150 shadow-none py-3 rounded-lg h-full flex flex-col overflow-hidden px-4 ">
+      <div className=" py-0 shrink-0">
         <div className="flex justify-between">
-          <p className="text-title-darkblue font-semibold">
+          <p className="text-title-darkblue font-semibold text-sm sm:text-base">
             Question. {questionNumber}
           </p>
 
@@ -37,12 +36,12 @@ function QuestionView() {
         </div>
       </div>
 
-      <CardContent className="text-muted-foreground text-sm px-0 lg:px-6 h-[55vh] overflow-y-auto">
+      <div className="text-muted-foreground text-sm flex-1 overflow-y-auto mt-2">
         <HtmlSetterExam html={question.questionText} />
 
         <QuestionOptions options={question.options ?? []} />
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 

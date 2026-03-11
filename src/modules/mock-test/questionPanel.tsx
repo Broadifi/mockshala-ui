@@ -17,13 +17,12 @@ function QuestionPanel() {
   // console.log("Section data", sections);
 
   useEffect(() => {
-  const firstQuestionId = sections?.[0]?.questions?.[0]?._id;
+    const firstQuestionId = sections?.[0]?.questions?.[0]?._id;
 
-  if (firstQuestionId) {
-    setCurrentQuestion(firstQuestionId);
-  }
-}, [sections, setCurrentQuestion]);
-
+    if (firstQuestionId) {
+      setCurrentQuestion(firstQuestionId);
+    }
+  }, [sections, setCurrentQuestion]);
 
   const [activeTab, setActiveTab] = useState(sectionName);
 
@@ -40,19 +39,22 @@ function QuestionPanel() {
   };
 
   return (
-    <div>
+    <div className="h-full flex flex-col overflow-hidden">
       <Tabs
         value={activeTab}
         onValueChange={handleTabSwitch}
-        className="w-full "
+        className="w-full flex-1 flex flex-col overflow-hidden  "
       >
         {/* Scrollable wrapper for TabsList */}
-        <div className="overflow-x-auto scrollbar-hide lg:overflow-x-visible lg:mx-0 lg:px-0 py-2">
+        <div
+          className="overflow-x-auto scrollbar-hide py-2 shrink-0"
+        >
           <TabsList className="inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2 bg-white border-0">
             {sections?.map((item) => (
               <TabsTrigger
                 className="whitespace-nowrap shrink-0 rounded-full p-4 data-[state=active]:bg-blue-600
-                 bg-white border border-blue-200 text-gray-700 data-[state=active]:text-white hover:cursor-pointer"
+                 bg-white border border-blue-200 text-gray-700 data-[state=active]:text-white hover:cursor-pointer
+                 text-xs md:text-sm xl:text-base "
                 value={item.sectionName}
                 key={item._id}
               >
@@ -63,7 +65,11 @@ function QuestionPanel() {
         </div>
 
         {sections?.map((item) => (
-          <TabsContent value={item.sectionName} key={item._id}>
+          <TabsContent
+            value={item.sectionName}
+            key={item._id}
+            className="flex-1 overflow-hidden mt-0"
+          >
             <QuestionView />
           </TabsContent>
         ))}
