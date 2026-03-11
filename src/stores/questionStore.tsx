@@ -4,10 +4,10 @@ import type { Question, StartExamData } from "@/api/model/exam-model";
 
 interface QuestionStoreState {
   questions: Question[];
-  currentQuestionIndex: number;
+  currentQuestionIndex: string | null;
 
   setQuestionsFromExam: (examData: StartExamData) => void;
-  setCurrentQuestion: (index: number) => void;
+  setCurrentQuestion: (index: string) => void;
 
   saveAnswer: (questionId: string, optionId: string) => void;
   toggleMarkForReview: (questionId: string) => void;
@@ -20,7 +20,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
   persist(
     (set) => ({
       questions: [],
-      currentQuestionIndex: 0,
+      currentQuestionIndex: null,
 
       // flatten section questions
       setQuestionsFromExam: (examData) => {
@@ -64,7 +64,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
       clearQuestions: () => {
         set({
           questions: [],
-          currentQuestionIndex: 0,
+          currentQuestionIndex: null,
         });
       },
     }),

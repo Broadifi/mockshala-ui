@@ -1,28 +1,43 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent} from "@/components/ui/card";
-import Marks from "./marks";
+
 import { useExamStore } from "@/stores/examStore";
-import { useState } from "react";
-import HtmlSetterExam from "@/components/htmlsetterforExam";
-import QuestionOptions from "./QuestionOptions";
+import { useEffect, useState } from "react";
+import QuestionView from "./questionView";
+import { useQuestionStore } from "@/stores/questionStore";
 
 function QuestionPanel() {
   const { examData } = useExamStore();
+
+  const { setCurrentQuestion } = useQuestionStore();
 
   const sectionName = examData?.section[0].sectionName;
 
   const sections = examData?.section;
 
-  console.log("Section data", sections);
-  
+  // console.log("Section data", sections);
+
+  useEffect(() => {
+  const firstQuestionId = sections?.[0]?.questions?.[0]?._id;
+
+  if (firstQuestionId) {
+    setCurrentQuestion(firstQuestionId);
+  }
+}, [sections, setCurrentQuestion]);
+
 
   const [activeTab, setActiveTab] = useState(sectionName);
 
   const handleTabSwitch = (currentTab: string) => {
-    setActiveTab(() => currentTab);
-  };
+    setActiveTab(currentTab);
 
-  const questionIndex = 0;
+    const section = sections?.find((item) => item.sectionName === currentTab);
+
+    const firstQuestionId = section?.questions?.[0]?._id;
+
+    if (firstQuestionId) {
+      setCurrentQuestion(firstQuestionId);
+    }
+  };
 
   return (
     <div>
@@ -49,29 +64,7 @@ function QuestionPanel() {
 
         {sections?.map((item) => (
           <TabsContent value={item.sectionName} key={item._id}>
-            <Card className="border border-gray-150 shadow-none ">
-              <div className="px-0 lg:px-6 py-0">
-                <div className="flex justify-between">
-                  <p className="text-title-darkblue font-semibold">
-                    Question {questionIndex + 1}
-                  </p>
-                  <Marks marks={item.questions[questionIndex].marks} negativeMarks={item.questions[questionIndex].negativeMarks}/>
-                </div>
-              </div>
-
-              <CardContent className="text-muted-foreground text-sm px-0 lg:px-6 h-[55vh] overflow-y-auto">
-                <HtmlSetterExam
-                  html={item.questions[questionIndex].questionText}
-                />
-
-                <div>
-                  <QuestionOptions 
-                    options={item.questions[questionIndex].options}
-                   
-                  />
-                </div>
-              </CardContent>
-            </Card>
+            <QuestionView />
           </TabsContent>
         ))}
       </Tabs>
