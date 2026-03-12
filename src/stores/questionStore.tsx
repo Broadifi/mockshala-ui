@@ -18,7 +18,7 @@ interface QuestionStoreState {
   setCurrentQuestionId: (index: string) => void;
 
   currentQuestion: Question | null;
-  setCurrentQuestion: () => void;
+  // setCurrentQuestion: () => void;
 
   setPendingAnswer: (optionId: string | null) => void;
 
@@ -48,7 +48,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
       },
 
       currentQuestion: null,
-      setCurrentQuestion: () => {},
+      // setCurrentQuestion: () => {},
 
       setPendingAnswer: (optionId) => {
         set({ pendingAnswerId: optionId });

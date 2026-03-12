@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Eraser, Star } from "lucide-react";
 function TestNavigation() {
   const { examCurrentLang } = useExamLanguage();
   const currentQuestion = useCurrentQuestion();
-
+  
   const questions = useQuestionStore((s) => s.questions);
   const currentQuestionId = useQuestionStore((s) => s.currentQuestionId);
   const pendingAnswerId = useQuestionStore((s) => s.pendingAnswerId);
@@ -15,7 +15,8 @@ function TestNavigation() {
   const toggleMarkForReview = useQuestionStore((s) => s.toggleMarkForReview);
   const markVisited = useQuestionStore((s) => s.markVisited);
   const setPendingAnswer = useQuestionStore((s) => s.setPendingAnswer);
-
+  
+  //Get Local Translation
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
       examCurrentLang,
@@ -128,6 +129,7 @@ function TestNavigation() {
         </button>
       </div>
 
+      {/* For Small screen */}
       <div className="md:hidden grid grid-cols-2 gap-2 min-[345px]:gap-4 justify-between ">
         {/* Mark / Clear */}
         <button

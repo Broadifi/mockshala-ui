@@ -21,6 +21,10 @@ function SubmitSection() {
     );
   };
 
+  const handleSubmit = ()=>{
+
+  }
+
   return (
     <div className="flex flex-col gap-3 px-4">
       <div className="flex flex-row justify-between">
@@ -45,6 +49,7 @@ function SubmitSection() {
 
       <div>
         <button
+          onClick={handleSubmit}
           className="w-full px-6 py-1 rounded-lg bg-linear-to-r from-button-blue to-button-sky
                    text-base text-white font-semibold
                    hover:from-blue-600 hover:to-blue-600 hover:shadow-md
