@@ -53,12 +53,8 @@ function InstructionFooter({ testSeriesId, testId }: InstructionFooterProps) {
 
         toast.success("Exam started successfully", { duration: 5000 });
 
-
         setExamData(examData);
         setQuestionsFromExam(examData);
-
-       
-        
 
         window.open(
           url,

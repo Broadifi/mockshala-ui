@@ -1,9 +1,19 @@
 import i18n from "@/i18n";
 import { useExamLanguage } from "@/stores/examLanguageStore";
+import { useExamStore } from "@/stores/examStore";
+import { useQuestionStore } from "@/stores/questionStore";
+import { useNavigate, useParams } from "@tanstack/react-router";
+
 import { BookOpen, Eye } from "lucide-react";
 
 function SubmitSection() {
-  const { examCurrentLang } = useExamLanguage();
+  const examCurrentLang = useExamLanguage((state) => state.examCurrentLang);
+  const clearExamLanguage = useExamLanguage((state) => state.clearExamLanguage);
+  const clearExamData = useExamStore((state) => state.clearExamData);
+  const clearQuestions = useQuestionStore((state) => state.clearQuestions);
+
+  const navigate = useNavigate();
+  const params = useParams({ from: "/$lang/mock-test/$testSeries/$test/" });
 
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
@@ -21,9 +31,21 @@ function SubmitSection() {
     );
   };
 
-  const handleSubmit = ()=>{
+  const handleSubmit = () => {
+    clearQuestions();
+    clearExamData();
+    clearExamLanguage();
 
-  }
+    // if (window.name === "startExamWindow") {
+    //   window.close();
+    // }
+
+    navigate({
+      to: "/$lang/mock-test/$testSeries/$test/result",
+      params,
+      replace: true,
+    });
+  };
 
   return (
     <div className="flex flex-col gap-3 px-4">

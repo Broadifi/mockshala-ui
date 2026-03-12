@@ -33,6 +33,7 @@ import { Route as LangCurrentAffairsSlugIndexRouteImport } from './routes/$lang/
 import { Route as LangMockTestTestSeriesTestIndexRouteImport } from './routes/$lang/mock-test/$testSeries/$test/index'
 import { Route as LangInstructionsTestSlugExamIdIndexRouteImport } from './routes/$lang/instructions/$testSlug/$examId/index'
 import { Route as LangExamsExamCategoryTestSlugIndexRouteImport } from './routes/$lang/exams/$examCategory/$testSlug/index'
+import { Route as LangMockTestTestSeriesTestResultRouteImport } from './routes/$lang/mock-test/$testSeries/$test/result'
 
 const LangRoute = LangRouteImport.update({
   id: '/$lang',
@@ -163,6 +164,12 @@ const LangExamsExamCategoryTestSlugIndexRoute =
     path: '/exams/$examCategory/$testSlug/',
     getParentRoute: () => LangRoute,
   } as any)
+const LangMockTestTestSeriesTestResultRoute =
+  LangMockTestTestSeriesTestResultRouteImport.update({
+    id: '/mock-test/$testSeries/$test/result',
+    path: '/mock-test/$testSeries/$test/result',
+    getParentRoute: () => LangRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -186,6 +193,7 @@ export interface FileRoutesByFullPath {
   '/$lang/current-affairs/$slug': typeof LangCurrentAffairsSlugIndexRoute
   '/$lang/editorials-corner/$slug': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
+  '/$lang/mock-test/$testSeries/$test/result': typeof LangMockTestTestSeriesTestResultRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
   '/$lang/instructions/$testSlug/$examId': typeof LangInstructionsTestSlugExamIdIndexRoute
   '/$lang/mock-test/$testSeries/$test': typeof LangMockTestTestSeriesTestIndexRoute
@@ -211,6 +219,7 @@ export interface FileRoutesByTo {
   '/$lang/current-affairs/$slug': typeof LangCurrentAffairsSlugIndexRoute
   '/$lang/editorials-corner/$slug': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory': typeof LangExamsExamCategoryIndexRoute
+  '/$lang/mock-test/$testSeries/$test/result': typeof LangMockTestTestSeriesTestResultRoute
   '/$lang/exams/$examCategory/$testSlug': typeof LangExamsExamCategoryTestSlugIndexRoute
   '/$lang/instructions/$testSlug/$examId': typeof LangInstructionsTestSlugExamIdIndexRoute
   '/$lang/mock-test/$testSeries/$test': typeof LangMockTestTestSeriesTestIndexRoute
@@ -238,6 +247,7 @@ export interface FileRoutesById {
   '/$lang/current-affairs/$slug/': typeof LangCurrentAffairsSlugIndexRoute
   '/$lang/editorials-corner/$slug/': typeof LangEditorialsCornerSlugIndexRoute
   '/$lang/exams/$examCategory/': typeof LangExamsExamCategoryIndexRoute
+  '/$lang/mock-test/$testSeries/$test/result': typeof LangMockTestTestSeriesTestResultRoute
   '/$lang/exams/$examCategory/$testSlug/': typeof LangExamsExamCategoryTestSlugIndexRoute
   '/$lang/instructions/$testSlug/$examId/': typeof LangInstructionsTestSlugExamIdIndexRoute
   '/$lang/mock-test/$testSeries/$test/': typeof LangMockTestTestSeriesTestIndexRoute
@@ -266,6 +276,7 @@ export interface FileRouteTypes {
     | '/$lang/current-affairs/$slug'
     | '/$lang/editorials-corner/$slug'
     | '/$lang/exams/$examCategory'
+    | '/$lang/mock-test/$testSeries/$test/result'
     | '/$lang/exams/$examCategory/$testSlug'
     | '/$lang/instructions/$testSlug/$examId'
     | '/$lang/mock-test/$testSeries/$test'
@@ -291,6 +302,7 @@ export interface FileRouteTypes {
     | '/$lang/current-affairs/$slug'
     | '/$lang/editorials-corner/$slug'
     | '/$lang/exams/$examCategory'
+    | '/$lang/mock-test/$testSeries/$test/result'
     | '/$lang/exams/$examCategory/$testSlug'
     | '/$lang/instructions/$testSlug/$examId'
     | '/$lang/mock-test/$testSeries/$test'
@@ -317,6 +329,7 @@ export interface FileRouteTypes {
     | '/$lang/current-affairs/$slug/'
     | '/$lang/editorials-corner/$slug/'
     | '/$lang/exams/$examCategory/'
+    | '/$lang/mock-test/$testSeries/$test/result'
     | '/$lang/exams/$examCategory/$testSlug/'
     | '/$lang/instructions/$testSlug/$examId/'
     | '/$lang/mock-test/$testSeries/$test/'
@@ -497,6 +510,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangExamsExamCategoryTestSlugIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/mock-test/$testSeries/$test/result': {
+      id: '/$lang/mock-test/$testSeries/$test/result'
+      path: '/mock-test/$testSeries/$test/result'
+      fullPath: '/$lang/mock-test/$testSeries/$test/result'
+      preLoaderRoute: typeof LangMockTestTestSeriesTestResultRouteImport
+      parentRoute: typeof LangRoute
+    }
   }
 }
 
@@ -520,6 +540,7 @@ interface LangRouteChildren {
   LangCurrentAffairsSlugIndexRoute: typeof LangCurrentAffairsSlugIndexRoute
   LangEditorialsCornerSlugIndexRoute: typeof LangEditorialsCornerSlugIndexRoute
   LangExamsExamCategoryIndexRoute: typeof LangExamsExamCategoryIndexRoute
+  LangMockTestTestSeriesTestResultRoute: typeof LangMockTestTestSeriesTestResultRoute
   LangExamsExamCategoryTestSlugIndexRoute: typeof LangExamsExamCategoryTestSlugIndexRoute
   LangInstructionsTestSlugExamIdIndexRoute: typeof LangInstructionsTestSlugExamIdIndexRoute
   LangMockTestTestSeriesTestIndexRoute: typeof LangMockTestTestSeriesTestIndexRoute
@@ -545,6 +566,7 @@ const LangRouteChildren: LangRouteChildren = {
   LangCurrentAffairsSlugIndexRoute: LangCurrentAffairsSlugIndexRoute,
   LangEditorialsCornerSlugIndexRoute: LangEditorialsCornerSlugIndexRoute,
   LangExamsExamCategoryIndexRoute: LangExamsExamCategoryIndexRoute,
+  LangMockTestTestSeriesTestResultRoute: LangMockTestTestSeriesTestResultRoute,
   LangExamsExamCategoryTestSlugIndexRoute:
     LangExamsExamCategoryTestSlugIndexRoute,
   LangInstructionsTestSlugExamIdIndexRoute:

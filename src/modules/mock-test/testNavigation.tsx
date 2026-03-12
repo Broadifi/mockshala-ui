@@ -59,6 +59,8 @@ function TestNavigation() {
         optionId: pendingAnswerId,
         optionText: selectedOption?.optionText ?? "",
       });
+
+
     } else {
       markVisited(currentQuestion._id);
     }
