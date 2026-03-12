@@ -2,6 +2,7 @@ import type { AxiosResponse } from "axios"
 import type { ExamInstructionResponse, StartExamResponse } from "../model/exam-model"
 import api from "."
 import { apiUrl } from "../url"
+import type { SubmitExamPayload, SubmitExamResponse } from "../model/submitExam-model";
 
 export interface ExamProps {
     testSeries: string;
@@ -22,5 +23,13 @@ export const examApi= {
         await api.post(apiUrl.startExam, data);
 
         return response.data
+    },
+
+    submitExam: async (data: SubmitExamPayload)=>{
+        const response: AxiosResponse<SubmitExamResponse> =
+        await api.post(apiUrl.submitExam, data);
+
+        return response.data
     }
+
 }

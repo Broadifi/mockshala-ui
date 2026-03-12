@@ -51,6 +51,8 @@ export const BASE_URL =
 
     startExam: '/answer-sheets/start-exam',
 
+    submitExam: '/answer-sheets/submit-exam'
+
       
   }
 
