@@ -9,10 +9,11 @@ function QuestionView() {
   const currentQuestionId = useQuestionStore(
     (state) => state.currentQuestionId,
   );
+  const pendingAnswerId = useQuestionStore((state) => state.pendingAnswerId);
+  const setPendingAnswer = useQuestionStore((state) => state.setPendingAnswer);
 
   const { question, questionNumber } = useMemo(() => {
     const index = questions.findIndex((q) => q._id === currentQuestionId);
-
     return {
       question: questions[index],
       questionNumber: index + 1,
@@ -20,6 +21,14 @@ function QuestionView() {
   }, [questions, currentQuestionId]);
 
   if (!question) return null;
+
+  // Show pending selection if active, otherwise fall back to saved answer
+  const selectedOptionId =
+    pendingAnswerId ?? (question.answerId as string) ?? "";
+
+  const handleOptionChange = (optionId: string) => {
+    setPendingAnswer(optionId);
+  };
 
   return (
     <div className=" border border-gray-150 shadow-none py-3 rounded-lg h-full flex flex-col overflow-hidden px-4 ">
@@ -39,7 +48,11 @@ function QuestionView() {
       <div className="text-muted-foreground text-sm flex-1 overflow-y-auto mt-2">
         <HtmlSetterExam html={question.questionText} />
 
-        <QuestionOptions options={question.options ?? []} />
+        <QuestionOptions
+          options={question.options ?? []}
+          value={selectedOptionId}
+          onChange={handleOptionChange}
+        />
       </div>
     </div>
   );

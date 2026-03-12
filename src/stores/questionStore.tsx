@@ -11,10 +11,16 @@ interface QuestionStoreState {
   questions: Question[];
   currentQuestionId: string | null;
 
+  // Transient: selected on current question but NOT yet saved. Cleared on navigation.
+  pendingAnswerId: string | null;
+
   setQuestionsFromExam: (examData: StartExamData) => void;
   setCurrentQuestionId: (index: string) => void;
 
-  currentQuestion: Question| null;
+  currentQuestion: Question | null;
+  setCurrentQuestion: () => void;
+
+  setPendingAnswer: (optionId: string | null) => void;
 
   saveAnswer: (questionId: string, valueData: OptionsProps) => void;
   toggleMarkForReview: (questionId: string) => void;
@@ -28,27 +34,29 @@ export const useQuestionStore = create<QuestionStoreState>()(
     (set) => ({
       questions: [],
       currentQuestionId: null,
+      pendingAnswerId: null,
 
-      // flatten section questions
       setQuestionsFromExam: (examData) => {
         const questions =
           examData?.section.flatMap((section) => section.questions) ?? [];
-
-        set({ questions });
+        set({ questions, pendingAnswerId: null });
       },
 
+      // Clear pending whenever the user navigates to a different question
       setCurrentQuestionId: (index) => {
-        set({ currentQuestionId: index });
+        set({ currentQuestionId: index, pendingAnswerId: null });
       },
 
       currentQuestion: null,
+      setCurrentQuestion: () => {},
 
-      setCurrentQuestion: () =>{
-        
+      setPendingAnswer: (optionId) => {
+        set({ pendingAnswerId: optionId });
       },
 
       saveAnswer: (questionId, valueData: OptionsProps) => {
         set((state) => ({
+          pendingAnswerId: null,
           questions: state.questions.map((q) =>
             q._id === questionId
               ? {
@@ -79,11 +87,11 @@ export const useQuestionStore = create<QuestionStoreState>()(
         }));
       },
 
-      // clear store + localStorage
       clearQuestions: () => {
         set({
           questions: [],
           currentQuestionId: null,
+          pendingAnswerId: null,
         });
       },
     }),
@@ -92,6 +100,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
       partialize: (state) => ({
         questions: state.questions,
         currentQuestionId: state.currentQuestionId,
+        // pendingAnswerId intentionally NOT persisted
       }),
     },
   ),

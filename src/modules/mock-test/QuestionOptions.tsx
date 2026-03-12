@@ -1,6 +1,5 @@
 import HtmlSetterExam from "@/components/htmlsetterforExam";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useQuestionStore } from "@/stores/questionStore";
 
 interface Option {
   _id: string;
@@ -9,31 +8,14 @@ interface Option {
 
 interface OptionsProps {
   options: Option[];
+  value?: string;
+  onChange?: (optionId: string) => void;
 }
 
-function QuestionOptions({ options }: OptionsProps) {
-  const { currentQuestionId, saveAnswer, questions } = useQuestionStore();
-
-  const currentQuestion = questions.find((q) => q._id === currentQuestionId);
-
-  const selectedOption = currentQuestion?.answerId ?? "";
-
-  const onChange = (optionId: string) => {
-    if (!currentQuestionId) return;
-
-    const option = options.find((opt) => opt._id === optionId);
-
-    if (!option) return;
-
-    saveAnswer(currentQuestionId, {
-      optionId: option._id,
-      optionText: option.optionText,
-    });
-  };
-
+function QuestionOptions({ options, value = "", onChange }: OptionsProps) {
   return (
     <RadioGroup
-      value={selectedOption}
+      value={value}
       onValueChange={onChange}
       className="flex flex-col gap-4 mt-4"
     >
