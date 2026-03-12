@@ -2,14 +2,21 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Question, StartExamData } from "@/api/model/exam-model";
 
+interface OptionsProps {
+  optionId: string;
+  optionText: string;
+}
+
 interface QuestionStoreState {
   questions: Question[];
-  currentQuestionIndex: string | null;
+  currentQuestionId: string | null;
 
   setQuestionsFromExam: (examData: StartExamData) => void;
-  setCurrentQuestion: (index: string) => void;
+  setCurrentQuestionId: (index: string) => void;
 
-  saveAnswer: (questionId: string, optionId: string) => void;
+  currentQuestion: Question| null;
+
+  saveAnswer: (questionId: string, valueData: OptionsProps) => void;
   toggleMarkForReview: (questionId: string) => void;
   markVisited: (questionId: string) => void;
 
@@ -20,7 +27,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
   persist(
     (set) => ({
       questions: [],
-      currentQuestionIndex: null,
+      currentQuestionId: null,
 
       // flatten section questions
       setQuestionsFromExam: (examData) => {
@@ -30,14 +37,26 @@ export const useQuestionStore = create<QuestionStoreState>()(
         set({ questions });
       },
 
-      setCurrentQuestion: (index) => {
-        set({ currentQuestionIndex: index });
+      setCurrentQuestionId: (index) => {
+        set({ currentQuestionId: index });
       },
 
-      saveAnswer: (questionId, optionId) => {
+      currentQuestion: null,
+
+      setCurrentQuestion: () =>{
+        
+      },
+
+      saveAnswer: (questionId, valueData: OptionsProps) => {
         set((state) => ({
           questions: state.questions.map((q) =>
-            q._id === questionId ? { ...q, answerId: optionId } : q
+            q._id === questionId
+              ? {
+                  ...q,
+                  answerText: valueData.optionText,
+                  answerId: valueData.optionId,
+                }
+              : q,
           ),
         }));
       },
@@ -47,7 +66,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
           questions: state.questions.map((q) =>
             q._id === questionId
               ? { ...q, isMarkedForReview: !q.isMarkedForReview }
-              : q
+              : q,
           ),
         }));
       },
@@ -55,7 +74,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
       markVisited: (questionId) => {
         set((state) => ({
           questions: state.questions.map((q) =>
-            q._id === questionId ? { ...q, isVisited: true } : q
+            q._id === questionId ? { ...q, isVisited: true } : q,
           ),
         }));
       },
@@ -64,7 +83,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
       clearQuestions: () => {
         set({
           questions: [],
-          currentQuestionIndex: null,
+          currentQuestionId: null,
         });
       },
     }),
@@ -72,8 +91,15 @@ export const useQuestionStore = create<QuestionStoreState>()(
       name: "exam-question-store",
       partialize: (state) => ({
         questions: state.questions,
-        currentQuestionIndex: state.currentQuestionIndex,
+        currentQuestionId: state.currentQuestionId,
       }),
-    }
-  )
+    },
+  ),
 );
+
+export const useCurrentQuestion = () => {
+  const currentQuestion = useQuestionStore((state) =>
+    state.questions.find((q) => q._id === state.currentQuestionId),
+  );
+  return currentQuestion;
+};

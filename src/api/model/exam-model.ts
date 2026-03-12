@@ -63,8 +63,8 @@ export interface StartExamData {
   totalMarks: number;
   finalMarks: number;
   isPaused: boolean;
-  lastVisitedSection?: any;
-  lastVisitedQuestion?: any;
+  lastVisitedSection?: string;
+  lastVisitedQuestion?: string;
   examTotalMarks: number;
   examTotalNegetiveMarks: number;
   totalNegativeMarks: number;
@@ -86,8 +86,8 @@ export interface Section {
 
 export interface Question {
   questionType: string;
-  answerText?: string | unknown;
-  answerId?: string | unknown;
+  answerText?: string ;
+  answerId?: string ;
   marks: number;
   negativeMarks: number;
   marksObtained: number;

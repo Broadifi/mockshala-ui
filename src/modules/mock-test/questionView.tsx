@@ -7,7 +7,7 @@ import { useQuestionStore } from "@/stores/questionStore";
 function QuestionView() {
   const questions = useQuestionStore((state) => state.questions);
   const currentQuestionId = useQuestionStore(
-    (state) => state.currentQuestionIndex,
+    (state) => state.currentQuestionId,
   );
 
   const { question, questionNumber } = useMemo(() => {

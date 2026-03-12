@@ -2,12 +2,12 @@ import { useQuestionStore } from "@/stores/questionStore";
 import { Timer } from "lucide-react";
 
 function QuestionNumbers() {
-  const { questions, setCurrentQuestion } = useQuestionStore();
+  const { questions, setCurrentQuestionId } = useQuestionStore();
 
   // console.log(questions);
 
   const handleCurrentQuestion = (id: string) => {
-    setCurrentQuestion(id);
+    setCurrentQuestionId(id);
   };
 
   return (

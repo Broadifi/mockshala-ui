@@ -1,40 +1,40 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { useExamStore } from "@/stores/examStore";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import QuestionView from "./questionView";
 import { useQuestionStore } from "@/stores/questionStore";
 
 function QuestionPanel() {
   const { examData } = useExamStore();
+  const { currentQuestionId, setCurrentQuestionId } = useQuestionStore();
 
-  const { setCurrentQuestion } = useQuestionStore();
+  const sections = useMemo(() => examData?.section ?? [], [examData]);
 
-  const sectionName = examData?.section[0].sectionName;
+  const activeTab = useMemo(() => {
+    return (
+      sections.find((sec) =>
+        sec.questions.some((q) => q._id === currentQuestionId),
+      )?.sectionName || sections?.[0]?.sectionName
+    );
+  }, [sections, currentQuestionId]);
 
-  const sections = examData?.section;
-
-  // console.log("Section data", sections);
-
+  // Set first question initially
   useEffect(() => {
     const firstQuestionId = sections?.[0]?.questions?.[0]?._id;
 
-    if (firstQuestionId) {
-      setCurrentQuestion(firstQuestionId);
+    if (firstQuestionId && !currentQuestionId) {
+      setCurrentQuestionId(firstQuestionId);
     }
-  }, [sections, setCurrentQuestion]);
-
-  const [activeTab, setActiveTab] = useState(sectionName);
+  }, [sections, currentQuestionId, setCurrentQuestionId]);
 
   const handleTabSwitch = (currentTab: string) => {
-    setActiveTab(currentTab);
-
-    const section = sections?.find((item) => item.sectionName === currentTab);
+    const section = sections.find((item) => item.sectionName === currentTab);
 
     const firstQuestionId = section?.questions?.[0]?._id;
 
     if (firstQuestionId) {
-      setCurrentQuestion(firstQuestionId);
+      setCurrentQuestionId(firstQuestionId);
     }
   };
 
@@ -46,9 +46,7 @@ function QuestionPanel() {
         className="w-full flex-1 flex flex-col overflow-hidden  "
       >
         {/* Scrollable wrapper for TabsList */}
-        <div
-          className="overflow-x-auto scrollbar-hide py-2 shrink-0"
-        >
+        <div className="overflow-x-auto scrollbar-hide py-2 shrink-0">
           <TabsList className="inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2 bg-white border-0">
             {sections?.map((item) => (
               <TabsTrigger
