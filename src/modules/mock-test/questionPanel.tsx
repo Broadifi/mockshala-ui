@@ -8,7 +8,8 @@ import { useQuestionStore } from "@/stores/questionStore";
 function QuestionPanel() {
   const { examData } = useExamStore();
   const { currentQuestionId, setCurrentQuestionId } = useQuestionStore();
-
+  const markVisited = useQuestionStore((s) => s.markVisited);
+  
   const sections = useMemo(() => examData?.section ?? [], [examData]);
 
   const activeTab = useMemo(() => {
@@ -25,6 +26,7 @@ function QuestionPanel() {
 
     if (firstQuestionId && !currentQuestionId) {
       setCurrentQuestionId(firstQuestionId);
+       markVisited(firstQuestionId);
     }
   }, [sections, currentQuestionId, setCurrentQuestionId]);
 
