@@ -71,7 +71,7 @@ const EditorialCornerDetails = () => {
     decodeHTML(fetchData?.description || ""),
   );
   return (
-    <div className="w-full container mx-auto px-4 py-2 flex flex-col justify-start gap-7 gradient-soft-blue-current-affairs">
+    <div className="gradient-soft-blue-current-affairs">    <div className="w-full container mx-auto px-4 py-2 flex flex-col justify-start gap-7 ">
       <div className="flex flex-col justify-start gap-1.2 px-1">
         <div className="flex flex-row justify-between items-center xl:pt-6 pt-2  2xl:pt-2  pb-2.5">
           <div className="flex flex-row  items-center text-subtitle-gray px-0.5 my-2 gap-2 flex-wrap ">
@@ -277,11 +277,11 @@ const EditorialCornerDetails = () => {
                        
                       </div>
 
-                      <div className="px-3 md:px-5 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 lg:line-clamp-2 sm:h-13 h-12 leading-snug group-hover:text-title-gradient-sky">
+                      <div className="px-3 md:px-5 text-base md:text-md font-bold  text-title-darkblue line-clamp-2 lg:line-clamp-2 sm:h-12 h-12 leading-snug group-hover:text-title-gradient-sky">
                         {metaItem.title}
                       </div>
 
-                      <div className="flex   md:gap-1.5 gap-0.5 flex-row items-start px-3 md:px-5 lg:px-5 flex-wrap lg:h-7 h-5 sm:pb-0 pb-2 ">
+                      <div className="flex   md:gap-0.5 gap-0.5 flex-row items-start px-3 md:px-5 lg:px-5 flex-wrap lg:h-7 h-5 sm:pb-0 pb-2 min-[1028px]:mb-3 max-[1494px]:mb-3 ">
                         {metaItem?.tags?.slice(0, 2).map((tagItem) => {
                           return (
                             <div
@@ -309,15 +309,15 @@ const EditorialCornerDetails = () => {
 
                       <div className="flex  sm:justify-start 3xs:items-center md:py-3 lg:py-2 sm:pt-4 pt-4 md:pt-0  min-[280px]:flex-row flex-col justify-between items-start px-3 md:pl-5 lg:pl-5  gap-3 sm:gap-3 md:gap-5 lg:gap-8 ">
                         {" "}
-                        <div className="flex flex-row justify-start items-center text-xs xs:gap-1 gap-0.5 ">
+                        <div className="flex flex-row justify-start items-center sm:text-xs  xs:gap-1 gap-0.5 ">
                           <Clock size={15} />
-                          <span className="text-xs text-title-gradient-blue">
+                          <span className="sm:text-[11px] text-[11px] text-title-gradient-blue">
                             {metaItem?.readTime.text}
                           </span>
                         </div>
                         <div className="text-gray-600 flex flex-row items-center justify-center min-[312px]:gap-1 gap-0.1">
                           <CalendarDays size={15} />
-                          <span className=" text-xs text-title-gradient-blue">
+                          <span className=" sm:text-[11px] text-[11px] text-title-gradient-blue">
                             {formatDate(metaItem.publishedDate)}
                           </span>
                         </div>
@@ -333,7 +333,8 @@ const EditorialCornerDetails = () => {
           <CarouselNext className="right-4 text-subtitle-gray hover:text-title-gradient-blue" />
         </Carousel>
       </div>
-    </div>
+    </div></div>
+
   );
 };
 
