@@ -203,11 +203,11 @@ function EditorialCornerDashboard() {
                     />
                   </div>
 
-                  <div className="px-4 pt-3 text-base md:text-lg font-semibold text-title-darkblue line-clamp-2 leading-snug group-hover:text-title-gradient-sky sm:h-15 h-auto ">
+                  <div className="px-4 pt-3 text-base md:text-lg font-semibold text-title-darkblue line-clamp-2 leading-snug group-hover:text-blue-500 sm:h-15 h-auto ">
                     {item.title}
                   </div>
 
-                  <div className="flex flex-wrap gap-1 px-4 py-2 lg:h-7 h-5 lg:pb-0 pb-5 max-[314px]:pb-8 min-[560px]:pb-8 max-[604px]:pb-8 ">
+                  <div className="flex flex-wrap gap-1 px-4 py-2 lg:h-7 h-5 lg:pb-0 pb-5 max-[314px]:pb-8 min-[560px]:pb-10 max-[604px]:pb-10 ">
                     {item?.tags?.slice(0, 2).map((tagItem) => (
                       <div
                         key={tagItem}

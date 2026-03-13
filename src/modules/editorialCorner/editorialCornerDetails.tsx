@@ -281,7 +281,7 @@ const EditorialCornerDetails = () => {
                         {metaItem.title}
                       </div>
 
-                      <div className="flex   md:gap-0.5 gap-0.5 flex-row items-start px-3 md:px-5 lg:px-5 flex-wrap lg:h-7 h-5 sm:pb-0 pb-2 min-[1028px]:mb-3 max-[1494px]:mb-3 ">
+                      <div className="flex   md:gap-0.5 gap-0.5 flex-row items-start px-3 md:px-5 lg:px-5 flex-wrap lg:h-7 h-5 sm:pb-0 pb-2 min-[1028px]:mb-2 max-[1494px]:mb-2 ">
                         {metaItem?.tags?.slice(0, 2).map((tagItem) => {
                           return (
                             <div
