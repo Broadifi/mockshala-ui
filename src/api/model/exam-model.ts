@@ -86,8 +86,8 @@ export interface Section {
 
 export interface Question {
   questionType: string;
-  answerText?: string ;
-  answerId?: string ;
+  answerText?: string | null;
+  answerId?: string | null;
   marks: number;
   negativeMarks: number;
   marksObtained: number;

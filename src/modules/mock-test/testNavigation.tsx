@@ -6,17 +6,16 @@ import { ArrowLeft, ArrowRight, Eraser, Star } from "lucide-react";
 function TestNavigation() {
   const { examCurrentLang } = useExamLanguage();
   const currentQuestion = useCurrentQuestion();
+
+  const goToPreviousQuestion = useQuestionStore((s) => s.goToPreviousQuestion);
+  const saveAndNextAction = useQuestionStore((s) => s.saveAndNext);
+  const clearResponseAction = useQuestionStore((s) => s.clearResponse);
   
-  const questions = useQuestionStore((s) => s.questions);
-  const currentQuestionId = useQuestionStore((s) => s.currentQuestionId);
   const pendingAnswerId = useQuestionStore((s) => s.pendingAnswerId);
-  const setCurrentQuestionId = useQuestionStore((s) => s.setCurrentQuestionId);
-  const saveAnswer = useQuestionStore((s) => s.saveAnswer);
-  const toggleMarkForReview = useQuestionStore((s) => s.toggleMarkForReview);
-  const markVisited = useQuestionStore((s) => s.markVisited);
-  const setPendingAnswer = useQuestionStore((s) => s.setPendingAnswer);
+  const pendingAnswerText = useQuestionStore((s) => s.pendingAnswerText);
   
-  //Get Local Translation
+  const toggleMarkForReview = useQuestionStore((s) => s.toggleMarkForReview);
+
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
       examCurrentLang,
@@ -33,48 +32,22 @@ function TestNavigation() {
     );
   };
 
-  // Navigate to adjacent question by index
-  const goToIndex = (newIndex: number) => {
-    const target = questions[newIndex];
-    if (target) {
-      markVisited(questions[questions.findIndex((q) => q._id === currentQuestionId)]?._id ?? "");
-      setCurrentQuestionId(target._id);
-    }
-  };
-
-  const currentIndex = questions.findIndex((q) => q._id === currentQuestionId);
-
   const handlePrevious = () => {
-    if (currentIndex > 0) goToIndex(currentIndex - 1);
+    goToPreviousQuestion();
   };
 
   const handleSaveAndNext = () => {
     if (!currentQuestion) return;
-
-    if (pendingAnswerId) {
-      const selectedOption = currentQuestion.options.find(
-        (o) => o._id === pendingAnswerId,
-      );
-      saveAnswer(currentQuestion._id, {
-        optionId: pendingAnswerId,
-        optionText: selectedOption?.optionText ?? "",
-      });
-
-
-    } else {
-      markVisited(currentQuestion._id);
-    }
-
-    if (currentIndex < questions.length - 1) {
-      goToIndex(currentIndex + 1);
-    }
+    saveAndNextAction(
+      currentQuestion._id,
+      pendingAnswerId ?? "",
+      pendingAnswerText ?? ""
+    );
   };
 
   const handleClearResponse = () => {
     if (!currentQuestion) return;
-    // Clear saved answer and any pending selection
-    setPendingAnswer(null);
-    saveAnswer(currentQuestion._id, { optionId: "", optionText: "" });
+    clearResponseAction(currentQuestion._id);
   };
 
   const handleMarkForReview = () => {
@@ -131,7 +104,6 @@ function TestNavigation() {
         </button>
       </div>
 
-      {/* For Small screen */}
       <div className="md:hidden grid grid-cols-2 gap-2 min-[345px]:gap-4 justify-between ">
         {/* Mark / Clear */}
         <button

@@ -1,72 +1,74 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import { useExamStore } from "@/stores/examStore";
-import { useEffect, useMemo } from "react";
 import QuestionView from "./questionView";
-import { useQuestionStore } from "@/stores/questionStore";
+import {
+  useQuestionStore,
+  useIsSectionLocked,
+} from "@/stores/questionStore";
+import { Lock } from "lucide-react";
+
+/** Single tab trigger that checks lock state for SEQUENTIAL exams */
+function SectionTab({
+  sectionId,
+  sectionName,
+}: {
+  sectionId: string;
+  sectionName: string;
+}) {
+  const isLocked = useIsSectionLocked(sectionId);
+
+  return (
+    <TabsTrigger
+      className="whitespace-nowrap shrink-0 rounded-full p-4 data-[state=active]:bg-blue-600
+                 bg-white border border-blue-200 text-gray-700 data-[state=active]:text-white hover:cursor-pointer
+                 text-xs md:text-sm xl:text-base disabled:opacity-50 disabled:cursor-not-allowed"
+      value={sectionId}
+      disabled={isLocked}
+    >
+      <span className="flex items-center gap-1.5">
+        {isLocked && <Lock className="h-3 w-3" />}
+        {sectionName}
+      </span>
+    </TabsTrigger>
+  );
+}
 
 function QuestionPanel() {
   const { examData } = useExamStore();
-  const { currentQuestionId, setCurrentQuestionId } = useQuestionStore();
-  const markVisited = useQuestionStore((s) => s.markVisited);
-  
-  const sections = useMemo(() => examData?.section ?? [], [examData]);
+  const activeSectionId = useQuestionStore((s) => s.activeSectionId);
+  const setActiveSection = useQuestionStore((s) => s.setActiveSection);
 
-  const activeTab = useMemo(() => {
-    return (
-      sections.find((sec) =>
-        sec.questions.some((q) => q._id === currentQuestionId),
-      )?.sectionName || sections?.[0]?.sectionName
-    );
-  }, [sections, currentQuestionId]);
+  const sections = examData?.section;
 
-  // Set first question initially
-  useEffect(() => {
-    const firstQuestionId = sections?.[0]?.questions?.[0]?._id;
+  if (!sections || sections.length === 0) return null;
 
-    if (firstQuestionId && !currentQuestionId) {
-      setCurrentQuestionId(firstQuestionId);
-       markVisited(firstQuestionId);
-    }
-  }, [sections, currentQuestionId, setCurrentQuestionId]);
-
-  const handleTabSwitch = (currentTab: string) => {
-    const section = sections.find((item) => item.sectionName === currentTab);
-
-    const firstQuestionId = section?.questions?.[0]?._id;
-
-    if (firstQuestionId) {
-      setCurrentQuestionId(firstQuestionId);
-    }
+  const handleTabSwitch = (sectionId: string) => {
+    setActiveSection(sectionId);
   };
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <Tabs
-        value={activeTab}
+        value={activeSectionId ?? sections[0]._id}
         onValueChange={handleTabSwitch}
-        className="w-full flex-1 flex flex-col overflow-hidden  "
+        className="w-full flex-1 flex flex-col overflow-hidden"
       >
         {/* Scrollable wrapper for TabsList */}
         <div className="overflow-x-auto scrollbar-hide py-2 shrink-0">
           <TabsList className="inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2 bg-white border-0">
-            {sections?.map((item) => (
-              <TabsTrigger
-                className="whitespace-nowrap shrink-0 rounded-full p-4 data-[state=active]:bg-blue-600
-                 bg-white border border-blue-200 text-gray-700 data-[state=active]:text-white hover:cursor-pointer
-                 text-xs md:text-sm xl:text-base "
-                value={item.sectionName}
+            {sections.map((item) => (
+              <SectionTab
                 key={item._id}
-              >
-                {item.sectionName}
-              </TabsTrigger>
+                sectionId={item._id}
+                sectionName={item.sectionName}
+              />
             ))}
           </TabsList>
         </div>
 
-        {sections?.map((item) => (
+        {sections.map((item) => (
           <TabsContent
-            value={item.sectionName}
+            value={item._id}
             key={item._id}
             className="flex-1 overflow-hidden mt-0"
           >

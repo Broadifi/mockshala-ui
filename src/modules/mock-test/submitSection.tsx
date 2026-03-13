@@ -1,19 +1,9 @@
 import i18n from "@/i18n";
 import { useExamLanguage } from "@/stores/examLanguageStore";
-import { useExamStore } from "@/stores/examStore";
-import { useQuestionStore } from "@/stores/questionStore";
-import { useNavigate, useParams } from "@tanstack/react-router";
-
 import { BookOpen, Eye } from "lucide-react";
 
 function SubmitSection() {
-  const examCurrentLang = useExamLanguage((state) => state.examCurrentLang);
-  const clearExamLanguage = useExamLanguage((state) => state.clearExamLanguage);
-  const clearExamData = useExamStore((state) => state.clearExamData);
-  const clearQuestions = useQuestionStore((state) => state.clearQuestions);
-
-  const navigate = useNavigate();
-  const params = useParams({ from: "/$lang/mock-test/$testSeries/$test/" });
+  const { examCurrentLang } = useExamLanguage();
 
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
@@ -29,22 +19,6 @@ function SubmitSection() {
         return undefined;
       }, bundle) as string) || key
     );
-  };
-
-  const handleSubmit = () => {
-    clearQuestions();
-    clearExamData();
-    clearExamLanguage();
-
-    // if (window.name === "startExamWindow") {
-    //   window.close();
-    // }
-
-    navigate({
-      to: "/$lang/mock-test/$testSeries/$test/result",
-      params,
-      replace: true,
-    });
   };
 
   return (
@@ -71,7 +45,6 @@ function SubmitSection() {
 
       <div>
         <button
-          onClick={handleSubmit}
           className="w-full px-6 py-1 rounded-lg bg-linear-to-r from-button-blue to-button-sky
                    text-base text-white font-semibold
                    hover:from-blue-600 hover:to-blue-600 hover:shadow-md

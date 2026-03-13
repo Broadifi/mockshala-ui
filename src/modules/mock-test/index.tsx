@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useExamStore } from "@/stores/examStore";
 import { ImageWithFallback } from "../fallback/ImageWithFallback";
 import { mockShalaLogo } from "@/assets";
@@ -9,19 +10,40 @@ import QuestionPanel from "./questionPanel";
 import QuestionNumbers from "./questionNumbers";
 import TestNavigation from "./testNavigation";
 import SubmitSection from "./submitSection";
+import {
+  useQuestionStore,
+  useQuestionCounts,
+} from "@/stores/questionStore";
 
 function MockTest() {
   const { examData } = useExamStore();
   const { userDetails } = useAuthStore((state) => state.auth);
   const { examCurrentLang } = useExamLanguage();
 
+  const setQuestionsFromExam = useQuestionStore(
+    (s) => s.setQuestionsFromExam
+  );
+  const initTimer = useQuestionStore((s) => s.initTimer);
+  const sections = useQuestionStore((s) => s.sections);
+  const counts = useQuestionCounts();
+
+  // Initialize store + timer once when exam data is available.
+  // IMPORTANT: Only call setQuestionsFromExam if sections are empty (fresh start).
+  // If sections already exist in the persisted store (e.g. after a page refresh),
+  // we skip re-initialization to preserve saved answers, visited states, and the timer.
+  useEffect(() => {
+    if (examData && sections.length === 0) {
+      setQuestionsFromExam(examData);
+    }
+    // Always try to start the timer — initTimer is a no-op if already started
+    queueMicrotask(() => initTimer());
+  }, [examData, sections.length, setQuestionsFromExam, initTimer]);
+
   if (!examData) {
     return <div>Loading exam data...</div>;
   }
 
   const candidateName = userDetails?.name;
-
-  //fetch current language and 118n data
 
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
@@ -73,13 +95,11 @@ function MockTest() {
           {/* Name */}
           <div className="w-full xl:max-w-[40%]">
             <h1 className="text-base md:text-lg min-[1050px]:text-xl text-title-darkblue font-semibold">
-              {/* {examData.testName} */}
-              CUET UG 2026 is a national-level entrance exam conducted by the
-              National
+              {examData.testName}
             </h1>
           </div>
 
-          {/* Color Palette  and counts */}
+          {/* Color Palette and counts */}
           <div
             className="flex max-lg:flex-wrap gap-3 xl:gap-2.5 
             xl:border xl:border-gray-200 rounded-xl xl:px-2 xl:py-1 h-max xl:w-max xl:shrink-0"
@@ -92,7 +112,7 @@ function MockTest() {
                   {":"}
                 </span>
                 <p className=" text-xs sm:text-sm text-answered font-medium">
-                  10
+                  {counts.answered}
                 </p>
               </div>
             </div>
@@ -106,7 +126,7 @@ function MockTest() {
                   {":"}
                 </span>
                 <p className=" text-xs sm:text-sm text-notAnswered font-medium">
-                  56
+                  {counts.notAnswered}
                 </p>
               </div>
             </div>
@@ -119,7 +139,9 @@ function MockTest() {
                   {getLocalTranslation("examInstructions.marked")}
                   {":"}
                 </span>
-                <p className=" text-xs sm:text-sm text-marked font-medium">3</p>
+                <p className=" text-xs sm:text-sm text-marked font-medium">
+                  {counts.marked}
+                </p>
               </div>
             </div>
 
@@ -133,7 +155,7 @@ function MockTest() {
                   {":"}
                 </span>
                 <p className=" text-xs sm:text-sm text-markedAnswered font-medium">
-                  8
+                  {counts.markedAndAnswered}
                 </p>
               </div>
             </div>
@@ -148,7 +170,7 @@ function MockTest() {
                   {":"}
                 </span>
                 <p className="text-gray-600 text-xs sm:text-sm font-medium">
-                  45
+                  {counts.notVisited}
                 </p>
               </div>
             </div>
