@@ -14,6 +14,7 @@ declare module "@tanstack/react-router" {
     router: typeof router;
   }
 }
+
 // Create a client
 export const queryClient = new QueryClient();
 

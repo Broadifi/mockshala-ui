@@ -10,13 +10,19 @@ import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input.tsx";
 import { useParams } from "@tanstack/react-router";
 import { testDescriptionKey } from "@/api";
-import { useQuery } from "@tanstack/react-query";
-import { testAPI } from "@/api/services/getTestDetails.ts";
+// import { useQuery } from "@tanstack/react-query";
+// import { testAPI } from "@/api/services/getTestDetails.ts";
 import { Search } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 function TestDescription() {
-  const { tests, filterTests, resetTests, originalTests } =
-    useTestDescriptionStore();
+  const tests = useTestDescriptionStore((state) => state.tests);
+  const filterTests = useTestDescriptionStore((state) => state.filterTests);
+  const resetTests = useTestDescriptionStore((state) => state.resetTests);
+  const originalTests = useTestDescriptionStore((state) => state.originalTests);
+  const testDescription = useTestDescriptionStore(
+    (state) => state.testDescription,
+  );
 
   const [searchText, setSearchText] = useState("");
 
@@ -24,10 +30,16 @@ function TestDescription() {
     from: "/$lang/exams/$examCategory/$testSlug/",
   });
 
-  const { data: queryData, isLoading } = useQuery({
-    queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
-    queryFn: () => testAPI.getTestDetails(testSlug),
-  });
+  // const { data: queryData, isLoading } = useQuery({
+  //   queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
+  //   queryFn: () => testAPI.getTestDetails(testSlug),
+  // });
+
+  const queryClient = useQueryClient();
+
+  const state = queryClient.getQueryState(
+    testDescriptionKey.testDetails(examCategory, testSlug),
+  );
 
   useEffect(() => {
     const query = searchText.trim().toLowerCase();
@@ -44,8 +56,8 @@ function TestDescription() {
   }, [searchText, filterTests, resetTests, originalTests]);
 
   const allTestLength = () => {
-    if (isLoading) {
-      return "Loading...";
+    if (state?.status === "pending") {
+      return "Loading Test Counts...";
     }
     return tests.length ?? 0;
   };
@@ -144,7 +156,7 @@ function TestDescription() {
           <TabsContent value="Test description">
             <Card>
               <CardContent>
-                <HtmlSetter html={queryData?.data?.description ?? ""} />
+                <HtmlSetter html={testDescription ?? ""} />
               </CardContent>
             </Card>
           </TabsContent>

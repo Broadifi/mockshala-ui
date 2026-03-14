@@ -10,12 +10,17 @@ import { testDescriptionKey } from "@/api";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input.tsx";
 import { Search } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import { testAPI } from "@/api/services/getTestDetails.ts";
+import { useQueryClient } from "@tanstack/react-query";
+// import { testAPI } from "@/api/services/getTestDetails.ts";
 
 function TestDescriptionMobile() {
-  const { tests, filterTests, resetTests, originalTests } =
-    useTestDescriptionStore();
+  const tests = useTestDescriptionStore((state) => state.tests);
+  const filterTests = useTestDescriptionStore((state) => state.filterTests);
+  const resetTests = useTestDescriptionStore((state) => state.resetTests);
+  const originalTests = useTestDescriptionStore((state) => state.originalTests);
+  const testDescription = useTestDescriptionStore(
+    (state) => state.testDescription,
+  );
 
   const [searchText, setSearchText] = useState("");
 
@@ -23,14 +28,22 @@ function TestDescriptionMobile() {
     from: "/$lang/exams/$examCategory/$testSlug/",
   });
 
+  const queryClient = useQueryClient();
+
+  const state = queryClient.getQueryState(
+    testDescriptionKey.testDetails(examCategory, testSlug),
+  );
+
   // Get the description from query data
-   // ✅ Use useQuery for reactive updates
-  const { data: queryData, isLoading } = useQuery({
-    queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
-    queryFn: () => testAPI.getTestDetails(testSlug),
-  });
+  // ✅ Use useQuery for reactive updates
+  // const { data: queryData, isLoading } = useQuery({
+  //   queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
+  //   queryFn: () => testAPI.getTestDetails(testSlug),
+  // });
 
   // Filter search query in locally
+
+  const isLoading = state?.status === "pending";
 
   useEffect(() => {
     const query = searchText.trim().toLowerCase();
@@ -47,9 +60,9 @@ function TestDescriptionMobile() {
     }
   }, [searchText, filterTests, resetTests]);
 
-   const allTestLength = () => {
+  const allTestLength = () => {
     if (isLoading) {
-      return "Loading...";
+      return "Loading Test Counts...";
     }
     return tests.length ?? 0;
   };
@@ -87,8 +100,10 @@ function TestDescriptionMobile() {
       <div>
         <Tabs defaultValue="All Tests" className="w-full">
           {/* Scrollable wrapper for TabsList */}
-          <div className="overflow-x-auto scrollbar-hide 
-          lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 ">
+          <div
+            className="overflow-x-auto scrollbar-hide 
+          lg:overflow-x-visible lg:mx-0 lg:px-0 py-2 mt-5 "
+          >
             <TabsList className="bg-soft-blue-gradient inline-flex w-auto min-w-full lg:min-w-0 lg:w-auto gap-2 ">
               <TabsTrigger
                 value="All Tests"
@@ -151,14 +166,15 @@ function TestDescriptionMobile() {
             </div>
           </TabsContent>
 
-           {/* ✅ Test description - Uses reactive queryData */}
           <TabsContent value="Test description">
             <Card>
               <CardContent>
                 {isLoading ? (
-                  <div className="text-muted-foreground">Loading description...</div>
+                  <div className="text-muted-foreground">
+                    Loading description...
+                  </div>
                 ) : (
-                  <HtmlSetter html={queryData?.data?.description ?? ""} />
+                  <HtmlSetter html={testDescription ?? ""} />
                 )}
               </CardContent>
             </Card>

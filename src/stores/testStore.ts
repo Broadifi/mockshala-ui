@@ -4,6 +4,8 @@ import { create } from "zustand";
 interface TestStore {
   tests: Test[];
   originalTests: Test[];
+  testDescription:string | null;
+  setTestDescription:(data:string)=>void;
   setTests: (data: Test[]) => void;
   // setOriginalTests: (data: Test[]) => void;
   
@@ -16,6 +18,10 @@ interface TestStore {
 export const useTestDescriptionStore = create<TestStore>((set)=>({
     tests: [],
     originalTests: [],
+
+    testDescription:null,
+    setTestDescription:(data:string)=>set({testDescription:data}),
+    
     setTests: (data) => set({ tests: data, originalTests: data }),
     // setOriginalTests: (data) => set({ originalTests: data }),
 
@@ -24,6 +30,8 @@ export const useTestDescriptionStore = create<TestStore>((set)=>({
     // })),
 
     filterTests: (data)=> set({tests:data}),
+
+    
     
     resetTests: () => set((state) => ({ tests: state.originalTests })),
     clearTests: () => set({ tests: [], originalTests: [] })

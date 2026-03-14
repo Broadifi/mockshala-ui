@@ -2,19 +2,26 @@ import i18n from "@/i18n";
 import { useExamLanguage } from "@/stores/examLanguageStore";
 import { BookOpen, Eye } from "lucide-react";
 import { useNavigate, useParams } from "@tanstack/react-router";
-import { useQuestionStore } from "@/stores/questionStore";
+import { getSubmitPayload, useQuestionStore } from "@/stores/questionStore";
 import { useExamStore } from "@/stores/examStore";
-
+import { useMutation } from "@tanstack/react-query";
+import type { SubmitExamPayload } from "@/api/model/submitExam-model";
+import { examApi } from "@/api/services/exam-services";
+import { toast } from "sonner";
 
 function SubmitSection() {
   const { examCurrentLang } = useExamLanguage();
-  const clearQuestions = useQuestionStore((state) => state.clearQuestions); 
+  const clearQuestions = useQuestionStore((state) => state.clearQuestions);
   const clearExamLanguage = useExamLanguage((state) => state.clearExamLanguage);
   const clearExamData = useExamStore((state) => state.clearExamData);
+  //fetch the stored exam data form Exam store
+  const examData = useExamStore((state) => state.examData);
 
   const navigate = useNavigate();
   //Get the Params
-  const { lang, testSeries, test } = useParams({ from: "/$lang/mock-test/$testSeries/$test/" });
+  const { lang, testSeries, test } = useParams({
+    from: "/$lang/mock-test/$testSeries/$test/",
+  });
 
   const getLocalTranslation = (key: string): string => {
     const bundle = i18n.getResourceBundle(
@@ -32,21 +39,40 @@ function SubmitSection() {
     );
   };
 
-  const handleSubmit = () => {
+  const SubmitExamMutation = useMutation({
+    mutationFn: examApi.submitExam,
+    onSuccess: (response) => {
+      if (response.status) {
+        console.log("Exam Submitted Successfully", response);
 
-    clearQuestions();
-    clearExamLanguage();
-    clearExamData();
-    
-    navigate({
-      to: "/$lang/mock-test/$testSeries/$test/result",
-      params: {
-        lang: lang,
-        testSeries: testSeries,
-        test: test,
-      },
-    });
-  }
+        toast.success("Exam Submitted Successfully");
+
+        const ddd = response.data.test;
+
+        toast.success(ddd);
+
+        clearQuestions();
+        clearExamLanguage();
+        clearExamData();
+
+        navigate({
+          to: "/$lang/mock-test/$testSeries/$test/result",
+          params: {
+            lang: lang,
+            testSeries: testSeries,
+            test: test,
+          },
+        });
+      }
+    },
+  });
+
+  const handleSubmit = () => {
+    if (examData) {
+      const payload: SubmitExamPayload = getSubmitPayload(examData);
+      SubmitExamMutation.mutate(payload);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3 px-4">

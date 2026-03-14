@@ -28,6 +28,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { QUERY_CONFIG } from "@/api/config";
 
 function DescriptionModule() {
   //Check the width to render test series conditionally
@@ -46,11 +47,15 @@ function DescriptionModule() {
   });
 
   //get the Setter function from zustand
-  const { setTests } = useTestDescriptionStore();
+  const setTests = useTestDescriptionStore((state) => state.setTests);
+  const setTestDescription = useTestDescriptionStore(
+    (state) => state.setTestDescription,
+  );
 
   const { data, isLoading } = useQuery({
     queryKey: testDescriptionKey.testDetails(examCategory, testSlug),
     queryFn: () => testAPI.getTestDetails(testSlug),
+    ...QUERY_CONFIG.default,
   });
 
   useEffect(() => {
@@ -60,12 +65,13 @@ function DescriptionModule() {
   useEffect(() => {
     if (data?.data?.tests) {
       setTests(data.data.tests);
+      setTestDescription(data.data.description);
     }
-  }, [data, setTests]);
+  }, [data, setTests, setTestDescription]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-  },[]);
+  }, []);
 
   // useEffect(() => {
   //   const handleScroll = () => {

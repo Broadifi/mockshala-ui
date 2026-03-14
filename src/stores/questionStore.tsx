@@ -173,7 +173,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
         if (
           examType === "SEQUENTIAL" &&
           section._id !== get().activeSectionId &&
-          !completedSections.includes(section._id)
+          completedSections.includes(section._id)
         ) {
           return;
         }
@@ -198,7 +198,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
         if (examType === "SEQUENTIAL") {
           if (
             sectionId !== activeSectionId &&
-            !completedSections.includes(sectionId)
+            completedSections.includes(sectionId)
           ) {
             return;
           }
@@ -490,7 +490,7 @@ export function useIsSectionLocked(sectionId: string): boolean {
     // Active section is not locked
     if (state.activeSectionId === sectionId) return false;
     // Completed sections are not locked
-    if (state.completedSections.includes(sectionId)) return false;
+    // if (state.completedSections.includes(sectionId)) return false;
     return true;
   });
 }
