@@ -285,7 +285,7 @@ const EditorialCornerDetails = () => {
                         {metaItem?.tags?.slice(0, 2).map((tagItem) => {
                           return (
                             <div
-                              className="flex flex-row  justify-center items-center  rounded-2xl bg-gray-100 md:pl-1.5 pl-0.5"
+                              className="flex flex-row  justify-center items-center  rounded-2xl bg-gray-100 md:pl-1 pl-0.5"
                               key={tagItem}
                             >
                               <Tag size={15} />
