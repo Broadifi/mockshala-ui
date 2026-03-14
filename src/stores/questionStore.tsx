@@ -1,11 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { useShallow } from "zustand/shallow";
-import type {
-  Question,
-  Section,
-  StartExamData,
-} from "@/api/model/exam-model";
+import type { Question, Section, StartExamData } from "@/api/model/exam-model";
 import type { SubmitExamPayload } from "@/api/model/submitExam-model";
 
 // ─── Question Status (for palette coloring) ───────────────────────────
@@ -51,11 +47,9 @@ function computeCounts(questions: Question[]): QuestionCounts {
 // ─── Helper: find section that owns a question ───────────────────────
 function findSectionForQuestion(
   sections: Section[],
-  questionId: string
+  questionId: string,
 ): Section | undefined {
-  return sections.find((s) =>
-    s.questions.some((q) => q._id === questionId)
-  );
+  return sections.find((s) => s.questions.some((q) => q._id === questionId));
 }
 
 interface QuestionStoreState {
@@ -82,16 +76,27 @@ interface QuestionStoreState {
   setCurrentQuestion: (questionId: string) => void;
   setActiveSection: (sectionId: string) => void;
 
-  setPendingAnswer: (optionId: string | null, optionText: string | null) => void;
+  setPendingAnswer: (
+    optionId: string | null,
+    optionText: string | null,
+  ) => void;
 
-  saveAnswer: (questionId: string, optionId: string, optionText: string) => void;
+  saveAnswer: (
+    questionId: string,
+    optionId: string,
+    optionText: string,
+  ) => void;
   clearResponse: (questionId: string) => void;
   toggleMarkForReview: (questionId: string) => void;
   markVisited: (questionId: string) => void;
 
   goToNextQuestion: () => void;
   goToPreviousQuestion: () => void;
-  saveAndNext: (questionId: string, optionId: string, optionText: string) => void;
+  saveAndNext: (
+    questionId: string,
+    optionId: string,
+    optionText: string,
+  ) => void;
 
   // SEQUENTIAL
   advanceToNextSection: () => void;
@@ -107,13 +112,11 @@ interface QuestionStoreState {
 function updateQuestionInSections(
   sections: Section[],
   questionId: string,
-  updater: (q: Question) => Question
+  updater: (q: Question) => Question,
 ): Section[] {
   return sections.map((s) => ({
     ...s,
-    questions: s.questions.map((q) =>
-      q._id === questionId ? updater(q) : q
-    ),
+    questions: s.questions.map((q) => (q._id === questionId ? updater(q) : q)),
   }));
 }
 
@@ -179,7 +182,9 @@ export const useQuestionStore = create<QuestionStoreState>()(
         }
 
         // Initialize pending state from the question's saved data
-        const currentQ = flattenQuestions(sections).find(q => q._id === questionId);
+        const currentQ = flattenQuestions(sections).find(
+          (q) => q._id === questionId,
+        );
 
         set({
           currentQuestionId: questionId,
@@ -230,7 +235,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
               answerId: optionId,
               answerText: optionText,
               isVisited: true,
-            })
+            }),
           ),
         }));
       },
@@ -247,7 +252,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
               ...q,
               answerId: null,
               answerText: null,
-            })
+            }),
           ),
         }));
       },
@@ -262,7 +267,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
               ...q,
               isMarkedForReview: !q.isMarkedForReview,
               isVisited: true,
-            })
+            }),
           ),
         }));
       },
@@ -281,7 +286,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
             (q) => ({
               ...q,
               isVisited: true,
-            })
+            }),
           ),
         }));
       },
@@ -292,10 +297,9 @@ export const useQuestionStore = create<QuestionStoreState>()(
           get();
 
         if (examType === "NORMAL") {
-          // Flatten all questions and find next
           const allQuestions = flattenQuestions(sections);
           const currentIdx = allQuestions.findIndex(
-            (q) => q._id === currentQuestionId
+            (q) => q._id === currentQuestionId,
           );
           if (currentIdx < allQuestions.length - 1) {
             const nextQ = allQuestions[currentIdx + 1];
@@ -303,24 +307,27 @@ export const useQuestionStore = create<QuestionStoreState>()(
             set({
               currentQuestionId: nextQ._id,
               activeSectionId: nextSection?._id ?? activeSectionId,
+              pendingAnswerId: null,
+              pendingAnswerText: null,
             });
           }
         } else {
-          // SEQUENTIAL: only within current section
           const section = sections.find((s) => s._id === activeSectionId);
           if (!section) return;
           const currentIdx = section.questions.findIndex(
-            (q) => q._id === currentQuestionId
+            (q) => q._id === currentQuestionId,
           );
           if (currentIdx < section.questions.length - 1) {
             set({
               currentQuestionId: section.questions[currentIdx + 1]._id,
+              pendingAnswerId: null,
+              pendingAnswerText: null,
             });
           }
         }
       },
 
-      // ── Go to previous question ─────────────────────────────────
+      //Goto Previous Question
       goToPreviousQuestion: () => {
         const { sections, currentQuestionId, examType, activeSectionId } =
           get();
@@ -328,7 +335,7 @@ export const useQuestionStore = create<QuestionStoreState>()(
         if (examType === "NORMAL") {
           const allQuestions = flattenQuestions(sections);
           const currentIdx = allQuestions.findIndex(
-            (q) => q._id === currentQuestionId
+            (q) => q._id === currentQuestionId,
           );
           if (currentIdx > 0) {
             const prevQ = allQuestions[currentIdx - 1];
@@ -336,18 +343,21 @@ export const useQuestionStore = create<QuestionStoreState>()(
             set({
               currentQuestionId: prevQ._id,
               activeSectionId: prevSection?._id ?? activeSectionId,
+              pendingAnswerId: null, // ← add this
+              pendingAnswerText: null, // ← add this
             });
           }
         } else {
-          // SEQUENTIAL: only within current section
           const section = sections.find((s) => s._id === activeSectionId);
           if (!section) return;
           const currentIdx = section.questions.findIndex(
-            (q) => q._id === currentQuestionId
+            (q) => q._id === currentQuestionId,
           );
           if (currentIdx > 0) {
             set({
               currentQuestionId: section.questions[currentIdx - 1]._id,
+              pendingAnswerId: null, // ← add this
+              pendingAnswerText: null, // ← add this
             });
           }
         }
@@ -367,15 +377,10 @@ export const useQuestionStore = create<QuestionStoreState>()(
       // ── SEQUENTIAL: advance to next section ─────────────────────
       advanceToNextSection: () => {
         const { sections, activeSectionId, completedSections } = get();
-        const currentIdx = sections.findIndex(
-          (s) => s._id === activeSectionId
-        );
+        const currentIdx = sections.findIndex((s) => s._id === activeSectionId);
         if (currentIdx === -1) return;
 
-        const newCompleted = [
-          ...completedSections,
-          sections[currentIdx]._id,
-        ];
+        const newCompleted = [...completedSections, sections[currentIdx]._id];
 
         // If there's a next section, switch to it
         if (currentIdx < sections.length - 1) {
@@ -428,8 +433,8 @@ export const useQuestionStore = create<QuestionStoreState>()(
         timerDuration: state.timerDuration,
         completedSections: state.completedSections,
       }),
-    }
-  )
+    },
+  ),
 );
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -438,17 +443,13 @@ export const useQuestionStore = create<QuestionStoreState>()(
 
 /** Current question — uses currentQuestionId to avoid new refs */
 export function useCurrentQuestion(): Question | undefined {
-  const currentQuestionId = useQuestionStore(
-    (s) => s.currentQuestionId
-  );
+  const currentQuestionId = useQuestionStore((s) => s.currentQuestionId);
   const sections = useQuestionStore((s) => s.sections);
 
   if (!currentQuestionId || sections.length === 0) return undefined;
 
   for (const section of sections) {
-    const q = section.questions.find(
-      (q) => q._id === currentQuestionId
-    );
+    const q = section.questions.find((q) => q._id === currentQuestionId);
     if (q) return q;
   }
   return undefined;
@@ -464,12 +465,12 @@ export function usePaletteQuestions(): Question[] {
     useShallow((state) => {
       if (state.examType === "SEQUENTIAL") {
         const section = state.sections.find(
-          (s) => s._id === state.activeSectionId
+          (s) => s._id === state.activeSectionId,
         );
         return section?.questions ?? [];
       }
       return flattenQuestions(state.sections);
-    })
+    }),
   );
 }
 
@@ -479,7 +480,7 @@ export function useQuestionCounts(): QuestionCounts {
     useShallow((state) => {
       const allQ = flattenQuestions(state.sections);
       return computeCounts(allQ);
-    })
+    }),
   );
 }
 
@@ -503,9 +504,7 @@ export function useIsSectionLocked(sectionId: string): boolean {
  * Build SubmitExamPayload from current store + examStore data.
  * Call this when the user clicks Submit.
  */
-export function getSubmitPayload(
-  examData: StartExamData
-): SubmitExamPayload {
+export function getSubmitPayload(examData: StartExamData): SubmitExamPayload {
   const { sections } = useQuestionStore.getState();
 
   return {
